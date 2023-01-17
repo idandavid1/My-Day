@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux'
 import routes from '../routes'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { login, logout, signup } from '../store/user.actions.js'
-import { LoginSignup } from './login-signup.jsx'
+import { LoginSignup } from './login/login-signup.jsx'
 
 export function AppHeader() {
     const user = useSelector(storeState => storeState.userModule.user)

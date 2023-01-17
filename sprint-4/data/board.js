@@ -56,14 +56,12 @@ function saveTask(boardId, groupId, task, activity) {
 const board = {
     "_id": "b101",
     "title": "Robot dev proj",
-    "isStarred": false,
     "archivedAt": 1589983468418,
     "createdBy": {
         "_id": "u101",
         "fullname": "Abi Abambi",
         "imgUrl": "http://some-img"
     },
-    "style": {},
     "labels": [
         {
             "id": "l101",
@@ -80,6 +78,21 @@ const board = {
         {
             "_id": "u101",
             "fullname": "Tal Tarablus",
+            "imgUrl": "https://www.google.com"
+        },
+        {
+            "_id": "u102",
+            "fullname": "Idan David",
+            "imgUrl": "https://www.google.com"
+        },
+        {
+            "_id": "u103",
+            "fullname": "Ofek Tarablus",
+            "imgUrl": "https://www.google.com"
+        },
+        {
+            "_id": "u104",
+            "fullname": "Ofer Tarablus",
             "imgUrl": "https://www.google.com"
         }
     ],
@@ -98,7 +111,6 @@ const board = {
                     "title": "Add Samples"
                 }
             ],
-            "style": {}
         },
         {
             "id": "g102",
@@ -115,32 +127,7 @@ const board = {
                     "status": "in-progress", // monday
                     "priority": "high", 
                     "description": "description",
-                    "comments": [
-                        {
-                            "id": "ZdPnm",
-                            "txt": "also @yaronb please CR this",
-                            "createdAt": 1590999817436,
-                            "byMember": {
-                                "_id": "u101",
-                                "fullname": "Tal Tarablus",
-                                "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-                            }
-                        }
-                    ],
-                    "checklists": [
-                        {
-                            "id": "YEhmF",
-                            "title": "Checklist",
-                            "todos": [
-                                {
-                                    "id": "212jX",
-                                    "title": "To Do 1",
-                                    "isDone": false
-                                }
-                            ]
-                        }
-                    ],
-                    "memberIds": ["u101"],
+                    "memberIds": ["u101", "u102", "u103"],
                     "labelIds": ["l101", "l102"],
                     "dueDate": 16156215211,
                     "byMember": {
@@ -149,12 +136,8 @@ const board = {
                         "fullname": "Tal Tarablus",
                         "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                     },
-                    "style": {
-                        "bgColor": "#26de81"
-                    }
                 }
             ],
-            "style": {}
         }
     ],
     "activities": [
