@@ -1,0 +1,31 @@
+
+.home-page {
+    background-image: $home-bg;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+
+    .home-content {
+        padding-top: $spacing-xxl;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    h1 {
+        font-size: 72px;
+        font-weight: 400;
+        color: white;
+    }
+
+    button {
+        background-image: $home-btn-bg-gradient;
+    }
+
+    button:hover {
+        background-image: $home-btn-bg-gradient-hover;
+    }
+
+}

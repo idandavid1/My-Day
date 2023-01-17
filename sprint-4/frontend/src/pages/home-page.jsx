@@ -1,29 +1,18 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import logo from '../assets/img/logo.png'
-import { CHANGE_COUNT } from '../store/user.reducer'
+import { Link } from 'react-router-dom'
+import { HomeHeader } from '../cmps/home-header'
 
 export function HomePage() {
-    const dispatch = useDispatch()
-    const count = useSelector(storeState => storeState.userModule.count)
-
-    function changeCount(diff) {
-        console.log('Changing count by:', diff);
-        dispatch({ type: CHANGE_COUNT, diff })
-    }
-
     return (
-        <section>
-            <img src={logo} alt="Logo" style={{ maxWidth: '300px' }} />
-            <h2>
-                Count {count}
-                <button onClick={() => {
-                    changeCount(1)
-                }}>+</button>
-                <button onClick={() => {
-                    changeCount(10)
-                }}>+10</button>
-            </h2 >
+        <section className='home-page'>
+            <HomeHeader />
+            <div className='home-content layout'>
+                <div>
+                    <h1>A platform built for a</h1>
+                    <h1>new way of working</h1>
+                </div>
+                <Link to={'/board'}><button className='btn'>get start</button></Link> 
+            </div>
         </section >
     )
 }

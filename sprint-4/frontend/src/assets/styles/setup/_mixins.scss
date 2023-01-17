@@ -56,3 +56,18 @@
         }
     }
   }
+
+  @mixin btn() {
+    display: inline-flex;
+    border-radius: 20px;
+    align-items: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: $spacing-medium $spacing-xl;
+    line-height: $font-reg-line-height-18;
+    font-size: 16px;
+    border: none;
+    min-width: 160px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
