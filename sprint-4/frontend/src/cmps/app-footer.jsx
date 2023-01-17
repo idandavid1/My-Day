@@ -24,7 +24,7 @@ export function AppFooter() {
     return (
         <footer className="app-footer">
             <p>
-                coffeerights - count: {count}
+                copyrights - count: {count}
             </p>
             {cart.length > 0 &&
                 <h5>
