@@ -45,7 +45,7 @@ export function AppHeader() {
                             {user.fullname}
                         </Link>
                         <span className="score">{user.score?.toLocaleString()}</span>
-                        <button onClick={onLogout}>Logout</button>
+                        <button onClick={onLogout}>logout</button>
                     </span>
                 }
                 {!user &&
