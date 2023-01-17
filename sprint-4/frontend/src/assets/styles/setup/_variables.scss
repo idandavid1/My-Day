@@ -1,3 +1,14 @@
+//home page
+$home-bg: linear-gradient(rgb(0, 1, 51) 0%, rgb(15, 16, 72) 100%);
+$home-btn-bg: #6161FF;
+$home-btn-bg-gradient: linear-gradient(90deg, #5034FF 25.69%, #B4B4FF 100%);
+$home-btn-bg-gradient-hover: linear-gradient(90deg, #432CD5 25.69%, #9797D5 100%);
+
+//board page
+$border-color: #d0d4e4;
+$sidebar-workspace-bg: #F6F7FB;
+$sidebar-main-bg: #292f4c;
+
 // green grass
 $color-grass_green: #037f4c;
 $color-grass_green-hover: #116846;
@@ -226,8 +237,8 @@ $font-reg-line-height-32: 32px;
 $font-reg-line-height-42: 42px;
 
 // - Font family
-$font-family: "Roboto", "Rubik", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
-$title-font-family: "Roboto", "Rubik", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
+$font-family: "Figtree", "Roboto", "Rubik", "Noto Kufi Arabic", "Noto Sans JP", "sans-serif";
+$title-font-family: "Poppins", "Roboto", "Rubik", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
 $h1-font-family: var(--title-font-family);
 
 // Breakpoints
