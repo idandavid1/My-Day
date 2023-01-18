@@ -4,7 +4,7 @@ import { SET_BOARDS, REMOVE_BOARD, ADD_BOARD, UPDATE_BOARD, SET_FILTER } from ".
 
 export async function loadBoards(filter) {
     try {
-        const boards = await toyService.query(filter)
+        const boards = await boardService.query(filter)
         store.dispatch({ type: SET_BOARDS, boards })
     } catch (err) {
         console.log('Had issues loading', err)
