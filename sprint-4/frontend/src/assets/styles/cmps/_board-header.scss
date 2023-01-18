@@ -1,27 +1,73 @@
 .board-header {
     padding: 16px 30px 0 38px;
     display: flex;
-    justify-content: space-between;
-    background-color: beige;
+    justify-content: space-around;
+    color: $workspace-icon-color ;
 
+    div {
+        display: flex;
+        align-items: center;
+        padding: 4px 8px;
+        height: rem(32px);
+        border-radius: 4px;
+    }
 
-    .board-description {
+    .board-info {
         display: flex;
         width: 100%;
     }
 
 
-    .board-tools{
+    .board-tools {
+        gap: $spacing-small;
+        align-items: center;
+        height: fit-content;
+
+        .activity {
+            font-size: 14px;
+            &:hover {
+                background-color: $workspace-hover;
+            }
+        }
 
         .members-last-seen {
-            
-            display: flex;
+            width: max-content;
             height: rem(32px);
+
+            &:hover {
+                background-color: $workspace-hover;
+            }
         }
-        
-        .members-img-container {}
-        
-        .member-img {}
+
+    }
+
+    .members-imgs {
+        margin-left: 4px;
+
+        >* {
+            @include members;
+        }
+
+        .member-img1 {
+            margin-right: -5px;
+            margin-left: 0;
+        }
+
+        .member-img2 {
+            margin-left: -5px;
+            margin-right: -5px;
+        }
+
+        .show-more-members {
+            justify-content: center;
+            font-size: rem(14px);
+            background-color: white;
+            margin-left: -5px;
+            border: 1px solid $border-color;
+            padding: em(6px) em(8px);
+            text-align: center;
+        }
+
     }
 
     // div {

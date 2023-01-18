@@ -74,6 +74,12 @@
   transition: background-color 0.2s;
 }
 
+@mixin members() {
+  height: rem(26px);
+  width: rem(26px);
+  border-radius: 50%;
+}
+
 @mixin hover-sidebar() {
   background-color: rgba(0, 0, 0, .6);
   border-radius: 10px;
