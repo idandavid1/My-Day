@@ -1,0 +1,35 @@
+.group-preview {
+    display: flex;
+    flex-direction: column;
+
+    li {
+        .task-preview {
+            display: flex;
+            text-align: center;
+            .picker {
+                width: $cell-width;
+                height: $cell-height;
+                border: 1px solid darken($border-color , 20%);
+            }
+
+            .task-title {
+
+                width: $cell-width-task;
+            }
+
+            .task-person {
+                width: $cell-width-person;
+                @include member-img(#323338, white, 30px, 30px)
+            }
+
+            .label {
+                color: white;
+            }
+
+            .empty-label {
+                background-color: $color-explosive;
+            }
+
+        }
+    }
+}

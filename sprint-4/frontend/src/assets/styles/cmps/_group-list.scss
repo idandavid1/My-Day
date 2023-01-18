@@ -1,0 +1,25 @@
+.group-list{
+    padding: 18px 0 40px 40px;
+
+    .title-container{
+        display: flex;
+    }
+    .title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: $cell-width;
+        height: $cell-height;
+        // border: 2px solid black;
+        border: 1px solid darken($border-color , 20%);
+
+    
+        &.Task{
+            width: $cell-width-task;
+        }
+        &.Person{
+            width: $cell-width-person;
+        }
+    }
+
+}

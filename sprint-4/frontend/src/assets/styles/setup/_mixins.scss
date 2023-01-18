@@ -85,3 +85,40 @@
   border-radius: 10px;
   cursor: pointer;
 }
+@mixin member-img($bgColor ,$txtColor , $imgSize , $countSize) {
+
+  // margin-left: 4px;
+
+  >* {
+    @include members;
+  }
+
+  .member-img1 {
+    margin-right: -5px;
+    margin-left: 0;
+    width: $imgSize;
+    height: $imgSize;
+  }
+  
+  .member-img2 {
+    margin-left: -5px;
+    margin-right: -5px;
+    height: $imgSize;
+    width: $imgSize;
+  }
+  
+  .show-more-members {
+    display: flex;
+    justify-content: center;
+    font-size: rem(14px);
+    background-color: $bgColor;
+    margin-left: -5px;
+    border: 1px solid $border-color;
+    padding: em(4px);
+    text-align: center;
+    width: $countSize;
+    height: $countSize;
+    color: $txtColor;
+  }
+
+}

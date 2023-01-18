@@ -135,35 +135,62 @@ function _createBoards() {
                     }
                 ],
                 "groups": [
-                    {
-                        "id": "g101",
-                        "title": "Group 1",
-                        "archivedAt": 1589983468418,
-                        "tasks": [
-                            {
-                                "id": "c101",
-                                "title": "Replace logo"
-                            },
-                            {
-                                "id": "c102",
-                                "title": "Add Samples"
-                            }
-                        ],
-                    },
+                    // {
+                    //     "id": "g101",
+                    //     "title": "Group 1",
+                    //     "archivedAt": 1589983468418,
+                    //     "tasks": [
+                    //         {
+                    //             "id": "c101",
+                    //             "title": "Replace logo"
+                    //         },
+                    //         {
+                    //             "id": "c102",
+                    //             "title": "Add Samples"
+                    //         }
+                    //     ],
+                    // },
                     {
                         "id": "g102",
                         "title": "Group 2",
                         "tasks": [
                             {
                                 "id": "c103",
-                                "title": "Do that",
-                                "archivedAt": 1589983468418,
+                                "title": "Help me",
+                                "status": "Done", // monday
+                                "priority": "high", 
+                                "description": "description",
+                                "memberIds": ["u101", "u102", "u103"],
+                                "labelIds": ["l101", "l102"],
+                                "dueDate": 16156215211,
+                                "byMember": {
+                                    "_id": "u101",
+                                    "username": "Tal",
+                                    "fullname": "Tal Tarablus",
+                                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                },
                             },
                             {
                                 "id": "c104",
                                 "title": "Help me",
-                                "status": "in-progress", // monday
+                                "status": "Done", // monday
                                 "priority": "high", 
+                                "description": "description",
+                                "memberIds": ["u101", "u102", "u103"],
+                                "labelIds": ["l101", "l102"],
+                                "dueDate": 16156215211,
+                                "byMember": {
+                                    "_id": "u101",
+                                    "username": "Tal",
+                                    "fullname": "Tal Tarablus",
+                                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                },
+                            },
+                            {
+                                "id": "c105",
+                                "title": "Help me",
+                                "status": "Progress", // monday
+                                "priority": "low", 
                                 "description": "description",
                                 "memberIds": ["u101", "u102", "u103"],
                                 "labelIds": ["l101", "l102"],

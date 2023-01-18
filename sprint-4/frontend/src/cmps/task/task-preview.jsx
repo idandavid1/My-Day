@@ -6,8 +6,8 @@ import { StatusPicker } from "./status-picker";
 export function TaskPreview({ task }) {
     //GET FROM STORE
     const cmpsOrder = [
-        "status-picker",
         "member-picker",
+        "status-picker",
         "date-picker",
         "priority-picker",
     ]
@@ -16,13 +16,16 @@ export function TaskPreview({ task }) {
         // Switch by cmpType
         // task.members = data
         // task.status = data
-    
+
         // dispatch to store: updateTask(task, activity)
     }
 
     return (
-        <section>
-            <h5>{task.txt}</h5>
+        <section className="task-preview">
+            <input type="checkbox" />
+            <div className="task-title picker">
+                <span>{task.title}</span>
+            </div>
             {cmpsOrder.map((cmp, idx) => {
                 return (
                     <DynamicCmp
@@ -47,9 +50,9 @@ function DynamicCmp({ cmp, info, onUpdate }) {
             return <StatusPicker info={info} onUpdate={onUpdate} />
         case "member-picker":
             return <MemberPicker info={info} onUpdate={onUpdate} />
-            case "date-picker":
+        case "date-picker":
             return <DatePicker info={info} onUpdate={onUpdate} />
-            case "priority-picker":
+        case "priority-picker":
             return <PriorityPicker info={info} onUpdate={onUpdate} />
         default:
             return <p>UNKNOWN {cmp}</p>;

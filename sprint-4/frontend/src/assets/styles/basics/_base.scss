@@ -8,6 +8,10 @@ html {
     line-height: 1.6;
 }
 
+h5{
+    margin: 0;
+    padding: 0;
+}
 body {
     font-size: rem(18px);
     margin: 0;
@@ -18,7 +22,12 @@ body {
 img {
     width: auto;
 }
-
+ul{
+    padding: 0;
+}
+li{
+    list-style: none;
+}
 p {
     margin: 0 0 1em;
 }

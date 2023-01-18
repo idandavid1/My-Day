@@ -42,49 +42,8 @@
     }
 
     .members-imgs {
-        margin-left: 4px;
-
-        >* {
-            @include members;
-        }
-
-        .member-img1 {
-            margin-right: -5px;
-            margin-left: 0;
-        }
-
-        .member-img2 {
-            margin-left: -5px;
-            margin-right: -5px;
-        }
-
-        .show-more-members {
-            justify-content: center;
-            font-size: rem(14px);
-            background-color: white;
-            margin-left: -5px;
-            border: 1px solid $border-color;
-            padding: em(6px) em(8px);
-            text-align: center;
-        }
-
+        @include member-img(white ,#323338 , 24px , 26px)
     }
-
-    // div {
-    //     display: flex;
-    //     align-items: center;
-    //     div {
-    //         padding: $spacing-xs $spacing-small;
-
-    //         &:hover {
-    //             @include hover-sidebar()
-    //         }
-
-    //         .icon {
-    //             width: 16px;
-    //             height: 16px;
-    //         }
-    //     }
 
     h1 {
         padding: $spacing-xs 0;
@@ -93,5 +52,3 @@
         font-size: $font-reg-size-24;
     }
 }
-
-// }
