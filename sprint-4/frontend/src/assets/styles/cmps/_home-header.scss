@@ -13,4 +13,12 @@
         }
     }
 
+    button {
+        background-color: $home-btn-bg;
+    }
+
+    button:hover {
+        background-color:darken($home-btn-bg, 20%);
+    }
+
 }
