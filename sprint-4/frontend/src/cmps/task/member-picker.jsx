@@ -8,11 +8,10 @@ export function MemberPicker({ info, onUpdate }) {
     const boards = useSelector(storeState => storeState.boardModule.boards)
     if (!info.memberIds) return <div className="picker"></div>
     const members = info.memberIds ? info.memberIds.map(member => getMember(member)) : []
-
+    
     function getMember(memberId) {
         return boards[0].members.find(member => member._id === memberId)
     }
-
     return (
         <section className="flex members-imgs justify-center picker task-person">
 

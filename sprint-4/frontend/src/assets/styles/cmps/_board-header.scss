@@ -1,54 +1,131 @@
 .board-header {
     padding: 16px 30px 0 38px;
-    display: flex;
-    justify-content: space-around;
-    color: $workspace-icon-color ;
 
-    div {
+    .board-title {
         display: flex;
-        align-items: center;
-        padding: 4px 8px;
-        height: rem(32px);
-        border-radius: 4px;
-    }
+        justify-content: space-around;
+        color: $workspace-icon-color ;
 
-    .board-info {
-        display: flex;
-        width: 100%;
-    }
-
-
-    .board-tools {
-        gap: $spacing-small;
-        align-items: center;
-        height: fit-content;
-
-        .activity {
-            font-size: 14px;
-            &:hover {
-                background-color: $workspace-hover;
-            }
-        }
-
-        .members-last-seen {
-            width: max-content;
+        div {
+            display: flex;
+            align-items: center;
+            padding: 4px 8px;
             height: rem(32px);
+            border-radius: 4px;
+        }
 
-            &:hover {
-                background-color: $workspace-hover;
+        .board-info {
+            display: flex;
+            width: 100%;
+
+            h1 {
+                cursor: text;
+                padding: $spacing-xs;
+                margin: 0;
+                line-height: $font-reg-line-height-42;
+                font-size: $font-reg-size-24;
+                border: 1px solid transparent;
+                color: $primary-text-color;
+                letter-spacing: 0.5px;
+    
+                &:hover {
+                    border: 1px solid darken($border-color , 20%);
+                }
+            }
+            & >*  {
+                cursor: pointer;
+                &:hover:not(:first-child){
+                    background-color: $workspace-hover;
+                }
             }
         }
 
+
+        .board-tools {
+            gap: $spacing-small;
+            align-items: center;
+            height: fit-content;
+
+            .activity {
+                font-size: 14px;
+
+                &:hover {
+                    background-color: $workspace-hover;
+                }
+            }
+
+            .members-last-seen {
+                width: max-content;
+                height: rem(32px);
+
+                &:hover {
+                    background-color: $workspace-hover;
+                }
+            }
+        }
+
+        .members-imgs {
+            @include member-img(white, #323338, 24px, 26px)
+        }
+
+        
     }
 
-    .members-imgs {
-        @include member-img(white ,#323338 , 24px , 26px)
-    }
+    .board-description {
+        border: 1px solid transparent;
+        display: flex;
+        align-items: flex-start;
+        padding: em(4px) em(8px);
+        cursor: pointer;
+        color: $workspace-icon-color;
 
-    h1 {
-        padding: $spacing-xs 0;
-        margin: 0;
-        line-height: $font-reg-line-height-42;
-        font-size: $font-reg-size-24;
+        &-link {
+            font-weight: 400;
+            font-size: rem(14px);
+        }
+
+        span {
+            color: $link-color;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    .board-display-btns{
+        display: flex;
+        margin-top: $spacing-small;
+        .main-table-btn{
+            // line-height: 24px;
+            height: 32px;
+            align-items: center;
+            padding: 0 8px 0 8px;
+            position: relative;
+            svg{
+                height: 16px;
+            }
+            span{
+                font-weight: 500;
+                padding: 0 4px;
+            }
+            &:hover{
+                background-color: $workspace-hover;
+                border-radius: 4px;
+            }
+            &::after{
+                border-right: 1px solid darken($border-color , 30%);
+                content: "";
+                height: 18px;
+                // border-color: $border-color;
+                position: absolute;
+                top: 6px;
+                right: 0;
+            }
+        }
+    }
+    .board-border{
+        height: 1px;
+        width: 100%;
+        background-color: darken($border-color , 20%);
     }
 }
