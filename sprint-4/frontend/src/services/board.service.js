@@ -1,7 +1,7 @@
 import { storageService } from './async-storage.service.js' 
 import { utilService } from './util.service.js'
 
-const STORAGE_KEY = 'boardDb'
+const STORAGE_KEY = 'boardDB'
 
 _createBoards()
 
@@ -98,17 +98,17 @@ function _createBoards() {
                     },
                     {
                         "id": "l102",
-                        "title": "low",
+                        "title": "Low",
                         "color": "#ffcb00"
                     },
                     {
                         "id": "l101",
-                        "title": "medium",
+                        "title": "Medium",
                         "color": "#a25ddc"
                     },
                     {
                         "id": "l102",
-                        "title": "high",
+                        "title": "High",
                         "color": "#e2445c"
                     },
                 ],
@@ -116,22 +116,22 @@ function _createBoards() {
                     {
                         "_id": "u101",
                         "fullname": "Tal Tarablus",
-                        "imgUrl": "https://www.google.com"
+                        "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
                     },
                     {
                         "_id": "u102",
                         "fullname": "Idan David",
-                        "imgUrl": "https://www.google.com"
+                        "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673820094/%D7%A2%D7%99%D7%93%D7%9F_jranbo.jpg"
                     },
                     {
                         "_id": "u103",
                         "fullname": "Ofek Tarablus",
-                        "imgUrl": "https://www.google.com"
+                        "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1674069458/image_exxnux.png"
                     },
                     {
                         "_id": "u104",
                         "fullname": "Ofer Tarablus",
-                        "imgUrl": "https://www.google.com"
+                        "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1674069496/me_dpbzfs.jpg"
                     }
                 ],
                 "groups": [

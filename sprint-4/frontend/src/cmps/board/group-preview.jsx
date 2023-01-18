@@ -1,9 +1,5 @@
 import { TaskPreview } from "../task/task-preview"
 
-
-
-
-
 export function GroupPreview({ group }) {
 
     return <ul className="group-preview">
