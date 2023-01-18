@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: space-between;
     background-color: $sidebar-main-bg;
-    width: 66px;
+    min-width: 66px;
     height: 100vh;
 
     a {
