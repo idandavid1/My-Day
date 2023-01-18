@@ -1,0 +1,76 @@
+.workspace-sidebar{
+    position: relative;
+    background-color: $sidebar-workspace-bg ;
+    width: $workspace-width;
+    border-right: 1px solid darken($border-color , 30%);
+    color: $workspace-icon-color;
+    
+    .workspace-sidebar-items{
+        margin: 12px 16px 18px 16px;
+        border-bottom: 1px solid darken($border-color , 30%);
+        gap: 10px;
+
+    }
+
+    .workspace-title{
+        font-weight: 400;
+        font-size: 14px;
+    }
+    .chose-board{
+        display: flex;
+        justify-content: space-between;
+        padding: $spacing-small;
+        border: 1px solid $workspace-icon-color;
+        border-radius: 4px;
+        align-items: center;
+        
+        h5{
+            font-size: 100%;
+            padding: 0;
+            margin: 0;
+        }
+    }
+    .workspace-btns , .board-list{
+        padding: 16px 0 16px 2px;
+        width: 100%;
+        >*{
+            transition: .2s;
+            display: flex;
+            align-items: center;
+            gap: $spacing-small;
+            padding: $spacing-xs;
+            cursor: pointer;
+        }
+        >*:hover{
+          background-color: $workspace-hover ;  
+          border-radius: 4px;
+        }
+
+    }
+    .board-list{
+        padding: 0 18px;
+        
+        & .active{
+            border-radius: 4px;
+            background-color: $workspace-board-active;
+        }
+    }
+
+    .toggle-workspace{
+        position: absolute;
+        border-radius: 20px;
+        border: 1px solid #c3c6d4;
+        background-color: #fff;
+        height: 23px;
+        width: 23px;
+        top: 20px;
+        right: -14px;
+        transition: width .2s;
+        &:hover{
+            color: white;
+            // padding-right:$spacing-medium ;
+            background-color: $board-btn;
+            width: 39px;
+        }
+    }
+}

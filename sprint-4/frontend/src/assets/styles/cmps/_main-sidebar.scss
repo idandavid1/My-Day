@@ -1,0 +1,75 @@
+.main-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: $sidebar-main-bg;
+    width: 66px;
+    height: 100vh;
+
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: $spacing-small 0 ;
+
+        .home-img {
+            width: 40px;
+            height: 40px;
+            &:hover{
+                @include hover-sidebar()
+            }
+        }
+    }
+
+    .guest-img {
+        height: 44px;
+        width: 44px;
+        border-radius: 50%;
+        border: 1.6px solid white;
+        cursor: pointer;
+    }
+
+    .middle-div {
+        border-bottom: 1px solid $border-color;
+        border-top: 1px solid $border-color;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        color: white;
+        gap: $spacing-medium;
+        font-size: 23px;
+        padding: $spacing-medium 0;
+
+        .icon-container {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        >*:hover {
+            @include hover-sidebar()
+        }
+    }
+    
+    .bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: $spacing-medium;
+        padding: $spacing-medium 0;
+        
+    }
+    
+    .menu-icon {
+        width: 32px;
+        height: 32px;
+        color: $menu-icon-color;
+        &:hover {
+            @include hover-sidebar()
+        }
+    }
+}
