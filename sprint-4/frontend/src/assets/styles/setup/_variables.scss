@@ -13,16 +13,17 @@ $menu-icon-color: #6c6cff;
 $workspace-width: 255px;
 $workspace-icon-color: #676879;
 $workspace-hover: #dcdfec;
-$workspace-board-active:#cce5ff;
+$workspace-board-active: #cce5ff;
 $board-btn: #0073ea;
+$link-color: #1f76c2;
 // Groups
 
 $cell-height: 36px;
 $cell-width: 140px;
 $cell-width-task: 336px;
 $cell-width-person: 87px;
-$cell-width-conversation:65px;
-$cell-width-checkbox:32px;
+$cell-width-conversation: 65px;
+$cell-width-checkbox: 32px;
 
 
 // green grass
@@ -261,3 +262,6 @@ $h1-font-family: var(--title-font-family);
 $mobile-breakpoint: 460px;
 $narrow-breakpoint: 720px;
 $normal-breakpoint: 960px;
+
+// font color
+$primary-text-color: #323338;
