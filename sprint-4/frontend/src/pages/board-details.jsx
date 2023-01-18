@@ -10,7 +10,7 @@ export function BoardDetails() {
         <section className="board-details">
             <MainSidebar />
             <WorkspaceSidebar />   
-            <main>
+            <main className="board-main">
                 <BoardHeader />
             </main>
         </section>

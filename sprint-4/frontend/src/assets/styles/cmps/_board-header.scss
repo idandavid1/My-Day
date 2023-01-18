@@ -1,33 +1,51 @@
 .board-header {
     padding: 16px 30px 0 38px;
+    display: flex;
+    justify-content: space-between;
+    background-color: beige;
 
-    .top {
+
+    .board-description {
         display: flex;
-        justify-content: space-between;
         width: 100%;
+    }
 
-        div {
+
+    .board-tools{
+
+        .members-last-seen {
+            
             display: flex;
-            align-items: center;
-            div {
-                padding: $spacing-xs $spacing-small;
-
-                &:hover {
-                    @include hover-sidebar()
-                }
-
-                .icon {
-                    width: 16px;
-                    height: 16px;
-                }
-            }
-
-            h1 {
-                padding: $spacing-xs 0;
-                margin: 0;
-                line-height: $font-reg-line-height-42;
-                font-size: $font-reg-size-24;
-            }
+            height: rem(32px);
         }
+        
+        .members-img-container {}
+        
+        .member-img {}
+    }
+
+    // div {
+    //     display: flex;
+    //     align-items: center;
+    //     div {
+    //         padding: $spacing-xs $spacing-small;
+
+    //         &:hover {
+    //             @include hover-sidebar()
+    //         }
+
+    //         .icon {
+    //             width: 16px;
+    //             height: 16px;
+    //         }
+    //     }
+
+    h1 {
+        padding: $spacing-xs 0;
+        margin: 0;
+        line-height: $font-reg-line-height-42;
+        font-size: $font-reg-size-24;
     }
 }
+
+// }
