@@ -19,12 +19,12 @@ function query() {
     return storageService.query(STORAGE_KEY)
 }
 
-function getById(BoardId) {
-    return storageService.get(STORAGE_KEY, BoardId)
+function getById(boardId) {
+    return storageService.get(STORAGE_KEY, boardId)
 }
 
-function remove(BoardId) {
-    return storageService.remove(STORAGE_KEY, BoardId)
+function remove(boardId) {
+    return storageService.remove(STORAGE_KEY, boardId)
 }
 
 function save(board) {
