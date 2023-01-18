@@ -47,7 +47,7 @@ function _createTasks() {
         tasks = []
         tasks.push(
             {
-                "id": "c101",
+                "_id": "c101",
                 "title": "Replace logo",
                 "status": "Stuck",
                 "priority": "Medium", 
@@ -55,7 +55,7 @@ function _createTasks() {
                 "dueDate": 1615621
             },
             {
-                "id": "c102",
+                "_id": "c102",
                 "title": "Add Samples",
                 "status": "Done",
                 "priority": "Low", 
@@ -63,7 +63,7 @@ function _createTasks() {
                 "dueDate": 16156211111
             },
             {
-                "id": "c103",
+                "_id": "c103",
                 "title": "Help me",
                 "status": "Done", 
                 "priority": "high", 
@@ -71,7 +71,7 @@ function _createTasks() {
                 "dueDate": 16156215211,
             },
             {
-                "id": "c104",
+                "_id": "c104",
                 "title": "Help me",
                 "status": "Done", 
                 "priority": "High", 
@@ -79,7 +79,7 @@ function _createTasks() {
                 "dueDate": 16156215211
             },
             {
-                "id": "c105",
+                "_id": "c105",
                 "title": "Help me",
                 "status": "Progress",
                 "priority": "Low", 

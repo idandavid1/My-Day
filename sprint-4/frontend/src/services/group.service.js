@@ -11,7 +11,6 @@ export const groupService = {
     save,
     remove,
     getEmptyGroup,
-    getEmptyFilter
 }
 
 
@@ -45,28 +44,24 @@ function _createGroups() {
     if (!groups) {
         groups = []
         groups.push(
-            {
-                "groups": [
-                    {
-                        "id": "g101",
-                        "title": "Group 1",
-                        "archivedAt": 1589983468418,
-                        "tasks": [
-                            "c101",
-                            "c102"
-                        ],
-                    },
-                    {
-                        "id": "g102",
-                        "title": "Group 2",
-                        "tasks": [
-                            "c103",
-                            "c104",
-                            "c105"
-                        ],
-                    }
-                ],
-            }
+                {
+                    "_id": "g101",
+                    "title": "Group 1",
+                    "archivedAt": 1589983468418,
+                    "tasks": [
+                        "c101",
+                        "c102"
+                    ],
+                },
+                {
+                    "_id": "g102",
+                    "title": "Group 2",
+                    "tasks": [
+                        "c103",
+                        "c104",
+                        "c105"
+                    ],
+                }
         )
         utilService.saveToStorage(STORAGE_KEY, groups)
     }
