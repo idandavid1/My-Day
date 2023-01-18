@@ -5,20 +5,7 @@ import { MemberPicker } from "./member-picker";
 import { PriorityPicker } from "./priority-picker";
 import { StatusPicker } from "./status-picker";
 
-export function TaskPreview({ taskId }) {
-    const [task, setTask] = useState(null)
-    useEffect(() => {
-        loadTask()
-    }, [])
-
-    async function loadTask() {
-        try {
-            const task = await TaskService.getById(taskId)
-            setTask(task)
-        } catch (err) {
-            console.log('err:', err)
-        }
-    }
+export function TaskPreview({ task }) {
     //GET FROM STORE
     const cmpsOrder = [
         "member-picker",
@@ -35,8 +22,6 @@ export function TaskPreview({ taskId }) {
 
         // dispatch to store: updateTask(task, activity)
     }
-
-    if(!task) return <div>Loading...</div>
     return (
         <section className="task-preview">
             <input type="checkbox" />

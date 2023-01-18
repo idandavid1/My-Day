@@ -1,28 +1,30 @@
 import { useEffect, useState } from "react"
 import { groupService } from "../../services/group.service"
+import { TaskService } from "../../services/task.service"
 import { TaskPreview } from "../task/task-preview"
 
 export function GroupPreview({ groupId }) {
-    console.log('groupId:', groupId)
-    const [group, setGroup] = useState(null)
+    const [tasks, setTasks] = useState(null)
     useEffect(() => {
-        loadGroup()
+        loadTasks()
     }, [])
 
-    async function loadGroup() {
+    async function loadTasks() {
         try {
-            const group = await groupService.getById(groupId)
-            setGroup(group)
+            const groups = await groupService.getById(groupId)
+            let tasks = groups.tasks.map((taskId) => TaskService.getById(taskId))
+            tasks = await Promise.all(tasks)
+            setTasks(tasks)
         } catch (err) {
             console.log('err:', err)
         }
     }
 
-    if(!group) return <div>Loading...</div>
+    if(!tasks) return <div>Loading...</div>
     return <ul className="group-preview">
-        {group.tasks.map((taskId, idx) => {
+        {tasks.map((task, idx) => {
             return <li key={idx}>
-                <TaskPreview taskId={taskId} />
+                <TaskPreview task={task} />
             </li>
         })}
     </ul>

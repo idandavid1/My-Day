@@ -2,7 +2,6 @@ import { GroupPreview } from './group-preview.jsx'
 
 export function GroupList({ board }) {
     const titles = ['Task', 'Person', 'Status', 'Date', 'Priority']
-
     return (
         <section className="group-list">
             <ul>
