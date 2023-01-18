@@ -36,6 +36,7 @@ function getEmptyGroup() {
         "title": '',
         "archivedAt": Date.now(),
         "tasks": [],
+        "color":'#ffcb00'
     }
 }
 
@@ -52,6 +53,7 @@ function _createGroups() {
                         "c101",
                         "c102"
                     ],
+                    "color": '#66ccff'
                 },
                 {
                     "_id": "g102",
@@ -61,6 +63,7 @@ function _createGroups() {
                         "c104",
                         "c105"
                     ],
+                    "color": '#a25ddc'
                 }
         )
         utilService.saveToStorage(STORAGE_KEY, groups)
