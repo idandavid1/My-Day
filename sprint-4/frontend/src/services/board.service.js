@@ -84,13 +84,33 @@ function _createBoards() {
                     {
                         "id": "l101",
                         "title": "Done",
-                        "color": "#61bd4f"
+                        "color": "#00c875"
                     },
                     {
                         "id": "l102",
                         "title": "Progress",
-                        "color": "#61bd33"
-                    }
+                        "color": "#fdab3d"
+                    },
+                    {
+                        "id": "l101",
+                        "title": "Stuck",
+                        "color": "#e2445c"
+                    },
+                    {
+                        "id": "l102",
+                        "title": "low",
+                        "color": "#ffcb00"
+                    },
+                    {
+                        "id": "l101",
+                        "title": "medium",
+                        "color": "#a25ddc"
+                    },
+                    {
+                        "id": "l102",
+                        "title": "high",
+                        "color": "#e2445c"
+                    },
                 ],
                 "members": [
                     {
