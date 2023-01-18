@@ -33,20 +33,20 @@ export function WorkspaceSidebar() {
                     </div>
                     <div className='chose-board'>
                         <h5>Sprint 4</h5>
-                        <IoIosArrowDown />
+                        <IoIosArrowDown className='icon'/>
                     </div>
 
                     <div className='workspace-btns'>
                         <div >
-                            <AiOutlinePlus />
+                            <AiOutlinePlus className='icon'/>
                             <span>Add</span>
                         </div>
                         <div>
-                            <FiFilter />
+                            <FiFilter className='icon'/>
                             <span>Filters</span>
                         </div>
                         <div>
-                            <BiSearch />
+                            <BiSearch className='icon'/>
                             <span>Search</span>
                         </div>
                     </div>

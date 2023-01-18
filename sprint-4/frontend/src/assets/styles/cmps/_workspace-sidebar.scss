@@ -4,6 +4,8 @@
     width: $workspace-width;
     border-right: 1px solid darken($border-color , 30%);
     color: $workspace-icon-color;
+    width: 255px;
+    transition: .4s;
     
     .workspace-sidebar-items{
         margin: 12px 16px 18px 16px;
@@ -14,6 +16,7 @@
     .workspace-title{
         font-weight: 400;
         font-size: 14px;
+        padding: 0 0 $spacing-xs 0;
     }
 
     .chose-board{
@@ -23,6 +26,7 @@
         border: 1px solid $workspace-icon-color;
         border-radius: 4px;
         align-items: center;
+        padding: 6px;
         
         h5{
             font-size: 100%;
@@ -34,16 +38,24 @@
     .workspace-btns , .board-list{
         padding: 16px 0 16px 2px;
         width: 100%;
+
+        .icon {
+            width: 19px;
+            height: 19px;
+        }
+
         >*{
             transition: .2s;
             display: flex;
             align-items: center;
-            gap: $spacing-small;
+            gap: 6px;
             padding: $spacing-xs;
             cursor: pointer;
+            font-size: $font-reg-size-14;
         }
+
         >*:hover{
-          background-color: $workspace-hover ;  
+          background-color: $workspace-hover;  
           border-radius: 4px;
         }
 
@@ -51,7 +63,9 @@
 
     .board-list{
         padding: 0 18px;
-        
+        margin-top: 10px;
+
+
         & .active{
             border-radius: 4px;
             background-color: $workspace-board-active;
@@ -74,7 +88,7 @@
             color: white;
             // padding-right:$spacing-medium ;
             background-color: $board-btn;
-            width: 39px;
+            width: 31px;
         }
     }
 
