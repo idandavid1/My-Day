@@ -5,7 +5,8 @@ export const utilService = {
     debounce,
     randomPastTime,
     saveToStorage,
-    loadFromStorage
+    loadFromStorage,
+    getMonthName
 }
 
 function makeId(length = 6) {
@@ -51,6 +52,13 @@ function debounce(func, timeout = 300){
       clearTimeout(timer)
       timer = setTimeout(() => { func.apply(this, args) }, timeout)
     }
+}
+
+function getMonthName(date) {
+    const monthNames = ["Jan`", "Feb`", "March", "April", "May", "June",
+        "July", "Aug`", "Sep`", "Oct`", "Nov`", "Dec`"
+    ]
+    return monthNames[date.getMonth()]
 }
 
 function saveToStorage(key, value) {
