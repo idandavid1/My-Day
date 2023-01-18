@@ -24,7 +24,9 @@ export function TaskPreview({ task }) {
     }
     return (
         <section className="task-preview">
-            <input type="checkbox" />
+            <div className="check-box">
+                <input type="checkbox" />
+            </div>
             <div className="task-title picker">
                 <span>{task.title}</span>
             </div>

@@ -1,11 +1,15 @@
 .group-preview {
     display: flex;
     flex-direction: column;
+    margin-bottom: 100px;
+
+
 
     li {
         .task-preview {
             display: flex;
             text-align: center;
+
             .picker {
                 width: $cell-width;
                 height: $cell-height;
@@ -31,5 +35,70 @@
             }
 
         }
+    }
+
+    .title-container {
+        display: flex;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: $app-bg;
+    }
+
+    .title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: $cell-width;
+        height: $cell-height;
+        border: 1px solid darken($border-color , 20%);
+
+
+        &.Task {
+            width: $cell-width-task;
+        }
+
+        &.Person {
+            width: $cell-width-person;
+        }
+    }
+
+    .group-title {
+        display: flex;
+        height: 40px;
+        align-items: center;
+        line-height: $font-reg-line-height-24;
+        .arrow-icon{
+            font-size: 16px;
+            margin-left: 13px;
+            cursor: pointer;
+        }
+        h4{
+            cursor: text;
+            font-weight: 600;
+            font-size: 18px;
+            padding: $spacing-xs;
+            margin: 0;
+        }
+    }
+
+    .check-box {
+        width: 33px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid darken($border-color , 20%);
+
+        input {
+            width: 15px;
+            height: 16px;
+        }
+    }
+
+    
+
+    .group-preview-content {
+        border-left: 6px solid;
+        border-radius: 6px;
     }
 }
