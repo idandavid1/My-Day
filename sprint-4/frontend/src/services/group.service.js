@@ -1,7 +1,7 @@
 import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 
-const STORAGE_KEY = 'groupDb'
+const STORAGE_KEY = 'groupDB'
 
 _createGroups()
 
@@ -37,12 +37,6 @@ function getEmptyGroup() {
         "title": '',
         "archivedAt": Date.now(),
         "tasks": [],
-    }
-}
-
-function getEmptyFilter() {
-    return {
-
     }
 }
 

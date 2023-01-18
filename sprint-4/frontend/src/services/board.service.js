@@ -76,9 +76,9 @@ function _createBoards() {
                 "title": "Robot dev proj",
                 "archivedAt": 1589983468418,
                 "createdBy": {
-                    "_id": "u101",
-                    "fullname": "Abi Abambi",
-                    "imgUrl": "http://some-img"
+                    "_id": "m102",
+                    "fullname": "Idan David",
+                    "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673820094/%D7%A2%D7%99%D7%93%D7%9F_jranbo.jpg"
                 },
                 "labels": [
                     {
@@ -114,106 +114,36 @@ function _createBoards() {
                 ],
                 "members": [
                     {
-                        "_id": "u101",
+                        "_id": "m101",
                         "fullname": "Tal Tarablus",
                         "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
                     },
                     {
-                        "_id": "u102",
+                        "_id": "m102",
                         "fullname": "Idan David",
                         "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673820094/%D7%A2%D7%99%D7%93%D7%9F_jranbo.jpg"
                     },
                     {
-                        "_id": "u103",
+                        "_id": "m103",
                         "fullname": "Ofek Tarablus",
                         "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1674069458/image_exxnux.png"
                     },
                     {
-                        "_id": "u104",
+                        "_id": "m104",
                         "fullname": "Ofer Tarablus",
                         "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1674069496/me_dpbzfs.jpg"
                     }
                 ],
-                "groups": [
-                    // {
-                    //     "id": "g101",
-                    //     "title": "Group 1",
-                    //     "archivedAt": 1589983468418,
-                    //     "tasks": [
-                    //         {
-                    //             "id": "c101",
-                    //             "title": "Replace logo"
-                    //         },
-                    //         {
-                    //             "id": "c102",
-                    //             "title": "Add Samples"
-                    //         }
-                    //     ],
-                    // },
-                    {
-                        "id": "g102",
-                        "title": "Group 2",
-                        "tasks": [
-                            {
-                                "id": "c103",
-                                "title": "Help me",
-                                "status": "Done", // monday
-                                "priority": "high", 
-                                "description": "description",
-                                "memberIds": ["u101", "u102", "u103"],
-                                "labelIds": ["l101", "l102"],
-                                "dueDate": 16156215211,
-                                "byMember": {
-                                    "_id": "u101",
-                                    "username": "Tal",
-                                    "fullname": "Tal Tarablus",
-                                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-                                },
-                            },
-                            {
-                                "id": "c104",
-                                "title": "Help me",
-                                "status": "Done", // monday
-                                "priority": "high", 
-                                "description": "description",
-                                "memberIds": ["u101", "u102", "u103"],
-                                "labelIds": ["l101", "l102"],
-                                "dueDate": 16156215211,
-                                "byMember": {
-                                    "_id": "u101",
-                                    "username": "Tal",
-                                    "fullname": "Tal Tarablus",
-                                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-                                },
-                            },
-                            {
-                                "id": "c105",
-                                "title": "Help me",
-                                "status": "Progress", // monday
-                                "priority": "low", 
-                                "description": "description",
-                                "memberIds": ["u101", "u102", "u103"],
-                                "labelIds": ["l101", "l102"],
-                                "dueDate": 16156215211,
-                                "byMember": {
-                                    "_id": "u101",
-                                    "username": "Tal",
-                                    "fullname": "Tal Tarablus",
-                                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-                                },
-                            }
-                        ],
-                    }
-                ],
+                "groups": ["g101", "g102",],
                 "activities": [
                     {
                         "id": "a101",
                         "txt": "Changed Color",
                         "createdAt": 154514,
                         "byMember": {
-                            "_id": "u101",
-                            "fullname": "Abi Abambi",
-                            "imgUrl": "http://some-img"
+                            "_id": "m101",
+                            "fullname": "Tal Tarablus",
+                            "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
                         },
                         "task": {
                             "id": "c101",
@@ -221,16 +151,9 @@ function _createBoards() {
                         }
                     }
                 ],
-            
                 "cmpsOrder": ["status-picker", "member-picker", "date-picker"]
             }
         )
         utilService.saveToStorage(STORAGE_KEY, boards)
     }
 }
-
-
-
-
-
-
