@@ -8,21 +8,28 @@ const guest = require('../../assets/img/guest.png')
 export function BoardHeader() {
     return (
         <header className="board-header">
-            <div className="top">
-                <div>
-                    <h1>Sprint 4</h1>
-                    <div><RiErrorWarningLine className='icon' /></div>
-                    <div><BsStar className='icon' /></div>
-                </div>
-                <div>
-                    <div><FiActivity className='icon' /></div>
-                    {/* <div>last seen <span><img className='guest-img' src={guest} alt="" /></span></div> */}
-                </div>
-            </div>
-            <div className='bottom' >
-                <GrHomeRounded className='icon' />
+
+            <div className="board-description">
+                <h1>Sprint 4</h1>
+                <div><RiErrorWarningLine className='icon' /></div>
+                <div><BsStar className='icon' /></div>
+                <div><FiActivity className='icon' /></div>
             </div>
 
-        </header>
+            <div className='board-tools flex'>
+                <div className='members-last-seen'>
+                    <span>Last seen</span>
+                    <div className='members-imgs-container flex'>
+
+                        <img className='member-img' src={guest} alt="" />
+                        <img className='member-img' src={guest} alt="" />
+                    </div>
+                </div>
+            </div>
+            {/* <div className='bottom' >
+                <GrHomeRounded className='icon' />
+            </div> */}
+
+        </header >
     )
 }
