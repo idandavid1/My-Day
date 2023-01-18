@@ -7,11 +7,21 @@ export function HomePage() {
         <section className='home-page'>
             <HomeHeader />
             <div className='home-content layout'>
+            <section className="shooting-stars">
+                 <span className="star"></span>
+                <span className="star"></span>
+                <span className="star"></span>
+                <span className="star"></span>
+                <span className="star"></span>
+                <span className="star"></span>
+                <span className="star"></span>
+                <span className="star"></span>
+            </section>
                 <div>
                     <h1>A platform built for a</h1>
                     <h1>new way of working</h1>
                 </div>
-                <Link to={'/board'}><button className='btn'>get start</button></Link> 
+                <Link to={'/board'}><button className='btn home-btn'>get start</button></Link> 
             </div>
         </section >
     )
