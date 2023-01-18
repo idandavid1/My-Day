@@ -39,7 +39,7 @@ export function BoardHeader() {
             </div>
 
             <div className='board-display-btns' >
-                <div className='main-table-btn'>
+                <div className='main-table-btn active'>
                     <GrHomeRounded className='icon' />
                     <span>Main Table</span>
                 </div>

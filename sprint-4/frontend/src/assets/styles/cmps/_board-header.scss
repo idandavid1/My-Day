@@ -96,11 +96,14 @@
         display: flex;
         margin-top: $spacing-small;
         .main-table-btn{
-            // line-height: 24px;
             height: 32px;
             align-items: center;
             padding: 0 8px 0 8px;
             position: relative;
+
+            &.active{
+                border-bottom: 4px solid $board-btn;
+            }
             svg{
                 height: 16px;
             }
@@ -121,6 +124,8 @@
                 top: 6px;
                 right: 0;
             }
+            
+           
         }
     }
     .board-border{
