@@ -3,12 +3,18 @@ $home-bg: -webkit-linear-gradient(rgb(0, 1, 51) 0%, rgb(15, 16, 72) 100%);
 $home-btn-bg: #6161FF;
 $home-btn-bg-gradient: linear-gradient(90deg, #5034FF 25.69%, #B4B4FF 100%);
 $home-btn-bg-gradient-hover: linear-gradient(90deg, #432CD5 25.69%, #9797D5 100%);
-$app-bg:  #ffffff;
+$app-bg: #ffffff;
 
 //board page
-$border-color: #d0d4e4;
+$border-color: #d0d4e466;
 $sidebar-workspace-bg: #F6F7FB;
 $sidebar-main-bg: #292f4c;
+$menu-icon-color: #6c6cff;
+$workspace-width: 255px;
+$workspace-icon-color: #676879;
+$workspace-hover: #dcdfec;
+$workspace-board-active:#cce5ff;
+$board-btn: #0073ea;
 
 // green grass
 $color-grass_green: #037f4c;
@@ -36,8 +42,8 @@ $color-egg_yolk: #ffcb00;
 $color-egg_yolk-hover: #c29e11;
 $color-egg_yolk-selected: #ffe580;
 $color-egg_yolk-rgb: 255,
-213,
-51;
+    213,
+    51;
 
 // Working on it
 $color-working_orange: #fdab3d;
@@ -246,4 +252,3 @@ $h1-font-family: var(--title-font-family);
 $mobile-breakpoint: 460px;
 $narrow-breakpoint: 720px;
 $normal-breakpoint: 960px;
-
