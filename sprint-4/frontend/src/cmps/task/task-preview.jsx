@@ -1,6 +1,4 @@
-
-
-
+import { StatusPicker } from "./status-picker";
 
 export function TaskPreview({ task }) {
     //GET FROM STORE
@@ -27,6 +25,7 @@ export function TaskPreview({ task }) {
                     <DynamicCmp
                         cmp={cmp}
                         key={idx}
+                        info={task}
                         onUpdate={(data) => {
                             console.log("Updating: ", cmp, "with data:", data)
                             // make a copy, update the task
@@ -42,13 +41,13 @@ export function TaskPreview({ task }) {
 function DynamicCmp({ cmp, info, onUpdate }) {
     switch (cmp) {
         case "status-picker":
-            return <StatusCmp info={info} onUpdate={onUpdate} />
+            return <StatusPicker info={info} onUpdate={onUpdate} />
         case "member-picker":
-            return <MemberPicker info={info} onUpdate={onUpdate} />
+            // return <MemberPicker info={info} onUpdate={onUpdate} />
             case "date-picker":
-            return <DatePicker info={info} onUpdate={onUpdate} />
+            // return <DatePicker info={info} onUpdate={onUpdate} />
             case "priority-picker":
-            return <PriorityPicker info={info} onUpdate={onUpdate} />
+            // return <PriorityPicker info={info} onUpdate={onUpdate} />
         default:
             return <p>UNKNOWN {cmp}</p>;
     }
