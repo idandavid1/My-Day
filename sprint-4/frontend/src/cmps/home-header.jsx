@@ -6,7 +6,7 @@ export function HomeHeader() {
         <header className="home-header">
             <nav className='layout'>
                 <img src={logo} alt="Logo"  />
-                <Link to={'/board'}><button className='btn'>get start</button></Link> 
+                <Link to={'/board'}><button className='btn'>Get started</button></Link> 
             </nav>
         </header>
     )
