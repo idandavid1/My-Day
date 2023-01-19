@@ -5,11 +5,14 @@ import { TaskService } from "../../services/task.service"
 import { TaskPreview } from "../task/task-preview"
 
 import { MdKeyboardArrowDown } from 'react-icons/md'
+import { addTask } from "../../store/board.actions"
 
-export function GroupPreview({ groupId }) {
+export function GroupPreview({ groupId , board}) {
     const [tasks, setTasks] = useState(null)
     const [group, setGroup] = useState(null)
+    const [taskToEdit , setTaskToEdit] = useState(TaskService.getEmptyTask())
     const titles = ['Task', 'Person', 'Status', 'Date', 'Priority']
+    
     useEffect(() => {
         loadTasks()
     })
@@ -27,12 +30,24 @@ export function GroupPreview({ groupId }) {
     }
 
     async function onSave(ev) {
-        const value = ev.target.innerText 
+        const value = ev.target.innerText
         group.title = value
-        try{
+        try {
             groupService.save(group)
         } catch (err) {
             console.log('Failed to save')
+        }
+    }
+
+    async function onAddTask(ev){
+        const title = ev.target.value
+        const taskToSave ={...taskToEdit , title}
+        try {
+            const group = await addTask(taskToSave , groupId , board)
+            setGroup(group)
+            // setTaskToEdit({title:''})
+        } catch(err) {
+            console.log('Failed to add task',err)
         }
     }
 
@@ -56,6 +71,18 @@ export function GroupPreview({ groupId }) {
                     <TaskPreview task={task} />
                 </li>
             })}
+            <div className="add-task flex">
+                <div className="check-box add-task">
+                    <input type="checkbox" />
+                </div>
+                <div className="add-task-input">
+
+                    <input type="text"
+                    // value={taskToEdit.title}
+                    placeholder="+ Add Task"
+                    onBlur={onAddTask} />
+                </div>
+            </div>
         </div>
     </ul>
 }

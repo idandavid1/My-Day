@@ -2,6 +2,7 @@ import { RiErrorWarningLine } from 'react-icons/ri'
 import { BsStar } from 'react-icons/bs'
 import { FiActivity } from 'react-icons/fi'
 import { GrHomeRounded } from 'react-icons/gr'
+import { BoardFilter } from '../task/board-filter'
 
 export function BoardHeader({board}) {
     return (
@@ -37,6 +38,7 @@ export function BoardHeader({board}) {
                 </div>
             </div>
             <div className='board-border'></div>
+            <BoardFilter board={board}/>
         </header >
     )
 }
