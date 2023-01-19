@@ -69,10 +69,22 @@
         padding: 0 18px;
         margin-top: 10px;
 
-
         & .active{
             border-radius: 4px;
             background-color: $workspace-board-active;
+        }
+
+        .board-preview {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            
+            div {
+                display: flex;
+                align-items: center;
+                gap: $spacing-small;
+            }
+        
         }
     }
 

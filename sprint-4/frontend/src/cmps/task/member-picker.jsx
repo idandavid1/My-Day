@@ -3,12 +3,12 @@ import { useSelector } from "react-redux"
 const guest = require('../../assets/img/guest.png')
 
 export function MemberPicker({ info, onUpdate }) {
-    const boards = useSelector(storeState => storeState.boardModule.boards)
-    if (!info.memberIds) return <div className="picker task-person"></div>
-    const members = info.memberIds ? info.memberIds.map(member => getMember(member)) : []
+    const board = useSelector(storeState => storeState.boardModule.board)
+    if (!info?.memberIds) return <div className="picker task-person"></div>
+    const members = info.memberIds.filter(member => getMember(member))
 
     function getMember(memberId) {
-        return boards[0].members.find(member => member._id === memberId)
+        return board.members.find(member => member._id === memberId)
     }
 
     return (

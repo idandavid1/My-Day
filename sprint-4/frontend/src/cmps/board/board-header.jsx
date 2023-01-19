@@ -4,6 +4,8 @@ import { FiActivity } from 'react-icons/fi'
 import { GrHomeRounded } from 'react-icons/gr'
 import { BoardFilter } from '../task/board-filter'
 
+const guest = require('../../assets/img/guest.png')
+
 export function BoardHeader({board}) {
     return (
         <header className="board-header">
@@ -18,8 +20,8 @@ export function BoardHeader({board}) {
                     <div className='members-last-seen'>
                         <span className='last-seen-title'>Last seen</span>
                         <div className='flex members-imgs'>
-                            <img className='member-img1' src={board.members[2].imgUrl} alt="member" />
-                            <img className='member-img2' src={board.members[3].imgUrl} alt="member" />
+                            <img className='member-img1' src={board.members.length ? board.members[0].imgUrl : guest} alt="member" />
+                            <img className='member-img2' src={board.members.length > 1 ? board.members[1].imgUrl : guest} alt="member" />
                             {/* if there more than 2 members */}
                             <div className='show-more-members'>
                                 <span className='show-more-count'>+2</span>

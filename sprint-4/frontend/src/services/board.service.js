@@ -53,7 +53,17 @@ function getEmptyBoard() {
                 "color": "#e2445c"
             }
         ],
-        "members": [],
+        "members": [
+        {
+            "_id": "m101",
+            "fullname": "Tal Tarablus",
+            "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
+        },
+        {
+            "_id": "m102",
+            "fullname": "Idan David",
+            "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673820094/%D7%A2%D7%99%D7%93%D7%9F_jranbo.jpg"
+        }],
         "groups": [],
         "activities": [],
         "cmpsOrder": ["status-picker", "member-picker", "date-picker"]

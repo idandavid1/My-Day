@@ -15,7 +15,7 @@ export function GroupPreview({ groupId , board}) {
     
     useEffect(() => {
         loadTasks()
-    })
+    }, [])
 
     async function loadTasks() {
         try {
