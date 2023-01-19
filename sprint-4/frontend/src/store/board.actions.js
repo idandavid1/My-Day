@@ -1,9 +1,9 @@
 import { boardService } from '../services/board.service.js'
 import { groupService } from '../services/group.service.js'
-import { store } from './store.js'
-import { SET_BOARDS, SET_BOARD, REMOVE_BOARD, ADD_BOARD, UPDATE_BOARD, SET_FILTER, ADD_GROUP } from "./board.reducer.js"
-import { groupService } from '../services/group.service.js'
 import { TaskService } from '../services/task.service.js'
+
+import { store } from './store.js'
+import { SET_BOARDS, SET_BOARD, REMOVE_BOARD, ADD_BOARD, UPDATE_BOARD, SET_FILTER } from "./board.reducer.js"
 
 export async function loadBoards() {
     try {
