@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { loadBoard } from "../../store/board.actions"
-
+import { removeBoard, saveBoard } from "../../store/board.actions"
 import { HiOutlineDocumentDuplicate } from 'react-icons/hi'
 import { FiTrash } from 'react-icons/fi'
 
@@ -15,6 +15,24 @@ export function BoardPreview({ board }) {
         loadBoard(boardId)
     }
 
+    async function onRemove(boardId) {
+        try {
+            removeBoard(boardId)
+        } catch (err) {
+            console.log('err:', err)
+        }
+    }
+
+    async function onDuplicate(board) {
+        try {
+            const DuplicateBoard = structuredClone(board) 
+            DuplicateBoard._id = null
+            saveBoard(DuplicateBoard)
+        } catch (err) {
+            console.log('err:', err)
+        }
+    }
+
     return (
         <section onClick={() => onChangeBoard(board._id)} className={`board-preview ${board._id === boardId ? ' active' : ''}`}
         onTouchStart={() => setIsMouseOver(true)} onTouchEnd={() => setIsMouseOver(false)} onMouseOver={() => setIsMouseOver(true)} onMouseOut={() => setIsMouseOver(false)}>
@@ -25,8 +43,8 @@ export function BoardPreview({ board }) {
             <span>{board.title}</span>
         </div>
        {isMouseOver && <div className='icons'>
-            <HiOutlineDocumentDuplicate />
-            <FiTrash />
+            <HiOutlineDocumentDuplicate onClick={() => onDuplicate(board)} />
+            <FiTrash onClick={() => onRemove(boardId)}/>
         </div>}
     </section>
     )
