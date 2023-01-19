@@ -8,9 +8,12 @@ import { PriorityPicker } from "./priority-picker"
 import { StatusPicker } from "./status-picker"
 
 import { BiMessageRoundedAdd } from 'react-icons/bi'
+import { useSelector } from "react-redux"
+import { updateAction } from "../../store/board.actions"
 
 export function TaskPreview({ task }) {
     const elTaskPreview = useRef(null)
+    const board = useSelector(storeState => storeState.boardModule.board)
     //TODO:GET FROM STORE
     const cmpsOrder = [
         "member-picker",
@@ -33,7 +36,7 @@ export function TaskPreview({ task }) {
         task.title = value
         try {
             elTaskPreview.current.classList.toggle('on-typing')
-            await TaskService.save(task)
+            await updateAction(board)
         } catch (err) {
             console.log('Failed to save')
         }

@@ -53,7 +53,17 @@ function getEmptyBoard() {
                 "color": "#e2445c"
             }
         ],
-        "members": [],
+        "members": [
+        {
+            "_id": "m101",
+            "fullname": "Tal Tarablus",
+            "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
+        },
+        {
+            "_id": "m102",
+            "fullname": "Idan David",
+            "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673820094/%D7%A2%D7%99%D7%93%D7%9F_jranbo.jpg"
+        }],
         "groups": [],
         "activities": [],
         "cmpsOrder": ["status-picker", "member-picker", "date-picker"]
@@ -114,27 +124,81 @@ function _createBoards() {
                 ],
                 "members": [
                     {
-                        "_id": "m101",
+                        "id": "m101",
                         "fullname": "Tal Tarablus",
                         "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
                     },
                     {
-                        "_id": "m102",
+                        "id": "m102",
                         "fullname": "Idan David",
                         "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673820094/%D7%A2%D7%99%D7%93%D7%9F_jranbo.jpg"
                     },
                     {
-                        "_id": "m103",
+                        "id": "m103",
                         "fullname": "Ofek Tarablus",
                         "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1674069458/image_exxnux.png"
                     },
                     {
-                        "_id": "m104",
+                        "id": "m104",
                         "fullname": "Ofer Tarablus",
                         "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1674069496/me_dpbzfs.jpg"
                     }
                 ],
-                "groups": ["g101", "g102",],
+                "groups": [{
+                    "id": "g101",
+                    "title": "Group 1",
+                    "archivedAt": 1589983468418,
+                    "tasks": [
+                        {
+                            "id": "c101",
+                            "title": "Replace logo",
+                            "status": "Stuck",
+                            "priority": "Medium", 
+                            "memberIds": ["m101", "m102", "m103"],
+                            "dueDate": 1615621
+                        },
+                        {
+                            "id": "c102",
+                            "title": "Add Samples",
+                            "status": "Done",
+                            "priority": "Low", 
+                            "memberIds": ["m101"],
+                            "dueDate": 16156211111
+                        },
+                    ],
+                    "color": '#66ccff'
+                },
+                {
+                    "id": "g102",
+                    "title": "Group 2",
+                    "tasks": [
+                        {
+                            "id": "c103",
+                            "title": "Help me",
+                            "status": "Done", 
+                            "priority": "High", 
+                            "memberIds": ["m101", "m102", "m103"],
+                            "dueDate": 16156215211,
+                        },
+                        {
+                            "id": "c104",
+                            "title": "Help me",
+                            "status": "Done", 
+                            "priority": "High", 
+                            "memberIds": ["m103"],
+                            "dueDate": 16156215211
+                        },
+                        {
+                            "id": "c105",
+                            "title": "Help me",
+                            "status": "Progress",
+                            "priority": "Low", 
+                            "memberIds": ["m101", "m103"],
+                            "dueDate": 16156215211
+                        }
+                    ],
+                    "color": '#a25ddc'
+                }],
                 "activities": [
                     {
                         "id": "a101",

@@ -1,4 +1,8 @@
+import { useSelector } from 'react-redux'
 import { useRef, useState } from 'react'
+
+import { loadBoards, saveBoard } from '../../store/board.actions'
+import { boardService } from '../../services/board.service'
 
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { IoIosArrowDown } from 'react-icons/io'
@@ -8,9 +12,22 @@ import { BiSearch } from 'react-icons/bi'
 import { MdKeyboardArrowLeft } from 'react-icons/md'
 import { MdKeyboardArrowRight } from 'react-icons/md'
 
+import { BoardPreview } from '../board/board-preview'
+
 export function WorkspaceSidebar() {
     const elSection = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
+    const boards = useSelector(storeState => storeState.boardModule.boards)
+
+    async function onAddBoard() {
+        try {
+            const newBoard = boardService.getEmptyBoard()
+            await saveBoard(newBoard)
+            loadBoards()
+        } catch (err) {
+            console.log('err:', err)
+        }
+    }
 
     function onToggleWorkspace() {
         setIsOpen((prevIsOpen) => !prevIsOpen)
@@ -35,7 +52,7 @@ export function WorkspaceSidebar() {
                         <IoIosArrowDown className='icon' />
                     </div>
                     <div className='workspace-btns'>
-                        <div >
+                        <div onClick={onAddBoard} >
                             <AiOutlinePlus className='icon' />
                             <span>Add</span>
                         </div>
@@ -49,25 +66,11 @@ export function WorkspaceSidebar() {
                         </div>
                     </div>
                 </div>
-                <div className='board-list'>
-                    <div className='active'>
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fillRule="evenodd" clipRule="evenodd" d="M7.5 4.5H16C16.2761 4.5 16.5 4.72386 16.5 5V15C16.5 15.2761 16.2761 15.5 16 15.5H7.5L7.5 4.5ZM6 4.5H4C3.72386 4.5 3.5 4.72386 3.5 5V15C3.5 15.2761 3.72386 15.5 4 15.5H6L6 4.5ZM2 5C2 3.89543 2.89543 3 4 3H16C17.1046 3 18 3.89543 18 5V15C18 16.1046 17.1046 17 16 17H4C2.89543 17 2 16.1046 2 15V5Z" fill="currentColor" />
-                        </svg>
-                        <span>Sprint 4</span>
-                    </div>
-                    <div>
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fillRule="evenodd" clipRule="evenodd" d="M7.5 4.5H16C16.2761 4.5 16.5 4.72386 16.5 5V15C16.5 15.2761 16.2761 15.5 16 15.5H7.5L7.5 4.5ZM6 4.5H4C3.72386 4.5 3.5 4.72386 3.5 5V15C3.5 15.2761 3.72386 15.5 4 15.5H6L6 4.5ZM2 5C2 3.89543 2.89543 3 4 3H16C17.1046 3 18 3.89543 18 5V15C18 16.1046 17.1046 17 16 17H4C2.89543 17 2 16.1046 2 15V5Z" fill="currentColor" />
-                        </svg>
-                        <span>Sprint 4 Dashboard</span>
-                    </div>
-                    <div>
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fillRule="evenodd" clipRule="evenodd" d="M7.5 4.5H16C16.2761 4.5 16.5 4.72386 16.5 5V15C16.5 15.2761 16.2761 15.5 16 15.5H7.5L7.5 4.5ZM6 4.5H4C3.72386 4.5 3.5 4.72386 3.5 5V15C3.5 15.2761 3.72386 15.5 4 15.5H6L6 4.5ZM2 5C2 3.89543 2.89543 3 4 3H16C17.1046 3 18 3.89543 18 5V15C18 16.1046 17.1046 17 16 17H4C2.89543 17 2 16.1046 2 15V5Z" fill="currentColor" />
-                        </svg>
-                        <span>Demo Data</span>
-                    </div>
+                <div>
+                    {boards.map(board => {
+                        return  <li className='board-list'>
+                            <BoardPreview board={board}/>
+                        </li>})}
                 </div>
             </div>}
         </section>
