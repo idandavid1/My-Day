@@ -1,6 +1,8 @@
 import { boardService } from '../services/board.service.js'
 import { store } from './store.js'
 import { SET_BOARDS, SET_BOARD, REMOVE_BOARD, ADD_BOARD, UPDATE_BOARD, SET_FILTER } from "./board.reducer.js"
+import { groupService } from '../services/group.service.js'
+import { TaskService } from '../services/task.service.js'
 
 export async function loadBoards() {
     try {
@@ -46,4 +48,18 @@ export async function saveBoard(board) {
 
 export function setFilter(filter) {
     store.dispatch({ type: SET_FILTER, filter })
+}
+
+export async function addTask(task , groupId , board){
+    // console.log(task, groupId, board)
+    try{
+        const taskToSave = await TaskService.save(task)
+        const group = await groupService.getById(groupId)
+        group.tasks.push(taskToSave._id)
+        await groupService.save(group)
+        return group 
+
+    } catch (err) {
+        console.error('cant add task:', err)
+    }
 }

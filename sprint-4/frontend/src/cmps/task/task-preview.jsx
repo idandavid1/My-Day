@@ -63,6 +63,7 @@ export function TaskPreview({ task }) {
                     />
                 )
             })}
+
         </section>
     )
 }
