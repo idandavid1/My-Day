@@ -2,16 +2,15 @@
     box-sizing: border-box;
 }
 
-
 html {
-    // font-family: montserrat;
     line-height: 1.6;
 }
 
-h5{
+h1,h2,h3,h4,h5,h6 {
     margin: 0;
     padding: 0;
 }
+
 body {
     font-size: rem(18px);
     margin: 0;
@@ -22,16 +21,20 @@ body {
 img {
     width: auto;
 }
-ul{
+
+ul {
     padding: 0;
 }
-li{
+
+li {
     list-style: none;
 }
-p{
+
+p {
     margin: 0;
     padding: 0;
 }
+
 a {
     text-decoration: none;
     cursor: pointer;
@@ -41,3 +44,11 @@ a {
     @include btn()
 }
 
+blockquote {
+    margin: 0;
+    padding: 0;
+
+    &:focus-visible{
+        outline: 1px solid darken($border-color , 20%);
+    }
+}

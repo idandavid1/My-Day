@@ -1,10 +1,12 @@
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+
+import { loadBoards } from "../store/board.actions"
+
 import { BoardHeader } from "../cmps/board/board-header"
 import { MainSidebar } from "../cmps/sidebar/main-sidebar"
 import { WorkspaceSidebar } from "../cmps/sidebar/workspace-sidebar"
-import { useState, useEffect, useRef } from 'react'
-import { loadBoards } from "../store/board.actions"
-import { useSelector } from 'react-redux'
-import { GroupList } from '../cmps/board/group-list.jsx'
+import { GroupList } from '../cmps/board/group-list'
 
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
@@ -18,7 +20,7 @@ export function BoardDetails() {
             <MainSidebar />
             <WorkspaceSidebar boards={boards} />
             <main className="board-main">
-                <BoardHeader />
+                <BoardHeader board={boards[0]} />
                 <GroupList board={boards[0]} />
             </main>
         </section>

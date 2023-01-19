@@ -2,7 +2,6 @@ import { httpService } from './http.service'
 import { storageService } from './async-storage.service'
 import { userService } from './user.service'
 
-
 export const reviewService = {
   add,
   query,

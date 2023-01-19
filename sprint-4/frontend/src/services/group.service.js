@@ -13,7 +13,6 @@ export const groupService = {
     getEmptyGroup,
 }
 
-
 function query() {
     return storageService.query(STORAGE_KEY)
 }
@@ -69,9 +68,3 @@ function _createGroups() {
         utilService.saveToStorage(STORAGE_KEY, groups)
     }
 }
-
-
-
-
-
-

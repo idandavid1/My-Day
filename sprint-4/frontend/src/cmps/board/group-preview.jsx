@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
+
 import { groupService } from "../../services/group.service"
 import { TaskService } from "../../services/task.service"
 import { TaskPreview } from "../task/task-preview"
-import { MdKeyboardArrowDown } from 'react-icons/md'
 
+import { MdKeyboardArrowDown } from 'react-icons/md'
 
 export function GroupPreview({ groupId }) {
     const [tasks, setTasks] = useState(null)
@@ -11,7 +12,7 @@ export function GroupPreview({ groupId }) {
     const titles = ['Task', 'Person', 'Status', 'Date', 'Priority']
     useEffect(() => {
         loadTasks()
-    }, [])
+    })
 
     async function loadTasks() {
         try {
@@ -25,13 +26,24 @@ export function GroupPreview({ groupId }) {
         }
     }
 
+    async function onSave(ev) {
+        const value = ev.target.innerText 
+        group.title = value
+        try{
+            groupService.save(group)
+        } catch (err) {
+            console.log('Failed to save')
+        }
+    }
+
     if (!tasks) return <div>Loading...</div>
     return <ul className="group-preview" >
         <div className="group-title" style={{ color: group.color }}>
             <MdKeyboardArrowDown className="arrow-icon" />
-            <h4>{group.title}</h4>
+            <blockquote contentEditable onBlur={onSave} suppressContentEditableWarning={true}>
+                <h4>{group.title}</h4>
+            </blockquote>
         </div>
-
         <div className="group-preview-content" style={{ borderColor: group.color }}>
             <div className='title-container'>
                 <div className="check-box">
@@ -44,6 +56,6 @@ export function GroupPreview({ groupId }) {
                     <TaskPreview task={task} />
                 </li>
             })}
-        </div >
+        </div>
     </ul>
 }

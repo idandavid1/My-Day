@@ -1,5 +1,5 @@
-import { storageService } from './async-storage.service.js' 
-import { utilService } from './util.service.js'
+import { storageService } from './async-storage.service' 
+import { utilService } from './util.service'
 
 const STORAGE_KEY = 'taskDB'
 
@@ -12,7 +12,6 @@ export const TaskService = {
     remove,
     getEmptyTask
 }
-
 
 function query() {
     return storageService.query(STORAGE_KEY)
@@ -66,7 +65,7 @@ function _createTasks() {
                 "_id": "c103",
                 "title": "Help me",
                 "status": "Done", 
-                "priority": "high", 
+                "priority": "High", 
                 "memberIds": ["m101", "m102", "m103"],
                 "dueDate": 16156215211,
             },
@@ -87,7 +86,6 @@ function _createTasks() {
                 "dueDate": 16156215211
             }
         )
-
         utilService.saveToStorage(STORAGE_KEY, tasks)
     }
 }

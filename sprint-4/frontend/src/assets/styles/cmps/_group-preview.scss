@@ -8,17 +8,30 @@
     li {
         .task-preview {
             display: flex;
-            text-align: center;
-
+            
             .picker {
                 width: $cell-width;
                 height: $cell-height;
                 border: 1px solid darken($border-color , 20%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             .task-title {
-
                 width: $cell-width-task;
+                display: flex;
+                justify-content: space-between;
+                .chat-icon {
+                    width: 65px;
+                    padding: 0 16px;
+                    height: 100%;
+                    border-left: 1px solid darken($border-color , 20%);
+                    color: $workspace-icon-color;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
             }
 
             .task-person {
@@ -34,6 +47,25 @@
                 background-color: $color-explosive;
             }
 
+            &.on-typing {
+                background-color: $workspace-board-active;
+            }
+
+            blockquote {
+                background-color: $app-bg;
+                padding-right: 40px;
+                padding-left: 10px;
+                border-radius: 5px;
+                width: 200px;
+                max-height: 30px;
+                overflow: hidden;
+                display: inline-block;
+                white-space: nowrap;
+                margin-left: 36px;
+                &:focus-visible {
+                    outline: 1px solid $board-btn;
+                }
+            }
         }
     }
 
@@ -68,12 +100,14 @@
         height: 40px;
         align-items: center;
         line-height: $font-reg-line-height-24;
-        .arrow-icon{
+
+        .arrow-icon {
             font-size: 16px;
             margin-left: 13px;
             cursor: pointer;
         }
-        h4{
+
+        h4 {
             cursor: text;
             font-weight: 600;
             font-size: 18px;
@@ -95,7 +129,7 @@
         }
     }
 
-    
+
 
     .group-preview-content {
         border-left: 6px solid;

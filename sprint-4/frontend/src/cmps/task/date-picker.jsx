@@ -1,6 +1,4 @@
-
 import { utilService } from "../../services/util.service"
-
 
 export function DatePicker({ info, onUpdate }) {
     if (!info.dueDate) return <div className="picker"></div>
