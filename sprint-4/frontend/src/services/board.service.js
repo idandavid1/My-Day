@@ -34,7 +34,7 @@ function save(board) {
 
 function getEmptyBoard() {
     return {
-        "title": '',
+        "title": 'New Board',
         "archivedAt": Date.now(),
         "labels": [
             {
