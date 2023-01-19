@@ -54,8 +54,7 @@ export function setFilter(filter) {
 export async function addGroup(board) {
     try {
         const group = groupService.getEmptyGroup()
-        const groupToSave = await groupService.save(group)
-        board.groups.push(groupToSave._id)
+        board.groups.push(group)
         const boardToSave = await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board: boardToSave})
     } catch (err) {
@@ -64,15 +63,20 @@ export async function addGroup(board) {
     }
 }
 
-export async function addTask(task , groupId , board){
-    // console.log(task, groupId, board)
+export async function addTask(task , group , board){
     try{
-        const taskToSave = await TaskService.save(task)
-        const group = await groupService.getById(groupId)
-        group.tasks.push(taskToSave._id)
-        await groupService.save(group)
-        return group 
+        group.tasks.push(task)
+        await boardService.save(board)
+        store.dispatch({ type: SET_BOARD, board })
+    } catch (err) {
+        console.error('cant add task:', err)
+    }
+}
 
+export async function updateAction(board) {
+    try {
+        await boardService.save(board)
+        store.dispatch({ type: SET_BOARD, board })
     } catch (err) {
         console.error('cant add task:', err)
     }

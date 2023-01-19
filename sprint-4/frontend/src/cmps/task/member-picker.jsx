@@ -4,11 +4,10 @@ const guest = require('../../assets/img/guest.png')
 
 export function MemberPicker({ info, onUpdate }) {
     const board = useSelector(storeState => storeState.boardModule.board)
-    if (!info?.memberIds) return <div className="picker task-person"></div>
-    const members = info.memberIds.filter(member => getMember(member))
-
+    if (!info.memberIds) return <div className="picker task-person"></div>
+    const members = info.memberIds.map(member => getMember(member))
     function getMember(memberId) {
-        return board.members.find(member => member._id === memberId)
+        return board.members.find(member => member.id === memberId)
     }
 
     return (

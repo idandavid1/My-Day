@@ -27,7 +27,6 @@ export function WorkspaceSidebar() {
         } catch (err) {
             console.log('err:', err)
         }
-       
     }
 
     function onToggleWorkspace() {

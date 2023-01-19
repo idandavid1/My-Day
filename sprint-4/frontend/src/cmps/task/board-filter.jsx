@@ -3,9 +3,6 @@ import { addGroup } from '../../store/board.actions'
 
 
 export function BoardFilter({ board }) {
-   
-
-
     return (<section className="board-filter">
         <div className="add-btn">
             <button className="new-item-btn">New Item</button>
