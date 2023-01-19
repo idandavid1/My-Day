@@ -1,0 +1,46 @@
+.modal-status-priority {
+    // position: absolute;
+    z-index: 2;
+    background-color: white;
+    box-shadow: 0 8px 16px 0 rgb(0 0 0 / 32%);
+    border-radius: 10px;
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-small;
+        padding: $spacing-medium $spacing-large $spacing-small $spacing-large;
+
+        li{
+            min-width: 152px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            cursor: pointer;
+        }
+    }
+
+    .edit-labels-btn{
+        padding: 0 $spacing-medium $spacing-small $spacing-medium;
+        display: flex;
+        justify-content: center;
+        border-top: 1px solid darken($border-color ,  20%);
+        // width: 152px;
+        button{
+            width: 152px;
+            background-color: $app-bg;
+            color: $primary-text-color;
+            padding: $spacing-xs $spacing-small;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 5px 5px 5px;
+
+            .icon{
+                font-size: 20px;
+                margin-right: 8px;
+            }
+        }
+    }
+
+}

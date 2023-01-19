@@ -1,6 +1,4 @@
-import { useRef } from "react"
-
-import { TaskService } from "../../services/task.service"
+import { useRef, useState } from "react"
 
 import { DatePicker, DueDate } from "./date-picker"
 import { MemberPicker } from "./member-picker"
@@ -12,6 +10,7 @@ import { useSelector } from "react-redux"
 import { updateAction } from "../../store/board.actions"
 
 export function TaskPreview({ task }) {
+    const [updateCurrTask, setUpdateCurrTask] = useState(task)
     const elTaskPreview = useRef(null)
     const board = useSelector(storeState => storeState.boardModule.board)
     //TODO:GET FROM STORE
@@ -22,27 +21,45 @@ export function TaskPreview({ task }) {
         "priority-picker",
     ]
 
-
     function updateTask(cmpType, data) {
         switch (cmpType) {
             case "status-picker":
+                console.log('statuis')
                 return updateStatus(data)
             case "member-picker":
                 return updateMember(data)
             case "date-picker":
-                return updateDate(data) 
+                return updateDate(data)
             case "priority-picker":
-                return updatePropity(data)
+                return updatePriority(data)
             default:
                 return
         }
     }
 
-    function updateStatus(data){}
-    function updateMember(data){}
-    function updateDate(data){}
-    function updatePropity(data){}
+    async function updateDate(data) {
+        console.log(data.getTime())
+        task.dueDate = data.getTime()
+        try {
+            await updateAction(board)
+            setUpdateCurrTask({ ...task })
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
+    async function updateStatus(data) {
+        console.log(data)
+        task.status = data 
+        try {
+            await updateAction(board)
+            setUpdateCurrTask({ ...task })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    function updateMember(data) { }
+    function updatePriority(data) { }
 
     async function onUpdateTaskTitle(ev) {
         const value = ev.target.innerText
@@ -74,8 +91,7 @@ export function TaskPreview({ task }) {
                         cmp={cmp}
                         key={idx}
                         info={task}
-                        onUpdate={(data) => {
-                        }}
+                        onUpdate={updateTask}
                     />
                 )
             })}
