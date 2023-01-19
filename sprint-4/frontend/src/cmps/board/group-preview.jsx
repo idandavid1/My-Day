@@ -7,9 +7,12 @@ import { TaskPreview } from "../task/task-preview"
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { addTask, updateAction } from "../../store/board.actions"
 
-export function GroupPreview({ group , board}) {
-    const [taskToEdit , setTaskToEdit] = useState(TaskService.getEmptyTask())
+import { BiDotsHorizontalRounded } from 'react-icons/bi'
+
+export function GroupPreview({ group, board }) {
+    const [taskToEdit, setTaskToEdit] = useState(TaskService.getEmptyTask())
     const titles = ['Task', 'Person', 'Status', 'Date', 'Priority']
+    const [isMouseOver, setIsMouseOver] = useState(false)
 
     async function onSave(ev) {
         const value = ev.target.innerText
@@ -26,15 +29,20 @@ export function GroupPreview({ group , board}) {
         setTaskToEdit((prevTask) => ({ ...prevTask, [field]: value }))
     }
 
-    function onAddTask(ev){
+    function onAddTask(ev) {
         ev.preventDefault()
-        if(!taskToEdit.title) return
-        addTask(taskToEdit , group , board)
+        if (!taskToEdit.title) return
+        addTask(taskToEdit, group, board)
         setTaskToEdit(TaskService.getEmptyTask())
     }
 
     return <ul className="group-preview" >
-        <div className="group-title" style={{ color: group.color }}>
+        <div className="group-title" style={{ color: group.color }}
+            onTouchStart={() => setIsMouseOver(true)} onTouchEnd={() => setIsMouseOver(false)} onMouseOver={() => setIsMouseOver(true)} onMouseOut={() => setIsMouseOver(false)}>
+            {isMouseOver && <div className="group-menu">
+                <BiDotsHorizontalRounded className="icon"/>
+            </div>
+            }
             <MdKeyboardArrowDown className="arrow-icon" />
             <blockquote contentEditable onBlur={onSave} suppressContentEditableWarning={true}>
                 <h4>{group.title}</h4>
@@ -58,11 +66,11 @@ export function GroupPreview({ group , board}) {
                 </div>
                 <form onSubmit={onAddTask} className="add-task-form">
                     <input type="text"
-                    name="title"
-                    value={taskToEdit.title}
-                    placeholder="+ Add Task"
-                    onChange={handleChange}
-                    onBlur={onAddTask} />
+                        name="title"
+                        value={taskToEdit.title}
+                        placeholder="+ Add Task"
+                        onChange={handleChange}
+                        onBlur={onAddTask} />
                 </form>
             </div>
         </div>

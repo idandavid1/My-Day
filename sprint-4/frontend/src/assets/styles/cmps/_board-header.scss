@@ -144,21 +144,68 @@
     }
 
     .board-filter {
+        display: flex;
+        flex-direction: row;
+        padding: $spacing-medium 0;
+
         .add-btn {
-            margin-right: 14px;       
+            margin-right: 14px;
+            display: flex;
+            width: 104px;
+            height: 32px;
 
             .new-item-btn {
                 margin: 0px;
-                padding-right: 0px;
                 background-color: $board-btn;
+                padding: 4px 8px;
+                width: 76px;
+                font-size: 12px;
             }
 
             .dropdown-btn {
                 margin: 0px;
-                padding-left: 0px;
                 height: inherit;
                 background-color: $board-btn;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-left: 1px solid darken($border-color , 60%);
             }
         }
+
+        .search-btn {
+            display: flex;
+            align-items: center;
+            transition: background-color .1s cubic-bezier(0, 0, 0.35, 1);
+            border-radius: 4px;
+            color: $primary-text-color;
+            background-color: $app-bg;
+        }
+
+        .person-btn {
+            color: $primary-text-color;
+            background-color: $app-bg;
+        }
+
+        .filter-btn {
+            color: $primary-text-color;
+            background-color: $app-bg;
+        }
+
+        .sort-btn {
+            color: $primary-text-color;
+            background-color: $app-bg;
+        }
+
+        .hide-btn {
+            color: $primary-text-color;
+            background-color: $app-bg;
+        }
+
+        .more-btn {
+            color: $primary-text-color;
+            background-color: $app-bg;
+        }
+
     }
 }
