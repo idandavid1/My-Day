@@ -1,11 +1,21 @@
 import { boardService } from '../services/board.service.js'
 import { store } from './store.js'
-import { SET_BOARDS, REMOVE_BOARD, ADD_BOARD, UPDATE_BOARD, SET_FILTER } from "./board.reducer.js"
+import { SET_BOARDS, SET_BOARD, REMOVE_BOARD, ADD_BOARD, UPDATE_BOARD, SET_FILTER } from "./board.reducer.js"
 
 export async function loadBoards() {
     try {
         const boards = await boardService.query()
         store.dispatch({ type: SET_BOARDS, boards })
+    } catch (err) {
+        console.log('Had issues loading', err)
+        throw err
+    }
+}
+
+export async function loadBoard(boardId){
+    try {
+        const board = await boardService.getById(boardId)
+        store.dispatch({ type: SET_BOARD, board })
     } catch (err) {
         console.log('Had issues loading', err)
         throw err
