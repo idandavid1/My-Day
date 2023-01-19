@@ -38,8 +38,8 @@ export async function removeBoard(boardId) {
 export async function saveBoard(board) {
     const type = (board._id) ? UPDATE_BOARD : ADD_BOARD
     try {
-        await boardService.save(board)
-        store.dispatch({ type, board })
+        const newBoard = await boardService.save(board)
+        store.dispatch({ type, board: newBoard })
         return board
     } catch (err) {
         console.error('cant save board:', err)
