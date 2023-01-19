@@ -3,8 +3,6 @@
     flex-direction: column;
     margin-bottom: 100px;
 
-
-
     li {
         .task-preview {
             display: flex;
@@ -45,6 +43,8 @@
 
             .empty-label {
                 background-color: $color-explosive;
+                width: $cell-width;
+                height: $cell-height;
             }
 
             &.on-typing {

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
 
-import { DatePicker, DueDate } from "./date-picker"
+import { DueDate } from "./date-picker"
 import { MemberPicker } from "./member-picker"
 import { PriorityPicker } from "./priority-picker"
 import { StatusPicker } from "./status-picker"
@@ -10,7 +10,7 @@ import { useSelector } from "react-redux"
 import { updateAction } from "../../store/board.actions"
 
 export function TaskPreview({ task }) {
-    const [updateCurrTask, setUpdateCurrTask] = useState(task)
+    const [ setUpdateCurrTask] = useState(task)
     const elTaskPreview = useRef(null)
     const board = useSelector(storeState => storeState.boardModule.board)
     //TODO:GET FROM STORE
@@ -21,25 +21,8 @@ export function TaskPreview({ task }) {
         "priority-picker",
     ]
 
-    function updateTask(cmpType, data) {
-        switch (cmpType) {
-            case "status-picker":
-                console.log('statuis')
-                return updateStatus(data)
-            case "member-picker":
-                return updateMember(data)
-            case "date-picker":
-                return updateDate(data)
-            case "priority-picker":
-                return updatePriority(data)
-            default:
-                return
-        }
-    }
-
-    async function updateDate(data) {
-        console.log(data.getTime())
-        task.dueDate = data.getTime()
+    async function updateTask(cmpType, data) {
+        task[cmpType] = data
         try {
             await updateAction(board)
             setUpdateCurrTask({ ...task })
@@ -48,18 +31,7 @@ export function TaskPreview({ task }) {
         }
     }
 
-    async function updateStatus(data) {
-        console.log(data)
-        task.status = data 
-        try {
-            await updateAction(board)
-            setUpdateCurrTask({ ...task })
-        } catch (err) {
-            console.log(err)
-        }
-    }
     function updateMember(data) { }
-    function updatePriority(data) { }
 
     async function onUpdateTaskTitle(ev) {
         const value = ev.target.innerText

@@ -11,7 +11,7 @@ export function DueDate({ info, onUpdate }) {
                 popperClassName="date-picker-input"
                 dateFormat="MMM d"
                 selected={info.dueDate}
-                onChange={(data) => onUpdate('date-picker',data )}
+                onChange={(data) => onUpdate('dueDate',data.getTime() )}
             />
         </section>
     )

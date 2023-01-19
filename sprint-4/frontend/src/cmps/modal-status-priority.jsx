@@ -1,10 +1,10 @@
 import { RxPencil1 } from 'react-icons/rx'
 
-export function ModalStatusPriority({ labels, onUpdate, position, setIsModalOpen }) {
+export function ModalStatusPriority({ labels, onUpdate, position, setIsModalOpen, cmpType }) {
 
     function onClickModal(labelTitle) {
         console.log('test')
-        onUpdate('status-picker', labelTitle)
+        onUpdate(cmpType, labelTitle)
         setIsModalOpen(false)
     }
 
@@ -14,7 +14,7 @@ export function ModalStatusPriority({ labels, onUpdate, position, setIsModalOpen
                 {labels.map((label, idx) => <li onClick={() => onClickModal(label.title)} key={idx} style={{ backgroundColor: label.color }}>
                     {label.title}
                 </li>)}
-                <li onClick={() => onUpdate('status-picker', null)} style={{ backgroundColor: 'gray' }}></li>
+                <li onClick={() => onClickModal(null)} style={{ backgroundColor: '#c4c4c4' }}></li>
             </ul>
             <div className="edit-labels-btn">
                 <button>
