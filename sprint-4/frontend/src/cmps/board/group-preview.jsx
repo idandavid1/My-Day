@@ -56,7 +56,7 @@ export function GroupPreview({ group , board}) {
                 <div className="check-box add-task">
                     <input type="checkbox" />
                 </div>
-                <form onSubmit={onAddTask} className="add-task-input">
+                <form onSubmit={onAddTask} className="add-task-form">
                     <input type="text"
                     name="title"
                     value={taskToEdit.title}

@@ -24,12 +24,25 @@ export function TaskPreview({ task }) {
 
 
     function updateTask(cmpType, data) {
-        // Switch by cmpType
-        // task.members = data
-        // task.status = data
-
-        // dispatch to store: updateTask(task, activity)
+        switch (cmpType) {
+            case "status-picker":
+                return updateStatus(data)
+            case "member-picker":
+                return updateMember(data)
+            case "date-picker":
+                return updateDate(data) 
+            case "priority-picker":
+                return updatePropity(data)
+            default:
+                return
+        }
     }
+
+    function updateStatus(data){}
+    function updateMember(data){}
+    function updateDate(data){}
+    function updatePropity(data){}
+
 
     async function onUpdateTaskTitle(ev) {
         const value = ev.target.innerText
