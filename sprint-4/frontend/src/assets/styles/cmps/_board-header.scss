@@ -27,14 +27,16 @@
                 border: 1px solid transparent;
                 color: $primary-text-color;
                 letter-spacing: 0.5px;
-    
+
                 &:hover {
                     border: 1px solid darken($border-color , 20%);
                 }
             }
-            & >*  {
+
+            &>* {
                 cursor: pointer;
-                &:hover:not(:first-child){
+
+                &:hover:not(:first-child) {
                     background-color: $workspace-hover;
                 }
             }
@@ -68,7 +70,7 @@
             @include member-img(white, #323338, 24px, 26px)
         }
 
-        
+
     }
 
     .board-description {
@@ -92,30 +94,36 @@
             }
         }
     }
-    .board-display-btns{
+
+    .board-display-btns {
         display: flex;
         margin-top: $spacing-small;
-        .main-table-btn{
+
+        .main-table-btn {
             height: 32px;
             align-items: center;
             padding: 0 8px 0 8px;
             position: relative;
 
-            &.active{
+            &.active {
                 border-bottom: 4px solid $board-btn;
             }
-            svg{
+
+            svg {
                 height: 16px;
             }
-            span{
+
+            span {
                 font-weight: 500;
                 padding: 0 4px;
             }
-            &:hover{
+
+            &:hover {
                 background-color: $workspace-hover;
                 border-radius: 4px;
             }
-            &::after{
+
+            &::after {
                 border-right: 1px solid darken($border-color , 30%);
                 content: "";
                 height: 18px;
@@ -124,13 +132,33 @@
                 top: 6px;
                 right: 0;
             }
-            
-           
+
+
         }
     }
-    .board-border{
+
+    .board-border {
         height: 1px;
         width: 100%;
         background-color: darken($border-color , 20%);
+    }
+
+    .board-filter {
+        .add-btn {
+            margin-right: 14px;       
+
+            .new-item-btn {
+                margin: 0px;
+                padding-right: 0px;
+                background-color: $board-btn;
+            }
+
+            .dropdown-btn {
+                margin: 0px;
+                padding-left: 0px;
+                height: inherit;
+                background-color: $board-btn;
+            }
+        }
     }
 }

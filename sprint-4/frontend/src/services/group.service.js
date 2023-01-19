@@ -32,7 +32,7 @@ function save(group) {
 
 function getEmptyGroup() {
     return {
-        "title": '',
+        "title": 'New Group',
         "archivedAt": Date.now(),
         "tasks": [],
         "color":'#ffcb00'
