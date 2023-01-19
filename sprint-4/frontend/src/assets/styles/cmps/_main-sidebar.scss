@@ -5,6 +5,8 @@
     background-color: $sidebar-main-bg;
     min-width: 66px;
     height: 100vh;
+    position: sticky;
+    top: 0;
     
 
     a {
@@ -62,7 +64,6 @@
         align-items: center;
         gap: $spacing-medium;
         padding: $spacing-medium 0;
-        
     }
     
     .menu-icon {
