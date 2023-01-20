@@ -4,11 +4,12 @@ import { TaskService } from "../../services/task.service"
 import { TaskPreview } from "../task/task-preview"
 
 import { MdKeyboardArrowDown } from 'react-icons/md'
-import { addTask, updateAction } from "../../store/board.actions"
+import { addTask, removeGroup, updateAction } from "../../store/board.actions"
 
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { AiOutlinePlus} from 'react-icons/ai'
 import { GroupMenuModal } from "../group-menu-modal"
+
 export function GroupPreview({ group, board }) {
     const [taskToEdit, setTaskToEdit] = useState(TaskService.getEmptyTask())
     const titles = ['Task', 'Person', 'Status', 'Date', 'Priority']
@@ -40,9 +41,14 @@ export function GroupPreview({ group, board }) {
         setTaskToEdit(TaskService.getEmptyTask())
     }
 
+    function onRemoveGroup(groupId){
+        const groups = board.groups.filter(group => group.id !== groupId)
+        removeGroup(groups , board)
+    }
+
     return <ul className="group-preview" >
         {isModalOpen &&
-        <GroupMenuModal groupId ={group.id} setIsModalOpen={setIsModalOpen} />
+        <GroupMenuModal onRemoveGroup={onRemoveGroup} groupId ={group.id} setIsModalOpen={setIsModalOpen} />
         }
         <div className="group-title" style={{ color: group.color }}>
              <div className="group-menu">

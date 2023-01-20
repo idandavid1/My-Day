@@ -3,7 +3,7 @@ import { groupService } from '../services/group.service.js'
 import { TaskService } from '../services/task.service.js'
 
 import { store } from './store.js'
-import { SET_BOARDS, SET_BOARD, REMOVE_BOARD, ADD_BOARD, UPDATE_BOARD, SET_FILTER, SET_MODAL } from "./board.reducer.js"
+import { SET_BOARDS, SET_BOARD, REMOVE_BOARD, ADD_BOARD, UPDATE_BOARD, SET_FILTER, SET_MODAL, REMOVE_GROUP } from "./board.reducer.js"
 
 export async function loadBoards() {
     try {
@@ -84,4 +84,10 @@ export async function updateAction(board) {
 
 export function toggleModal(isOpenModal) {
     store.dispatch({ type: SET_MODAL, isOpen: isOpenModal })
+}
+
+export async function removeGroup(groups , board){
+    board.groups = groups
+    const boardToSave = await boardService.save(board)
+    store.dispatch({type:UPDATE_BOARD, board:boardToSave})
 }
