@@ -1,8 +1,5 @@
 .modal-status-priority {
-    position: relative;
-    z-index: 2;
-    bottom: -190px;
-    left: -35px;
+    @include task-modal-position();
     
     .modal-status-priority-content {
         box-shadow: 0 8px 16px 0 rgb(0 0 0 / 32%);
@@ -47,12 +44,6 @@
         }
     }
     .triangle-container {
-        position: relative;
-        z-index: 2;
-        color: white;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        bottom: -6px;
+        @include triangle-container();
     }
 }
