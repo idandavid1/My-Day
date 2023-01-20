@@ -180,31 +180,68 @@
             border-radius: 4px;
             color: $primary-text-color;
             background-color: $app-bg;
+
+            &:hover {
+                background-color: $workspace-hover;
+            }
         }
 
         .person-btn {
             color: $primary-text-color;
             background-color: $app-bg;
+            display: flex;
+            align-items: center;
+            border-radius: 4px;
+
+            &:hover {
+                background-color: $workspace-hover;
+            }
         }
 
         .filter-btn {
             color: $primary-text-color;
             background-color: $app-bg;
+            display: flex;
+            align-items: center;
+            border-radius: 4px;
+
+            &:hover {
+                background-color: $workspace-hover;
+            }
         }
 
         .sort-btn {
             color: $primary-text-color;
             background-color: $app-bg;
+            display: flex;
+            align-items: center;
+            border-radius: 4px;
+
+            &:hover {
+                background-color: $workspace-hover;
+            }
         }
 
         .hide-btn {
             color: $primary-text-color;
             background-color: $app-bg;
+            display: flex;
+            align-items: center;
+            border-radius: 4px;
+
+            &:hover {
+                background-color: $workspace-hover;
+            }
         }
 
         .more-btn {
             color: $primary-text-color;
             background-color: $app-bg;
+            border-radius: 4px;
+
+            &:hover {
+                background-color: $workspace-hover;
+            }
         }
 
     }
