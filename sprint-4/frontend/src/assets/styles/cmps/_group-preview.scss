@@ -2,7 +2,31 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 100px;
+    position: relative;
 
+    .group-menu-modal {
+        background-color: $app-bg;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 40px;
+        color: $primary-text-color;
+        box-shadow: -6px 0px 14px rgb(0 0 0 / 20%);
+        padding: $spacing-small;
+        font-size: 14px;
+        z-index: 5;
+        >*{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 8px;
+            &:hover{
+                background-color: $workspace-hover;
+                border-radius: $spacing-xs;
+            }
+        }
+    }
     li {
         .task-preview {
             display: flex;
@@ -107,6 +131,11 @@
         height: 40px;
         align-items: center;
         line-height: $font-reg-line-height-24;
+        &:hover{
+            .group-menu .icon{
+                display: block;
+            }
+        }
 
         .arrow-icon {
             font-size: 16px;
@@ -125,7 +154,7 @@
         .group-menu {
             position: absolute;
             width: 40px;
-            left: 0px;
+            left: -38px;
             height: 40px;
             display: flex;
             justify-content: center;
@@ -133,6 +162,7 @@
             color: $primary-text-color;
 
             .icon {
+                display: none;
                 cursor: pointer;
                 border-radius: 4px;
                 font-size: 20px;
@@ -141,7 +171,9 @@
             .icon:hover {
                 background-color: $layout-border-color;
             }
+
         }
+        
     }
 
     .check-box {

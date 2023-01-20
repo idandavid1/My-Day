@@ -8,11 +8,16 @@ import { MdKeyboardArrowDown } from 'react-icons/md'
 import { addTask, updateAction } from "../../store/board.actions"
 
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
+import { GroupMenuModal } from "../group-menu-modal"
 
 export function GroupPreview({ group, board }) {
     const [taskToEdit, setTaskToEdit] = useState(TaskService.getEmptyTask())
     const titles = ['Task', 'Person', 'Status', 'Date', 'Priority']
-    const [isMouseOver, setIsMouseOver] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+    function onOpenModal() {
+        setIsModalOpen(!isModalOpen)
+    }
 
     async function onSave(ev) {
         const value = ev.target.innerText
@@ -37,12 +42,17 @@ export function GroupPreview({ group, board }) {
     }
 
     return <ul className="group-preview" >
-        <div className="group-title" style={{ color: group.color }}
-            onTouchStart={() => setIsMouseOver(true)} onTouchEnd={() => setIsMouseOver(false)} onMouseOver={() => setIsMouseOver(true)} onMouseOut={() => setIsMouseOver(false)}>
-            {isMouseOver && <div className="group-menu">
-                <BiDotsHorizontalRounded className="icon"/>
+        {isModalOpen &&
+            <GroupMenuModal groupId={group.id} setIsModalOpen={setIsModalOpen} />
+        }
+        <div className="group-title" style={{ color: group.color }}>
+            
+            <div className="group-menu" >
+                <BiDotsHorizontalRounded className="icon" onClick={onOpenModal} />
             </div>
-            }
+
+
+
             <MdKeyboardArrowDown className="arrow-icon" />
             <blockquote contentEditable onBlur={onSave} suppressContentEditableWarning={true}>
                 <h4>{group.title}</h4>
