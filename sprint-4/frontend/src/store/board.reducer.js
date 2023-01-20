@@ -8,6 +8,7 @@ export const UPDATE_BOARD = 'UPDATE_BOARD'
 export const SET_FILTER = 'SET_FILTER'
 export const ADD_GROUP = 'ADD_GROUP'
 export const SET_MODAL = 'SET_MODAL'
+export const REMOVE_GROUP= 'REMOVE_GROUP'
 
 const initialState = {
     boards: [],
