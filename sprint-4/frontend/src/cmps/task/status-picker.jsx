@@ -15,7 +15,6 @@ export function StatusPicker({ info, onUpdate }) {
 
     const label = board.labels.find(label => label.title === info.status)
     const color = label ? label.color : '#c4c4c4'
-    console.log('classText:', classText)
     return (
     <section className="status-picker picker label" style={{ backgroundColor: color }}>
         <div className={classText} onClick={onClick}>{info.status}</div>

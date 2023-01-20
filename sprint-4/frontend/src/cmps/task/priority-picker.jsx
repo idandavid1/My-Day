@@ -10,13 +10,13 @@ export function PriorityPicker({ info, onUpdate }) {
         setIsModalOpen(true)
     }
 
-    let classText = !info.priority ? 'picker empty-label' : ''
+    let classText = !info.priority ? ' empty-label' : ''
     classText += isModalOpen ? ' modal-open' : ''
     const label = board.labels.find(label => label.title === info.priority)
     const color = label ? label.color : '#c4c4c4'
     
     return <section className="priority-picker picker label" style={{ backgroundColor: color }}>
-        <div className={classText} onClick={onClick}>{info.priority}</div>
+        <div className={` ${classText}`} onClick={onClick}>{info.priority}</div>
         {isModalOpen && <ModalStatusPriority labels={board.labels} onUpdate={onUpdate} setIsModalOpen={setIsModalOpen} cmpType={'priority'}/>}
     </section>
 }

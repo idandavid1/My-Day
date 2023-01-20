@@ -1,0 +1,89 @@
+.modal-member {
+    @include task-modal-position();
+    bottom: -17px;
+    left: -165px;
+
+    .modal-member-content {
+        box-shadow: 0 8px 16px 0 rgb(0 0 0 / 32%);
+        background-color: white;
+        border-radius: 10px;
+        width: 360px;
+        padding: $spacing-medium;
+        img {
+            border-radius: 50%;
+        }
+
+        .taskMembers {
+            display: flex;
+            flex-wrap: wrap;
+            li {
+                display: flex;
+                align-items: center;
+                gap: $spacing-small;
+                background-color: $member-modal-item-bg;
+                margin: $spacing-xs;
+                border-radius: 8px;
+                img {
+                    width: 22px;
+                    height: 22px;
+                }
+
+                .remove {
+                    margin-right:  $spacing-xs;
+                    cursor: pointer;
+                }
+            }
+            
+        }
+
+        .outTaskMembers {
+            .search-div {
+                margin: $spacing-medium 0;
+                display: flex;
+                justify-content: space-between;
+                padding: $spacing-xs $spacing-xs;
+                width: 320px;
+                border-radius: 8px;
+                border: 2px solid darken($border-color , 20%);
+                input {
+                    border: 0;
+                }
+
+                .icon-container {
+                    display: flex;
+                    align-items: center;
+                    border-radius: 8px;
+                    padding: $spacing-xs $spacing-xs;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: $layout-border-color;
+                    }
+                }
+            }
+
+            li {
+                padding: $spacing-small;
+                display: flex;
+                gap: $spacing-small;
+                border-radius: 8px;
+                cursor: pointer;
+            
+                img {
+                    width: 26px;
+                    height: 26px;
+                }
+
+                &:hover {
+                    background-color: $layout-border-color;
+                }
+            }
+            
+        }
+    }
+    
+    .triangle-container {
+        @include triangle-container();
+        width: 300px;
+    }
+}
