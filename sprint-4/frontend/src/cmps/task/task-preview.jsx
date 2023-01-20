@@ -10,7 +10,7 @@ import { useSelector } from "react-redux"
 import { updateAction } from "../../store/board.actions"
 
 export function TaskPreview({ task }) {
-    const [ setUpdateCurrTask] = useState(task)
+    const [UpdateCurrTask, setUpdateCurrTask] = useState(task)
     const elTaskPreview = useRef(null)
     const board = useSelector(storeState => storeState.boardModule.board)
     //TODO:GET FROM STORE
@@ -31,8 +31,6 @@ export function TaskPreview({ task }) {
         }
     }
 
-    function updateMember(data) { }
-
     async function onUpdateTaskTitle(ev) {
         const value = ev.target.innerText
         task.title = value
@@ -51,10 +49,10 @@ export function TaskPreview({ task }) {
             </div>
             <div className="task-title picker" onClick={() => elTaskPreview.current.classList.toggle('on-typing')}>
                 <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
-                    <span>{task.title}</span>
+                    <span>{UpdateCurrTask.title}</span>
                 </blockquote>
                 <div className="chat-icon">
-                    <BiMessageRoundedAdd />
+                    <BiMessageRoundedAdd className="icon"/>
                 </div>
             </div>
             {cmpsOrder.map((cmp, idx) => {
@@ -62,7 +60,7 @@ export function TaskPreview({ task }) {
                     <DynamicCmp
                         cmp={cmp}
                         key={idx}
-                        info={task}
+                        info={UpdateCurrTask}
                         onUpdate={updateTask}
                     />
                 )

@@ -3,15 +3,29 @@ import { BsStar } from 'react-icons/bs'
 import { FiActivity } from 'react-icons/fi'
 import { GrHomeRounded } from 'react-icons/gr'
 import { BoardFilter } from '../task/board-filter'
+import { updateAction } from '../../store/board.actions'
 
 const guest = require('../../assets/img/guest.png')
 
 export function BoardHeader({board}) {
+
+    async function onSave(ev) {
+        const value = ev.target.innerText
+        board.title = value
+        try {
+            updateAction(board)
+        } catch (err) {
+            console.log('Failed to save')
+        }
+    }
+
     return (
         <header className="board-header">
             <section className='board-title'>
                 <div className="board-info">
-                    <h1>Sprint 4</h1>
+                <blockquote contentEditable onBlur={onSave} suppressContentEditableWarning={true}>
+                    <h1>{board.title}</h1>
+                </blockquote>
                     <div className='info-btn'><RiErrorWarningLine /></div>
                     <div className='star-btn'><BsStar /></div>
                 </div>
