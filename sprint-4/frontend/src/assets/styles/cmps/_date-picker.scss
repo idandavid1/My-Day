@@ -1,14 +1,10 @@
 .date-picker {
-
-    width: 140px;
-
-    .date-picker-input {
-        height: auto;
+        // height: auto;
         background-color: white;
         flex-direction: column;
+        outline: 0;
     }
 
     input {
         width: 120px;
     }
-}

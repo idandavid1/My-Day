@@ -11,6 +11,8 @@ import { FiFilter } from 'react-icons/fi'
 import { BiSearch } from 'react-icons/bi'
 import { MdKeyboardArrowLeft } from 'react-icons/md'
 import { MdKeyboardArrowRight } from 'react-icons/md'
+import { BsFillLightningFill } from 'react-icons/bs'
+import { AiFillHome } from 'react-icons/ai'
 
 import { BoardPreview } from '../board/board-preview'
 
@@ -47,8 +49,15 @@ export function WorkspaceSidebar() {
                         <span className='workspace-title'>Workspace</span>
                         <BiDotsHorizontalRounded />
                     </div>
-                    <div className='chose-board'>
-                        <h5>Sprint 4</h5>
+                    <div className='chose-workspace'>
+                        <div className='left'>
+                            <div className='lightning-container'>
+                                <BsFillLightningFill />
+                            </div>
+                            <AiFillHome className='home' />
+                            <h5>Sprint 4</h5>
+                        </div>
+                        
                         <IoIosArrowDown className='icon' />
                     </div>
                     <div className='workspace-btns'>
