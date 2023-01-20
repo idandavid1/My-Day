@@ -49,8 +49,6 @@ export function GroupPreview({ group, board }) {
                 <BiDotsHorizontalRounded className="icon" onClick={onOpenModal}/>
             </div>
 
-
-
             <MdKeyboardArrowDown className="arrow-icon" />
             <blockquote contentEditable onBlur={onSave} suppressContentEditableWarning={true}>
                 <h4>{group.title}</h4>
