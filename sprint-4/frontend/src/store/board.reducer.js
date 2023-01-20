@@ -7,10 +7,12 @@ export const ADD_BOARD = 'ADD_BOARD'
 export const UPDATE_BOARD = 'UPDATE_BOARD'
 export const SET_FILTER = 'SET_FILTER'
 export const ADD_GROUP = 'ADD_GROUP'
+export const SET_MODAL = 'SET_MODAL'
 
 const initialState = {
     boards: [],
     board: null,
+    isBoardModalOpen:false,
     filter: boardService.getEmptyFilter()
 }
 
@@ -30,6 +32,8 @@ export function boardReducer(state = initialState, action) {
         case UPDATE_BOARD:
             boards = state.boards.map(board => (board._id === action.board._id) ? action.board : board)
             return { ...state, boards }
+        case SET_MODAL:
+            return {...state, isBoardModalOpen:action.isOpen}
 
         case SET_FILTER:
             return { ...state, filter: action.filter }

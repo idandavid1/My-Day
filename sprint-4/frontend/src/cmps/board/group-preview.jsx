@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 
-import { groupService } from "../../services/group.service"
 import { TaskService } from "../../services/task.service"
 import { TaskPreview } from "../task/task-preview"
 
@@ -8,6 +7,7 @@ import { MdKeyboardArrowDown } from 'react-icons/md'
 import { addTask, updateAction } from "../../store/board.actions"
 
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
+import { AiOutlinePlus } from 'react-icons/ai'
 
 export function GroupPreview({ group, board }) {
     const [taskToEdit, setTaskToEdit] = useState(TaskService.getEmptyTask())
@@ -40,7 +40,7 @@ export function GroupPreview({ group, board }) {
         <div className="group-title" style={{ color: group.color }}
             onTouchStart={() => setIsMouseOver(true)} onTouchEnd={() => setIsMouseOver(false)} onMouseOver={() => setIsMouseOver(true)} onMouseOut={() => setIsMouseOver(false)}>
             {isMouseOver && <div className="group-menu">
-                <BiDotsHorizontalRounded className="icon"/>
+                <BiDotsHorizontalRounded className="icon" />
             </div>
             }
             <MdKeyboardArrowDown className="arrow-icon" />
@@ -48,16 +48,21 @@ export function GroupPreview({ group, board }) {
                 <h4>{group.title}</h4>
             </blockquote>
         </div>
-        <div className="group-preview-content" style={{ borderColor: group.color }}>
+        <div className="group-preview-content" style={{ borderColor: group.color}}>
             <div className='title-container'>
-                <div className="check-box">
+                <div className="check-box" >
                     <input type="checkbox" />
                 </div>
                 {titles.map((title, idx) => <li className={title + ' title'} key={idx}>{title}</li>)}
+                <div className="add-picker-task">
+                    <span>
+                        <AiOutlinePlus />
+                    </span>
+                </div>
             </div>
             {group.tasks.map((task, idx) => {
                 return <li key={idx}>
-                    <TaskPreview task={task} />
+                    <TaskPreview task={task} color={group.color} />
                 </li>
             })}
             <div className="add-task flex">

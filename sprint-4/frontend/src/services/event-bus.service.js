@@ -1,4 +1,4 @@
-export const SHOW_MSG = 'show-msg'
+export const SHOW_MODAL = 'show-modal'
 
 function createEventEmitter() {
     const listenersMap = {}
@@ -18,16 +18,17 @@ function createEventEmitter() {
 
 export const eventBus = createEventEmitter()
 
-export function showUserMsg(msg) {
-    eventBus.emit(SHOW_MSG, msg)
+export function showModalDetails(msg) {
+    eventBus.emit(SHOW_MODAL, msg)
 }
 
-export function showSuccessMsg(txt) {
-    showUserMsg({txt, type: 'success'})
+export function showModal(txt) {
+    console.log(txt)
+    showModalDetails({txt, type: 'success'})
 }
-export function showErrorMsg(txt) {
-    showUserMsg({txt, type: 'error'})
+export function closeModal() {
+    // showUserMsg({})
 }
 
-window.showUserMsg = showUserMsg
+window.showModalDetails = showModalDetails
 

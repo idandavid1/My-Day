@@ -3,6 +3,13 @@
         background-color: white;
         flex-direction: column;
         outline: 0;
+
+        .date-picker-input{
+            z-index: 5;
+            .react-datepicker__header{
+                background-color: #fff;
+            }
+        }
     }
 
     input {

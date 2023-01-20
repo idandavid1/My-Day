@@ -1,0 +1,20 @@
+.board-modal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    flex-direction: column;
+    height: 100vh;
+    background-color: $app-bg;
+    border-inline-start: 1px solid #ccc;
+    min-width: 700px;
+    transform: translateX(100%);
+    z-index: 5;
+
+
+    transition: transform .6s, box-shadow .6s;
+
+    &.open{
+        transform: translateX(0);
+        box-shadow: -6px 0px 14px rgb(0 0 0 / 20%);
+    }
+}

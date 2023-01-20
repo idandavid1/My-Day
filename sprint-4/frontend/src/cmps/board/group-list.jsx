@@ -5,7 +5,7 @@ export function GroupList({ board }) {
         <section className="group-list">
             <ul>
                 {board.groups.map((group, idx) => {
-                    return <li key={idx}><GroupPreview group={group} board={board}/></li>
+                    return <li key={idx}><GroupPreview group={group} board={board} /></li>
                 })}
             </ul>
         </section>

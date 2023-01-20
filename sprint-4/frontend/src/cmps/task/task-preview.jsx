@@ -5,11 +5,15 @@ import { MemberPicker } from "./member-picker"
 import { PriorityPicker } from "./priority-picker"
 import { StatusPicker } from "./status-picker"
 
+import { TbArrowsDiagonal } from 'react-icons/tb'
 import { BiMessageRoundedAdd } from 'react-icons/bi'
 import { useSelector } from "react-redux"
-import { updateAction } from "../../store/board.actions"
+import { toggleModal, updateAction } from "../../store/board.actions"
+import { BoardModal } from "../board/board-modal"
+import { showModal } from "../../services/event-bus.service"
 
 export function TaskPreview({ task }) {
+    const isOpenModal = useSelector(storeState => storeState.boardModule.isBoardModalOpen)
     const [UpdateCurrTask, setUpdateCurrTask] = useState(task)
     const elTaskPreview = useRef(null)
     const board = useSelector(storeState => storeState.boardModule.board)
@@ -42,6 +46,7 @@ export function TaskPreview({ task }) {
         }
     }
 
+
     return (
         <section className="task-preview" ref={elTaskPreview}>
             <div className="check-box">
@@ -51,8 +56,12 @@ export function TaskPreview({ task }) {
                 <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
                     <span>{UpdateCurrTask.title}</span>
                 </blockquote>
+                <div className="open-task-details">
+                    <TbArrowsDiagonal />
+                    <span onClick={() => showModal('open-modal')}>Open</span>
+                </div>
                 <div className="chat-icon">
-                    <BiMessageRoundedAdd className="icon"/>
+                    <BiMessageRoundedAdd className="icon" />
                 </div>
             </div>
             {cmpsOrder.map((cmp, idx) => {
@@ -65,7 +74,8 @@ export function TaskPreview({ task }) {
                     />
                 )
             })}
-
+            <div className="empty-div"></div>
+            <BoardModal />
         </section>
     )
 }
