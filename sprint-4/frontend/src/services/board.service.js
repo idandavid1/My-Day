@@ -27,8 +27,21 @@ async function query(filterBy = getDefaultFilterBoard()) {
     return boards
 }
 
-function getById(boardId) {
-    return storageService.get(STORAGE_KEY, boardId)
+async function getById(boardId, filterBy) {
+    try {
+        let board = await storageService.get(STORAGE_KEY, boardId)
+        if(filter.title){
+            const regex = new RegExp(filterBy.title, 'i')
+            const groups = board.groups.filter(group => regex.test(group.title))
+            groups.forEach(group => {
+                group = group.tasks.filter(task => regex.test(task.title))
+            })
+            board.groups = groups
+        }
+        return board
+    } catch (err) {
+        throw err
+    }
 }
 
 function remove(boardId) {
@@ -55,6 +68,10 @@ function getFilterFromSearchParams(searchParams) {
         filterBy[field] = searchParams.get(field) || ''
     }
     return filterBy
+}
+
+function getFilterBoardById(boardId, filter) {
+    return storageService.get(STORAGE_KEY, boardId)
 }
 
 function getEmptyBoard() {

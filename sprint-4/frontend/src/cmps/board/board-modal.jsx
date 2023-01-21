@@ -20,7 +20,6 @@ export function BoardModal() {
 
     useEffect(() => {
         console.log(params)
-        toggleModal(true)
         if(params.taskId) loadTask() 
     }, [])
     
@@ -41,13 +40,13 @@ export function BoardModal() {
 
 
 
-    if (!currTask) return <div></div>
+    // if (!currTask) return <div></div>
     return <section className={`board-modal ${isOpen ? 'open' : ''}`}>
         <div className="board-modal-header">
             <CgClose className="close-btn" onClick={onCloseModal} />
             <div className="title">
                 <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
-                    {currTask.title}
+                    {/* {currTask.title} */}
                 </blockquote>
             </div>
             <div className="board-info">
