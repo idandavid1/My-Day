@@ -36,6 +36,7 @@ export function BoardDetails() {
             <main className="board-main">
                 <BoardHeader board={board} onSetFilter={onSetFilter} />
                 <GroupList board={board} />
+                <BoardModal />
             </main>
         </section>
     )

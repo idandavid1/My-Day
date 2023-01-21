@@ -7,19 +7,21 @@ import { CgClose } from 'react-icons/cg'
 import { GrHomeRounded } from 'react-icons/gr'
 import { HiOutlineClock } from 'react-icons/hi'
 import { CiCalendarDate } from 'react-icons/ci'
+import { toggleModal } from "../../store/board.actions"
 
 const guest = require('../../assets/img/guest.png')
 
-export function BoardModal({ closeModal, onUpdateTaskTitle ,isOpenModal}) {
+export function BoardModal() {
     const params = useParams()
     const navigate = useNavigate()
     const board = useSelector((storeState) => storeState.boardModule.board)
+    const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     const [currTask, setCurrTask] = useState(null)
 
     useEffect(() => {
         console.log(params)
-        if(!params.taskId) return
-        loadTask()
+        toggleModal(true)
+        if(params.taskId) loadTask() 
     }, [])
     
     function loadTask() {
@@ -30,10 +32,17 @@ export function BoardModal({ closeModal, onUpdateTaskTitle ,isOpenModal}) {
     
     function onCloseModal() {
         navigate(`/board/${params.boardId}`)
-        closeModal()
+        toggleModal(isOpen)
     }
+
+    function onUpdateTaskTitle() {
+
+    }
+
+
+
     if (!currTask) return <div></div>
-    return <section className={`board-modal ${isOpenModal ? 'open' : ''}`}>
+    return <section className={`board-modal ${isOpen ? 'open' : ''}`}>
         <div className="board-modal-header">
             <CgClose className="close-btn" onClick={onCloseModal} />
             <div className="title">
