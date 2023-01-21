@@ -96,7 +96,7 @@ export async function updateAction(board) {
 }
 
 export function toggleModal(isOpenModal) {
-    store.dispatch({ type: SET_MODAL, isOpen: isOpenModal })
+    store.dispatch({ type: SET_MODAL, isOpen: !isOpenModal })
 }
 
 export async function updateGroups(groups, board) {
