@@ -1,21 +1,23 @@
 import { useRef, useState } from "react"
+import { Link, NavLink, useNavigate, useParams } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 import { DueDate } from "./date-picker"
 import { MemberPicker } from "./member-picker"
 import { PriorityPicker } from "./priority-picker"
 import { StatusPicker } from "./status-picker"
+import { updateAction } from "../../store/board.actions"
 
 import { TbArrowsDiagonal } from 'react-icons/tb'
 import { BiMessageRoundedAdd } from 'react-icons/bi'
-import { useSelector } from "react-redux"
-import { toggleModal, updateAction } from "../../store/board.actions"
 import { BoardModal } from "../board/board-modal"
-import { showModal } from "../../services/event-bus.service"
 
-export function TaskPreview({ task }) {
+export function TaskPreview({ task , groupId}) {
     const [UpdateCurrTask, setUpdateCurrTask] = useState(task)
+    const [isOpenModal , setIsOpenModal] = useState(false)
     const elTaskPreview = useRef(null)
     const board = useSelector(storeState => storeState.boardModule.board)
+    const params = useParams()
     //TODO:GET FROM STORE
     const cmpsOrder = [
         "member-picker",
@@ -45,7 +47,9 @@ export function TaskPreview({ task }) {
         }
     }
 
-
+    function closeModal() {
+        setIsOpenModal(false)
+    }
     return (
         <section className="task-preview" ref={elTaskPreview}>
             <div className="check-box">
@@ -55,9 +59,9 @@ export function TaskPreview({ task }) {
                 <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
                     <span>{UpdateCurrTask.title}</span>
                 </blockquote>
-                <div className="open-task-details">
+                <div className="open-task-details" onClick={() => setIsOpenModal(true)}>
                     <TbArrowsDiagonal />
-                    <span onClick={() => showModal('open-modal')}>Open</span>
+                    <Link to={`/board/${params.boardId}/${groupId}/${task.id}`}>Open</Link>
                 </div>
                 <div className="chat-icon">
                     <BiMessageRoundedAdd className="icon" />
@@ -74,7 +78,7 @@ export function TaskPreview({ task }) {
                 )
             })}
             <div className="empty-div"></div>
-            <BoardModal />
+            <BoardModal isOpenModal={isOpenModal} closeModal={closeModal} onUpdateTaskTitle={onUpdateTaskTitle}/>
         </section>
     )
 }
