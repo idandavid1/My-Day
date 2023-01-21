@@ -42,6 +42,7 @@ export function GroupPreview({ group, board }) {
     function onAddTask(ev) {
         ev.preventDefault()
         if (!taskToEdit.title) return
+        taskToEdit.id = utilService.makeId()
         addTask(taskToEdit, group, board)
         setTaskToEdit(TaskService.getEmptyTask())
     }
@@ -103,7 +104,7 @@ export function GroupPreview({ group, board }) {
             </div>
             {group.tasks.map((task, idx) => {
                 return <li key={idx}>
-                    <TaskPreview task={task} color={group.color} />
+                    <TaskPreview task={task} groupId={group.id} />
                 </li>
             })}
             <div className="add-task flex">

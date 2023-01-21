@@ -1,4 +1,4 @@
-.board-modal{
+.board-modal {
     position: fixed;
     top: 0;
     right: 0;
@@ -13,8 +13,88 @@
 
     transition: transform .6s, box-shadow .6s;
 
-    &.open{
+    &.open {
         transform: translateX(0);
         box-shadow: -6px 0px 14px rgb(0 0 0 / 20%);
+
     }
+
+    .board-modal-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        margin: 20px 20px 6px 24px;
+
+        .board-info {
+            padding: 0 24px;
+            display: flex;
+            border-bottom: 1px solid $border-color;
+
+            >* {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                border-right: 1px solid $border-color;
+                width: fit-content;
+                padding: 8px;
+
+                &:hover {
+                    border-radius: 4px;
+                    background-color: $workspace-hover;
+                }
+            }
+            & .active{
+                border-bottom: 4px solid #0073ea;
+            }
+        }
+
+        .activities {
+            padding: 25px;
+
+            .activity {
+                display: flex;
+                align-items: center;
+                // justify-content: space-between;
+                border-bottom: 1px solid darken($border-color, 20%);
+                padding: 8px 0;
+                gap: 18px;
+
+                >* {
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    &:last-child{
+                        margin-block-end: 1px;
+                    }
+                }
+
+                img {
+                    height: 30px;
+                }
+            }
+        }
+
+        .close-btn {
+            height: 24px;
+            width: 20px;
+            cursor: pointer;
+        }
+
+        .title {
+            display: flex;
+            justify-content: flex-start;
+            border: none;
+            font-size: 18px;
+            color: $primary-text-color;
+            font-weight: 600;
+
+            blockquote {
+                width: 80%;
+                margin: 0;
+
+            }
+        }
+    }
+
+
 }
