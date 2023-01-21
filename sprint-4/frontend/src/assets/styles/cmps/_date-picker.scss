@@ -10,8 +10,20 @@
                 background-color: #fff;
             }
         }
-    }
+        
+        input {
+            width: 100%;
+            outline: none;
+            border: none;
+            text-align: center;
+            padding: 5px;
+            &:hover{
+                color: $board-btn;
+                border: .2px solid $workspace-hover;
+            }
+            &:focus-visible{
+                border: .2px solid $board-btn;
 
-    input {
-        width: 120px;
+            }
+        }
     }

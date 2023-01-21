@@ -7,7 +7,7 @@ import { updateAction } from '../../store/board.actions'
 
 const guest = require('../../assets/img/guest.png')
 
-export function BoardHeader({board}) {
+export function BoardHeader({board , onSetFilter}) {
 
     async function onSave(ev) {
         const value = ev.target.innerText
@@ -54,7 +54,7 @@ export function BoardHeader({board}) {
                 </div>
             </div>
             <div className='board-border'></div>
-            <BoardFilter board={board}/>
+            <BoardFilter onSetFilter={onSetFilter} board={board}/>
         </header >
     )
 }

@@ -1,20 +1,23 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 import { TaskService } from "../../services/task.service"
 import { TaskPreview } from "../task/task-preview"
 
 import { MdKeyboardArrowDown } from 'react-icons/md'
-import { addTask, removeGroup, updateAction } from "../../store/board.actions"
-
+import { addTask, saveBoard, updateAction, updateGroups } from "../../store/board.actions"
+import { BsFillCircleFill } from 'react-icons/bs'
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
-import { AiOutlinePlus} from 'react-icons/ai'
+import { AiOutlinePlus } from 'react-icons/ai'
+
 import { GroupMenuModal } from "../group-menu-modal"
+import { utilService } from "../../services/util.service"
 
 export function GroupPreview({ group, board }) {
     const [taskToEdit, setTaskToEdit] = useState(TaskService.getEmptyTask())
     const titles = ['Task', 'Person', 'Status', 'Date', 'Priority']
     const [isModalOpen, setIsModalOpen] = useState(false)
-
+    const [isShowColorPicker , setIsShowColorPicker] = useState(false)
+    
     function onOpenModal() {
         setIsModalOpen(!isModalOpen)
     }
@@ -23,7 +26,9 @@ export function GroupPreview({ group, board }) {
         const value = ev.target.innerText
         group.title = value
         try {
-            updateAction(board)
+            await updateAction(board)
+            setIsModalOpen(false)
+            setIsShowColorPicker(false)
         } catch (err) {
             console.log('Failed to save')
         }
@@ -41,26 +46,50 @@ export function GroupPreview({ group, board }) {
         setTaskToEdit(TaskService.getEmptyTask())
     }
 
-    function onRemoveGroup(groupId){
+    function onRemoveGroup(groupId) {
+        setIsModalOpen(!isModalOpen)
         const groups = board.groups.filter(group => group.id !== groupId)
-        removeGroup(groups , board)
+        updateGroups(groups, board)
+    }
+
+    function onDuplicateGroup() {
+        setIsModalOpen(!isModalOpen)
+        const duplicatedGroup = structuredClone(group)
+        duplicatedGroup.id = utilService.makeId()
+        board.groups.push(duplicatedGroup)
+        saveBoard(board)
+    }
+
+    function onShowPalette() {
+        setIsShowColorPicker(true)
+        setIsModalOpen(true)
+    }
+    
+    function onChangeGroupColor(color) {
+        group.color = color
+        saveBoard(board)
+        setIsModalOpen(false)
     }
 
     return <ul className="group-preview" >
         {isModalOpen &&
-        <GroupMenuModal onRemoveGroup={onRemoveGroup} groupId ={group.id} setIsModalOpen={setIsModalOpen} />
-        }
-        <div className="group-title" style={{ color: group.color }}>
-             <div className="group-menu">
-                <BiDotsHorizontalRounded className="icon" onClick={onOpenModal}/>
-            </div>
+            <GroupMenuModal onRemoveGroup={onRemoveGroup} onDuplicateGroup={onDuplicateGroup}
+                onChangeGroupColor={onChangeGroupColor} isShowColorPicker={isShowColorPicker}
+                groupId={group.id} setIsModalOpen={setIsModalOpen} />}
 
+        <div className="group-header" style={{ color: group.color }}>
+            <div className="group-menu">
+                <BiDotsHorizontalRounded className="icon" onClick={onOpenModal} />
+            </div>
             <MdKeyboardArrowDown className="arrow-icon" />
-            <blockquote contentEditable onBlur={onSave} suppressContentEditableWarning={true}>
-                <h4>{group.title}</h4>
-            </blockquote>
+            <div className="group-header-title">
+                <blockquote contentEditable onBlur={(ev) => onSave(ev)} onFocus={() => setIsShowColorPicker(true)} suppressContentEditableWarning={true}>
+                    {isShowColorPicker && <BsFillCircleFill  onClick={onShowPalette}/>}
+                    <h4>{group.title}</h4>
+                </blockquote>
+            </div>
         </div>
-        <div className="group-preview-content" style={{ borderColor: group.color}}>
+        <div className="group-preview-content" style={{ borderColor: group.color }}>
             <div className='title-container'>
                 <div className="check-box" >
                     <input type="checkbox" />

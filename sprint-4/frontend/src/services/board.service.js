@@ -11,12 +11,20 @@ export const boardService = {
     save,
     remove,
     getEmptyBoard,
-    getEmptyFilter
+    getEmptyFilter,
+    getDefaultFilterTask,
+    getDefaultFilterBoard,
+    getFilterFromSearchParams
 }
 
 
-function query() {
-    return storageService.query(STORAGE_KEY)
+async function query(filterBy = getDefaultFilterBoard()) {
+    let boards = await storageService.query(STORAGE_KEY)
+    if (filterBy.title) {
+        const regex = new RegExp(filterBy.title, 'i')
+        boards = boards.filter(board => regex.test(board.title))
+    }
+    return boards
 }
 
 function getById(boardId) {
@@ -30,6 +38,23 @@ function remove(boardId) {
 function save(board) {
     if (board._id) return storageService.put(STORAGE_KEY, board)
     return storageService.post(STORAGE_KEY, board)
+}
+
+function getDefaultFilterTask() {
+    return { title: '' }
+}
+
+function getDefaultFilterBoard() {
+    return { title: '' }
+}
+
+function getFilterFromSearchParams(searchParams) {
+    const emptyFilter = getDefaultFilterTask()
+    const filterBy = {}
+    for (const field in emptyFilter) {
+        filterBy[field] = searchParams.get(field) || ''
+    }
+    return filterBy
 }
 
 function getEmptyBoard() {
@@ -54,16 +79,16 @@ function getEmptyBoard() {
             }
         ],
         "members": [
-        {
-            "_id": "m101",
-            "fullname": "Tal Tarablus",
-            "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
-        },
-        {
-            "_id": "m102",
-            "fullname": "Idan David",
-            "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673820094/%D7%A2%D7%99%D7%93%D7%9F_jranbo.jpg"
-        }],
+            {
+                "_id": "m101",
+                "fullname": "Tal Tarablus",
+                "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
+            },
+            {
+                "_id": "m102",
+                "fullname": "Idan David",
+                "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673820094/%D7%A2%D7%99%D7%93%D7%9F_jranbo.jpg"
+            }],
         "groups": [],
         "activities": [],
         "cmpsOrder": ["status-picker", "member-picker", "date-picker"]
@@ -72,7 +97,7 @@ function getEmptyBoard() {
 
 function getEmptyFilter() {
     return {
-        
+
     }
 }
 
@@ -153,7 +178,7 @@ function _createBoards() {
                             "id": "c101",
                             "title": "Replace logo",
                             "status": "Stuck",
-                            "priority": "Medium", 
+                            "priority": "Medium",
                             "memberIds": ["m101", "m102", "m103"],
                             "dueDate": 1615621
                         },
@@ -161,7 +186,7 @@ function _createBoards() {
                             "id": "c102",
                             "title": "Add Samples",
                             "status": "Done",
-                            "priority": "Low", 
+                            "priority": "Low",
                             "memberIds": ["m101"],
                             "dueDate": 16156211111
                         },
@@ -175,16 +200,16 @@ function _createBoards() {
                         {
                             "id": "c103",
                             "title": "Help me",
-                            "status": "Done", 
-                            "priority": "High", 
+                            "status": "Done",
+                            "priority": "High",
                             "memberIds": ["m101", "m102", "m103"],
                             "dueDate": 16156215211,
                         },
                         {
                             "id": "c104",
                             "title": "Help me",
-                            "status": "Done", 
-                            "priority": "High", 
+                            "status": "Done",
+                            "priority": "High",
                             "memberIds": ["m103"],
                             "dueDate": 16156215211
                         },
@@ -192,7 +217,7 @@ function _createBoards() {
                             "id": "c105",
                             "title": "Help me",
                             "status": "Progress",
-                            "priority": "Low", 
+                            "priority": "Low",
                             "memberIds": ["m101", "m103"],
                             "dueDate": 16156215211
                         }

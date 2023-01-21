@@ -6,7 +6,8 @@ export const utilService = {
     randomPastTime,
     saveToStorage,
     loadFromStorage,
-    getMonthName
+    getMonthName,
+    getColors
 }
 
 function makeId(length = 6) {
@@ -52,7 +53,6 @@ function debounce(func, timeout = 300){
       timer = setTimeout(() => { func.apply(this, args) }, timeout)
     }
 }
-
 function getMonthName(date) {
     const monthNames = ["Jan`", "Feb`", "March", "April", "May", "June",
         "July", "Aug`", "Sep`", "Oct`", "Nov`", "Dec`"
@@ -67,4 +67,21 @@ function saveToStorage(key, value) {
 function loadFromStorage(key) {
     const data = localStorage.getItem(key)
     return (data) ? JSON.parse(data) : undefined
+}
+
+function getColors() {
+    return [
+        '#a25ddc',
+        '#FBBC04',
+        '#F1E4DE',
+        '#FDCFE8',
+        '#F28B82',
+        '#FFF475',
+        '#CCFF90',
+        '#CBF0F8',
+        '#A7FFEB',
+        '#D7AEFB',
+        '#E6C9A8',
+        '#E8EAED',
+    ]
 }

@@ -16,17 +16,31 @@
         padding: $spacing-small;
         font-size: 14px;
         z-index: 5;
+        border: 1px solid darken($border-color , 20%);
         >*{
             display: flex;
             align-items: center;
             gap: 8px;
             padding: 4px 8px;
-            &:hover{
+            &:hover:not(.color-palette){
                 background-color: $workspace-hover;
                 border-radius: $spacing-xs;
             }
         }
+        .color-palette{
+            display: flex;
+            align-items: flex-start;
+            width: 142px;
+            flex-wrap: wrap;
+            border-radius: 8px;
+            padding: 5px;
+            .color-icon{
+                cursor: pointer;
+                font-size: 20px;
+            }
+        }
     }
+
     li {
         border-collapse: collapse;
         .task-preview {
@@ -55,6 +69,7 @@
                 .open-task-details{
                     opacity: 0;
                     display: flex;
+                    margin: 0 6px;
                     align-items: center;
                     color: $workspace-icon-color;
                 }
@@ -99,9 +114,9 @@
                 background-color: $app-bg;
                 padding-right: 40px;
                 border-radius: 5px;
-                // min-width: 200px;
-                max-width: 190px;
-                max-height: 30px;
+                // max-width: 190px;
+                // max-height: 30px;
+                width: 200px;
                 overflow: hidden;
                 display: inline-block;
                 white-space: nowrap;
@@ -167,7 +182,7 @@
         }
     }
 
-    .group-title {
+    .group-header {
         display: flex;
         height: 40px;
         align-items: center;
@@ -176,6 +191,11 @@
             .group-menu .icon{
                 display: block;
             }
+        }
+
+        .group-header-title{
+            display: flex;
+            flex-direction: column;
         }
 
         .arrow-icon {

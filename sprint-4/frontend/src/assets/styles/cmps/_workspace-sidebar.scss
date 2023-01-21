@@ -36,6 +36,7 @@
 
         .left {
             display: flex;
+
             // gap: $spacing-xs;
             .lightning-container {
                 width: 24px;
@@ -92,6 +93,27 @@
             border-radius: 4px;
         }
 
+        .search-board {
+            border-radius: 4px;
+            color: $primary-text-color;
+            height: 31px;
+            &:has(:focus-visible) {
+                border: .5px solid $board-btn;
+                background-color: white;
+                outline: none;
+            }
+
+            input {
+                border: none;
+                background-color: inherit;
+
+                &:focus-visible {
+                    outline: none;
+                }
+
+            }
+        }
+
     }
 
     .board-list {
@@ -108,6 +130,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             div {
                 display: flex;
                 align-items: center;
@@ -117,22 +140,22 @@
     }
 
 
-        .toggle-workspace {
-            position: absolute;
-            border-radius: 20px;
-            border: 1px solid #c3c6d4;
-            background-color: #fff;
-            height: 23px;
-            width: 23px;
-            top: 20px;
-            right: -14px;
-            transition: width .2s;
-            cursor: pointer;
+    .toggle-workspace {
+        position: absolute;
+        border-radius: 20px;
+        border: 1px solid #c3c6d4;
+        background-color: #fff;
+        height: 23px;
+        width: 23px;
+        top: 20px;
+        right: -14px;
+        transition: width .2s;
+        cursor: pointer;
 
-            &:hover {
-                color: white;
-                background-color: $board-btn;
-                width: 31px;
-            }
+        &:hover {
+            color: white;
+            background-color: $board-btn;
+            width: 31px;
         }
     }
+}

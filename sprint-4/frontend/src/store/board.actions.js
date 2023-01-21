@@ -5,9 +5,9 @@ import { TaskService } from '../services/task.service.js'
 import { store } from './store.js'
 import { SET_BOARDS, SET_BOARD, REMOVE_BOARD, ADD_BOARD, UPDATE_BOARD, SET_FILTER, SET_MODAL, REMOVE_GROUP } from "./board.reducer.js"
 
-export async function loadBoards() {
+export async function loadBoards(filterBy) {
     try {
-        const boards = await boardService.query()
+        const boards = await boardService.query(filterBy)
         store.dispatch({ type: SET_BOARDS, boards })
     } catch (err) {
         console.log('Had issues loading', err)
@@ -54,7 +54,7 @@ export function setFilter(filter) {
 export async function addGroup(board) {
     try {
         const group = groupService.getEmptyGroup()
-        board.groups.push(group)
+        board.groups.unshift(group)
         const boardToSave = await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board: boardToSave })
     } catch (err) {
@@ -73,6 +73,19 @@ export async function addTask(task, group, board) {
     }
 }
 
+export async function addTaskOnFirstGroup(board) {
+    if(!board.groups.length) addGroup(board)
+    try {
+        const taskToAdd = TaskService.getEmptyTask()
+        taskToAdd.title = 'New Task'
+        board.groups[0].tasks.push(taskToAdd)
+        const boardToSave = await boardService.save(board)
+        store.dispatch({ type: SET_BOARD, board: boardToSave })
+    } catch (err) {
+        console.log('cant add task:', err)
+    }
+}
+
 export async function updateAction(board) {
     try {
         await boardService.save(board)
@@ -86,8 +99,8 @@ export function toggleModal(isOpenModal) {
     store.dispatch({ type: SET_MODAL, isOpen: isOpenModal })
 }
 
-export async function removeGroup(groups , board){
+export async function updateGroups(groups, board) {
     board.groups = groups
     const boardToSave = await boardService.save(board)
-    store.dispatch({type:UPDATE_BOARD, board:boardToSave})
+    store.dispatch({ type: UPDATE_BOARD, board: boardToSave })
 }

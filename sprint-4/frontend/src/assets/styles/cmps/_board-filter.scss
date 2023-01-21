@@ -1,0 +1,192 @@
+.board-filter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: $spacing-medium 0;
+    gap: 5px;
+
+    >* {
+        font-size: 14px;
+        font-family: $font-family;
+        display: flex;
+        align-items: center;
+        height: 32px;
+        gap: 5px;
+    }
+
+    .add-btn {
+        position: relative;
+        background-color: $board-btn;
+        color: white;
+        border-radius: 5px;
+        height: 32px;
+
+        .new-task-btn {
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: .4s;
+
+            &:hover {
+                background-color: $primary-hover-color;
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+        }
+
+        .add-group-modal {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            top: 35px;
+            left: 82px;
+            z-index: 5;
+            background-color: $app-bg;
+            box-shadow: -6px 0px 14px rgb(0 0 0 / 20%);
+            width: 220px;
+            padding: 8px;
+            border-radius: 8px;
+            gap: 5px;
+
+            >* {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 4px 8px;
+                color: $primary-text-color;
+                gap: 5px;
+                cursor: pointer;
+
+                transition: .2s;
+
+                &:hover {
+                    border-radius: 4px;
+                    background-color: $workspace-hover;
+                }
+            }
+
+            .icon {
+                font-size: 16px;
+            }
+        }
+
+        .drop-down-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 0 8px;
+            border-left: 1px solid $primary-hover-color;
+            cursor: pointer;
+            transition: .4s;
+
+            &:hover {
+                background-color: $primary-hover-color;
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+
+            .icon {
+                font-size: 15px;
+
+            }
+
+        }
+    }
+
+    .search-task {
+        border-radius: 4px;
+        color: $primary-text-color;
+        background-color: $app-bg;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $workspace-hover;
+        }
+
+        &:has(:focus-visible) {
+            border: .5px solid $board-btn;
+            background-color: white;
+            outline: none;
+        }
+
+        input {
+            cursor: pointer;
+            transition: width .3s;
+
+            border: none;
+            background-color: inherit;
+            padding: 5px;
+            width: 60px;
+
+            &:focus-visible {
+                cursor: text;
+                outline: none;
+                width: 180px;
+            }
+
+        }
+
+        .icon {
+            margin-left: 10px;
+        }
+    }
+
+    .person-btn {
+        color: $primary-text-color;
+        background-color: $app-bg;
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+
+        &:hover {
+            background-color: $workspace-hover;
+        }
+    }
+
+    .filter-btn {
+        color: $primary-text-color;
+        background-color: $app-bg;
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+
+        &:hover {
+            background-color: $workspace-hover;
+        }
+    }
+
+    .sort-btn {
+        color: $primary-text-color;
+        background-color: $app-bg;
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+
+        &:hover {
+            background-color: $workspace-hover;
+        }
+    }
+
+    .hide-btn {
+        color: $primary-text-color;
+        background-color: $app-bg;
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+
+        &:hover {
+            background-color: $workspace-hover;
+        }
+    }
+
+    .more-btn {
+        color: $primary-text-color;
+        background-color: $app-bg;
+        border-radius: 4px;
+
+        &:hover {
+            background-color: $workspace-hover;
+        }
+    }
+
+}

@@ -13,7 +13,6 @@ import { BoardModal } from "../board/board-modal"
 import { showModal } from "../../services/event-bus.service"
 
 export function TaskPreview({ task }) {
-    const isOpenModal = useSelector(storeState => storeState.boardModule.isBoardModalOpen)
     const [UpdateCurrTask, setUpdateCurrTask] = useState(task)
     const elTaskPreview = useRef(null)
     const board = useSelector(storeState => storeState.boardModule.board)

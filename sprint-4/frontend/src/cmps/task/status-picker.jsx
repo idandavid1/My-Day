@@ -6,7 +6,7 @@ export function StatusPicker({ info, onUpdate }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     
     function onClick(ev) {
-        setIsModalOpen(true)
+        setIsModalOpen(!isModalOpen)
     }
     
     let classText = !info.status ? 'picker empty-label' : ''
