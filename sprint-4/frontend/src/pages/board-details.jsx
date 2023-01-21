@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { loadBoard, loadBoards, setFilter } from "../store/board.actions"
+import { loadBoard, loadBoards } from "../store/board.actions"
 
 import { BoardHeader } from "../cmps/board/board-header"
 import { MainSidebar } from "../cmps/sidebar/main-sidebar"
@@ -19,13 +19,13 @@ export function BoardDetails() {
     const { boardId } = useParams()
 
     useEffect(() => {
-        loadBoard(boardId)
+        loadBoard(boardId, queryFilterBy)
         if(!boards.length) loadBoards()
     }, [])
     // TODO: filter and sort
     function onSetFilter(filterBy) {
         setSearchParams(filterBy)
-        setFilter(filterBy)
+        loadBoard(boardId, filterBy)
     }
     
     if(!board) return <div>Loading...</div>

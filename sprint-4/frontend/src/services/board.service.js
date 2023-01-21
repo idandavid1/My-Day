@@ -11,8 +11,7 @@ export const boardService = {
     save,
     remove,
     getEmptyBoard,
-    getEmptyFilter,
-    getDefaultFilterTask,
+    getDefaultFilter,
     getDefaultFilterBoard,
     getFilterFromSearchParams
 }
@@ -33,9 +32,11 @@ async function getById(boardId, filterBy) {
         // if(filterBy.title){
         //     const regex = new RegExp(filterBy.title, 'i')
         //     const groups = board.groups.filter(group => regex.test(group.title))
-        //     groups.forEach(group => {
-        //         group = group.tasks.filter(task => regex.test(task.title))
-        //     })
+            // groups.forEach(group => {
+            //     console.log('group.tasks:', group.tasks)
+            //     group.tasks = group.tasks.filter(task => regex.test(task.title))
+            // })
+
         //     board.groups = groups
         // }
         return board
@@ -53,7 +54,7 @@ function save(board) {
     return storageService.post(STORAGE_KEY, board)
 }
 
-function getDefaultFilterTask() {
+function getDefaultFilter() {
     return { title: '' }
 }
 
@@ -62,7 +63,7 @@ function getDefaultFilterBoard() {
 }
 
 function getFilterFromSearchParams(searchParams) {
-    const emptyFilter = getDefaultFilterTask()
+    const emptyFilter = getDefaultFilter()
     const filterBy = {}
     for (const field in emptyFilter) {
         filterBy[field] = searchParams.get(field) || ''
@@ -70,9 +71,6 @@ function getFilterFromSearchParams(searchParams) {
     return filterBy
 }
 
-function getFilterBoardById(boardId, filter) {
-    return storageService.get(STORAGE_KEY, boardId)
-}
 
 function getEmptyBoard() {
     return {
@@ -109,12 +107,6 @@ function getEmptyBoard() {
         "groups": [],
         "activities": [],
         "cmpsOrder": ["status-picker", "member-picker", "date-picker"]
-    }
-}
-
-function getEmptyFilter() {
-    return {
-
     }
 }
 

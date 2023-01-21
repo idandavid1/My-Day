@@ -120,7 +120,6 @@
         padding: 0 18px;
         margin-top: 10px;
 
-
         & .active {
             border-radius: 4px;
             background-color: $workspace-board-active;
@@ -151,6 +150,7 @@
         right: -14px;
         transition: width .2s;
         cursor: pointer;
+        z-index: 11;
 
         &:hover {
             color: white;

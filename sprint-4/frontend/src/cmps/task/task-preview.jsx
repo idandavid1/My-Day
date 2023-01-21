@@ -12,11 +12,8 @@ import { TbArrowsDiagonal } from 'react-icons/tb'
 import { BiMessageRoundedAdd } from 'react-icons/bi'
 import { DragDropContext } from 'react-beautiful-dnd'
 
-import { BoardModal } from "../board/board-modal"
-
 export function TaskPreview({ task , groupId}) {
     const [UpdateCurrTask, setUpdateCurrTask] = useState(task)
-    // const [isOpenModal , setIsOpenModal] = useState(false)
     const elTaskPreview = useRef(null)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     const board = useSelector(storeState => storeState.boardModule.board)
@@ -53,7 +50,8 @@ export function TaskPreview({ task , groupId}) {
     // function onOpenModal() {
 
     // }
-
+    // console.log('task1:', task)
+    // console.log('UpdateCurrTask:', UpdateCurrTask)
     return (
         <section className="task-preview" ref={elTaskPreview}>
             <div className="check-box">
@@ -62,6 +60,8 @@ export function TaskPreview({ task , groupId}) {
             <div className="task-title picker" onClick={() => elTaskPreview.current.classList.toggle('on-typing')}>
                 <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
                     <span>{UpdateCurrTask.title}</span>
+                    {/* {console.log('UpdateCurrTask.title:', UpdateCurrTask.title)}
+                    {console.log('task:', task.title)} */}
                 </blockquote>
                 <div className="open-task-details" onClick={() => toggleModal(isOpen)}>
                     <TbArrowsDiagonal />

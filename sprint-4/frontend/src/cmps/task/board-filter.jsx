@@ -16,7 +16,7 @@ import { utilService } from '../../services/util.service'
 
 export function BoardFilter({ board, onSetFilter }) {
     const [isShowModal, setIsShowModal] = useState(false)
-    const [filterByToEdit, setFilterByToEdit] = useState(boardService.getDefaultFilterTask())
+    const [filterByToEdit, setFilterByToEdit] = useState(boardService.getDefaultFilter())
 
     onSetFilter = useRef(utilService.debounce(onSetFilter))
 
