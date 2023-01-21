@@ -8,6 +8,8 @@ import { StatusPicker } from "./status-picker"
 import { TbArrowsDiagonal } from 'react-icons/tb'
 import { BiMessageRoundedAdd } from 'react-icons/bi'
 import { useSelector } from "react-redux"
+import { DragDropContext } from 'react-beautiful-dnd'
+
 import { toggleModal, updateAction } from "../../store/board.actions"
 import { BoardModal } from "../board/board-modal"
 import { showModal } from "../../services/event-bus.service"
@@ -47,35 +49,37 @@ export function TaskPreview({ task }) {
 
 
     return (
-        <section className="task-preview" ref={elTaskPreview}>
-            <div className="check-box">
-                <input type="checkbox" />
-            </div>
-            <div className="task-title picker" onClick={() => elTaskPreview.current.classList.toggle('on-typing')}>
-                <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
-                    <span>{UpdateCurrTask.title}</span>
-                </blockquote>
-                <div className="open-task-details">
-                    <TbArrowsDiagonal />
-                    <span onClick={() => showModal('open-modal')}>Open</span>
+        <DragDropContext>
+            <section className="task-preview" ref={elTaskPreview}>
+                <div className="check-box">
+                    <input type="checkbox" />
                 </div>
-                <div className="chat-icon">
-                    <BiMessageRoundedAdd className="icon" />
+                <div className="task-title picker" onClick={() => elTaskPreview.current.classList.toggle('on-typing')}>
+                    <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
+                        <span>{UpdateCurrTask.title}</span>
+                    </blockquote>
+                    <div className="open-task-details">
+                        <TbArrowsDiagonal />
+                        <span onClick={() => showModal('open-modal')}>Open</span>
+                    </div>
+                    <div className="chat-icon">
+                        <BiMessageRoundedAdd className="icon" />
+                    </div>
                 </div>
-            </div>
-            {cmpsOrder.map((cmp, idx) => {
-                return (
-                    <DynamicCmp
-                        cmp={cmp}
-                        key={idx}
-                        info={UpdateCurrTask}
-                        onUpdate={updateTask}
-                    />
-                )
-            })}
-            <div className="empty-div"></div>
-            <BoardModal />
-        </section>
+                {cmpsOrder.map((cmp, idx) => {
+                    return (
+                        <DynamicCmp
+                            cmp={cmp}
+                            key={idx}
+                            info={UpdateCurrTask}
+                            onUpdate={updateTask}
+                        />
+                    )
+                })}
+                <div className="empty-div"></div>
+                <BoardModal />
+            </section>
+        </DragDropContext>
     )
 }
 
