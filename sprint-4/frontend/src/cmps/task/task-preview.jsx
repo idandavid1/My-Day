@@ -10,10 +10,8 @@ import { updateAction } from "../../store/board.actions"
 
 import { TbArrowsDiagonal } from 'react-icons/tb'
 import { BiMessageRoundedAdd } from 'react-icons/bi'
-import { useSelector } from "react-redux"
 import { DragDropContext } from 'react-beautiful-dnd'
 
-import { toggleModal, updateAction } from "../../store/board.actions"
 import { BoardModal } from "../board/board-modal"
 
 export function TaskPreview({ task , groupId}) {
