@@ -10,10 +10,8 @@ import { toggleModal, updateAction } from "../../store/board.actions"
 
 import { TbArrowsDiagonal } from 'react-icons/tb'
 import { BiMessageRoundedAdd } from 'react-icons/bi'
-import { useSelector } from "react-redux"
 import { DragDropContext } from 'react-beautiful-dnd'
 
-import { toggleModal, updateAction } from "../../store/board.actions"
 import { BoardModal } from "../board/board-modal"
 
 export function TaskPreview({ task , groupId}) {
@@ -67,7 +65,7 @@ export function TaskPreview({ task , groupId}) {
                 </blockquote>
                 <div className="open-task-details" onClick={() => toggleModal(isOpen)}>
                     <TbArrowsDiagonal />
-                    <span onClick={() => showModal('open-modal')}>Open</span>
+                    <span>Open</span>
                 </div>
                 <div className="chat-icon">
                     <BiMessageRoundedAdd className="icon" />
@@ -84,7 +82,7 @@ export function TaskPreview({ task , groupId}) {
                 )
             })}
             <div className="empty-div"></div>
-            <BoardModal isOpenModal={isOpenModal} closeModal={closeModal} onUpdateTaskTitle={onUpdateTaskTitle}/>
+            {/* <BoardModal isOpenModal={isOpenModal} closeModal={closeModal} onUpdateTaskTitle={onUpdateTaskTitle}/> */}
         </section>
     )
 }
