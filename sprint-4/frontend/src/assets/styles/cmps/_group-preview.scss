@@ -50,9 +50,10 @@
                 min-width: $cell-width;
                 height: $cell-height;
                 border: 1px solid darken($border-color , 20%);
-                display: flex;
-                align-items: center;
-                justify-content: center;
+
+                .label-text {
+                    @include center-absolute();
+                }
             }
 
             .task-title {
@@ -89,15 +90,24 @@
                         cursor: pointer;
                     }
                 }
+
             }
 
             .task-person {
                 min-width: $cell-width-person;
-                @include member-img(#323338, white, 30px, 30px)
+                position: relative;
+                
+                .members-imgs {
+                    width: $cell-width-person;
+                    height: 100%;
+                    @include member-img(#323338, white, 30px, 30px);
+                    @include center-flex();
+                }
             }
 
             .label {
                 color: white;
+                position: relative;
             }
 
             .empty-label {
@@ -287,10 +297,5 @@
             border-left: $color-bright-blue-selected;
         }
 
-    }
-
-    .modal-open {
-        position: relative;
-        right: -100px;
     }
 }

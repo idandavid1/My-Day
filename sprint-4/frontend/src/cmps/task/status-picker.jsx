@@ -9,8 +9,8 @@ export function StatusPicker({ info, onUpdate }) {
         setIsModalOpen(!isModalOpen)
     }
     
-    let classText = !info.status ? 'picker empty-label' : ''
-    classText += isModalOpen ? ' modal-open' : ''
+    let classText = !info.status ? 'empty-label ' : ''
+    classText += 'label-text'
     const board = useSelector(storeState => storeState.boardModule.board)
 
     const label = board.labels.find(label => label.title === info.status)

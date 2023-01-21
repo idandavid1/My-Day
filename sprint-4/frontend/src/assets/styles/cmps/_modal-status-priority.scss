@@ -16,6 +16,7 @@
                 height: 32px;
                 display: flex;
                 justify-content: center;
+                align-items: center;
                 cursor: pointer;
             }
         }
@@ -43,7 +44,7 @@
             }
         }
     }
-    .triangle-container {
-        @include triangle-container();
+    .triangle-icon {
+        @include triangle-icon();
     }
 }
