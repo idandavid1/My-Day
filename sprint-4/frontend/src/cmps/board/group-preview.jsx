@@ -109,7 +109,7 @@ export function GroupPreview({ group, board , provided , snapchat}) {
                         {(provided, snapchat) => {
                             return (
                                 <li key={idx}>
-                                    <TaskPreview provided={provided} snapchat={snapchat} task={task} groupId={group.id} />
+                                    <TaskPreview provided={provided} snapchat={snapchat} task={task} groupId={group.id} board={board}/>
                                 </li>
                             )
                         }}

@@ -7,48 +7,66 @@ import { CgClose } from 'react-icons/cg'
 import { GrHomeRounded } from 'react-icons/gr'
 import { HiOutlineClock } from 'react-icons/hi'
 import { CiCalendarDate } from 'react-icons/ci'
-import { toggleModal } from "../../store/board.actions"
+import { AiOutlineBold } from 'react-icons/ai'
+import { RxUnderline } from 'react-icons/rx'
+import { AiOutlineStrikethrough } from 'react-icons/ai'
+import { TbAlignRight } from 'react-icons/tb'
+import { TbAlignLeft } from 'react-icons/tb'
+import { TbAlignCenter } from 'react-icons/tb'
+import { toggleModal, updateTaskAction } from "../../store/board.actions"
 
 const guest = require('../../assets/img/guest.png')
 
 export function BoardModal() {
-    const params = useParams()
+    const [isWriteNewUpdate, setIsWriteNewUpdate] = useState(false)
+    const {groupId, taskId, boardId} = useParams()
     const navigate = useNavigate()
     const board = useSelector((storeState) => storeState.boardModule.board)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     const [currTask, setCurrTask] = useState(null)
 
     useEffect(() => {
-        console.log(params)
-        if(params.taskId) loadTask() 
+        if(taskId && groupId) loadTask() 
     }, [])
     
     function loadTask() {
-        const group = board.groups.find(group => group.id === params.groupId)
-        const task = group.tasks.find(task => task.id === params.taskId)
+        const group = board.groups.find(group => group.id === groupId)
+        const task = group.tasks.find(task => task.id === taskId)
         setCurrTask(task)
-    }
+    } 
     
     function onCloseModal() {
-        navigate(`/board/${params.boardId}`)
+        navigate(`/board/${boardId}`)
         toggleModal(isOpen)
     }
 
-    function onUpdateTaskTitle() {
+    async function onUpdateTaskTitle(ev) {
+        const value = ev.target.innerText
+        currTask.title = value
+        try {
+            await updateTaskAction(board, groupId, currTask)
+        } catch (err) {
+            console.log('Failed to save')
+        }
+    }
 
+    function onCloseInput(ev) {
+        ev.preventDefault()
+        setIsWriteNewUpdate(false)
     }
 
 
 
-    // if (!currTask) return <div></div>
+    if (!currTask) return <div></div>
     return <section className={`board-modal ${isOpen ? 'open' : ''}`}>
         <div className="board-modal-header">
             <CgClose className="close-btn" onClick={onCloseModal} />
             <div className="title">
                 <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
-                    {/* {currTask.title} */}
+                    {currTask.title}
                 </blockquote>
             </div>
+        </div>
             <div className="board-info">
                 <div className="updates-btn">
                     <GrHomeRounded />
@@ -58,7 +76,7 @@ export function BoardModal() {
                     <span>Activity Log</span>
                 </div>
             </div>
-            <div className="activities">
+            {/* <div className="activities">
                 <div className="activity">
                     <div className="activity-date">
                         <HiOutlineClock />
@@ -75,9 +93,23 @@ export function BoardModal() {
                     <div className="activity-date">
                         <span>Jan 1</span>
                     </div>
-                </div>
+                </div> */
+            /* </div> */}
 
-            </div>
-        </div>
+            <section className="update">
+                    <form onBlur={onCloseInput} className={`input-container ${isWriteNewUpdate ? ' open' : '' }`}>
+                        {!isWriteNewUpdate && <span onClick={() => setIsWriteNewUpdate(true)}>Write an update</span>}
+                        {isWriteNewUpdate && <div className="style-txt">
+                            <span><AiOutlineBold /></span>
+                            <span><RxUnderline /></span>
+                            <span><AiOutlineStrikethrough /></span>
+                            <span><TbAlignLeft /></span>
+                            <span><TbAlignCenter /></span>
+                            <span><TbAlignRight /></span>
+                            </div>}
+                        {isWriteNewUpdate &&<textarea autoFocus></textarea>}
+                    </form>
+                
+            </section>
     </section>
 }

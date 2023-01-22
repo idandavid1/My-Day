@@ -10,10 +10,12 @@ import { toggleModal, updateTaskAction } from "../../store/board.actions"
 
 import { TbArrowsDiagonal } from 'react-icons/tb'
 import { BiMessageRoundedAdd } from 'react-icons/bi'
+import { useNavigate } from "react-router-dom"
 
 export function TaskPreview({ task, groupId, provided, board }) {
     const elTaskPreview = useRef(null)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
+    const navigate = useNavigate()
     //TODO:GET FROM STORE
     const cmpsOrder = [
         "member-picker",
@@ -42,7 +44,10 @@ export function TaskPreview({ task, groupId, provided, board }) {
         }
     }
 
-
+    function onOpenModal() {
+        toggleModal(isOpen)
+        navigate(`/board/${board._id}/${groupId}/${task.id}`)
+    }
 
     return (
 
@@ -56,7 +61,7 @@ export function TaskPreview({ task, groupId, provided, board }) {
                     <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
                         <span>{task.title}</span>
                     </blockquote>
-                    <div className="open-task-details" onClick={() => toggleModal(isOpen)}>
+                    <div className="open-task-details" onClick={onOpenModal}>
                         <TbArrowsDiagonal />
                         <span>Open</span>
                     </div>
