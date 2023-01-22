@@ -1,9 +1,12 @@
 .workspace-sidebar {
+    // position: sticky;
+    // top: 0;
     position: relative;
     background-color: $sidebar-workspace-bg ;
     border-right: 1px solid darken($border-color , 30%);
     color: $workspace-icon-color;
     transition: .4s;
+    // height: 98vh;
 
     &.open {
         min-width: $workspace-width;
@@ -14,16 +17,23 @@
     }
 
     .workspace-sidebar-items {
-        margin: 12px 16px 18px 16px;
+        margin: 16px 16px 18px 16px;
         border-bottom: 1px solid darken($border-color , 30%);
         gap: 10px;
     }
 
-    .workspace-title {
-        font-weight: 400;
-        font-size: 14px;
-        padding: 0 0 $spacing-xs 0;
+    .workspace-title-container{
+        .workspace-title {
+            font-weight: 400;
+            font-size: 14px;
+            padding: 0 0 $spacing-xs 0;
+        }
+        
+        .icon {
+            font-size: 28px;
+        }
     }
+    
 
     .chose-workspace {
         display: flex;
@@ -118,7 +128,7 @@
 
     .board-list {
         padding: 0 18px;
-        margin-top: 10px;
+        margin-top: 28px;
 
         & .active {
             border-radius: 4px;
@@ -150,7 +160,7 @@
         right: -14px;
         transition: width .2s;
         cursor: pointer;
-        z-index: 11;
+        z-index: 13;
 
         &:hover {
             color: white;

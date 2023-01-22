@@ -147,7 +147,7 @@
     .title-container {
         display: flex;
         position: sticky;
-        top: 242px;
+        top: 230px;
         z-index: 1;
         background-color: $app-bg;
 
@@ -194,7 +194,7 @@
 
     .group-header {
         position: sticky;
-        top: 204px;
+        top: 192px;
         display: flex;
         z-index: 2;
         background-color: white;
@@ -300,6 +300,9 @@
             height: 36px;
             border-left: $color-bright-blue-selected;
         }
+    }
 
+    .icon-person {
+        color: darken($border-color, 20%);
     }
 }
