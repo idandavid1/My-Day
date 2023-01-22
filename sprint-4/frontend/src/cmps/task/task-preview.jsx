@@ -1,6 +1,6 @@
 import { useRef } from "react"
 import { useSelector } from "react-redux"
-import { Draggable, DragDropContext } from 'react-beautiful-dnd'
+import { Draggable, DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 import { DueDate } from "./date-picker"
 import { MemberPicker } from "./member-picker"
@@ -42,42 +42,36 @@ export function TaskPreview({ task, groupId, provided, board }) {
         }
     }
 
+    return (<section className="task-preview" ref={elTaskPreview}>
 
-
-    return (
-
-        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-            <section className="task-preview" ref={elTaskPreview}>
-
-                <div className="check-box">
-                    <input type="checkbox" />
-                </div>
-                <div className="task-title picker" onClick={() => elTaskPreview.current.classList.toggle('on-typing')}>
-                    <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
-                        <span>{task.title}</span>
-                    </blockquote>
-                    <div className="open-task-details" onClick={() => toggleModal(isOpen)}>
-                        <TbArrowsDiagonal />
-                        <span>Open</span>
-                    </div>
-                    <div className="chat-icon">
-                        <BiMessageRoundedAdd className="icon" />
-                    </div>
-                </div>
-
-                {cmpsOrder.map((cmp, idx) => {
-                    return (
-                        <DynamicCmp
-                            cmp={cmp}
-                            key={idx}
-                            info={task}
-                            onUpdate={updateTask}
-                        />
-                    )
-                })}
-                <div className="empty-div"></div>
-            </section>
+        <div className="check-box">
+            <input type="checkbox" />
         </div>
+        <div className="task-title picker" onClick={() => elTaskPreview.current.classList.toggle('on-typing')}>
+            <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
+                <span>{task.title}</span>
+            </blockquote>
+            <div className="open-task-details" onClick={() => toggleModal(isOpen)}>
+                <TbArrowsDiagonal />
+                <span>Open</span>
+            </div>
+            <div className="chat-icon">
+                <BiMessageRoundedAdd className="icon" />
+            </div>
+        </div>
+
+        {cmpsOrder.map((cmp, idx) => {
+            return (
+                <DynamicCmp
+                    cmp={cmp}
+                    key={idx}
+                    info={task}
+                    onUpdate={updateTask}
+                />
+            )
+        })}
+        <div className="empty-div"></div>
+    </section>
     )
 }
 

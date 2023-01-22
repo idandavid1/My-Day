@@ -11,9 +11,9 @@ import { AiOutlinePlus } from 'react-icons/ai'
 
 import { GroupMenuModal } from "../group-menu-modal"
 import { utilService } from "../../services/util.service"
-import { DragDropContext, Draggable } from "react-beautiful-dnd"
+import { Draggable } from "react-beautiful-dnd"
 
-export function GroupPreview({ group, board , provided , snapchat}) {
+export function GroupPreview({ group, board, idx }) {
     const [taskToEdit, setTaskToEdit] = useState(TaskService.getEmptyTask())
     const titles = ['Task', 'Person', 'Status', 'Date', 'Priority']
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -78,63 +78,57 @@ export function GroupPreview({ group, board , provided , snapchat}) {
             <GroupMenuModal onRemoveGroup={onRemoveGroup} onDuplicateGroup={onDuplicateGroup}
                 onChangeGroupColor={onChangeGroupColor} isShowColorPicker={isShowColorPicker}
                 groupId={group.id} setIsModalOpen={setIsModalOpen} />}
+        <Draggable key={idx} draggableId={group.id + idx} index={idx}>
+            {(provided) => {
+                return <div ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}>
+                    <div className="group-menu">
+                        <BiDotsHorizontalRounded className="icon" onClick={onOpenModal} />
+                    </div>
+                    <div className="group-header" style={{ color: group.color }}>
+                        <MdKeyboardArrowDown className="arrow-icon" />
+                        <div className="group-header-title">
+                            <blockquote contentEditable onBlur={(ev) => onSave(ev)} onFocus={() => setIsShowColorPicker(true)} suppressContentEditableWarning={true}>
+                                {isShowColorPicker && <BsFillCircleFill onClick={onShowPalette} />}
+                                <h4>{group.title}</h4>
+                            </blockquote>
+                        </div>
+                    </div>
 
-        <div className="group-header" style={{ color: group.color }}>
-            <div className="group-menu">
-                <BiDotsHorizontalRounded className="icon" onClick={onOpenModal} />
-            </div>
-            <MdKeyboardArrowDown className="arrow-icon" />
-            <div className="group-header-title">
-                <blockquote contentEditable onBlur={(ev) => onSave(ev)} onFocus={() => setIsShowColorPicker(true)} suppressContentEditableWarning={true}>
-                    {isShowColorPicker && <BsFillCircleFill onClick={onShowPalette} />}
-                    <h4>{group.title}</h4>
-                </blockquote>
-            </div>
-        </div>
-        <div className="group-preview-content" style={{ borderColor: group.color }}>
-            <div className='title-container'>
-                <div className="check-box" >
-                    <input type="checkbox" />
+                    <div className="group-preview-content" style={{ borderColor: group.color }}>
+                        <div className='title-container'>
+                            <div className="check-box" >
+                                <input type="checkbox" />
+                            </div>
+                            {titles.map((title, idx) => <li className={title + ' title'} key={idx}>{title}</li>)}
+                            <div className="add-picker-task">
+                                <span>
+                                    <AiOutlinePlus />
+                                </span>
+                            </div>
+                        </div>
+                        {group.tasks.map((task, idx) => {
+                            return <li key={idx}>
+                                <TaskPreview task={task} groupId={group.id} board={board} />
+                            </li>
+                        })}
+                        <div className="add-task flex">
+                            <div className="check-box add-task">
+                                <input type="checkbox" />
+                            </div>
+                            <form onSubmit={onAddTask} className="add-task-form">
+                                <input type="text"
+                                    name="title"
+                                    value={taskToEdit.title}
+                                    placeholder="+ Add Task"
+                                    onChange={handleChange}
+                                    onBlur={onAddTask} />
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                {titles.map((title, idx) => <li className={title + ' title'} key={idx}>{title}</li>)}
-                <div className="add-picker-task">
-                    <span>
-                        <AiOutlinePlus />
-                    </span>
-                </div>
-            </div>
-            {group.tasks.map((task, idx) => {
-                return (
-                    <Draggable key={task.id} draggableId={task.id} index={idx}>
-                        {(provided, snapchat) => {
-                            return (
-                                <li key={idx}>
-                                    <TaskPreview provided={provided} snapchat={snapchat} task={task} groupId={group.id} />
-                                </li>
-                            )
-                        }}
-
-                    </Draggable>
-                )
-            })}
-            {/* {group.tasks.map((task, idx) => {
-                return <li key={idx}>
-                    <TaskPreview task={task} groupId={group.id} board={board}/>
-                </li>
-            })} */}
-            <div className="add-task flex">
-                <div className="check-box add-task">
-                    <input type="checkbox" />
-                </div>
-                <form onSubmit={onAddTask} className="add-task-form">
-                    <input type="text"
-                        name="title"
-                        value={taskToEdit.title}
-                        placeholder="+ Add Task"
-                        onChange={handleChange}
-                        onBlur={onAddTask} />
-                </form>
-            </div>
-        </div>
-    </ul>
+            }}
+        </Draggable>
+    </ul >
 }
