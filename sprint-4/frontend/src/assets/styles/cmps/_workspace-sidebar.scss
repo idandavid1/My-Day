@@ -126,24 +126,29 @@
 
     }
 
-    .board-list {
-        padding: 0 18px;
+    .board-list-container{
+        display: flex;
+        flex-direction: column;
         margin-top: 28px;
-
-        & .active {
-            border-radius: 4px;
-            background-color: $workspace-board-active;
-        }
-
-        .board-preview {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            div {
+        gap: 5px;
+        .board-list {
+            padding: 0 18px;
+    
+            & .active {
+                border-radius: 4px;
+                background-color: $workspace-board-active;
+            }
+    
+            .board-preview {
                 display: flex;
                 align-items: center;
-                gap: $spacing-small;
+                justify-content: space-between;
+    
+                div {
+                    display: flex;
+                    align-items: center;
+                    gap: $spacing-small;
+                }
             }
         }
     }

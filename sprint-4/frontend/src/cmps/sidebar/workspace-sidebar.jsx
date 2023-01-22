@@ -90,13 +90,13 @@ export function WorkspaceSidebar() {
                         </div>
                     </div>
                 </div>
-                <div>
+                <ul className='board-list-container'>
                     {boards.map(board => {
                         return <li key={board._id} className='board-list'>
                             <BoardPreview board={board} />
                         </li>
                     })}
-                </div>
+                </ul>
             </div>}
         </section>
     )
