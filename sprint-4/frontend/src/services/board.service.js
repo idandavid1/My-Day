@@ -190,7 +190,36 @@ function _createBoards() {
                             "status": "Stuck",
                             "priority": "Medium",
                             "memberIds": ["m101", "m102", "m103"],
-                            "dueDate": 1615621
+                            "dueDate": 1615621,
+                            "comments": [
+                                {
+                                "id": "b101",
+                                "archivedAt": 1589983468418,
+                                "byMember": {
+                                    "_id": "m101",
+                                    "fullname": "Tal Tarablus",
+                                    "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
+                                },"txt": "babababababaababaab"
+                            },
+                            {
+                                "id": "b101",
+                                "archivedAt": 1589983468418,
+                                "byMember": {
+                                    "_id": "m102",
+                                    "fullname": "Idan David",
+                                    "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673820094/%D7%A2%D7%99%D7%93%D7%9F_jranbo.jpg"
+                                },"txt": "bababa"
+                            },
+                            {
+                                "id": "b101",
+                                "archivedAt": 1589983468418,
+                                "byMember": {
+                                    "_id": "m102",
+                                    "fullname": "Tal Tarablus",
+                                    "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
+                                },"txt": "baba"
+                            }
+                            ]
                         },
                         {
                             "id": "c102",
@@ -198,7 +227,8 @@ function _createBoards() {
                             "status": "Done",
                             "priority": "Low",
                             "memberIds": ["m101"],
-                            "dueDate": 16156211111
+                            "dueDate": 16156211111,
+                            "comments": []
                         },
                     ],
                     "color": '#66ccff'
@@ -214,6 +244,7 @@ function _createBoards() {
                             "priority": "High",
                             "memberIds": ["m101", "m102", "m103"],
                             "dueDate": 16156215211,
+                            "comments": []
                         },
                         {
                             "id": "c104",
@@ -221,7 +252,8 @@ function _createBoards() {
                             "status": "Done",
                             "priority": "High",
                             "memberIds": ["m103"],
-                            "dueDate": 16156215211
+                            "dueDate": 16156215211,
+                            "comments": []
                         },
                         {
                             "id": "c105",
@@ -229,7 +261,8 @@ function _createBoards() {
                             "status": "Progress",
                             "priority": "Low",
                             "memberIds": ["m101", "m103"],
-                            "dueDate": 16156215211
+                            "dueDate": 16156215211,
+                            "comments": []
                         }
                     ],
                     "color": '#a25ddc'

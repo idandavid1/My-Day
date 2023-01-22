@@ -16,9 +16,10 @@ export function RootCmp() {
                         <Route element={<HomePage />} path='/' />
                         {/* <Route element={<BoardDetails />} path='/board/:boardId/' /> */}
                         <Route element={<BoardDetails />} path='/board/:boardId/' />
-                        <Route element={<BoardDetails />} path='/board/:boardId/'>
+                        <Route element={<BoardDetails />} path='/board/:boardId/:groupId/:taskId' />
+                        {/* <Route element={<BoardDetails />} path='/board/:boardId/'>
                             <Route element={<BoardModal />} path=':groupId/:taskId' />
-                        </Route>
+                        </Route> */}
                     </Routes>
                 </main>
             </div>
