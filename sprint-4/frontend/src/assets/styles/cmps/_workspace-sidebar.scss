@@ -1,12 +1,9 @@
 .workspace-sidebar {
-    // position: sticky;
-    // top: 0;
     position: relative;
     background-color: $sidebar-workspace-bg ;
     border-right: 1px solid darken($border-color , 30%);
     color: $workspace-icon-color;
     transition: .4s;
-    // height: 98vh;
 
     &.open {
         min-width: $workspace-width;
@@ -162,7 +159,7 @@
         height: 23px;
         width: 23px;
         top: 20px;
-        right: -14px;
+        right: -12px;
         transition: width .2s;
         cursor: pointer;
         z-index: 13;

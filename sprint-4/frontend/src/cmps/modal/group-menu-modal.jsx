@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { HiOutlineDocumentDuplicate } from 'react-icons/hi'
 import { RiDeleteBinLine } from 'react-icons/ri'
 import { BsFillCircleFill } from 'react-icons/bs'
-import { ColorPalette } from './color-palette'
+import { ColorPalette } from '../color-palette'
 
 export function GroupMenuModal({ groupId, onRemoveGroup, onDuplicateGroup, onChangeGroupColor , isShowColorPicker}) {
     const [isShowColorPalette, setIsShowColorPalette] = useState(isShowColorPicker)

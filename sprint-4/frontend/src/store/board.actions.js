@@ -1,6 +1,4 @@
 import { boardService } from '../services/board.service.js'
-import { groupService } from '../services/group.service.js'
-import { TaskService } from '../services/task.service.js'
 
 import { store } from './store.js'
 import { SET_BOARDS, SET_BOARD, REMOVE_BOARD, ADD_BOARD, UPDATE_BOARD, SET_FILTER, SET_MODAL, REMOVE_GROUP } from "./board.reducer.js"
@@ -49,7 +47,7 @@ export async function saveBoard(board) {
 
 export async function addGroup(board) {
     try {
-        const group = groupService.getEmptyGroup()
+        const group = boardService.getEmptyGroup()
         board.groups.unshift(group)
         const boardToSave = await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board: boardToSave })
@@ -72,7 +70,7 @@ export async function addTask(task, group, board) {
 export async function addTaskOnFirstGroup(board) {
     if(!board.groups.length) addGroup(board)
     try {
-        const taskToAdd = TaskService.getEmptyTask()
+        const taskToAdd = boardService.getEmptyTask()
         taskToAdd.title = 'New Task'
         board.groups[0].tasks.push(taskToAdd)
         const boardToSave = await boardService.save(board)

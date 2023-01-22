@@ -1,20 +1,19 @@
 import { useState } from "react"
+import { Draggable } from "react-beautiful-dnd"
 
-import { TaskService } from "../../services/task.service"
 import { TaskPreview } from "../task/task-preview"
+import { addTask, saveBoard, updateGroupAction, updateGroups } from "../../store/board.actions"
+import { GroupMenuModal } from "../modal/group-menu-modal"
+import { utilService } from "../../services/util.service"
+import { boardService } from "../../services/board.service"
 
 import { MdKeyboardArrowDown } from 'react-icons/md'
-import { addTask, saveBoard, updateGroupAction, updateGroups } from "../../store/board.actions"
 import { BsFillCircleFill } from 'react-icons/bs'
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
 
-import { GroupMenuModal } from "../group-menu-modal"
-import { utilService } from "../../services/util.service"
-import { Draggable } from "react-beautiful-dnd"
-
 export function GroupPreview({ group, board, idx }) {
-    const [taskToEdit, setTaskToEdit] = useState(TaskService.getEmptyTask())
+    const [taskToEdit, setTaskToEdit] = useState(boardService.getEmptyTask())
     const titles = ['Task', 'Person', 'Status', 'Date', 'Priority']
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isShowColorPicker, setIsShowColorPicker] = useState(false)
@@ -45,7 +44,7 @@ export function GroupPreview({ group, board, idx }) {
         if (!taskToEdit.title) return
         taskToEdit.id = utilService.makeId()
         addTask(taskToEdit, group, board)
-        setTaskToEdit(TaskService.getEmptyTask())
+        setTaskToEdit(boardService.getEmptyTask())
     }
 
     function onRemoveGroup(groupId) {
@@ -95,7 +94,6 @@ export function GroupPreview({ group, board, idx }) {
                             </blockquote>
                         </div>
                     </div>
-
                     <div className="group-preview-content" style={{ borderColor: group.color }}>
                         <div className='title-container'>
                             <div className="check-box" >
@@ -115,7 +113,7 @@ export function GroupPreview({ group, board, idx }) {
                         })}
                         <div className="add-task flex">
                             <div className="check-box add-task">
-                                <input type="checkbox" />
+                                <input type="checkbox" disabled />
                             </div>
                             <form onSubmit={onAddTask} className="add-task-form">
                                 <input type="text"

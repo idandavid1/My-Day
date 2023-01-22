@@ -2,21 +2,18 @@ import { useEffect, useState } from "react"
 
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
+import { toggleModal, updateTaskAction } from "../../store/board.actions"
 
 import { CgClose, CgLogOff } from 'react-icons/cg'
 import { GrHomeRounded } from 'react-icons/gr'
-import { HiOutlineClock } from 'react-icons/hi'
-import { CiCalendarDate } from 'react-icons/ci'
+// import { HiOutlineClock } from 'react-icons/hi'
+// import { CiCalendarDate } from 'react-icons/ci'
 import { AiOutlineBold } from 'react-icons/ai'
 import { RxUnderline } from 'react-icons/rx'
 import { AiOutlineStrikethrough } from 'react-icons/ai'
-import { TbAlignRight } from 'react-icons/tb'
-import { TbAlignLeft } from 'react-icons/tb'
-import { TbAlignCenter } from 'react-icons/tb'
+import { TbAlignRight ,TbAlignCenter,TbAlignLeft } from 'react-icons/tb'
 import { CiClock2 } from 'react-icons/ci'
-import { toggleModal, updateTaskAction } from "../../store/board.actions"
 
-const guest = require('../../assets/img/guest.png')
 
 export function BoardModal() {
     const [isWriteNewUpdate, setIsWriteNewUpdate] = useState(false)
@@ -41,8 +38,6 @@ export function BoardModal() {
         toggleModal(isOpen)
     }
 
-    console.log('groupId:', groupId)
-    console.log('taskId:', taskId)
     async function onUpdateTaskTitle(ev) {
         const value = ev.target.innerText
         currTask.title = value
@@ -96,7 +91,6 @@ export function BoardModal() {
                     </div>
                 </div> */
             /* </div> */}
-
             <section className="update">
                     <form onBlur={onCloseInput} className={`input-container ${isWriteNewUpdate ? ' open' : '' }`}>
                         {!isWriteNewUpdate && <span className="close-input-container" onClick={() => setIsWriteNewUpdate(true)}>Write an update</span>}
@@ -110,7 +104,6 @@ export function BoardModal() {
                             </div>}
                         {isWriteNewUpdate &&<textarea autoFocus></textarea>}
                     </form>
-                {console.log('currTask.comments:', currTask.comments)}
                 <ul>
                     {
                         currTask.comments.map(comment => {

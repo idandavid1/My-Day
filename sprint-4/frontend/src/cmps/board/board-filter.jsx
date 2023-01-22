@@ -1,3 +1,9 @@
+import { addGroup, addTaskOnFirstGroup } from '../../store/board.actions'
+import { useRef, useState } from 'react'
+import { boardService } from '../../services/board.service'
+import { useEffectUpdate } from '../../customHooks/useEffectUpdate'
+import { utilService } from '../../services/util.service'
+
 import { FaAngleDown } from 'react-icons/fa'
 import { TfiSearch } from 'react-icons/tfi'
 import { BsPersonCircle } from 'react-icons/bs'
@@ -7,12 +13,6 @@ import { AiOutlineEyeInvisible } from 'react-icons/ai'
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { CgViewComfortable } from 'react-icons/cg'
 import { BsArrowDownCircle } from 'react-icons/bs'
-
-import { addGroup, addTaskOnFirstGroup } from '../../store/board.actions'
-import { useRef, useState } from 'react'
-import { boardService } from '../../services/board.service'
-import { useEffectUpdate } from '../../customHooks/useEffectUpdate'
-import { utilService } from '../../services/util.service'
 
 export function BoardFilter({ board, onSetFilter }) {
     const [isShowModal, setIsShowModal] = useState(false)
@@ -59,8 +59,6 @@ export function BoardFilter({ board, onSetFilter }) {
                 placeholder="Search"
                 onChange={handleChange} />
         </div>
-
-        {/* <button className="search-btn"><TfiSearch /> Search</button> */}
         <button className="person-btn"><BsPersonCircle /> Person</button>
         <button className="filter-btn"><BiFilterAlt /> Filter</button>
         <button className="sort-btn"><RxCaretSort /> Sort</button>

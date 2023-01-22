@@ -40,6 +40,10 @@ a {
     cursor: pointer;
 }
 
+main{
+    width: 100%;
+}
+
 .btn {
     @include btn()
 }

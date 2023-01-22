@@ -1,0 +1,19 @@
+.task-preview {
+
+    .task-person {
+        min-width: $cell-width-person;
+        position: relative;
+        border: 1px solid darken($border-color , 20%);
+
+        .members-imgs {
+            width: $cell-width-person;
+            height: 100%;
+            @include member-img(#323338, white, 30px, 30px);
+            @include center-flex();
+        }
+
+        .icon-person {
+            color: darken($border-color, 20%);
+        }
+    }
+}
