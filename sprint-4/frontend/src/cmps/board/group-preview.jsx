@@ -11,13 +11,14 @@ import { AiOutlinePlus } from 'react-icons/ai'
 
 import { GroupMenuModal } from "../group-menu-modal"
 import { utilService } from "../../services/util.service"
+import { DragDropContext, Draggable } from "react-beautiful-dnd"
 
-export function GroupPreview({ group, board }) {
+export function GroupPreview({ group, board , provided , snapchat}) {
     const [taskToEdit, setTaskToEdit] = useState(TaskService.getEmptyTask())
     const titles = ['Task', 'Person', 'Status', 'Date', 'Priority']
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [isShowColorPicker , setIsShowColorPicker] = useState(false)
-    
+    const [isShowColorPicker, setIsShowColorPicker] = useState(false)
+
     function onOpenModal() {
         setIsModalOpen(!isModalOpen)
     }
@@ -65,7 +66,7 @@ export function GroupPreview({ group, board }) {
         setIsShowColorPicker(true)
         setIsModalOpen(true)
     }
-    
+
     function onChangeGroupColor(color) {
         group.color = color
         saveBoard(board)
@@ -85,7 +86,7 @@ export function GroupPreview({ group, board }) {
             <MdKeyboardArrowDown className="arrow-icon" />
             <div className="group-header-title">
                 <blockquote contentEditable onBlur={(ev) => onSave(ev)} onFocus={() => setIsShowColorPicker(true)} suppressContentEditableWarning={true}>
-                    {isShowColorPicker && <BsFillCircleFill  onClick={onShowPalette}/>}
+                    {isShowColorPicker && <BsFillCircleFill onClick={onShowPalette} />}
                     <h4>{group.title}</h4>
                 </blockquote>
             </div>
@@ -102,6 +103,20 @@ export function GroupPreview({ group, board }) {
                     </span>
                 </div>
             </div>
+            {/* {group.tasks.map((task, idx) => {
+                return (
+                    <Draggable key={task.id} draggableId={task.id} index={idx}>
+                        {(provided, snapchat) => {
+                            return (
+                                <li key={idx}>
+                                    <TaskPreview task={task} groupId={group.id} />
+                                </li>
+                            )
+                        }}
+
+                    </Draggable>
+                )
+            })} */}
             {group.tasks.map((task, idx) => {
                 return <li key={idx}>
                     <TaskPreview task={task} groupId={group.id} />
