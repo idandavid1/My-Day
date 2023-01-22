@@ -13,8 +13,7 @@ export const REMOVE_GROUP= 'REMOVE_GROUP'
 const initialState = {
     boards: [],
     board: null,
-    isBoardModalOpen:false,
-    filter: boardService.getEmptyFilter()
+    isBoardModalOpen: false,
 }
 
 export function boardReducer(state = initialState, action) {
@@ -35,9 +34,6 @@ export function boardReducer(state = initialState, action) {
             return { ...state, boards }
         case SET_MODAL:
             return {...state, isBoardModalOpen:action.isOpen}
-
-        case SET_FILTER:
-            return { ...state, filter: action.filter }
 
         default:
             return state

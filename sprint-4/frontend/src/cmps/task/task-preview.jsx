@@ -14,7 +14,6 @@ import { BiMessageRoundedAdd } from 'react-icons/bi'
 
 export function TaskPreview({ task, groupId }) {
     const [UpdateCurrTask, setUpdateCurrTask] = useState(task)
-    // const [isOpenModal , setIsOpenModal] = useState(false)
     const elTaskPreview = useRef(null)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     const board = useSelector(storeState => storeState.boardModule.board)

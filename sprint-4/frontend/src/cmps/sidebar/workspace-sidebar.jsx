@@ -55,9 +55,9 @@ export function WorkspaceSidebar() {
             </div>
             {isOpen && <div className="workspace-sidebar-header">
                 <div className='workspace-sidebar-items'>
-                    <div className="flex space-between align-center">
+                    <div className="workspace-title-container flex space-between align-center">
                         <span className='workspace-title'>Workspace</span>
-                        <BiDotsHorizontalRounded />
+                        <BiDotsHorizontalRounded className='icon'/>
                     </div>
                     <div className='chose-workspace'>
                         <div className='left'>

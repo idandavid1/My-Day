@@ -35,18 +35,18 @@ export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen}) {
 
     function onSubmit(ev) {
         ev.preventDefault()
-        const members = board.members.filter(member => !taskMembers.includes(member))
+        console.log('filter:', filter)
+        let members = board.members.filter(member => !taskMembers.includes(member))
         if (filter.txt) {
             const regex = new RegExp(filter.txt, 'i')
-            members = members.filter(member => regex.test(member.txt))
+            members = members.filter(member => regex.test(member.fullname))
           }
           setOutTaskMembers(members)
     }
 
-
     return (
         <section className="modal-member">
-            <div className="triangle-container"><VscTriangleUp className="triangle-icon"/></div>
+            <VscTriangleUp className="triangle-icon"/>
             <section className="modal-member-content" >
                 <ul className="taskMembers">
                     {
@@ -60,18 +60,17 @@ export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen}) {
                     }
                 </ul>
                 <div className="outTaskMembers">
-                    <div className="search-div">
+                    <form className="search-div" onSubmit={onSubmit}>
                         <input type="text" 
                         placeholder="Search names"
                         name="txt"
                         value={filter.txt}
                         onChange={handleChange}
                         />
-                        <span className="icon-container"><CiSearch className="icon"/></span>
-                    </div>
-                    
+                        <button className="icon-container"><CiSearch className="icon"/></button>
+                    </form>
                     <span>Suggested people</span>
-                    <ul>
+                    {outTaskMembers.length > 0 && <ul>
                         {
                             outTaskMembers.map(taskMember => {
                                return  <li key={taskMember.id} onClick={() => onAddMember(taskMember)}>
@@ -80,7 +79,7 @@ export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen}) {
                                 </li>
                             })
                         }
-                    </ul>
+                    </ul>}
                 </div>
             </section>
         </section>

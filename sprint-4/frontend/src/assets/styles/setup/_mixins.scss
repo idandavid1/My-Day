@@ -124,22 +124,29 @@
 }
 
 @mixin task-modal-position() {
-    position: relative;
-    z-index: 2;
-    bottom: -190px;
-    left: -35px;
+  position: absolute;
+  z-index: 2;
+  top: 21px;
+  left: -25px;
 }
 
-@mixin triangle-container() {
-  position: relative;
-  z-index: 2;
+@mixin triangle-icon() {
   color: white;
-  width: 100%;
+  position: relative;
+  right: -85px;
+  bottom: -11px;
+  z-index: 2;
+}
+
+@mixin center-absolute() {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin center-flex() {
   display: flex;
+  align-items: center;
   justify-content: center;
-  bottom: -6px;
-  .icon {
-    box-shadow: 0 8px 16px 0 rgb(0 0 0 / 32%);
-  }
-  
 }

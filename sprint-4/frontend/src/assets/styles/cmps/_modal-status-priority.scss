@@ -1,5 +1,6 @@
 .modal-status-priority {
     @include task-modal-position();
+    z-index: 10;
     
     .modal-status-priority-content {
         box-shadow: 0 8px 16px 0 rgb(0 0 0 / 32%);
@@ -16,6 +17,7 @@
                 height: 32px;
                 display: flex;
                 justify-content: center;
+                align-items: center;
                 cursor: pointer;
             }
         }
@@ -43,7 +45,7 @@
             }
         }
     }
-    .triangle-container {
-        @include triangle-container();
+    .triangle-icon {
+        @include triangle-icon();
     }
 }

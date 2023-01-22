@@ -50,9 +50,10 @@
                 min-width: $cell-width;
                 height: $cell-height;
                 border: 1px solid darken($border-color , 20%);
-                display: flex;
-                align-items: center;
-                justify-content: center;
+
+                .label-text {
+                    @include center-absolute();
+                }
             }
 
             .task-title {
@@ -89,15 +90,24 @@
                         cursor: pointer;
                     }
                 }
+
             }
 
             .task-person {
                 min-width: $cell-width-person;
-                @include member-img(#323338, white, 30px, 30px)
+                position: relative;
+                
+                .members-imgs {
+                    width: $cell-width-person;
+                    height: 100%;
+                    @include member-img(#323338, white, 30px, 30px);
+                    @include center-flex();
+                }
             }
 
             .label {
                 color: white;
+                position: relative;
             }
 
             .empty-label {
@@ -137,7 +147,7 @@
     .title-container {
         display: flex;
         position: sticky;
-        top: 0;
+        top: 230px;
         z-index: 1;
         background-color: $app-bg;
 
@@ -183,7 +193,11 @@
     }
 
     .group-header {
+        position: sticky;
+        top: 192px;
         display: flex;
+        z-index: 2;
+        background-color: white;
         height: 40px;
         align-items: center;
         line-height: $font-reg-line-height-24;
@@ -286,11 +300,9 @@
             height: 36px;
             border-left: $color-bright-blue-selected;
         }
-
     }
 
-    .modal-open {
-        position: relative;
-        right: -100px;
+    .icon-person {
+        color: darken($border-color, 20%);
     }
 }

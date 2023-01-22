@@ -15,9 +15,9 @@ export async function loadBoards(filterBy) {
     }
 }
 
-export async function loadBoard(boardId) {
+export async function loadBoard(boardId, filterBy) {
     try {
-        const board = await boardService.getById(boardId)
+        const board = await boardService.getById(boardId, filterBy)
         store.dispatch({ type: SET_BOARD, board })
     } catch (err) {
         console.log('Had issues loading', err)
@@ -47,9 +47,9 @@ export async function saveBoard(board) {
     }
 }
 
-export function setFilter(filter) {
-    store.dispatch({ type: SET_FILTER, filter })
-}
+// export function setFilter(filter) {
+//     store.dispatch({ type: SET_FILTER, filter })
+// }
 
 export async function addGroup(board) {
     try {

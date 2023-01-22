@@ -1,14 +1,16 @@
 .modal-member {
-    @include task-modal-position();
-    bottom: -17px;
-    left: -165px;
+    // @include task-modal-position();
+    position: absolute;
+    z-index: 10;
+    top: 21px;
+    left: -130px;
 
     .modal-member-content {
         box-shadow: 0 8px 16px 0 rgb(0 0 0 / 32%);
         background-color: white;
         border-radius: 10px;
         width: 360px;
-        padding: $spacing-medium;
+        padding: $spacing-small $spacing-large $spacing-small $spacing-medium;
         img {
             border-radius: 50%;
         }
@@ -47,17 +49,30 @@
                 border: 2px solid darken($border-color , 20%);
                 input {
                     border: 0;
+                    margin: 0;
+
+                    &:focus-visible {
+                        outline: 0;
+                    }
                 }
 
                 .icon-container {
+                    margin: 0;
                     display: flex;
+                    background-color: white;
                     align-items: center;
                     border-radius: 8px;
+                    width: 24px;
+                    height: 24px;
                     padding: $spacing-xs $spacing-xs;
                     cursor: pointer;
 
                     &:hover {
                         background-color: $layout-border-color;
+                    }
+
+                    .icon {
+                        color: black;
                     }
                 }
             }
@@ -82,8 +97,8 @@
         }
     }
     
-    .triangle-container {
-        @include triangle-container();
-        width: 300px;
+    .triangle-icon {
+        @include triangle-icon();
+        right: -170px;
     }
 }
