@@ -51,7 +51,7 @@ export function TaskPreview({ task, groupId, provided, board }) {
 
     return (
 
-        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+        // <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
             <section className="task-preview" ref={elTaskPreview}>
 
                 <div className="check-box">
