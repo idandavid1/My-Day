@@ -4,7 +4,7 @@ import { TaskService } from "../../services/task.service"
 import { TaskPreview } from "../task/task-preview"
 
 import { MdKeyboardArrowDown } from 'react-icons/md'
-import { addTask, saveBoard, updateAction, updateGroups } from "../../store/board.actions"
+import { addTask, saveBoard, updateGroupAction, updateGroups } from "../../store/board.actions"
 import { BsFillCircleFill } from 'react-icons/bs'
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
@@ -27,7 +27,7 @@ export function GroupPreview({ group, board , provided , snapchat}) {
         const value = ev.target.innerText
         group.title = value
         try {
-            await updateAction(board)
+            await updateGroupAction(board, group)
             setIsModalOpen(false)
             setIsShowColorPicker(false)
         } catch (err) {
@@ -119,7 +119,7 @@ export function GroupPreview({ group, board , provided , snapchat}) {
             })} */}
             {group.tasks.map((task, idx) => {
                 return <li key={idx}>
-                    <TaskPreview task={task} groupId={group.id} />
+                    <TaskPreview task={task} groupId={group.id} board={board}/>
                 </li>
             })}
             <div className="add-task flex">

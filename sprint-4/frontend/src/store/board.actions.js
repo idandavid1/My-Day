@@ -47,10 +47,6 @@ export async function saveBoard(board) {
     }
 }
 
-// export function setFilter(filter) {
-//     store.dispatch({ type: SET_FILTER, filter })
-// }
-
 export async function addGroup(board) {
     try {
         const group = groupService.getEmptyGroup()
@@ -86,15 +82,6 @@ export async function addTaskOnFirstGroup(board) {
     }
 }
 
-export async function updateAction(board) {
-    try {
-        await boardService.save(board)
-        store.dispatch({ type: SET_BOARD, board })
-    } catch (err) {
-        console.error('cant add task:', err)
-    }
-}
-
 export function toggleModal(isOpenModal) {
     store.dispatch({ type: SET_MODAL, isOpen: !isOpenModal })
 }
@@ -103,4 +90,28 @@ export async function updateGroups(groups, board) {
     board.groups = groups
     const boardToSave = await boardService.save(board)
     store.dispatch({ type: UPDATE_BOARD, board: boardToSave })
+}
+
+export async function updateGroupAction(currBoard, saveGroup) {
+    try {
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
+        board.groups = board.groups.map(group => (group.id === saveGroup.id) ? saveGroup : group)
+        await boardService.save(board)
+        store.dispatch({ type: SET_BOARD, board: currBoard })
+    } catch (err) {
+        console.error('cant save group:', err)
+    }
+    
+}
+
+export async function updateTaskAction(currBoard, groupId, saveTask) {
+    try {
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
+        const group = board.groups.find(group => group.id === groupId)
+        group.tasks = group.tasks.map(task => (task.id === saveTask.id) ? saveTask : task)
+        await boardService.save(board)
+        store.dispatch({ type: SET_BOARD, board: currBoard })
+    } catch (err) {
+        console.error('cant add task:', err)
+    }
 }

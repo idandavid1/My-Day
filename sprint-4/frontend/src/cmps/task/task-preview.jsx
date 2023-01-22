@@ -1,5 +1,4 @@
-import { useRef, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useRef } from "react"
 import { useSelector } from "react-redux"
 import { Draggable, DragDropContext } from 'react-beautiful-dnd'
 
@@ -7,17 +6,14 @@ import { DueDate } from "./date-picker"
 import { MemberPicker } from "./member-picker"
 import { PriorityPicker } from "./priority-picker"
 import { StatusPicker } from "./status-picker"
-import { toggleModal, updateAction } from "../../store/board.actions"
+import { toggleModal, updateTaskAction } from "../../store/board.actions"
 
 import { TbArrowsDiagonal } from 'react-icons/tb'
 import { BiMessageRoundedAdd } from 'react-icons/bi'
 
-export function TaskPreview({ task, groupId }) {
-    const [UpdateCurrTask, setUpdateCurrTask] = useState(task)
+export function TaskPreview({ task, groupId, board }) {
     const elTaskPreview = useRef(null)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
-    const board = useSelector(storeState => storeState.boardModule.board)
-    const params = useParams()
     //TODO:GET FROM STORE
     const cmpsOrder = [
         "member-picker",
@@ -29,8 +25,7 @@ export function TaskPreview({ task, groupId }) {
     async function updateTask(cmpType, data) {
         task[cmpType] = data
         try {
-            await updateAction(board)
-            setUpdateCurrTask({ ...task })
+            await updateTaskAction(board, groupId, task)
         } catch (err) {
             console.log(err)
         }
@@ -41,11 +36,13 @@ export function TaskPreview({ task, groupId }) {
         task.title = value
         try {
             elTaskPreview.current.classList.toggle('on-typing')
-            await updateAction(board)
+            await updateTaskAction(board, groupId, task)
         } catch (err) {
             console.log('Failed to save')
         }
     }
+
+
 
     return (
             <section className="task-preview" ref={elTaskPreview}>
@@ -55,7 +52,7 @@ export function TaskPreview({ task, groupId }) {
                 </div>
                 <div className="task-title picker" onClick={() => elTaskPreview.current.classList.toggle('on-typing')}>
                     <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
-                        <span>{UpdateCurrTask.title}</span>
+                        <span>{task.title}</span>
                     </blockquote>
                     <div className="open-task-details" onClick={() => toggleModal(isOpen)}>
                         <TbArrowsDiagonal />
@@ -71,7 +68,7 @@ export function TaskPreview({ task, groupId }) {
                         <DynamicCmp
                             cmp={cmp}
                             key={idx}
-                            info={UpdateCurrTask}
+                            info={task}
                             onUpdate={updateTask}
                         />
                     )

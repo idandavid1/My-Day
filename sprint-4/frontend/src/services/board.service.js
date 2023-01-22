@@ -30,16 +30,16 @@ async function getById(boardId, filterBy = getDefaultFilter()) {
     try {
         let board = await storageService.get(STORAGE_KEY, boardId)
         console.log('filterBy:', filterBy)
-        // if(filterBy.title){
-        //     const regex = new RegExp(filterBy.title, 'i')
-        //     const groups = board.groups.filter(group => regex.test(group.title))
-        //     groups.forEach(group => {
-        //         console.log('group.tasks:', group.tasks)
-        //         group.tasks = group.tasks.filter(task => regex.test(task.title))
-        //     })
+        if(filterBy.title){
+            const regex = new RegExp(filterBy.title, 'i')
+            const groups = board.groups.filter(group => regex.test(group.title))
+            groups.forEach(group => {
+                console.log('group.tasks:', group.tasks)
+                group.tasks = group.tasks.filter(task => regex.test(task.title))
+            })
 
-        //     board.groups = groups
-        // }
+            board.groups = groups
+        }
         return board
     } catch (err) {
         throw err

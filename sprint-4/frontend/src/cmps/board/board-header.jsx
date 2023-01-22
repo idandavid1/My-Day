@@ -3,7 +3,7 @@ import { BsStar } from 'react-icons/bs'
 import { FiActivity } from 'react-icons/fi'
 import { GrHomeRounded } from 'react-icons/gr'
 import { BoardFilter } from '../task/board-filter'
-import { updateAction } from '../../store/board.actions'
+import { saveBoard } from '../../store/board.actions'
 
 const guest = require('../../assets/img/guest.png')
 
@@ -13,7 +13,7 @@ export function BoardHeader({board , onSetFilter}) {
         const value = ev.target.innerText
         board.title = value
         try {
-            updateAction(board)
+            saveBoard(board)
         } catch (err) {
             console.log('Failed to save')
         }
