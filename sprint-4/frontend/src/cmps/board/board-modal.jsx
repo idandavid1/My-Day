@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 
-import { CgClose } from 'react-icons/cg'
+import { CgClose, CgLogOff } from 'react-icons/cg'
 import { GrHomeRounded } from 'react-icons/gr'
 import { HiOutlineClock } from 'react-icons/hi'
 import { CiCalendarDate } from 'react-icons/ci'
@@ -13,6 +13,7 @@ import { AiOutlineStrikethrough } from 'react-icons/ai'
 import { TbAlignRight } from 'react-icons/tb'
 import { TbAlignLeft } from 'react-icons/tb'
 import { TbAlignCenter } from 'react-icons/tb'
+import { CiClock2 } from 'react-icons/ci'
 import { toggleModal, updateTaskAction } from "../../store/board.actions"
 
 const guest = require('../../assets/img/guest.png')
@@ -27,7 +28,7 @@ export function BoardModal() {
 
     useEffect(() => {
         if(taskId && groupId) loadTask() 
-    }, [])
+    }, [taskId])
     
     function loadTask() {
         const group = board.groups.find(group => group.id === groupId)
@@ -40,6 +41,8 @@ export function BoardModal() {
         toggleModal(isOpen)
     }
 
+    console.log('groupId:', groupId)
+    console.log('taskId:', taskId)
     async function onUpdateTaskTitle(ev) {
         const value = ev.target.innerText
         currTask.title = value
@@ -54,8 +57,6 @@ export function BoardModal() {
         ev.preventDefault()
         setIsWriteNewUpdate(false)
     }
-
-
 
     if (!currTask) return <div></div>
     return <section className={`board-modal ${isOpen ? 'open' : ''}`}>
@@ -98,7 +99,7 @@ export function BoardModal() {
 
             <section className="update">
                     <form onBlur={onCloseInput} className={`input-container ${isWriteNewUpdate ? ' open' : '' }`}>
-                        {!isWriteNewUpdate && <span onClick={() => setIsWriteNewUpdate(true)}>Write an update</span>}
+                        {!isWriteNewUpdate && <span className="close-input-container" onClick={() => setIsWriteNewUpdate(true)}>Write an update</span>}
                         {isWriteNewUpdate && <div className="style-txt">
                             <span><AiOutlineBold /></span>
                             <span><RxUnderline /></span>
@@ -109,7 +110,27 @@ export function BoardModal() {
                             </div>}
                         {isWriteNewUpdate &&<textarea autoFocus></textarea>}
                     </form>
-                
+                {console.log('currTask.comments:', currTask.comments)}
+                <ul>
+                    {
+                        currTask.comments.map(comment => {
+                            return (
+                            <li key={comment.id}>
+                                <div className="header-comment">
+                                    <div className="left">
+                                        {/* <img src={comment.byMember.imgUrl} alt="" /> */}
+                                        <span>{comment.byMember.fullname}</span>
+                                    </div>
+                                    <div className="right">
+                                        <CiClock2 />
+                                        <span>3h</span>
+                                    </div>
+                                </div>
+                                <div>comment.txt</div>
+                            </li>
+                        )})
+                    }
+                </ul>
             </section>
     </section>
 }
