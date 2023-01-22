@@ -19,8 +19,8 @@ export function MemberPicker({ info, onUpdate }) {
         <section className="picker task-person">
             <div className="members-imgs">
                 {members.length === 0 && <BsPersonCircle onClick={() => setIsModalOpen(!isModalOpen)} className="icon-person"/>}
-                {members.length > 0 && <img className='member-img1' src={!members.length ? guest : members[0].imgUrl} alt="member" onClick={() => setIsModalOpen(true)} />}
-                {members.length === 2 && <img className='member-img2' src={members.length <= 1 ? guest : members[1].imgUrl} alt="member" onClick={() => setIsModalOpen(true)}/>}
+                {members.length > 0 && <img className='member-img1' src={!members.length ? guest : members[0].imgUrl} alt="member" onClick={() => setIsModalOpen(!isModalOpen)} />}
+                {members.length === 2 && <img className='member-img2' src={members.length <= 1 ? guest : members[1].imgUrl} alt="member" onClick={() => setIsModalOpen(!isModalOpen)}/>}
                 {members.length > 2 && <div className='show-more-members' onClick={() => setIsModalOpen(!isModalOpen)}>
                 <span className='show-more-count'>+{members.length - 1}</span>
             </div>}

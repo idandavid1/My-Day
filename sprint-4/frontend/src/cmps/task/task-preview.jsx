@@ -11,7 +11,7 @@ import { toggleModal, updateTaskAction } from "../../store/board.actions"
 import { TbArrowsDiagonal } from 'react-icons/tb'
 import { BiMessageRoundedAdd } from 'react-icons/bi'
 
-export function TaskPreview({ task, groupId, board }) {
+export function TaskPreview({ task, groupId, provided, board }) {
     const elTaskPreview = useRef(null)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     //TODO:GET FROM STORE
@@ -45,6 +45,8 @@ export function TaskPreview({ task, groupId, board }) {
 
 
     return (
+
+        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
             <section className="task-preview" ref={elTaskPreview}>
 
                 <div className="check-box">
@@ -75,6 +77,7 @@ export function TaskPreview({ task, groupId, board }) {
                 })}
                 <div className="empty-div"></div>
             </section>
+        </div>
     )
 }
 

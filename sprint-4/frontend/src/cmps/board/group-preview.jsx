@@ -103,25 +103,25 @@ export function GroupPreview({ group, board , provided , snapchat}) {
                     </span>
                 </div>
             </div>
-            {/* {group.tasks.map((task, idx) => {
+            {group.tasks.map((task, idx) => {
                 return (
                     <Draggable key={task.id} draggableId={task.id} index={idx}>
                         {(provided, snapchat) => {
                             return (
                                 <li key={idx}>
-                                    <TaskPreview task={task} groupId={group.id} />
+                                    <TaskPreview provided={provided} snapchat={snapchat} task={task} groupId={group.id} />
                                 </li>
                             )
                         }}
 
                     </Draggable>
                 )
-            })} */}
-            {group.tasks.map((task, idx) => {
+            })}
+            {/* {group.tasks.map((task, idx) => {
                 return <li key={idx}>
                     <TaskPreview task={task} groupId={group.id} board={board}/>
                 </li>
-            })}
+            })} */}
             <div className="add-task flex">
                 <div className="check-box add-task">
                     <input type="checkbox" />
