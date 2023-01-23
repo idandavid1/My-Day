@@ -157,7 +157,44 @@
             }
         }
 
-        
-        
+        .comments-list {
+            li {
+                border-radius: 4px;
+                border: 1px solid darken($border-color , 20%);
+                margin-bottom: $spacing-medium;
+
+                .header-comment {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: $spacing-medium $spacing-medium $spacing-small $spacing-medium;
+    
+                    .left {
+                        display: flex;
+                        align-items: center;
+                        gap: $spacing-small;
+                        img {
+                            @include members();
+                        }
+                    }
+
+                    .right {
+                        display: flex;
+                        align-items: center;
+                        gap: $spacing-small;
+
+                        .time {
+                            display: flex;
+                            align-items: center;
+                            gap: 2px;
+                        }
+                    }
+                }
+
+                p {
+                    margin-top: $spacing-small;
+                    padding: 0 15px 15px 15px;
+                }
+            } 
+         } 
     }
 }

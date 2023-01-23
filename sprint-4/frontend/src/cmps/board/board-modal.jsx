@@ -13,6 +13,7 @@ import { RxUnderline } from 'react-icons/rx'
 import { AiOutlineStrikethrough } from 'react-icons/ai'
 import { TbAlignRight ,TbAlignCenter,TbAlignLeft } from 'react-icons/tb'
 import { CiClock2 } from 'react-icons/ci'
+import { BiDotsHorizontalRounded } from 'react-icons/bi'
 
 
 export function BoardModal() {
@@ -104,22 +105,25 @@ export function BoardModal() {
                             </div>}
                         {isWriteNewUpdate &&<textarea autoFocus></textarea>}
                     </form>
-                <ul>
+                <ul className="comments-list">
                     {
                         currTask.comments.map(comment => {
                             return (
                             <li key={comment.id}>
                                 <div className="header-comment">
                                     <div className="left">
-                                        {/* <img src={comment.byMember.imgUrl} alt="" /> */}
+                                        <img src={comment.byMember.imgUrl} alt="" />
                                         <span>{comment.byMember.fullname}</span>
                                     </div>
                                     <div className="right">
-                                        <CiClock2 />
-                                        <span>3h</span>
+                                        <div className="time">
+                                            <CiClock2 />
+                                            <span>3h</span>
+                                        </div>
+                                        <BiDotsHorizontalRounded />
                                     </div>
                                 </div>
-                                <div>comment.txt</div>
+                                <p>{comment.txt}</p>
                             </li>
                         )})
                     }
