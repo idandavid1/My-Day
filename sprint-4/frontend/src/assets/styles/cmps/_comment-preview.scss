@@ -1,0 +1,82 @@
+.comments-list {
+    li {
+        border-radius: 4px;
+        border: 1px solid darken($border-color , 20%);
+        margin-bottom: $spacing-medium;
+        padding: $spacing-medium;
+        .header-comment {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: $spacing-small;
+            font-size: 14px;
+            color: $workspace-icon-color;
+
+            .left {
+                display: flex;
+                align-items: center;
+                gap: $spacing-small;
+                font-size: 16px;
+                color: $primary-text-color;
+
+                img {
+                    @include members();
+                }
+            }
+
+            .right {
+                display: flex;
+                align-items: center;
+                gap: $spacing-small;
+
+                .time {
+                    display: flex;
+                    align-items: center;
+                    gap: 2px;
+                }
+
+                .menu-icon-container {
+                    position: relative;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 4px;
+                    @include center-flex();
+
+                    &:hover {
+                        background-color: $workspace-hover;
+                    }
+
+                    &.active {
+                        background-color: $workspace-board-active;
+                    }
+
+                    .comment-modal {
+                        @include menu-modal();
+                        right: 0;
+                        width: 265px;
+                    }
+                }
+            }
+        }
+
+        p {
+            margin-top: $spacing-small;
+            padding: 0 15px 15px 15px;
+            max-width: 540px;
+            overflow-wrap: break-word;
+        }
+
+        .cancel {
+            background-color: white;
+            color: black;
+            margin: 0;
+            height: 32px;
+            border-radius: 4px;
+            padding: $spacing-xs $spacing-small;
+            @include center-flex();
+
+            &:hover {
+                background-color: $workspace-hover;
+            }
+        }
+    }
+}
