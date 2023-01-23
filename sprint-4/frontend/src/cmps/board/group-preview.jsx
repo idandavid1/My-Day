@@ -125,15 +125,17 @@ export function GroupPreview({ group, board, idx }) {
                         </div>
                     </div>
 
-                    <div className="group-preview-content" style={{ borderColor: group.color }}>
+                    <div className="group-preview-content" >
                         <DragDropContext onDragEnd={handleHorizontalDrag}>
                             <Droppable droppableId="title" direction="horizontal">
                                 {(droppableProvided) => {
                                     return <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps} className='title-container'>
-                                        <div className="check-box" >
-                                            <input type="checkbox" />
+                                        <div className="sticky-div titles flex" style={{ borderColor: group.color }}>
+                                            <div className="check-box" >
+                                                <input type="checkbox" />
+                                            </div>
+                                            <div className="task title">Task</div>
                                         </div>
-                                        <div className="task title">Task</div>
                                         {board.cmpsOrder.map((title, idx) =>
                                             <Draggable key={title} draggableId={title} index={idx}>
                                                 {(provided, snapshot) => {
@@ -198,7 +200,7 @@ export function GroupPreview({ group, board, idx }) {
                             </li>
                         })} */}
 
-                        <div className="add-task flex">
+                        <div className="add-task sticky-div" style={{ borderColor: group.color }}>
                             <div className="check-box add-task">
                                 <input type="checkbox" disabled />
                             </div>

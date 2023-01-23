@@ -16,9 +16,9 @@ import { BsFillLightningFill } from 'react-icons/bs'
 import { AiFillHome } from 'react-icons/ai'
 
 
-export function WorkspaceSidebar() {
+export function WorkspaceSidebar({isOpen , setIsOpen}) {
     const elSection = useRef(null)
-    const [isOpen, setIsOpen] = useState(false)
+    
     const [filterByToEdit, setFilterByToEdit] = useState(boardService.getDefaultFilterBoard())
     const boards = useSelector(storeState => storeState.boardModule.boards)
 

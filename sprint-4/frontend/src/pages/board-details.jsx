@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { loadBoard, loadBoards } from "../store/board.actions"
@@ -14,27 +14,32 @@ import { boardService } from '../services/board.service'
 export function BoardDetails() {
     const board = useSelector(storeState => storeState.boardModule.board)
     const boards = useSelector(storeState => storeState.boardModule.boards)
-    const [searchParams , setSearchParams] = useSearchParams()
+    const [isOpen, setIsOpen] = useState(false)
+    const [searchParams, setSearchParams] = useSearchParams()
     const queryFilterBy = boardService.getFilterFromSearchParams(searchParams)
     const { boardId } = useParams()
 
+    // const mainStyle = isOpen ? {left:'317px'} : {}
+
     useEffect(() => {
         loadBoard(boardId, queryFilterBy)
-        if(!boards.length) loadBoards()
+        if (!boards.length) loadBoards()
     }, [])
     console.log(board);
-    
+
     function onSetFilter(filterBy) {
         setSearchParams(filterBy)
         loadBoard(boardId, filterBy)
     }
-    
-    if(!board) return <div>Loading...</div>
+
+    if (!board) return <div>Loading...</div>
     return (
         <section className="board-details flex">
-            <MainSidebar />
-            <WorkspaceSidebar />
-            <main className="board-main">
+            <div className='sidebar flex'>
+                <MainSidebar />
+                <WorkspaceSidebar isOpen={isOpen} setIsOpen={setIsOpen}/>
+            </div>
+            <main className="board-main" >
                 <BoardHeader board={board} onSetFilter={onSetFilter} />
                 <GroupList board={board} />
                 <BoardModal />

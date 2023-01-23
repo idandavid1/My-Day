@@ -7,7 +7,8 @@ export const utilService = {
     saveToStorage,
     loadFromStorage,
     getMonthName,
-    getColors
+    getColors,
+    calculateTime
 }
 
 function makeId(length = 6) {
@@ -52,6 +53,7 @@ function debounce(func, timeout = 300){
       timer = setTimeout(() => { func.apply(this, args) }, timeout)
     }
 }
+
 function getMonthName(date) {
     const monthNames = ["Jan`", "Feb`", "March", "April", "May", "June",
         "July", "Aug`", "Sep`", "Oct`", "Nov`", "Dec`"
@@ -83,4 +85,23 @@ function getColors() {
         '#E6C9A8',
         '#E8EAED',
     ]
+}
+
+function calculateTime(time) {
+    const currentTime = new Date().getTime()
+    const timeDiff = Math.floor((currentTime - time) / 60000)
+    if(timeDiff >= 60 * 24 * 7) {
+        const week = Math.floor(timeDiff / (60 * 24 * 7))
+        return `${week}w`
+    } else if(timeDiff >= 60 * 24) {
+        const day = Math.floor(timeDiff / (60 * 24))
+        return `${day}d`
+    } else if (timeDiff >= 60) {
+      const hours = Math.floor(timeDiff / 60)
+      return `${hours}h`
+    } else if(timeDiff >= 2) {
+        const minutes = timeDiff % 60
+        return `${minutes}m`
+    } else return 'just now'
+    
 }

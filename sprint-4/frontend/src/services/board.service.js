@@ -87,7 +87,8 @@ function getEmptyTask() {
         "status": "", 
         "priority": "", 
         "memberIds": [],
-        "dueDate": ''
+        "dueDate": '',
+        "comments":[]
     }
 }
 

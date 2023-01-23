@@ -38,6 +38,9 @@
         padding: 8px;
         left: -34px;
     }
+    .task-tools-modal {
+        @include menu-modal();
+    }
     .picker {
         min-width: $cell-width;
         height: $cell-height;
@@ -45,7 +48,7 @@
     }
 
     .task-title {
-        min-width: $cell-width-task;
+        width: $cell-width-task;
         display: flex;
         justify-content: space-between;
         cursor: pointer;
