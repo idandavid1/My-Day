@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { userService } from '../../services/user.service'
-import { ImgUploader } from '../img-uploader'
+// import { ImgUploader } from '../img-uploader'
 import { LoginPageHeader } from '../login-page-header'
 
 export function LoginSignup(props) {
