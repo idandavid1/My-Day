@@ -1,6 +1,4 @@
 import { boardService } from '../services/board.service.js'
-import { groupService } from '../services/group.service.js'
-import { TaskService } from '../services/task.service.js'
 
 import { store } from './store.js'
 import { SET_BOARDS, SET_BOARD, REMOVE_BOARD, ADD_BOARD, UPDATE_BOARD, SET_FILTER, SET_MODAL, REMOVE_GROUP } from "./board.reducer.js"
@@ -47,13 +45,21 @@ export async function saveBoard(board) {
     }
 }
 
-// export function setFilter(filter) {
-//     store.dispatch({ type: SET_FILTER, filter })
-// }
+export async function updatePickerCmpsOrder(currBoard, cmpsOrders) {
+    try {
+        const board = await boardService.getById(currBoard._id , boardService.getDefaultFilter())
+        board.cmpsOrder = cmpsOrders
+        currBoard.cmpsOrder = cmpsOrders
+        await saveBoard(board)
+        store.dispatch({type:SET_BOARD , board: currBoard})
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 export async function addGroup(board) {
     try {
-        const group = groupService.getEmptyGroup()
+        const group = boardService.getEmptyGroup()
         board.groups.unshift(group)
         const boardToSave = await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board: boardToSave })
@@ -74,24 +80,15 @@ export async function addTask(task, group, board) {
 }
 
 export async function addTaskOnFirstGroup(board) {
-    if(!board.groups.length) addGroup(board)
+    if (!board.groups.length) addGroup(board)
     try {
-        const taskToAdd = TaskService.getEmptyTask()
+        const taskToAdd = boardService.getEmptyTask()
         taskToAdd.title = 'New Task'
         board.groups[0].tasks.push(taskToAdd)
         const boardToSave = await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board: boardToSave })
     } catch (err) {
         console.log('cant add task:', err)
-    }
-}
-
-export async function updateAction(board) {
-    try {
-        await boardService.save(board)
-        store.dispatch({ type: SET_BOARD, board })
-    } catch (err) {
-        console.error('cant add task:', err)
     }
 }
 
@@ -103,4 +100,33 @@ export async function updateGroups(groups, board) {
     board.groups = groups
     const boardToSave = await boardService.save(board)
     store.dispatch({ type: UPDATE_BOARD, board: boardToSave })
+}
+
+export async function updateGroupAction(currBoard, saveGroup) {
+    console.log(currBoard , saveGroup)
+    try {
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
+        board.groups = board.groups.map(group => (group.id === saveGroup.id) ? saveGroup : group)
+        currBoard.groups = currBoard.groups.map(group => (group.id === saveGroup.id) ? saveGroup : group)
+        // console.log('board', board)
+        console.log('board', currBoard)
+        await boardService.save(board)
+        store.dispatch({ type: SET_BOARD, board: currBoard })
+    } catch (err) {
+        console.error('cant save group:', err)
+    }
+
+}
+
+export async function updateTaskAction(currBoard, groupId, saveTask) {
+    try {
+        console.log('saveTask:', saveTask)
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
+        const group = board.groups.find(group => group.id === groupId)
+        group.tasks = group.tasks.map(task => (task.id === saveTask.id) ? saveTask : task)
+        await boardService.save(board)
+        store.dispatch({ type: SET_BOARD, board: currBoard })
+    } catch (err) {
+        console.error('cant add task:', err)
+    }
 }

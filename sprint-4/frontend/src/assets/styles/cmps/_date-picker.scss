@@ -1,29 +1,39 @@
 .date-picker {
-        // height: auto;
-        background-color: white;
-        flex-direction: column;
-        outline: 0;
+    // background-color: white;
+    flex-direction: column;
+    outline: 0;
+    
+    .react-datepicker-wrapper {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+    
 
-        .date-picker-input{
-            z-index: 5;
-            .react-datepicker__header{
-                background-color: #fff;
-            }
-        }
-        
-        input {
-            width: 100%;
-            outline: none;
-            border: none;
-            text-align: center;
-            padding: 5px;
-            &:hover{
-                color: $board-btn;
-                border: .2px solid $workspace-hover;
-            }
-            &:focus-visible{
-                border: .2px solid $board-btn;
+    .date-picker-input {
+        z-index: 5;
 
-            }
+        .react-datepicker__header {
+            background-color: #fff;
         }
     }
+
+    input {
+        width: 100%;
+        outline: none;
+        border: none;
+        text-align: center;
+        padding: 5px;
+        background-color: inherit;
+
+        &:hover {
+            color: $board-btn;
+            border: .2px solid $workspace-hover;
+        }
+
+        &:focus-visible {
+            border: .2px solid $board-btn;
+
+        }
+    }
+}

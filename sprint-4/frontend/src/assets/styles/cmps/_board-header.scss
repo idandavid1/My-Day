@@ -47,7 +47,6 @@
             }
         }
 
-
         .board-tools {
             gap: $spacing-small;
             align-items: center;
@@ -132,13 +131,10 @@
                 border-right: 1px solid darken($border-color , 30%);
                 content: "";
                 height: 18px;
-                // border-color: $border-color;
                 position: absolute;
                 top: 6px;
                 right: 0;
             }
-
-
         }
     }
 

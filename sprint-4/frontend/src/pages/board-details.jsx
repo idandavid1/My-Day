@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 import { loadBoard, loadBoards } from "../store/board.actions"
@@ -22,7 +22,7 @@ export function BoardDetails() {
         loadBoard(boardId, queryFilterBy)
         if(!boards.length) loadBoards()
     }, [])
-    // TODO: filter and sort
+    
     function onSetFilter(filterBy) {
         setSearchParams(filterBy)
         loadBoard(boardId, filterBy)
@@ -30,7 +30,7 @@ export function BoardDetails() {
     
     if(!board) return <div>Loading...</div>
     return (
-        <section className="board-details">
+        <section className="board-details flex">
             <MainSidebar />
             <WorkspaceSidebar />
             <main className="board-main">

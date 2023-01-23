@@ -13,9 +13,11 @@ export const boardService = {
     getEmptyBoard,
     getDefaultFilter,
     getDefaultFilterBoard,
-    getFilterFromSearchParams
+    getFilterFromSearchParams,
+    getEmptyGroup,
+    getEmptyTask,
+    getEmptyComment
 }
-
 
 async function query(filterBy = getDefaultFilterBoard()) {
     let boards = await storageService.query(STORAGE_KEY)
@@ -29,17 +31,14 @@ async function query(filterBy = getDefaultFilterBoard()) {
 async function getById(boardId, filterBy = getDefaultFilter()) {
     try {
         let board = await storageService.get(STORAGE_KEY, boardId)
-        console.log('filterBy:', filterBy)
-        // if(filterBy.title){
-        //     const regex = new RegExp(filterBy.title, 'i')
-        //     const groups = board.groups.filter(group => regex.test(group.title))
-        //     groups.forEach(group => {
-        //         console.log('group.tasks:', group.tasks)
-        //         group.tasks = group.tasks.filter(task => regex.test(task.title))
-        //     })
-
-        //     board.groups = groups
-        // }
+        if (filterBy.title) {
+            const regex = new RegExp(filterBy.title, 'i')
+            const groups = board.groups.filter(group => regex.test(group.title))
+            groups.forEach(group => {
+                group.tasks = group.tasks.filter(task => regex.test(task.title))
+            })
+            board.groups = groups
+        }
         return board
     } catch (err) {
         throw err
@@ -72,6 +71,42 @@ function getFilterFromSearchParams(searchParams) {
     return filterBy
 }
 
+function getEmptyGroup() {
+    return {
+        "title": 'New Group',
+        "archivedAt": Date.now(),
+        "tasks": [],
+        "color":'#ffcb00',
+        "id":utilService.makeId()
+    }
+}
+
+function getEmptyTask() {
+    return {
+        "title": "",
+        "status": "", 
+        "priority": "", 
+        "memberIds": [],
+        "dueDate": ''
+    }
+}
+
+function getEmptyComment() {
+    return {
+        "archivedAt": Date.now(),
+        "byMember": {
+            "_id": "m101",
+            "fullname": "Tal Tarablus",
+            "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
+        }, "txt": "",
+        "style": {
+            "textDecoration": "none",
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "Left"
+        }
+    }
+}
 
 function getEmptyBoard() {
     return {
@@ -107,13 +142,13 @@ function getEmptyBoard() {
             }],
         "groups": [],
         "activities": [],
-        "cmpsOrder": ["status-picker", "member-picker", "date-picker"]
+        "cmpsOrder": ["status-picker", "member-picker", "date-picker", 'priority-picker']
     }
 }
 
 function _createBoards() {
     let boards = utilService.loadFromStorage(STORAGE_KEY)
-    if (!boards ) {
+    if (!boards) {
         boards = []
         boards.push(
             {
@@ -190,7 +225,54 @@ function _createBoards() {
                             "status": "Stuck",
                             "priority": "Medium",
                             "memberIds": ["m101", "m102", "m103"],
-                            "dueDate": 1615621
+                            "dueDate": 1615621,
+                            "comments": [
+                                {
+                                    "id": "a101",
+                                    "archivedAt": 1589983468418,
+                                    "byMember": {
+                                        "_id": "m101",
+                                        "fullname": "Tal Tarablus",
+                                        "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
+                                    }, "txt": "babababababaababaab",
+                                    "style": {
+                                        "textDecoration": "none",
+                                        "fontWeight": "normal",
+                                        "fontStyle": "normal",
+                                        "textAlign": "Left"
+                                    }
+                                },
+                                {
+                                    "id": "a102",
+                                    "archivedAt": 1589983468418,
+                                    "byMember": {
+                                        "_id": "m102",
+                                        "fullname": "Idan David",
+                                        "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673820094/%D7%A2%D7%99%D7%93%D7%9F_jranbo.jpg"
+                                    }, "txt": "bababa",
+                                    "style": {
+                                        "textDecoration": "none",
+                                        "fontWeight": "normal",
+                                        "fontStyle": "normal",
+                                        "textAlign": "Left"
+                                    }
+                                },
+                                {
+                                    "id": "a103",
+                                    "archivedAt": 1589983468418,
+                                    "byMember": {
+                                        "_id": "m102",
+                                        "fullname": "Tal Tarablus",
+                                        "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
+                                    }, "txt": "baba",
+                                    "style": {
+                                        "textDecoration": "none",
+                                        "fontWeight": "normal",
+                                        "fontStyle": "normal",
+                                        "textAlign": "Left"
+                                    }
+                                }
+                            ]
                         },
                         {
                             "id": "c102",
@@ -198,7 +280,8 @@ function _createBoards() {
                             "status": "Done",
                             "priority": "Low",
                             "memberIds": ["m101"],
-                            "dueDate": 16156211111
+                            "dueDate": 16156211111,
+                            "comments": []
                         },
                     ],
                     "color": '#66ccff'
@@ -214,6 +297,7 @@ function _createBoards() {
                             "priority": "High",
                             "memberIds": ["m101", "m102", "m103"],
                             "dueDate": 16156215211,
+                            "comments": []
                         },
                         {
                             "id": "c104",
@@ -221,7 +305,8 @@ function _createBoards() {
                             "status": "Done",
                             "priority": "High",
                             "memberIds": ["m103"],
-                            "dueDate": 16156215211
+                            "dueDate": 16156215211,
+                            "comments": []
                         },
                         {
                             "id": "c105",
@@ -229,7 +314,8 @@ function _createBoards() {
                             "status": "Progress",
                             "priority": "Low",
                             "memberIds": ["m101", "m103"],
-                            "dueDate": 16156215211
+                            "dueDate": 16156215211,
+                            "comments": []
                         }
                     ],
                     "color": '#a25ddc'
@@ -250,7 +336,7 @@ function _createBoards() {
                         }
                     }
                 ],
-                "cmpsOrder": ["status-picker", "member-picker", "date-picker"]
+                "cmpsOrder": ["member-picker", "status-picker", "date-picker", 'priority-picker']
             }
         )
         utilService.saveToStorage(STORAGE_KEY, boards)

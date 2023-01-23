@@ -13,21 +13,25 @@
 @import "basics/forms";
 
 // Views
-@import "views/about-us";
 @import "views/home-page";
-@import "views/board-details";
 
 // Components
 @import "cmps/home-header";
-@import "cmps/user-msg";
 @import "cmps/main-sidebar";
 @import "cmps/board-header";
 @import "cmps/workspace-sidebar";
 @import "cmps/group-list";
 @import "cmps/group-preview";
+@import "cmps/task-preview";
 @import "cmps/date-picker";
 @import "cmps/modal-status-priority";
 @import "cmps/board-modal";
 @import "cmps/modal-member";
 @import "cmps/board-filter";
+<<<<<<< HEAD
 @import "cmps/login-signup";
+=======
+@import "cmps/status-priority-picker";
+@import "cmps/member-picker";
+@import "cmps/comment-preview";
+>>>>>>> 28f2d07026ef5dc38692562f6e7f83011720b098

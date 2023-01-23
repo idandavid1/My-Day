@@ -4,7 +4,6 @@ import { VscTriangleUp } from 'react-icons/vsc'
 export function ModalStatusPriority({ labels, onUpdate, setIsModalOpen, cmpType }) {
 
     function onClickModal(labelTitle) {
-        console.log('test')
         onUpdate(cmpType, labelTitle)
         setIsModalOpen(false)
     }

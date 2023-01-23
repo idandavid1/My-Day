@@ -1,0 +1,132 @@
+.task-preview {
+    display: flex;
+    font-size: 14px;
+    position: relative;
+
+    &:hover{
+        background-color: $task-hover-color;
+        z-index: 5;
+        box-shadow: 4px 3px 6px -3px $task-box-shadow-color;
+        .task-menu .icon{
+            display: block;
+        }
+    }
+    .task-menu {
+        position: absolute;
+        width: 40px;
+        left: -43px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $primary-text-color;
+
+        .icon {
+            display: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 20px;
+        }
+
+        .icon:hover {
+            background-color: $layout-border-color;
+        }
+    }
+
+    .task-menu-modal {
+        @include menu-modal();
+        padding: 8px;
+        left: -34px;
+    }
+    .picker {
+        min-width: $cell-width;
+        height: $cell-height;
+        border: 1px solid darken($border-color , 20%);
+    }
+
+    .task-title {
+        min-width: $cell-width-task;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+
+        &:hover {
+            .open-task-details {
+                opacity: 1;
+            }
+        }
+
+        .open-task-details {
+            opacity: 0;
+            display: flex;
+            margin: 0 6px;
+            align-items: center;
+            color: $workspace-icon-color;
+        }
+
+        .chat-icon {
+            font-size: 24px;
+            padding: 0 16px;
+            height: 100%;
+            border-left: 1px solid darken($border-color , 20%);
+            color: $chat-icon-color;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+
+            .icon:hover {
+                color: $board-btn;
+                cursor: pointer;
+            }
+
+            div {
+                display: flex;
+                align-items: center;
+            }
+
+            .count-comment {
+                background-color: $board-btn;
+                color: white;
+                font-size: 10px;
+                border-radius: 50%;
+                width: 14px;
+                height: 13px;
+                @include center-flex();
+                margin: 0;
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                cursor: pointer;
+            }
+
+            .comment-chat {
+                color: $board-btn;
+            }
+        }
+    }
+
+    &.on-typing {
+        background-color: $workspace-board-active;
+    }
+
+    blockquote {
+        // background-color: $app-bg;
+        padding-right: 40px;
+        border-radius: 5px;
+        width: 200px;
+        overflow: hidden;
+        white-space: nowrap;
+        margin-left: 36px;
+        cursor: text;
+
+        &:focus-visible {
+            outline: 1px solid $board-btn;
+        }
+    }
+
+    .empty-div {
+        border-bottom: 1px solid darken($border-color , 20%);
+        width: 100%;
+    }
+}

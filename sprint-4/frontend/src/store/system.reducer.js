@@ -3,7 +3,7 @@ export const LOADING_DONE = 'LOADING_DONE'
 
 const initialState = {
   isLoading: false
-};
+}
 
 export function systemReducer (state = initialState, action = {}) {
   switch (action.type) {

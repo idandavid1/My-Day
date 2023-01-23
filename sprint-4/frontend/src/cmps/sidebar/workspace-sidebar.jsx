@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { loadBoards, saveBoard } from '../../store/board.actions'
 import { boardService } from '../../services/board.service'
+import { BoardPreview } from '../board/board-preview'
 
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { IoIosArrowDown } from 'react-icons/io'
@@ -14,7 +15,6 @@ import { MdKeyboardArrowRight } from 'react-icons/md'
 import { BsFillLightningFill } from 'react-icons/bs'
 import { AiFillHome } from 'react-icons/ai'
 
-import { BoardPreview } from '../board/board-preview'
 
 export function WorkspaceSidebar() {
     const elSection = useRef(null)
@@ -67,7 +67,6 @@ export function WorkspaceSidebar() {
                             <AiFillHome className='home' />
                             <h5>Sprint 4</h5>
                         </div>
-
                         <IoIosArrowDown className='icon' />
                     </div>
                     <div className='workspace-btns'>
