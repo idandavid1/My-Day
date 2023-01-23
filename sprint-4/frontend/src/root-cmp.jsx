@@ -1,6 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router'
-import { Provider } from 'react-redux';
+import { Provider } from 'react-redux'
 import { BoardDetails } from './pages/board-details'
 import { HomePage } from './pages/home-page'
 import { store } from './store/store'

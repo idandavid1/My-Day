@@ -1,5 +1,5 @@
 //home page
-$home-bg: -webkit-linear-gradient(rgb(0, 1, 51) 0%, rgb(15, 16, 72) 100%);
+$home-bg: -webkit-linear-gradient(rgb(21 21 59) 0%, rgb(15, 16, 72) 100%);
 $home-btn-bg: #6161FF;
 $home-btn-bg-gradient: linear-gradient(90deg, #5034FF 25.69%, #B4B4FF 100%);
 $home-btn-bg-gradient-hover: linear-gradient(90deg, #432CD5 25.69%, #9797D5 100%);
@@ -255,6 +255,9 @@ $font-reg-size-16: 16px;
 $font-reg-size-18: 18px;
 $font-reg-size-24: 24px;
 $font-reg-size-30: 30px;
+
+// - Font weights
+$font-weight-very-light: 200;
 
 // - Line heights (numeric units)
 $font-reg-line-height-18: 18px;
