@@ -1,5 +1,5 @@
 .date-picker {
-    background-color: white;
+    // background-color: white;
     flex-direction: column;
     outline: 0;
     
@@ -24,6 +24,7 @@
         border: none;
         text-align: center;
         padding: 5px;
+        background-color: inherit;
 
         &:hover {
             color: $board-btn;

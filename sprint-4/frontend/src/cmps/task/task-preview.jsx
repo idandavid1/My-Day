@@ -1,26 +1,27 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { Draggable, DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 import { DueDate } from "./date-picker"
 import { MemberPicker } from "./member-picker"
 import { PriorityPicker } from "./priority-picker"
 import { StatusPicker } from "./status-picker"
-import { toggleModal, updateTaskAction } from "../../store/board.actions"
+import { toggleModal, updateGroupAction, updateTaskAction } from "../../store/board.actions"
 
 import { TbArrowsDiagonal } from 'react-icons/tb'
-import { BiMessageRoundedAdd } from 'react-icons/bi'
+import { BiDotsHorizontalRounded, BiMessageRoundedAdd } from 'react-icons/bi'
+import { TaskMenuModal } from "../modal/task-menu-modal"
 
-export function TaskPreview({ task, groupId, board, idx }) {
+export function TaskPreview({ task, group, board }) {
     const elTaskPreview = useRef(null)
+    const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
 
     async function updateTask(cmpType, data) {
         task[cmpType] = data
         try {
-            await updateTaskAction(board, groupId, task)
+            await updateTaskAction(board, group.id, task)
         } catch (err) {
             console.log(err)
         }
@@ -31,7 +32,7 @@ export function TaskPreview({ task, groupId, board, idx }) {
         task.title = value
         try {
             elTaskPreview.current.classList.toggle('on-typing')
-            await updateTaskAction(board, groupId, task)
+            await updateTaskAction(board, group.id, task)
         } catch (err) {
             console.log('Failed to save')
         }
@@ -39,12 +40,30 @@ export function TaskPreview({ task, groupId, board, idx }) {
 
     function onOpenModal() {
         toggleModal(isOpen)
-        navigate(`/board/${board._id}/${groupId}/${task.id}`)
+        navigate(`/board/${board._id}/${group.id}/${task.id}`)
+    }
+
+    async function onRemoveTask(taskId) {
+        try {
+            const tasksToSave = group.tasks.filter(task => task.id !== taskId)
+            group.tasks = tasksToSave
+            await updateGroupAction(board, group)
+            setIsTaskModalOpen(false)
+        } catch (err) {
+            console.log('Failed to remove task', err)
+        }
+    }
+
+    function onDuplicateTask(taskId) {
+        console.log('Duplicating task', taskId)
     }
 
     return (
         <section className="task-preview" ref={elTaskPreview}>
-
+            {isTaskModalOpen && <TaskMenuModal taskId={task.id} onRemoveTask={onRemoveTask} onDuplicateTask={onDuplicateTask} />}
+            <div className="task-menu">
+                <BiDotsHorizontalRounded className="icon" onClick={() => setIsTaskModalOpen(!isTaskModalOpen)} />
+            </div>
             <div className="check-box">
                 <input type="checkbox" />
             </div>
@@ -81,7 +100,7 @@ export function TaskPreview({ task, groupId, board, idx }) {
             })} */}
             {/* original */}
             {board.cmpsOrder.map((cmp, idx) => {
-                
+
                 return (
                     <DynamicCmp
                         cmp={cmp}
