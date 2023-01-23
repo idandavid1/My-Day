@@ -15,7 +15,6 @@ import { useRef } from "react"
 
 export function GroupPreview({ group, board, idx }) {
     const [taskToEdit, setTaskToEdit] = useState(boardService.getEmptyTask())
-    const titles = ['Task', 'Person', 'Status', 'Date', 'Priority']
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isShowColorPicker, setIsShowColorPicker] = useState(false)
     const taskRef = useRef()
@@ -180,7 +179,7 @@ export function GroupPreview({ group, board, idx }) {
                                                 <Draggable key={task.id} draggableId={task.id} index={idx}>
                                                     {(provided) => {
                                                         return <li ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
-                                                            <TaskPreview task={task} groupId={group.id} board={board} idx={idx} />
+                                                            <TaskPreview task={task} group={group} board={board}/>
                                                         </li>
                                                     }}
                                                 </Draggable>

@@ -1,6 +1,43 @@
 .task-preview {
     display: flex;
     font-size: 14px;
+    position: relative;
+
+    &:hover{
+        background-color: $task-hover-color;
+        z-index: 5;
+        box-shadow: 4px 3px 6px -3px $task-box-shadow-color;
+        .task-menu .icon{
+            display: block;
+        }
+    }
+    .task-menu {
+        position: absolute;
+        width: 40px;
+        left: -43px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $primary-text-color;
+
+        .icon {
+            display: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 20px;
+        }
+
+        .icon:hover {
+            background-color: $layout-border-color;
+        }
+    }
+
+    .task-menu-modal {
+        @include menu-modal();
+        padding: 8px;
+        left: -34px;
+    }
     .picker {
         min-width: $cell-width;
         height: $cell-height;
@@ -12,19 +49,21 @@
         display: flex;
         justify-content: space-between;
         cursor: pointer;
-        
-        &:hover{
-            .open-task-details{
+
+        &:hover {
+            .open-task-details {
                 opacity: 1;
             }
         }
-        .open-task-details{
+
+        .open-task-details {
             opacity: 0;
             display: flex;
             margin: 0 6px;
             align-items: center;
             color: $workspace-icon-color;
         }
+
         .chat-icon {
             font-size: 24px;
             padding: 0 16px;
@@ -72,7 +111,7 @@
     }
 
     blockquote {
-        background-color: $app-bg;
+        // background-color: $app-bg;
         padding-right: 40px;
         border-radius: 5px;
         width: 200px;
@@ -85,7 +124,8 @@
             outline: 1px solid $board-btn;
         }
     }
-    .empty-div{
+
+    .empty-div {
         border-bottom: 1px solid darken($border-color , 20%);
         width: 100%;
     }

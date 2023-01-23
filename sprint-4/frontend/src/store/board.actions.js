@@ -103,9 +103,13 @@ export async function updateGroups(groups, board) {
 }
 
 export async function updateGroupAction(currBoard, saveGroup) {
+    console.log(currBoard , saveGroup)
     try {
         const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
         board.groups = board.groups.map(group => (group.id === saveGroup.id) ? saveGroup : group)
+        currBoard.groups = currBoard.groups.map(group => (group.id === saveGroup.id) ? saveGroup : group)
+        // console.log('board', board)
+        console.log('board', currBoard)
         await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board: currBoard })
     } catch (err) {

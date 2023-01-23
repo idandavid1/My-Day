@@ -154,16 +154,16 @@
 
 @mixin menu-modal() {
   background-color: $app-bg;
-  border-radius: 4px;
+  border-radius: $spacing-small;
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 40px;
   color: $primary-text-color;
-  box-shadow: -6px 0px 14px rgb(0 0 0 / 20%);
+  box-shadow: -3px 4px 14px rgb(0 0 0 / 20%);
   padding: $spacing-small;
   font-size: 14px;
-  z-index: 5;
+  z-index: 10;
   border: 1px solid darken($border-color , 20%);
 
   >* {
@@ -174,7 +174,7 @@
 
     &:hover:not(.color-palette) {
       background-color: $workspace-hover;
-      border-radius: $spacing-xs;
+      border-radius: $spacing-small;
     }
   }
 }
