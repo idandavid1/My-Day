@@ -104,6 +104,7 @@ export async function updateGroupAction(currBoard, saveGroup) {
 
 export async function updateTaskAction(currBoard, groupId, saveTask) {
     try {
+        console.log('saveTask:', saveTask)
         const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
         const group = board.groups.find(group => group.id === groupId)
         group.tasks = group.tasks.map(task => (task.id === saveTask.id) ? saveTask : task)
