@@ -4,21 +4,26 @@
     margin-bottom: 64px;
     position: relative;
 
+
+
     .group-menu-modal {
         @include menu-modal();
-        .color-palette{
+
+        .color-palette {
             display: flex;
             align-items: flex-start;
             width: 142px;
             flex-wrap: wrap;
             border-radius: 8px;
             padding: 5px;
-            .color-icon{
+
+            .color-icon {
                 cursor: pointer;
                 font-size: 20px;
             }
         }
     }
+
 
     .title-container {
         display: flex;
@@ -27,14 +32,14 @@
         z-index: 1;
         background-color: $app-bg;
 
-        .add-picker-task{
+        .add-picker-task {
             display: flex;
             align-items: center;
-            border-top:  1px solid darken($border-color , 20%);
-            border-bottom:  1px solid darken($border-color , 20%);
+            border-top: 1px solid darken($border-color , 20%);
+            border-bottom: 1px solid darken($border-color , 20%);
             flex-grow: 1;
-            
-            span{
+
+            span {
                 display: flex;
                 align-items: center;
                 padding: 3px $spacing-xs;
@@ -42,7 +47,7 @@
                 border-radius: $spacing-xs;
                 cursor: pointer;
 
-                &:hover{
+                &:hover {
                     background-color: $layout-border-color;
                 }
             }
@@ -75,13 +80,16 @@
         height: 40px;
         align-items: center;
         line-height: $font-reg-line-height-24;
-        &:hover{
-            .group-menu .icon{
+        // width: 250px;
+        // left: 40px;
+
+        &:hover {
+            .group-menu .icon {
                 display: block;
             }
         }
 
-        .group-header-title{
+        .group-header-title {
             display: flex;
             flex-direction: column;
         }
@@ -100,7 +108,7 @@
             margin: 0;
         }
 
-        
+
         .group-menu {
             position: absolute;
             width: 40px;
@@ -131,19 +139,15 @@
         align-items: center;
         justify-content: center;
         border: 1px solid darken($border-color , 20%);
+
         input {
             width: 15px;
             height: 16px;
         }
     }
 
-    .group-preview-content {
-        border-left: 6px solid;
-        border-radius: 6px;
-    }
-
-    .add-task  {
-        .add-task-form{
+    .add-task {
+        .add-task-form {
             width: 100%;
             display: flex;
             align-items: center;
@@ -169,15 +173,34 @@
                 border: .5px solid darken($border-color , 20%);
             }
         }
-        .check-box.add-task{
+
+        .check-box.add-task {
             width: 33px;
             height: 36px;
             border-left: $color-bright-blue-selected;
-            input{
+
+            input {
                 margin: 3px 3px 3px 4px;
                 padding: 8px;
             }
         }
+    }
+
+    .sticky-div {
+        display: flex;
+        background-color: white;
+        border-left: 6px solid;
+
+        &.titles {
+            border-top-left-radius: 6px;
+        }
+
+    }
+    
+    .add-task {
+        border-bottom-left-radius: 6px;
+        opacity: .6;
+        width: 100%;
     }
 
 }

@@ -81,43 +81,50 @@ export function TaskPreview({ task, group, board }) {
             newTask.title = 'New Task'
             const idx = group.tasks.indexOf(task)
             group.tasks.splice(idx + 1, 0, newTask)
-            updateGroupAction(board , group)
+            updateGroupAction(board, group)
             setIsTaskModalOpen(false)
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
 
     function onSelectTask(task) {
-        selectedTasks.current.push(task)
+        if (selectedTasks.findIndex(currTask => task.id === currTask.id)) {
+            selectedTasks.splice(task.id, 1)
+        }
+        selectedTasks.push(task)
         console.log(selectedTasks)
     }
 
     return (
         <section className="task-preview" ref={elTaskPreview}>
+            <div className="sticky-div" style={{ borderColor: group.color }}>
             {isTaskModalOpen && <TaskMenuModal taskId={task.id} onRemoveTask={onRemoveTask} onDuplicateTask={onDuplicateTask}
                 onOpenModal={onOpenModal} onCreateNewTaskBelow={onCreateNewTaskBelow} />}
-            <div className="task-menu">
+              <div className="task-menu">
                 <BiDotsHorizontalRounded className="icon" onClick={() => setIsTaskModalOpen(!isTaskModalOpen)} />
             </div>
-            <div className="check-box">
-                <input type="checkbox"
-                value={task} onChange={() => onSelectTask(task)} />
-            </div>
-            <div className="task-title picker" onClick={() => elTaskPreview.current.classList.toggle('on-typing')}>
-                <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
-                    <span>{task.title}</span>
-                </blockquote>
-                <div className="open-task-details" onClick={onOpenModal}>
-                    <TbArrowsDiagonal />
-                    <span>Open</span>
+
+                <div className="check-box">
+                    <input type="checkbox"
+                        value={task} onChange={() => onSelectTask(task)} />
                 </div>
-                <div onClick={onOpenModal} className="chat-icon">
-                     {task.comments.length > 0 && <div>
-                       <HiOutlineChatBubbleOvalLeft className="comment-chat"/>
-                       <div className="count-comment">{task.comments.length}</div>
-                    </div>}
-                    {task.comments.length === 0 && <BiMessageRoundedAdd className="icon" />}
+                <div className="task-title picker" onClick={() => elTaskPreview.current.classList.toggle('on-typing')}>
+                    <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
+                        <span>{task.title}</span>
+                    </blockquote>
+                    <div className="open-task-details" onClick={onOpenModal}>
+                        <TbArrowsDiagonal />
+                        <span>Open</span>
+                    </div>
+                    <div onClick={onOpenModal} className="chat-icon">
+                        {console.log(task.comments)}
+                        {task.comments.length > 0 && <div>
+                            <HiOutlineChatBubbleOvalLeft className="comment-chat" />
+                            <div className="count-comment">{task.comments.length}</div>
+                        </div>}
+                        {task.comments.length === 0 && <BiMessageRoundedAdd className="icon" />}
+                    </div>
                 </div>
             </div>
 
@@ -151,7 +158,8 @@ export function TaskPreview({ task, group, board }) {
                     />)
             })}
             <div className="empty-div"></div>
-            {!isShowTaskToolsModal && <TaskToolsModal />}
+            {selectedTasks.length && <TaskToolsModal />}
+          
 
         </section>
     )
