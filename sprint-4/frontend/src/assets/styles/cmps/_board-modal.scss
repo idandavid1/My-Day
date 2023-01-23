@@ -98,8 +98,13 @@
     }
 
     .update {
-        margin: 20px 20px 6px 24px;
-        height: 100%;
+        padding: 20px 20px 6px 24px;
+        height: 85vh;
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
         
         .close-input-container {
              padding-left: 20px;

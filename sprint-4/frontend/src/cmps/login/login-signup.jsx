@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { userService } from '../../services/user.service'
-import { ImgUploader } from '../img-uploader'
+// import { ImgUploader } from '../img-uploader'
+import { LoginPageHeader } from '../login-page-header'
 
 export function LoginSignup(props) {
     const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '' })
@@ -50,20 +51,57 @@ export function LoginSignup(props) {
     }
 
     return (
-        <div className="login-page">
-            <p>
-                <button className="btn-link" onClick={toggleSignup}>{!isSignup ? 'Signup' : 'Login'}</button>
-            </p>
-            {!isSignup && <form className="login-form" onSubmit={onLogin}>
-                <select
+        <div className="login-signup">
+            <LoginPageHeader />
+            <div className="form-container">
+                <h1>Log in to your account</h1>
+                <label className="label-username" htmlFor="username">Enter your username</label>
+                <input className="input input-username"
                     name="username"
+                    type="text"
                     value={credentials.username}
+                    placeholder="username"
                     onChange={handleChange}
-                >
-                    <option value="">Select User</option>
-                    {users.map(user => <option key={user._id} value={user.username}>{user.fullname}</option>)}
-                </select>
-                {/* <input
+                />
+                <button className="btn-next">Next</button>
+                <div className="flex justify-center align-center split-line">
+                    <span className="separator-line"></span>
+                    <p>Or sign in with</p>
+                    <span className="separator-line"></span>
+                </div>
+                <div className="suggest-signup">
+                    <span className="suggest-signup-prefix">Don't have an account yet?</span>
+                    <a to='/auth/signup'>Sign up</a>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            {/* <p>
+                    <button className="btn-link" onClick={toggleSignup}>{!isSignup ? 'Signup' : 'Login'}</button>
+                </p> */}
+            {/* {!isSignup && <form className="login-form" onSubmit={onLogin}>
+                    <select
+                        name="username"
+                        value={credentials.username}
+                        onChange={handleChange}
+                    > */}
+            {/* <option value="">Select User</option> */}
+            {/* {users.map(user => <option key={user._id} value={user.username}>{user.fullname}</option>)}
+                    </select> */}
+            {/* <input
                         type="text"
                         name="username"
                         value={username}
@@ -71,8 +109,8 @@ export function LoginSignup(props) {
                         onChange={handleChange}
                         required
                         autoFocus
-                    />
-                    <input
+                        />
+                        <input
                         type="password"
                         name="password"
                         value={password}
@@ -80,38 +118,38 @@ export function LoginSignup(props) {
                         onChange={handleChange}
                         required
                     /> */}
-                <button>Login!</button>
-            </form>}
-            <div className="signup-section">
-                {isSignup && <form className="signup-form" onSubmit={onSignup}>
-                    <input
-                        type="text"
-                        name="fullname"
-                        value={credentials.fullname}
-                        placeholder="Fullname"
-                        onChange={handleChange}
-                        required
-                    />
-                    <input
-                        type="text"
-                        name="username"
-                        value={credentials.username}
-                        placeholder="Username"
-                        onChange={handleChange}
-                        required
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        value={credentials.password}
-                        placeholder="Password"
-                        onChange={handleChange}
-                        required
-                    />
-                    <ImgUploader onUploaded={onUploaded} />
-                    <button >Signup!</button>
+            {/* <button className='login-btn'>Next</button>
                 </form>}
-            </div>
+                <div className="signup-section">
+                    {isSignup && <form className="signup-form" onSubmit={onSignup}>
+                        <input
+                            type="text"
+                            name="fullname"
+                            value={credentials.fullname}
+                            placeholder="Fullname"
+                            onChange={handleChange}
+                            required
+                        />
+                        <input
+                            type="text"
+                            name="username"
+                            value={credentials.username}
+                            placeholder="Username"
+                            onChange={handleChange}
+                            required
+                        />
+                        <input
+                            type="password"
+                            name="password"
+                            value={credentials.password}
+                            placeholder="Password"
+                            onChange={handleChange}
+                            required
+                        />
+                        <ImgUploader onUploaded={onUploaded} />
+                        <button >Signup!</button>
+                    </form>} */}
+            {/* </div> */}
         </div>
     )
 }

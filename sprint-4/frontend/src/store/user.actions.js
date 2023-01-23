@@ -1,4 +1,4 @@
-import { userService } from "../services/user.service.js";
+import { userService } from "../services/user.service.js"
 import { store } from '../store/store.js'
 
 import { showErrorMsg } from '../services/event-bus.service.js'

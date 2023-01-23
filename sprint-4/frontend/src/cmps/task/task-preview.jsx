@@ -14,6 +14,7 @@ import { TaskMenuModal } from "../modal/task-menu-modal"
 import { utilService } from "../../services/util.service"
 import { boardService } from "../../services/board.service"
 import { TaskToolsModal } from "../modal/task-tools-modal"
+import { HiOutlineChatBubbleOvalLeft } from 'react-icons/hi2'
 
 export function TaskPreview({ task, group, board }) {
     const elTaskPreview = useRef(null)
@@ -111,8 +112,12 @@ export function TaskPreview({ task, group, board }) {
                     <TbArrowsDiagonal />
                     <span>Open</span>
                 </div>
-                <div className="chat-icon">
-                    <BiMessageRoundedAdd className="icon" />
+                <div onClick={onOpenModal} className="chat-icon">
+                     {task.comments.length > 0 && <div>
+                       <HiOutlineChatBubbleOvalLeft className="comment-chat"/>
+                       <div className="count-comment">{task.comments.length}</div>
+                    </div>}
+                    {task.comments.length === 0 && <BiMessageRoundedAdd className="icon" />}
                 </div>
             </div>
 
