@@ -3,7 +3,7 @@ import { FiTrash } from "react-icons/fi";
 import { HiOutlineDocumentDuplicate } from "react-icons/hi";
 import { TbArrowsDiagonal } from "react-icons/tb";
 
-export function TaskMenuModal({taskId ,onRemoveTask}) {
+export function TaskMenuModal({taskId ,onRemoveTask , onDuplicateTask , onOpenModal ,onCreateNewTaskBelow}) {
 
 
 
@@ -13,11 +13,11 @@ export function TaskMenuModal({taskId ,onRemoveTask}) {
 
 
     return <section className="task-menu-modal">
-        <div>
+        <div onClick={onOpenModal}>
             <TbArrowsDiagonal />
             <span>Open</span>
         </div>
-        <div>
+        <div onClick={onDuplicateTask}>
             <HiOutlineDocumentDuplicate />
             <span>Duplicate</span>
         </div>
@@ -25,7 +25,7 @@ export function TaskMenuModal({taskId ,onRemoveTask}) {
             <FiTrash />
             <span>Delete</span>
         </div>
-        <div>
+        <div onClick={onCreateNewTaskBelow}>
             <AiOutlinePlus />
             <span>Create new item below</span>
         </div>

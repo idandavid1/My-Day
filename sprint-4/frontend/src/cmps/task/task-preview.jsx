@@ -11,12 +11,17 @@ import { toggleModal, updateGroupAction, updateTaskAction } from "../../store/bo
 import { TbArrowsDiagonal } from 'react-icons/tb'
 import { BiDotsHorizontalRounded, BiMessageRoundedAdd } from 'react-icons/bi'
 import { TaskMenuModal } from "../modal/task-menu-modal"
+import { utilService } from "../../services/util.service"
+import { boardService } from "../../services/board.service"
+import { TaskToolsModal } from "../modal/task-tools-modal"
 
 export function TaskPreview({ task, group, board }) {
     const elTaskPreview = useRef(null)
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
+    const [isShowTaskToolsModal, setIsShowTaskToolsModal] = useState(false)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
+    const selectedTasks = useRef([])
 
     async function updateTask(cmpType, data) {
         task[cmpType] = data
@@ -54,18 +59,49 @@ export function TaskPreview({ task, group, board }) {
         }
     }
 
-    function onDuplicateTask(taskId) {
-        console.log('Duplicating task', taskId)
+    async function onDuplicateTask() {
+        try {
+            const duplicatedTask = structuredClone(task)
+            const idx = group.tasks.indexOf(task)
+            duplicatedTask.id = utilService.makeId()
+            duplicatedTask.title += ' (copy)'
+            group.tasks.splice(idx + 1, 0, duplicatedTask)
+            await updateGroupAction(board, group)
+            setIsTaskModalOpen(false)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    async function onCreateNewTaskBelow() {
+        try {
+            const newTask = boardService.getEmptyTask()
+            newTask.id = utilService.makeId()
+            newTask.title = 'New Task'
+            const idx = group.tasks.indexOf(task)
+            group.tasks.splice(idx + 1, 0, newTask)
+            updateGroupAction(board , group)
+            setIsTaskModalOpen(false)
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
+    function onSelectTask(task) {
+        selectedTasks.current.push(task)
+        console.log(selectedTasks)
     }
 
     return (
         <section className="task-preview" ref={elTaskPreview}>
-            {isTaskModalOpen && <TaskMenuModal taskId={task.id} onRemoveTask={onRemoveTask} onDuplicateTask={onDuplicateTask} />}
+            {isTaskModalOpen && <TaskMenuModal taskId={task.id} onRemoveTask={onRemoveTask} onDuplicateTask={onDuplicateTask}
+                onOpenModal={onOpenModal} onCreateNewTaskBelow={onCreateNewTaskBelow} />}
             <div className="task-menu">
                 <BiDotsHorizontalRounded className="icon" onClick={() => setIsTaskModalOpen(!isTaskModalOpen)} />
             </div>
             <div className="check-box">
-                <input type="checkbox" />
+                <input type="checkbox"
+                value={task} onChange={() => onSelectTask(task)} />
             </div>
             <div className="task-title picker" onClick={() => elTaskPreview.current.classList.toggle('on-typing')}>
                 <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
@@ -110,6 +146,8 @@ export function TaskPreview({ task, group, board }) {
                     />)
             })}
             <div className="empty-div"></div>
+            {!isShowTaskToolsModal && <TaskToolsModal />}
+
         </section>
     )
 
