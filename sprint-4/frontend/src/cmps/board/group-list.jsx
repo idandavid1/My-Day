@@ -18,7 +18,7 @@ export function GroupList({ board }) {
 
     return <div ref={containerRef}>
         <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId='group'>
+            <Droppable droppableId={board._id}>
                 {(droppableProvided) => {
                     return <section ref={droppableProvided.innerRef}{...droppableProvided.droppableProps} className="group-list">
                         <ul>

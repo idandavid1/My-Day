@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Draggable } from "react-beautiful-dnd"
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
 
 import { TaskPreview } from "../task/task-preview"
 import { addTask, saveBoard, updateGroupAction, updateGroups } from "../../store/board.actions"
@@ -72,12 +72,20 @@ export function GroupPreview({ group, board, idx }) {
         setIsModalOpen(false)
     }
 
+    function handleOnDragEnd(ev) {
+        const updatedTasks = [...group.tasks]
+        const [draggedItem] = updatedTasks.splice(ev.source.index , 1)
+        updatedTasks.splice(ev.destination.index , 0 , draggedItem)
+        group.tasks = updatedTasks
+        updateGroupAction(board , group)
+    }
+
     return <ul className="group-preview" >
         {isModalOpen &&
             <GroupMenuModal onRemoveGroup={onRemoveGroup} onDuplicateGroup={onDuplicateGroup}
                 onChangeGroupColor={onChangeGroupColor} isShowColorPicker={isShowColorPicker}
                 groupId={group.id} setIsModalOpen={setIsModalOpen} />}
-        <Draggable key={idx} draggableId={group.id + idx} index={idx}>
+        <Draggable key={group.id} draggableId={group.id} index={idx}>
             {(provided) => {
                 return <div ref={provided.innerRef}
                     {...provided.draggableProps}
@@ -106,11 +114,31 @@ export function GroupPreview({ group, board, idx }) {
                                 </span>
                             </div>
                         </div>
-                        {group.tasks.map((task, idx) => {
+                        <DragDropContext onDragEnd={handleOnDragEnd}>
+                            <Droppable droppableId={group.id}>
+                                {(droppableProvided) => {
+                                    return <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps} >
+                                        {group.tasks.map((task, idx) => (
+                                            <Draggable key={task.id} draggableId={task.id} index={idx}>
+                                                {(provided) => {
+                                                    return <li ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
+                                                        <TaskPreview task={task} groupId={group.id} board={board} />
+                                                    </li>
+                                                }}
+                                            </Draggable>
+                                        ))}
+                                    </div>
+                                }}
+                            </Droppable>
+                        </DragDropContext>
+
+                        {/* original */}
+                        {/* {group.tasks.map((task, idx) => {
                             return <li key={idx}>
                                 <TaskPreview task={task} groupId={group.id} board={board} />
                             </li>
-                        })}
+                        })} */}
+
                         <div className="add-task flex">
                             <div className="check-box add-task">
                                 <input type="checkbox" disabled />
