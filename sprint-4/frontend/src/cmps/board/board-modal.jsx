@@ -6,26 +6,22 @@ import { toggleModal, updateTaskAction } from "../../store/board.actions"
 
 import { CgClose, CgLogOff } from 'react-icons/cg'
 import { GrHomeRounded } from 'react-icons/gr'
-// import { HiOutlineClock } from 'react-icons/hi'
-// import { CiCalendarDate } from 'react-icons/ci'
 import { AiOutlineBold } from 'react-icons/ai'
 import { RxUnderline } from 'react-icons/rx'
-import { AiOutlineStrikethrough } from 'react-icons/ai'
 import { TbAlignRight ,TbAlignCenter,TbAlignLeft } from 'react-icons/tb'
-import { CiClock2 } from 'react-icons/ci'
-import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { boardService } from "../../services/board.service"
 import { utilService } from "../../services/util.service"
+import { CommentPreview } from "../modal/comment-preview"
 
 
 export function BoardModal() {
     const [isWriteNewUpdate, setIsWriteNewUpdate] = useState(false)
     const [comment, setComment] = useState(boardService.getEmptyComment())
+    const [currTask, setCurrTask] = useState(null)
     const {groupId, taskId, boardId} = useParams()
     const navigate = useNavigate()
     const board = useSelector((storeState) => storeState.boardModule.board)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
-    const [currTask, setCurrTask] = useState(null)
 
     useEffect(() => {
         if(taskId && groupId) loadTask() 
@@ -72,6 +68,16 @@ export function BoardModal() {
         setComment(boardService.getEmptyComment())
     }
 
+    async function onRemoveComment(commentId) {
+        try {
+            currTask.comments = currTask.comments.filter(comment => comment.id !== commentId)
+            updateTaskAction(board, groupId, currTask)
+            setCurrTask({...currTask})
+        } catch (err) {
+            console.log('err:', err)
+        }
+    }
+
     function onChangeTextStyle(ev, styleKey, align) {
         ev.preventDefault()
         const style = {...comment.style}
@@ -98,6 +104,16 @@ export function BoardModal() {
         setComment((prevComment) => ({ ...prevComment, [field]: value }))
     }
 
+    async function onEditComment(saveComment) {
+        try {
+            currTask.comments = currTask.comments.map(comment => (comment.id === saveComment.id) ? saveComment : comment)
+            updateTaskAction(board, groupId, currTask)
+            setCurrTask({...currTask})
+        } catch (err) {
+            console.log('err:', err)
+        }
+    }
+
     if (!currTask) return <div></div>
     return <section className={`board-modal ${isOpen ? 'open' : ''}`}>
         <div className="board-modal-header">
@@ -109,11 +125,11 @@ export function BoardModal() {
             </div>
         </div>
             <div className="board-info">
-                <div className="updates-btn">
+                <div className="updates-btn active">
                     <GrHomeRounded />
                     <span>Updates</span>
                 </div>
-                <div className="activity-btn active">
+                <div className="activity-btn">
                     <span>Activity Log</span>
                 </div>
             </div>
@@ -154,26 +170,13 @@ export function BoardModal() {
                         onBlur={close}
                         onChange={handleChange}></textarea>
                     </form>}
-                    {isWriteNewUpdate && <div className="button-container"><button onMouseDown={onAddComment}>Update</button></div>}
+                    {isWriteNewUpdate && <div className="button-container"><button className="save" onMouseDown={onAddComment}>Update</button></div>}
                 <ul className="comments-list">
                     {
                         currTask.comments.map(comment => {
                             return (
                             <li key={comment.id}>
-                                <div className="header-comment">
-                                    <div className="left">
-                                        <img src={comment.byMember.imgUrl} alt="" />
-                                        <span>{comment.byMember.fullname}</span>
-                                    </div>
-                                    <div className="right">
-                                        <div className="time">
-                                            <CiClock2 />
-                                            <span>3h</span>
-                                        </div>
-                                        <BiDotsHorizontalRounded />
-                                    </div>
-                                </div>
-                                <p style={comment.style}>{comment.txt}</p>
+                                <CommentPreview onRemoveComment={onRemoveComment} comment={comment} onEditComment={onEditComment}/>
                             </li>
                         )})
                     }

@@ -1,28 +1,33 @@
-import { useState } from 'react'
 
-import { HiOutlineDocumentDuplicate } from 'react-icons/hi'
-import { RiDeleteBinLine } from 'react-icons/ri'
+import { BsPinAngle } from 'react-icons/bs'
+import { AiOutlineDelete } from 'react-icons/ai'
+import { FiEdit2 } from 'react-icons/fi'
 
-export function GroupMenuModal({ groupId, onRemoveGroup, onDuplicateGroup, onChangeGroupColor , isShowColorPicker}) {
+export function CommentMenuModal({ commentId, onRemoveComment, onOpenEdit, setIsMenuModalOpen }) {
 
+    function onRemove(commentId) {
+        setIsMenuModalOpen(false)
+        onRemoveComment(commentId)
+    }   
+
+    function onEdit() {
+        setIsMenuModalOpen(false)
+        onOpenEdit(true)
+    }   
     return (
-        <section className="group-menu-modal">
-            {!isShowColorPalette &&
-                <>
-                    <div className='color' onClick={() => setIsShowColorPalette(!isShowColorPalette)}>
-                        <BsFillCircleFill style={{ color: 'yellow' }} />
-                        <span>Change group color</span>
-                    </div>
-                    <div className="duplicate" onClick={() => onDuplicateGroup(groupId)}>
-                        <HiOutlineDocumentDuplicate />
-                        <span>Duplicate this group</span>
-                    </div>
-                    <div className="delete" onClick={() => onRemoveGroup(groupId)}>
-                        <RiDeleteBinLine />
-                        <span>Delete</span>
-                    </div>
-                </>
-            }
+        <section className="comment-modal">
+            <div className="pin">
+                <BsPinAngle />
+                <span>Pin to top</span>
+            </div>
+            <div className="edit" onClick={onEdit}>
+                <FiEdit2 />
+                <span>Edit update</span>
+            </div>
+            <div className="delete" onClick={() => onRemove(commentId)}>
+                <AiOutlineDelete />
+                <span>Delete update for everyone</span>
+            </div>
         </section>
     )
 }
