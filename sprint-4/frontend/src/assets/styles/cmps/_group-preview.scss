@@ -5,28 +5,7 @@
     position: relative;
 
     .group-menu-modal {
-        background-color: $app-bg;
-        border-radius: 4px;
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 40px;
-        color: $primary-text-color;
-        box-shadow: -6px 0px 14px rgb(0 0 0 / 20%);
-        padding: $spacing-small;
-        font-size: 14px;
-        z-index: 5;
-        border: 1px solid darken($border-color , 20%);
-        >*{
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 4px 8px;
-            &:hover:not(.color-palette){
-                background-color: $workspace-hover;
-                border-radius: $spacing-xs;
-            }
-        }
+        @include menu-modal();
         .color-palette{
             display: flex;
             align-items: flex-start;
@@ -78,11 +57,11 @@
         height: $cell-height;
         border: 1px solid darken($border-color , 20%);
 
-        &.Task {
+        &.task {
             min-width: $cell-width-task;
         }
 
-        &.Person {
+        &.member-picker {
             min-width: $cell-width-person;
         }
     }
@@ -121,6 +100,7 @@
             margin: 0;
         }
 
+        
         .group-menu {
             position: absolute;
             width: 40px;
@@ -143,7 +123,6 @@
             }
 
         }
-        
     }
 
     .check-box {

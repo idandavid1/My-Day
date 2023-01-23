@@ -85,7 +85,8 @@
   border-radius: 10px;
   cursor: pointer;
 }
-@mixin member-img($bgColor ,$txtColor , $imgSize , $countSize) {
+
+@mixin member-img($bgColor , $txtColor , $imgSize , $countSize) {
 
   // margin-left: 4px;
 
@@ -99,14 +100,14 @@
     width: $imgSize;
     height: $imgSize;
   }
-  
+
   .member-img2 {
     margin-left: -5px;
     margin-right: -5px;
     height: $imgSize;
     width: $imgSize;
   }
-  
+
   .show-more-members {
     display: flex;
     justify-content: center;
@@ -149,4 +150,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@mixin menu-modal() {
+  background-color: $app-bg;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 40px;
+  color: $primary-text-color;
+  box-shadow: -6px 0px 14px rgb(0 0 0 / 20%);
+  padding: $spacing-small;
+  font-size: 14px;
+  z-index: 5;
+  border: 1px solid darken($border-color , 20%);
+
+  >* {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+
+    &:hover:not(.color-palette) {
+      background-color: $workspace-hover;
+      border-radius: $spacing-xs;
+    }
+  }
 }

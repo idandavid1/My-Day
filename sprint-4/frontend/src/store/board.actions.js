@@ -45,6 +45,18 @@ export async function saveBoard(board) {
     }
 }
 
+export async function updatePickerCmpsOrder(currBoard, cmpsOrders) {
+    try {
+        const board = await boardService.getById(currBoard._id , boardService.getDefaultFilter())
+        board.cmpsOrder = cmpsOrders
+        currBoard.cmpsOrder = cmpsOrders
+        await saveBoard(board)
+        store.dispatch({type:SET_BOARD , board: currBoard})
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 export async function addGroup(board) {
     try {
         const group = boardService.getEmptyGroup()
@@ -68,7 +80,7 @@ export async function addTask(task, group, board) {
 }
 
 export async function addTaskOnFirstGroup(board) {
-    if(!board.groups.length) addGroup(board)
+    if (!board.groups.length) addGroup(board)
     try {
         const taskToAdd = boardService.getEmptyTask()
         taskToAdd.title = 'New Task'
@@ -99,7 +111,7 @@ export async function updateGroupAction(currBoard, saveGroup) {
     } catch (err) {
         console.error('cant save group:', err)
     }
-    
+
 }
 
 export async function updateTaskAction(currBoard, groupId, saveTask) {

@@ -12,7 +12,7 @@ import { toggleModal, updateTaskAction } from "../../store/board.actions"
 import { TbArrowsDiagonal } from 'react-icons/tb'
 import { BiMessageRoundedAdd } from 'react-icons/bi'
 
-export function TaskPreview({ task, groupId, board }) {
+export function TaskPreview({ task, groupId, board, idx }) {
     const elTaskPreview = useRef(null)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
@@ -60,7 +60,28 @@ export function TaskPreview({ task, groupId, board }) {
                     <BiMessageRoundedAdd className="icon" />
                 </div>
             </div>
+
+            {/* {board.cmpsOrder.map((cmp, idx) => {
+                <Draggable key={cmp} draggableId={cmp} index={idx}>
+                    {(provided, snapshot) => {
+                        return <div ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}>
+                            <DynamicCmp
+                                cmp={cmp}
+                                key={idx}
+                                info={task}
+                                onUpdate={updateTask}
+                            />
+                        </div>
+                    }}
+                    </Draggable>
+
+                { droppableProvided.placeholder }
+            })} */}
+            {/* original */}
             {board.cmpsOrder.map((cmp, idx) => {
+                
                 return (
                     <DynamicCmp
                         cmp={cmp}
@@ -72,6 +93,7 @@ export function TaskPreview({ task, groupId, board }) {
             <div className="empty-div"></div>
         </section>
     )
+
 }
 
 function DynamicCmp({ cmp, info, onUpdate }) {

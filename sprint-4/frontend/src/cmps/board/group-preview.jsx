@@ -2,7 +2,7 @@ import { useState } from "react"
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
 
 import { TaskPreview } from "../task/task-preview"
-import { addTask, saveBoard, updateGroupAction, updateGroups } from "../../store/board.actions"
+import { addTask, saveBoard, updateGroupAction, updateGroups, updatePickerCmpsOrder } from "../../store/board.actions"
 import { GroupMenuModal } from "../modal/group-menu-modal"
 import { utilService } from "../../services/util.service"
 import { boardService } from "../../services/board.service"
@@ -11,13 +11,14 @@ import { MdKeyboardArrowDown } from 'react-icons/md'
 import { BsFillCircleFill } from 'react-icons/bs'
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
+import { useRef } from "react"
 
 export function GroupPreview({ group, board, idx }) {
     const [taskToEdit, setTaskToEdit] = useState(boardService.getEmptyTask())
     const titles = ['Task', 'Person', 'Status', 'Date', 'Priority']
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isShowColorPicker, setIsShowColorPicker] = useState(false)
-
+    const taskRef = useRef()
     function onOpenModal() {
         setIsModalOpen(!isModalOpen)
     }
@@ -74,35 +75,90 @@ export function GroupPreview({ group, board, idx }) {
 
     function handleOnDragEnd(ev) {
         const updatedTasks = [...group.tasks]
-        const [draggedItem] = updatedTasks.splice(ev.source.index , 1)
-        updatedTasks.splice(ev.destination.index , 0 , draggedItem)
+        const [draggedItem] = updatedTasks.splice(ev.source.index, 1)
+        updatedTasks.splice(ev.destination.index, 0, draggedItem)
         group.tasks = updatedTasks
-        updateGroupAction(board , group)
+        updateGroupAction(board, group)
+    }
+
+    function handleHorizontalDrag(ev) {
+        const updatedTitles = [...board.cmpsOrder]
+        const [draggedItem] = updatedTitles.splice(ev.source.index, 1)
+        updatedTitles.splice(ev.destination.index, 0, draggedItem)
+        updatePickerCmpsOrder(board , updatedTitles)
+    }
+
+    function getTitleName(cmpOrder) {
+        switch (cmpOrder) {
+            case 'member-picker':
+                return 'Person'
+            case 'status-picker':
+                return 'Status'
+            case 'date-picker':
+                return 'Date'
+            case 'priority-picker':
+                return 'Priority'
+            default: return ''
+        }
     }
 
     return <ul className="group-preview" >
+
         {isModalOpen &&
             <GroupMenuModal onRemoveGroup={onRemoveGroup} onDuplicateGroup={onDuplicateGroup}
                 onChangeGroupColor={onChangeGroupColor} isShowColorPicker={isShowColorPicker}
                 groupId={group.id} setIsModalOpen={setIsModalOpen} />}
+
         <Draggable key={group.id} draggableId={group.id} index={idx}>
             {(provided) => {
                 return <div ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}>
-                    <div className="group-menu">
-                        <BiDotsHorizontalRounded className="icon" onClick={onOpenModal} />
-                    </div>
-                    <div className="group-header" style={{ color: group.color }}>
+                    {...provided.draggableProps}>
+                    <div {...provided.dragHandleProps} className="group-header" style={{ color: group.color }}>
                         <MdKeyboardArrowDown className="arrow-icon" />
                         <div className="group-header-title">
+                            <div className="group-menu">
+                                <BiDotsHorizontalRounded className="icon" onClick={onOpenModal} />
+                            </div>
                             <blockquote contentEditable onBlur={(ev) => onSave(ev)} onFocus={() => setIsShowColorPicker(true)} suppressContentEditableWarning={true}>
                                 {isShowColorPicker && <BsFillCircleFill onClick={onShowPalette} />}
                                 <h4>{group.title}</h4>
                             </blockquote>
                         </div>
                     </div>
+
                     <div className="group-preview-content" style={{ borderColor: group.color }}>
+                        <DragDropContext onDragEnd={handleHorizontalDrag}>
+                            <Droppable droppableId="title" direction="horizontal">
+                                {(droppableProvided) => {
+                                    return <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps} className='title-container'>
+                                        <div className="check-box" >
+                                            <input type="checkbox" />
+                                        </div>
+                                        <div className="task title">Task</div>
+                                        {board.cmpsOrder.map((title, idx) =>
+                                            <Draggable key={title} draggableId={title} index={idx}>
+                                                {(provided, snapshot) => {
+                                                    return (
+                                                        <li ref={provided.innerRef}
+                                                            {...provided.draggableProps}
+                                                            {...provided.dragHandleProps} className={title + ' title'} key={idx}>
+                                                            {getTitleName(title)}
+                                                        </li>
+                                                    )
+                                                }}
+                                            </Draggable>
+                                        )}
+                                        <div className="add-picker-task">
+                                            <span>
+                                                <AiOutlinePlus />
+                                            </span>
+                                        </div>
+                                    </div>
+                                }}
+                            </Droppable>
+                        </DragDropContext>
+                        {/* original */}
+                        {/* <div className="group-preview-content" style={{ borderColor: group.color }}>
                         <div className='title-container'>
                             <div className="check-box" >
                                 <input type="checkbox" />
@@ -113,24 +169,28 @@ export function GroupPreview({ group, board, idx }) {
                                     <AiOutlinePlus />
                                 </span>
                             </div>
+                        </div> */}
+
+                        <div ref={taskRef}>
+                            <DragDropContext onDragEnd={handleOnDragEnd}>
+                                <Droppable droppableId={group.id}>
+                                    {(droppableProvided) => {
+                                        return <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps} >
+                                            {group.tasks.map((task, idx) => (
+                                                <Draggable key={task.id} draggableId={task.id} index={idx}>
+                                                    {(provided) => {
+                                                        return <li ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
+                                                            <TaskPreview task={task} groupId={group.id} board={board} idx={idx} />
+                                                        </li>
+                                                    }}
+                                                </Draggable>
+                                            ))}
+                                            {droppableProvided.placeholder}
+                                        </div>
+                                    }}
+                                </Droppable>
+                            </DragDropContext>
                         </div>
-                        <DragDropContext onDragEnd={handleOnDragEnd}>
-                            <Droppable droppableId={group.id}>
-                                {(droppableProvided) => {
-                                    return <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps} >
-                                        {group.tasks.map((task, idx) => (
-                                            <Draggable key={task.id} draggableId={task.id} index={idx}>
-                                                {(provided) => {
-                                                    return <li ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
-                                                        <TaskPreview task={task} groupId={group.id} board={board} />
-                                                    </li>
-                                                }}
-                                            </Draggable>
-                                        ))}
-                                    </div>
-                                }}
-                            </Droppable>
-                        </DragDropContext>
 
                         {/* original */}
                         {/* {group.tasks.map((task, idx) => {
