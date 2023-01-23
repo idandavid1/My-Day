@@ -22,6 +22,7 @@ export function BoardDetails() {
         loadBoard(boardId, queryFilterBy)
         if(!boards.length) loadBoards()
     }, [])
+    console.log(board);
     
     function onSetFilter(filterBy) {
         setSearchParams(filterBy)

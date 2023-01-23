@@ -84,7 +84,7 @@ export function GroupPreview({ group, board, idx }) {
         const updatedTitles = [...board.cmpsOrder]
         const [draggedItem] = updatedTitles.splice(ev.source.index, 1)
         updatedTitles.splice(ev.destination.index, 0, draggedItem)
-        updatePickerCmpsOrder(board , updatedTitles)
+        updatePickerCmpsOrder(board, updatedTitles)
     }
 
     function getTitleName(cmpOrder) {
@@ -179,7 +179,7 @@ export function GroupPreview({ group, board, idx }) {
                                                 <Draggable key={task.id} draggableId={task.id} index={idx}>
                                                     {(provided) => {
                                                         return <li ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
-                                                            <TaskPreview task={task} group={group} board={board}/>
+                                                            <TaskPreview task={task} group={group} board={board} />
                                                         </li>
                                                     }}
                                                 </Draggable>
