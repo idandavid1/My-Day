@@ -11,6 +11,7 @@ import { toggleModal, updateTaskAction } from "../../store/board.actions"
 
 import { TbArrowsDiagonal } from 'react-icons/tb'
 import { BiMessageRoundedAdd } from 'react-icons/bi'
+import { HiOutlineChatBubbleOvalLeft } from 'react-icons/hi2'
 
 export function TaskPreview({ task, groupId, board, idx }) {
     const elTaskPreview = useRef(null)
@@ -56,8 +57,12 @@ export function TaskPreview({ task, groupId, board, idx }) {
                     <TbArrowsDiagonal />
                     <span>Open</span>
                 </div>
-                <div className="chat-icon">
-                    <BiMessageRoundedAdd className="icon" />
+                <div onClick={onOpenModal} className="chat-icon">
+                     {task.comments.length > 0 && <div>
+                       <HiOutlineChatBubbleOvalLeft className="comment-chat"/>
+                       <div className="count-comment">{task.comments.length}</div>
+                    </div>}
+                    {task.comments.length === 0 && <BiMessageRoundedAdd className="icon" />}
                 </div>
             </div>
 

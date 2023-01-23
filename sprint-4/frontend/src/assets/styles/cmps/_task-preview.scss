@@ -26,19 +26,43 @@
             color: $workspace-icon-color;
         }
         .chat-icon {
-            width: 50px;
+            font-size: 24px;
             padding: 0 16px;
             height: 100%;
             border-left: 1px solid darken($border-color , 20%);
-            color: $workspace-icon-color;
-            font-size: 18px;
+            color: $chat-icon-color;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
 
             .icon:hover {
-                color: $menu-icon-color;
+                color: $board-btn;
                 cursor: pointer;
+            }
+
+            div {
+                display: flex;
+                align-items: center;
+            }
+
+            .count-comment {
+                background-color: $board-btn;
+                color: white;
+                font-size: 10px;
+                border-radius: 50%;
+                width: 14px;
+                height: 13px;
+                @include center-flex();
+                margin: 0;
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                cursor: pointer;
+            }
+
+            .comment-chat {
+                color: $board-btn;
             }
         }
     }

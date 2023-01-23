@@ -13,6 +13,7 @@ export function PriorityPicker({ info, onUpdate }) {
     
     return <section className="status-priority-picker picker" style={{ backgroundColor: color }}>
         <div className={classText} onClick={() => setIsModalOpen(!isModalOpen)}>{info.priority}</div>
+        <span className="fold"></span>
         {isModalOpen && <ModalStatusPriority labels={board.labels} onUpdate={onUpdate} setIsModalOpen={setIsModalOpen} cmpType={'priority'}/>}
     </section>
 }
