@@ -1,7 +1,7 @@
 .home-header {
     background-color: $app-bg;
-    height: 11vh;
-    
+    height: 72px;
+
     nav {
         display: flex;
         justify-content: space-between;
@@ -13,12 +13,50 @@
         }
     }
 
-    button {
-        background-color: $home-btn-bg;
+    .header-btns {
+        display: flex;
+        align-items: center;
+        
+        .btn-start {
+            background-color: $home-btn-bg;
+            padding-right: 14px;
+            height: 40px;
+            min-width: 130px;
+            font-size: 0.8125rem;
+            padding: 8px 16px;
+            border-radius: 40px;
+
+            &:hover {
+                background-color: #5151d5;
+
+                .arrow svg{
+                    transition: 0.4s;
+                    transform: translateX(4px);
+                }
+            }
+        }
+
+        .btn-login {
+            background-color: $app-bg;
+            color: #535768;
+            align-items: center;
+            padding: 8px 10px;
+            font-size: 0.875rem;
+            transition: color 200ms ease;
+            border-radius: 8px;
+            font-weight: 300;
+
+            &:hover {
+                color: #5034FF;
+                background-color: #F0F3FF;
+            }
+        }
+
     }
 
-    button:hover {
-        background-color:darken($home-btn-bg, 20%);
-    }
+
+    // button:hover {
+    //     background-color: darken($home-btn-bg, 20%);
+    // }
 
 }
