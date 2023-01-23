@@ -15,7 +15,8 @@ export const boardService = {
     getDefaultFilterBoard,
     getFilterFromSearchParams,
     getEmptyGroup,
-    getEmptyTask
+    getEmptyTask,
+    getEmptyComment
 }
 
 async function query(filterBy = getDefaultFilterBoard()) {
@@ -87,6 +88,23 @@ function getEmptyTask() {
         "priority": "", 
         "memberIds": [],
         "dueDate": ''
+    }
+}
+
+function getEmptyComment() {
+    return {
+        "archivedAt": Date.now(),
+        "byMember": {
+            "_id": "m101",
+            "fullname": "Tal Tarablus",
+            "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
+        }, "txt": "",
+        "style": {
+            "textDecoration": "none",
+            "fontWeight": "normal",
+            "fontStyle": "normal",
+            "textAlign": "Left"
+        }
     }
 }
 
@@ -210,31 +228,49 @@ function _createBoards() {
                             "dueDate": 1615621,
                             "comments": [
                                 {
-                                    "id": "b101",
+                                    "id": "a101",
                                     "archivedAt": 1589983468418,
                                     "byMember": {
                                         "_id": "m101",
                                         "fullname": "Tal Tarablus",
                                         "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
-                                    }, "txt": "babababababaababaab"
+                                    }, "txt": "babababababaababaab",
+                                    "style": {
+                                        "textDecoration": "none",
+                                        "fontWeight": "normal",
+                                        "fontStyle": "normal",
+                                        "textAlign": "Left"
+                                    }
                                 },
                                 {
-                                    "id": "b101",
+                                    "id": "a102",
                                     "archivedAt": 1589983468418,
                                     "byMember": {
                                         "_id": "m102",
                                         "fullname": "Idan David",
                                         "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673820094/%D7%A2%D7%99%D7%93%D7%9F_jranbo.jpg"
-                                    }, "txt": "bababa"
+                                    }, "txt": "bababa",
+                                    "style": {
+                                        "textDecoration": "none",
+                                        "fontWeight": "normal",
+                                        "fontStyle": "normal",
+                                        "textAlign": "Left"
+                                    }
                                 },
                                 {
-                                    "id": "b101",
+                                    "id": "a103",
                                     "archivedAt": 1589983468418,
                                     "byMember": {
                                         "_id": "m102",
                                         "fullname": "Tal Tarablus",
                                         "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
-                                    }, "txt": "baba"
+                                    }, "txt": "baba",
+                                    "style": {
+                                        "textDecoration": "none",
+                                        "fontWeight": "normal",
+                                        "fontStyle": "normal",
+                                        "textAlign": "Left"
+                                    }
                                 }
                             ]
                         },
