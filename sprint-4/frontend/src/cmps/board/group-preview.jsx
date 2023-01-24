@@ -129,7 +129,8 @@ export function GroupPreview({ group, board, idx }) {
         }, {})
         let strHtml = []
         for (let key in mapLabel) {
-            strHtml.push({height:'100%', background: key, width: `${mapLabel[key] / labels.length * 100}%` })
+            console.log(mapLabel[key])
+            strHtml.push({ background: key, width: `${mapLabel[key] / labels.length * 100}%` })
         }
         return strHtml
     }
@@ -248,15 +249,17 @@ export function GroupPreview({ group, board, idx }) {
                             </form>
                         </div>
                         <div className="statistic flex">
-                            {board.cmpsOrder.map(cmp => {
+                            <div className="sticky-container"></div>
+                            {board.cmpsOrder.map((cmp, idx) => {
                                 return (
-                                    <div className={cmp + ' title'}>
-                                        {getStatisticsResult(cmp).map(span => {
-                                            return <span style={span}></span>
+                                    <div key={idx} className={`title ${idx === 0 ? ' first ' : ''}${cmp}`}>
+                                        {getStatisticsResult(cmp).map((span, idx) => {
+                                            return <span key={idx} style={span} ></span>
                                         })}
                                     </div>
                                 )
                             })}
+                            <div className="empty-div"></div>
                         </div>
                     </div>
                 </div>
