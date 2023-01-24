@@ -173,24 +173,29 @@ function _createBoards() {
                         "color": "#fdab3d"
                     },
                     {
-                        "id": "l101",
+                        "id": "l103",
                         "title": "Stuck",
                         "color": "#e2445c"
                     },
                     {
-                        "id": "l102",
+                        "id": "l104",
                         "title": "Low",
                         "color": "#ffcb00"
                     },
                     {
-                        "id": "l101",
+                        "id": "l105",
                         "title": "Medium",
                         "color": "#a25ddc"
                     },
                     {
-                        "id": "l102",
+                        "id": "l106",
                         "title": "High",
                         "color": "#e2445c"
+                    },
+                    {
+                        "id": "l107",
+                        "title": "",
+                        "color": "gray"
                     },
                 ],
                 "members": [

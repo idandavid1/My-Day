@@ -5,10 +5,11 @@ import { RiErrorWarningLine } from 'react-icons/ri'
 import { BsStar } from 'react-icons/bs'
 import { FiActivity } from 'react-icons/fi'
 import { GrHomeRounded } from 'react-icons/gr'
+import { Link } from 'react-router-dom'
 
 const guest = require('../../assets/img/guest.png')
 
-export function BoardHeader({board , onSetFilter}) {
+export function BoardHeader({ board, onSetFilter }) {
     async function onSave(ev) {
         const value = ev.target.innerText
         board.title = value
@@ -23,9 +24,9 @@ export function BoardHeader({board , onSetFilter}) {
         <header className="board-header">
             <section className='board-title'>
                 <div className="board-info">
-                <blockquote contentEditable onBlur={onSave} suppressContentEditableWarning={true}>
-                    <h1>{board.title}</h1>
-                </blockquote>
+                    <blockquote contentEditable onBlur={onSave} suppressContentEditableWarning={true}>
+                        <h1>{board.title}</h1>
+                    </blockquote>
                     <div className='info-btn'><RiErrorWarningLine /></div>
                     <div className='star-btn'><BsStar /></div>
                 </div>
@@ -34,8 +35,8 @@ export function BoardHeader({board , onSetFilter}) {
                     <div className='members-last-seen'>
                         <span className='last-seen-title'>Last seen</span>
                         <div className='flex members-imgs'>
-                            <img className='member-img1' src={board.members.length ?  board.members[0].imgUrl : guest} alt="member" />
-                            <img className='member-img2' src={board.members.length > 1 ?  board.members[1].imgUrl : guest } alt="member" />
+                            <img className='member-img1' src={board.members.length ? board.members[0].imgUrl : guest} alt="member" />
+                            <img className='member-img2' src={board.members.length > 1 ? board.members[1].imgUrl : guest} alt="member" />
                             <div className='show-more-members'>
                                 <span className='show-more-count'>+2</span>
                             </div>
@@ -51,9 +52,13 @@ export function BoardHeader({board , onSetFilter}) {
                     <GrHomeRounded className='icon' />
                     <span>Main Table</span>
                 </div>
+                {/* <div className='kanban'>
+                    <GrHomeRounded className='icon' />
+                    <Link to={`/kanban/${board._id}`} ></Link>
+                </div> */}
             </div>
             <div className='board-border'></div>
-            <BoardFilter onSetFilter={onSetFilter} board={board}/>
+            <BoardFilter onSetFilter={onSetFilter} board={board} />
         </header >
     )
 }

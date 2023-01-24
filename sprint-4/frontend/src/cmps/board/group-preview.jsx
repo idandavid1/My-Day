@@ -101,6 +101,39 @@ export function GroupPreview({ group, board, idx }) {
         }
     }
 
+    function getStatisticsResult(cmp) {
+        switch (cmp) {
+            case 'member-picker':
+                return []
+            case 'status-picker':
+                return getStatisticsStatus()
+            case 'priority-picker':
+                return []
+            case 'date-picker':
+                return []
+            default: return []
+        }
+    }
+
+    function getStatisticsStatus() {
+        let labels = group.tasks.map(task => {
+            return board.labels.find(label => label.title === task.status)
+        })
+        console.log(labels)
+        const mapLabel = labels.reduce((acc, label) => {
+            if (acc[label.color]) acc[label.color]++
+            else acc[label.color] = 1
+            return acc
+        }, {})
+        let strHtml = []
+        for (let key in mapLabel) {
+            console.log(mapLabel[key])
+            strHtml.push({height:'100%', background: key, width: `${mapLabel[key] / labels.length * 100}%` })
+        }
+        return strHtml
+    }
+
+
     return <ul className="group-preview" >
 
         {isModalOpen &&
@@ -212,6 +245,18 @@ export function GroupPreview({ group, board, idx }) {
                                     onChange={handleChange}
                                     onBlur={onAddTask} />
                             </form>
+                        </div>
+                        <div className="statistic flex">
+                            {board.cmpsOrder.map(cmp => {
+                                return (
+                                    <div className={cmp + ' title'}>
+                                        {getStatisticsResult(cmp).map(span => {
+                                            { console.log(span) }
+                                            return <span style={span}></span>
+                                        })}
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
                 </div>
