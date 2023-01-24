@@ -1,4 +1,5 @@
 import { storageService } from './async-storage.service.js'
+import { userService } from './user.service.js'
 import { utilService } from './util.service.js'
 
 const STORAGE_KEY = 'boardDB'
@@ -105,6 +106,28 @@ function getEmptyComment() {
             "fontWeight": "normal",
             "fontStyle": "normal",
             "textAlign": "Left"
+        }
+    }
+}
+
+function getEmptyActivity() {
+    return {
+        "action": "status",
+        "createdAt": Date.now(),
+        "byMember": userService.getLoggedinUser(),
+        "task": {
+            "id": "c101",
+            "title": "Replace Logo"
+        },
+        "from": {
+            "id": "l101",
+            "title": "Done",
+            "color": "#61bd4f"
+        }, 
+        "to": {
+            "id": "l102",
+            "title": "Progress",
+            "color": "#61bd33"
         }
     }
 }

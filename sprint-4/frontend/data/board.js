@@ -143,7 +143,7 @@ const board = {
     "activities": [
         {
             "id": "a101",
-            "txt": "Changed Color",
+            "action": "status",
             "createdAt": 154514,
             "byMember": {
                 "_id": "u101",
@@ -153,6 +153,16 @@ const board = {
             "task": {
                 "id": "c101",
                 "title": "Replace Logo"
+            },
+            "from": {
+                "id": "l101",
+                "title": "Done",
+                "color": "#61bd4f"
+            }, 
+            "to": {
+                "id": "l102",
+                "title": "Progress",
+                "color": "#61bd33"
             }
         }
     ],
