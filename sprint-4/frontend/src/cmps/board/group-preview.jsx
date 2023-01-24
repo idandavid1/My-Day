@@ -4,7 +4,6 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
 import { TaskPreview } from "../task/task-preview"
 import { addTask, saveBoard, updateGroupAction, updateGroups, updatePickerCmpsOrder, duplicateGroup } from "../../store/board.actions"
 import { GroupMenuModal } from "../modal/group-menu-modal"
-import { utilService } from "../../services/util.service"
 import { boardService } from "../../services/board.service"
 
 import { MdKeyboardArrowDown } from 'react-icons/md'
@@ -19,7 +18,8 @@ export function GroupPreview({ group, board, idx }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isShowColorPicker, setIsShowColorPicker] = useState(false)
     const taskRef = useRef()
-    const [selectedTasks , setSelectedTasks ]= useState([])
+    const [isMainCheckbox, setIsMainCheckbox] = useState(false)
+    const [selectedTasks, setSelectedTasks] = useState([])
 
     function onOpenModal() {
         setIsModalOpen(!isModalOpen)
@@ -46,7 +46,7 @@ export function GroupPreview({ group, board, idx }) {
         ev.preventDefault()
         if (!taskToEdit.title) return
         const activity = boardService.getEmptyActivity()
-        activity.from = {color: group.color, title: group.title}
+        activity.from = { color: group.color, title: group.title }
         activity.action = 'create'
         addTask(taskToEdit, group, board, activity)
         setTaskToEdit(boardService.getEmptyTask())
@@ -137,17 +137,18 @@ export function GroupPreview({ group, board, idx }) {
         return strHtml
     }
 
-    function handleCheckboxChange({ target }) {
-        console.log(target.value)
-        if (selectedTasks.includes(target.value)) {
-            selectedTasks.splice(selectedTasks.indexOf(target.value), 1)
+    function handleCheckboxChange(task) {
+        console.log(task)
+        if (selectedTasks.includes(task) && isMainCheckbox) return 
+        if (selectedTasks.includes(task)) {
+            selectedTasks.splice(selectedTasks.indexOf(task), 1)
             setSelectedTasks((selectedTasks) => ([...selectedTasks]))
             return
         }
-        setSelectedTasks((prevTasks) => ([...prevTasks, target.value]))
+        setSelectedTasks((prevTasks) => ([...prevTasks, task]))
     }
 
-
+    
     return <ul className="group-preview" >
         {isModalOpen &&
             <GroupMenuModal onRemoveGroup={onRemoveGroup} onDuplicateGroup={onDuplicateGroup}
@@ -175,8 +176,8 @@ export function GroupPreview({ group, board, idx }) {
                                 {(droppableProvided) => {
                                     return <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps} className='title-container'>
                                         <div className="sticky-div titles flex" style={{ borderColor: group.color }}>
-                                            <div className="check-box" >
-                                                <input type="checkbox"  />
+                                            <div className="check-box"  >
+                                                <input type="checkbox" onClick={() => setIsMainCheckbox(!isMainCheckbox)} />
                                             </div>
                                             <div className="task title">Task</div>
                                         </div>
@@ -211,7 +212,7 @@ export function GroupPreview({ group, board, idx }) {
                                                 <Draggable key={task.id} draggableId={task.id} index={idx}>
                                                     {(provided) => {
                                                         return <li ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
-                                                            <TaskPreview task={task} group={group} board={board} handleCheckboxChange={handleCheckboxChange} />
+                                                            <TaskPreview task={task} group={group} board={board} handleCheckboxChange={handleCheckboxChange} isMainCheckbox={isMainCheckbox} />
                                                         </li>
                                                     }}
                                                 </Draggable>
@@ -252,7 +253,6 @@ export function GroupPreview({ group, board, idx }) {
                 </div>
             }}
         </Draggable>
-        {console.log('elSelected')}
-        {selectedTasks.length > 0 && <TaskToolsModal tasks={selectedTasks} group={group} />}
+        {selectedTasks.length > 0 && <TaskToolsModal board={board} tasks={selectedTasks} group={group} setSelectedTasks={setSelectedTasks}/>}
     </ul >
 }

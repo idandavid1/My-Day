@@ -3,9 +3,42 @@ import { FiTrash } from "react-icons/fi"
 import { IoCloseOutline } from "react-icons/io5"
 import { BsArrowRightCircle } from "react-icons/bs"
 import { BsFillCircleFill } from 'react-icons/bs'
+import { duplicateTask, updateGroupAction } from "../../store/board.actions"
+import { useState } from "react"
+import { boardService } from "../../services/board.service"
+import { utilService } from "../../services/util.service"
+import { forEach } from "lodash"
 
-export function TaskToolsModal({ tasks, group }) {
-    var _ = require('lodash')
+export function TaskToolsModal({ tasks, group, board, setSelectedTasks }) {
+    let _ = require('lodash')
+
+    async function onRemoveTasks() {
+        try {
+            tasks.forEach(task => {
+                const tasksToSave = group.tasks.filter(currTask => task.id !== currTask.id)
+                group.tasks = tasksToSave
+                updateGroupAction(board, group)
+            })
+            setSelectedTasks([])
+        } catch (err) {
+            console.error(err)
+        }
+
+    }
+
+
+
+    async function onDuplicateTasks() {
+        try {
+            tasks.forEach(task => {
+                duplicateTask(board, group, task)
+            })
+            setSelectedTasks([])
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     return (
 
         <section className="task-tools-modal">
@@ -20,12 +53,12 @@ export function TaskToolsModal({ tasks, group }) {
                     </div>
 
                 </div>
-                <div className="task-btns">
+                <div className="task-btns" onClick={onDuplicateTasks}>
                     <div>
                         <HiOutlineDocumentDuplicate className="icon" />
                         Duplicate
                     </div>
-                    <div>
+                    <div onClick={onRemoveTasks}>
                         <FiTrash className="icon" />
                         Delete
                     </div>
