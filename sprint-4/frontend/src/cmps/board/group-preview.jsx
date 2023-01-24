@@ -106,18 +106,18 @@ export function GroupPreview({ group, board, idx }) {
             case 'member-picker':
                 return []
             case 'status-picker':
-                return getStatisticsStatus()
+                return getStatisticsStatus('status')
             case 'priority-picker':
-                return []
+                return getStatisticsStatus('priority')
             case 'date-picker':
                 return []
             default: return []
         }
     }
 
-    function getStatisticsStatus() {
+    function getStatisticsStatus(type) {
         let labels = group.tasks.map(task => {
-            return board.labels.find(label => label.title === task.status)
+            return board.labels.find(label => label.title === task[type])
         })
         console.log(labels)
         const mapLabel = labels.reduce((acc, label) => {
