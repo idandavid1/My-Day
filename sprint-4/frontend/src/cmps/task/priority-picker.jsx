@@ -13,7 +13,7 @@ export function PriorityPicker({ info, onUpdate }) {
     const color = label ? label.color : '#c4c4c4'
     const activity = boardService.getEmptyActivity()
     activity.from = label
-
+    activity.task = {id: info.id, title: info.title}
     return <section className="status-priority-picker picker" style={{ backgroundColor: color }}>
         <div className={classText} onClick={() => setIsModalOpen(!isModalOpen)}>{info.priority}</div>
         <span className="fold"></span>

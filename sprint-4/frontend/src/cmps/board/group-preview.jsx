@@ -45,8 +45,10 @@ export function GroupPreview({ group, board, idx }) {
     function onAddTask(ev) {
         ev.preventDefault()
         if (!taskToEdit.title) return
-        taskToEdit.id = utilService.makeId()
-        addTask(taskToEdit, group, board)
+        const activity = boardService.getEmptyActivity()
+        activity.from = {color: group.color, title: group.title}
+        activity.action = 'create'
+        addTask(taskToEdit, group, board, activity)
         setTaskToEdit(boardService.getEmptyTask())
     }
 

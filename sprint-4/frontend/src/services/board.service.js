@@ -118,7 +118,7 @@ function getEmptyActivity() {
         "byMember": userService.getLoggedinUser() || {
             "_id": "u101",
             "fullname": "Abi Abambi",
-            "imgUrl": "http://some-img"
+            "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
         },
         "task": {
             "id": "c101",

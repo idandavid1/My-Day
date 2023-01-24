@@ -102,6 +102,6 @@ function calculateTime(time) {
     } else if(timeDiff >= 2) {
         const minutes = timeDiff % 60
         return `${minutes}m`
-    } else return 'just now'
+    } else return 'now'
     
 }
