@@ -1,15 +1,23 @@
 import { useState, useEffect } from 'react'
 import { userService } from '../../services/user.service'
-// import { ImgUploader } from '../img-uploader'
+import { ImgUploader } from './img-uploader'
 import { LoginPageHeader } from '../login-page-header'
+import { Link, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { login, signup } from '../../store/user.actions'
+import { loadBoards } from '../../store/board.actions'
 
-export function LoginSignup(props) {
+
+export function LoginSignup() {
     const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '' })
     const [isSignup, setIsSignup] = useState(false)
     const [users, setUsers] = useState([])
+    const navigate = useNavigate()
+    const boards = useSelector(storeState => storeState.boardModule.boards)
 
     useEffect(() => {
         loadUsers()
+        if (!boards.length) loadBoards()
     }, [])
 
     async function loadUsers() {
@@ -31,15 +39,17 @@ export function LoginSignup(props) {
     function onLogin(ev = null) {
         if (ev) ev.preventDefault()
         if (!credentials.username) return
-        props.onLogin(credentials)
+        login(credentials)
         clearState()
+        navigate(`/board/${boards[0]._id}`)
     }
 
     function onSignup(ev = null) {
         if (ev) ev.preventDefault()
         if (!credentials.username || !credentials.password || !credentials.fullname) return
-        props.onSignup(credentials)
+        signup(credentials)
         clearState()
+        navigate(`/board/${boards[0]._id}`)
     }
 
     function toggleSignup() {
@@ -54,102 +64,49 @@ export function LoginSignup(props) {
         <div className="login-signup">
             <LoginPageHeader />
             <div className="form-container">
-                <h1>Log in to your account</h1>
-                <label className="label-username" htmlFor="username">Enter your username</label>
-                <input className="input input-username"
-                    name="username"
+                <h1>{isSignup ? 'Create your MyDay account here ' : 'Log in to your account'}</h1>
+                {!isSignup && <label className="label-username" htmlFor="username">Enter your username and password</label>}
+                {isSignup && <label className="label-username" htmlFor="username">Enter your full name, username and password</label>}
+                {isSignup && <input className="input input-fullname"
                     type="text"
-                    value={credentials.username}
-                    placeholder="username"
+                    name="fullname"
+                    value={credentials.fullname}
+                    placeholder="Full name"
                     onChange={handleChange}
+                    required
+                    autoFocus
+                />}
+                <input className="input input-username"
+                    type="text"
+                    name="username"
+                    value={credentials.username}
+                    placeholder="Username"
+                    onChange={handleChange}
+                    required
+                    autoFocus
                 />
-                <button className="btn-next">Next</button>
-                <div className="flex justify-center align-center split-line">
-                    <span className="separator-line"></span>
-                    <p>Or sign in with</p>
-                    <span className="separator-line"></span>
-                </div>
-                <div className="suggest-signup">
-                    <span className="suggest-signup-prefix">Don't have an account yet?</span>
-                    <a to='/auth/signup'>Sign up</a>
-                </div>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            {/* <p>
-                    <button className="btn-link" onClick={toggleSignup}>{!isSignup ? 'Signup' : 'Login'}</button>
-                </p> */}
-            {/* {!isSignup && <form className="login-form" onSubmit={onLogin}>
-                    <select
-                        name="username"
-                        value={credentials.username}
-                        onChange={handleChange}
-                    > */}
-            {/* <option value="">Select User</option> */}
-            {/* {users.map(user => <option key={user._id} value={user.username}>{user.fullname}</option>)}
-                    </select> */}
-            {/* <input
-                        type="text"
-                        name="username"
-                        value={username}
-                        placeholder="Username"
-                        onChange={handleChange}
-                        required
-                        autoFocus
-                        />
-                        <input
+                {
+                    <input className="input input-password"
                         type="password"
                         name="password"
-                        value={password}
+                        value={credentials.password}
                         placeholder="Password"
                         onChange={handleChange}
                         required
-                    /> */}
-            {/* <button className='login-btn'>Next</button>
-                </form>}
-                <div className="signup-section">
-                    {isSignup && <form className="signup-form" onSubmit={onSignup}>
-                        <input
-                            type="text"
-                            name="fullname"
-                            value={credentials.fullname}
-                            placeholder="Fullname"
-                            onChange={handleChange}
-                            required
-                        />
-                        <input
-                            type="text"
-                            name="username"
-                            value={credentials.username}
-                            placeholder="Username"
-                            onChange={handleChange}
-                            required
-                        />
-                        <input
-                            type="password"
-                            name="password"
-                            value={credentials.password}
-                            placeholder="Password"
-                            onChange={handleChange}
-                            required
-                        />
-                        <ImgUploader onUploaded={onUploaded} />
-                        <button >Signup!</button>
-                    </form>} */}
-            {/* </div> */}
+                    />
+                }
+                {isSignup && <ImgUploader onUploaded={onUploaded} />}
+                <button className="btn-next" onClick={isSignup ? onSignup : onLogin}>{isSignup ? 'Sign up' : 'Log in'}</button>
+                <div className="flex justify-center align-center split-line">
+                    <span className="separator-line"></span>
+                    <p>{isSignup ? 'Or sign up with' : 'Or sign in with'}</p>
+                    <span className="separator-line"></span>
+                </div>
+                <div className="suggest-signup">
+                    <span className="suggest-signup-prefix">{isSignup ? 'Already have an account?' : 'Don\'t have an account yet?'}</span>
+                    <Link to={'/auth/signup'}><button className="btn-signup" onClick={toggleSignup}>{!isSignup ? 'Sign up' : 'Log in'}</button></Link>
+                </div>
+            </div>
         </div>
     )
 }
