@@ -147,11 +147,15 @@ export async function updateGroupAction(currBoard, saveGroup) {
 
 }
 
-export async function updateTaskAction(currBoard, groupId, saveTask) {
+export async function updateTaskAction(currBoard, groupId, saveTask, activity) {
     try {
         const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
         const group = board.groups.find(group => group.id === groupId)
         group.tasks = group.tasks.map(task => (task.id === saveTask.id) ? saveTask : task)
+        if(activity) {
+            board.activities.unshift(activity)
+            currBoard.activities.unshift(activity)
+        }
         await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board: currBoard })
     } catch (err) {

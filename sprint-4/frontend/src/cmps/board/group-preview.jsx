@@ -120,7 +120,6 @@ export function GroupPreview({ group, board, idx }) {
         let labels = group.tasks.map(task => {
             return board.labels.find(label => label.title === task[type])
         })
-        console.log(labels)
         const mapLabel = labels.reduce((acc, label) => {
             if (acc[label.color]) acc[label.color]++
             else acc[label.color] = 1

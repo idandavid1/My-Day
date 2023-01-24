@@ -1,5 +1,5 @@
-i
-import { IoTimeOutline }  from 'react-icons/io5'
+
+import { IoTimeOutline, IoIosArrowForward }  from 'react-icons/io5'
 
 import { utilService } from "../../services/util.service"
 
@@ -9,6 +9,20 @@ export function ActivityPreview({ activity }) {
         switch (action) {
             case 'status':
                 return 
+        
+            default:
+                break;
+        }
+    }
+
+    function getFromTo(action) {
+        switch (action) {
+            case 'status':
+                return <div>
+                    <span style={{backgroundColor: activity.from.color}}>{activity.from.title}</span>
+
+                    <span style={{backgroundColor: activity.from.color}}>{activity.to.title}</span>
+                </div>
         
             default:
                 break;
@@ -32,7 +46,8 @@ export function ActivityPreview({ activity }) {
                     {getIconAction(activity.action)}
                 </div>
                 <div className='from-to'>
-                    
+                    {
+                    }
                 </div>
         </section>
     )
