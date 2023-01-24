@@ -17,7 +17,8 @@ export const boardService = {
     getFilterFromSearchParams,
     getEmptyGroup,
     getEmptyTask,
-    getEmptyComment
+    getEmptyComment,
+    getEmptyActivity
 }
 
 async function query(filterBy = getDefaultFilterBoard()) {
@@ -118,21 +119,17 @@ function getEmptyActivity() {
     return {
         "action": "status",
         "createdAt": Date.now(),
-        "byMember": userService.getLoggedinUser(),
+        "byMember": userService.getLoggedinUser() || {
+            "_id": "u101",
+            "fullname": "Abi Abambi",
+            "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
+        },
         "task": {
             "id": "c101",
             "title": "Replace Logo"
         },
-        "from": {
-            "id": "l101",
-            "title": "Done",
-            "color": "#61bd4f"
-        },
-        "to": {
-            "id": "l102",
-            "title": "Progress",
-            "color": "#61bd33"
-        }
+        "from": {}, 
+        "to": {}
     }
 }
 
@@ -224,7 +221,7 @@ function _createBoards() {
                     {
                         "id": "l107",
                         "title": "",
-                        "color": "gray"
+                        "color": "#c4c4c4"
                     },
                 ],
                 "members": [
@@ -355,22 +352,7 @@ function _createBoards() {
                     ],
                     "color": '#a25ddc'
                 }],
-                "activities": [
-                    {
-                        "id": "a101",
-                        "txt": "Changed Color",
-                        "createdAt": 154514,
-                        "byMember": {
-                            "_id": "m101",
-                            "fullname": "Tal Tarablus",
-                            "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
-                        },
-                        "task": {
-                            "id": "c101",
-                            "title": "Replace Logo"
-                        }
-                    }
-                ],
+                "activities": [],
                 "cmpsOrder": ["member-picker", "status-picker", "date-picker", 'priority-picker']
             }
         )

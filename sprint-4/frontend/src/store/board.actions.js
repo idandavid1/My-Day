@@ -100,11 +100,17 @@ export async function duplicateTask(currBoard, group, task) {
     }
 }
 
-export async function addTask(task, group, board) {
+export async function addTask(task, group, currBoard, activity) {
     try {
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
+        task.id = utilService.makeId()
         group.tasks.push(task)
+        board.groups = board.groups.map(currGroup => (currGroup.id === group.id) ? group : currGroup)
+        activity.task = {id: task.id, title: task.title}
+        board.activities.push(activity) 
         await boardService.save(board)
-        store.dispatch({ type: SET_BOARD, board })
+        currBoard.activities.push(activity) 
+        store.dispatch({ type: SET_BOARD, board: currBoard })
     } catch (err) {
         console.error('cant add task:', err)
     }
@@ -147,11 +153,15 @@ export async function updateGroupAction(currBoard, saveGroup) {
 
 }
 
-export async function updateTaskAction(currBoard, groupId, saveTask) {
+export async function updateTaskAction(currBoard, groupId, saveTask, activity) {
     try {
         const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
         const group = board.groups.find(group => group.id === groupId)
         group.tasks = group.tasks.map(task => (task.id === saveTask.id) ? saveTask : task)
+        if(activity) {
+            board.activities.unshift(activity)
+            currBoard.activities.unshift(activity)
+        }
         await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board: currBoard })
     } catch (err) {

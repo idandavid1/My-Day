@@ -3,12 +3,16 @@ import { useSelector } from "react-redux"
 import { ModalMember } from "../modal/modal-member"
 
 import { BsPersonCircle } from 'react-icons/bs'
+import { boardService } from "../../services/board.service"
 
 const guest = require('../../assets/img/guest.png')
 
 export function MemberPicker({ info, onUpdate }) {
     const board = useSelector(storeState => storeState.boardModule.board)
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const activity = boardService.getEmptyActivity()
+    activity.action = 'person'
+    activity.task = {id: info.id, title: info.title}
 
     const members = info.memberIds.map(member => getMember(member))
     function getMember(memberId) {
@@ -25,7 +29,7 @@ export function MemberPicker({ info, onUpdate }) {
                 <span className='show-more-count'>+{members.length - 1}</span>
             </div>}
             </div>
-            {isModalOpen && <ModalMember taskMembers={members} onUpdate={onUpdate} setIsModalOpen={setIsModalOpen} cmpType={'memberIds'}/>}
+            {isModalOpen && <ModalMember taskMembers={members} onUpdate={onUpdate} setIsModalOpen={setIsModalOpen} cmpType={'memberIds'} activity={activity}/>}
         </section>
     )
 }
