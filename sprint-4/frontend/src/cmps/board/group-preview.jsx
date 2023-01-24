@@ -2,7 +2,7 @@ import { useState } from "react"
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
 
 import { TaskPreview } from "../task/task-preview"
-import { addTask, saveBoard, updateGroupAction, updateGroups, updatePickerCmpsOrder } from "../../store/board.actions"
+import { addTask, saveBoard, updateGroupAction, updateGroups, updatePickerCmpsOrder, duplicateGroup } from "../../store/board.actions"
 import { GroupMenuModal } from "../modal/group-menu-modal"
 import { utilService } from "../../services/util.service"
 import { boardService } from "../../services/board.service"
@@ -53,12 +53,13 @@ export function GroupPreview({ group, board, idx }) {
         updateGroups(groups, board)
     }
 
-    function onDuplicateGroup() {
-        setIsModalOpen(!isModalOpen)
-        const duplicatedGroup = structuredClone(group)
-        duplicatedGroup.id = utilService.makeId()
-        board.groups.push(duplicatedGroup)
-        saveBoard(board)
+    async function onDuplicateGroup() {
+        try {
+            setIsModalOpen(!isModalOpen)
+            duplicateGroup(board, group)
+        } catch (err) {
+            console.log('err:', err)
+        }
     }
 
     function onShowPalette() {

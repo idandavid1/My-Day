@@ -2,6 +2,7 @@ import { boardService } from '../services/board.service.js'
 
 import { store } from './store.js'
 import { SET_BOARDS, SET_BOARD, REMOVE_BOARD, ADD_BOARD, UPDATE_BOARD, SET_FILTER, SET_MODAL, REMOVE_GROUP } from "./board.reducer.js"
+import { utilService } from '../services/util.service.js'
 
 export async function loadBoards(filterBy) {
     try {
@@ -69,6 +70,36 @@ export async function addGroup(board) {
     }
 }
 
+export async function duplicateGroup(currBoard, group) {
+    try {
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
+        const duplicatedGroup = structuredClone(group)
+        duplicatedGroup.id = utilService.makeId()
+        const idx = board.groups.indexOf(group)
+        board.groups.splice(idx + 1, 0, duplicatedGroup)
+        await boardService.save(board)
+        currBoard.groups.splice(idx + 1, 0, duplicatedGroup)
+        store.dispatch({ type: SET_BOARD, board: currBoard })
+    } catch (err) {
+       throw err
+    }
+}
+
+export async function duplicateTask(currBoard, group, task) {
+    try {
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
+        const duplicatedTask = structuredClone(task)
+        const idx = group.tasks.indexOf(task)
+        duplicatedTask.id = utilService.makeId()
+        duplicatedTask.title += ' (copy)'
+        group.tasks.splice(idx + 1, 0, duplicatedTask)
+        await boardService.save(board)
+        store.dispatch({ type: SET_BOARD, board: currBoard })
+    } catch (err) {
+       throw err
+    }
+}
+
 export async function addTask(task, group, board) {
     try {
         group.tasks.push(task)
@@ -103,12 +134,10 @@ export async function updateGroups(groups, board) {
 }
 
 export async function updateGroupAction(currBoard, saveGroup) {
-    console.log(currBoard , saveGroup)
     try {
         const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
         board.groups = board.groups.map(group => (group.id === saveGroup.id) ? saveGroup : group)
         currBoard.groups = currBoard.groups.map(group => (group.id === saveGroup.id) ? saveGroup : group)
-        // console.log('board', board)
         console.log('board', currBoard)
         await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board: currBoard })
@@ -120,7 +149,6 @@ export async function updateGroupAction(currBoard, saveGroup) {
 
 export async function updateTaskAction(currBoard, groupId, saveTask) {
     try {
-        console.log('saveTask:', saveTask)
         const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
         const group = board.groups.find(group => group.id === groupId)
         group.tasks = group.tasks.map(task => (task.id === saveTask.id) ? saveTask : task)

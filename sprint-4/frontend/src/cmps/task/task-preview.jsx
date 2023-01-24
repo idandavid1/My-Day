@@ -6,7 +6,7 @@ import { DueDate } from "./date-picker"
 import { MemberPicker } from "./member-picker"
 import { PriorityPicker } from "./priority-picker"
 import { StatusPicker } from "./status-picker"
-import { toggleModal, updateGroupAction, updateTaskAction } from "../../store/board.actions"
+import { duplicateTask, toggleModal, updateGroupAction, updateTaskAction } from "../../store/board.actions"
 
 import { TbArrowsDiagonal } from 'react-icons/tb'
 import { BiDotsHorizontalRounded, BiMessageRoundedAdd } from 'react-icons/bi'
@@ -62,12 +62,7 @@ export function TaskPreview({ task, group, board }) {
 
     async function onDuplicateTask() {
         try {
-            const duplicatedTask = structuredClone(task)
-            const idx = group.tasks.indexOf(task)
-            duplicatedTask.id = utilService.makeId()
-            duplicatedTask.title += ' (copy)'
-            group.tasks.splice(idx + 1, 0, duplicatedTask)
-            await updateGroupAction(board, group)
+            duplicateTask(board, group, task)
             setIsTaskModalOpen(false)
         } catch (err) {
             console.log(err)
