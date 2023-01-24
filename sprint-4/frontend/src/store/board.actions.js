@@ -93,6 +93,7 @@ export async function duplicateTask(currBoard, group, task) {
         duplicatedTask.id = utilService.makeId()
         duplicatedTask.title += ' (copy)'
         group.tasks.splice(idx + 1, 0, duplicatedTask)
+        board.groups = board.groups.map(currGroup => currGroup.id === group.id ? group : currGroup)
         await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board: currBoard })
     } catch (err) {
@@ -140,6 +141,7 @@ export async function updateGroups(groups, board) {
 }
 
 export async function updateGroupAction(currBoard, saveGroup) {
+    console.log(saveGroup)
     try {
         const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
         board.groups = board.groups.map(group => (group.id === saveGroup.id) ? saveGroup : group)

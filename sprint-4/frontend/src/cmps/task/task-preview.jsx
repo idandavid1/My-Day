@@ -14,12 +14,20 @@ import { TaskMenuModal } from "../modal/task-menu-modal"
 import { utilService } from "../../services/util.service"
 import { boardService } from "../../services/board.service"
 import { HiOutlineChatBubbleOvalLeft } from 'react-icons/hi2'
+import { useEffectUpdate } from "../../customHooks/useEffectUpdate"
 
-export function TaskPreview({ task, group, board ,handleCheckboxChange , isCheckedAll}) {
+export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCheckbox }) {
     const elTaskPreview = useRef(null)
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
+    const [isClick, setIsClick] = useState(isMainCheckbox)
+
+    useEffectUpdate(() => {
+        setIsClick(isMainCheckbox)
+        handleCheckboxChange(task)
+        console.log('yuessss')
+    }, [isMainCheckbox])
 
     async function updateTask(cmpType, data, activity) {
         task[cmpType] = data
@@ -88,8 +96,8 @@ export function TaskPreview({ task, group, board ,handleCheckboxChange , isCheck
                     <BiDotsHorizontalRounded className="icon" onClick={() => setIsTaskModalOpen(!isTaskModalOpen)} />
                 </div>
                 <div className="check-box">
-                    <input type="checkbox" 
-                        value={task.id } onChange={handleCheckboxChange} />
+                    <input type="checkbox" checked={isClick}
+                        onChange={() => handleCheckboxChange(task)} onClick={() => setIsClick(!isClick)} />
                 </div>
                 <div className="task-title picker" onClick={() => elTaskPreview.current.classList.toggle('on-typing')}>
                     <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
