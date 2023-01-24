@@ -5,23 +5,27 @@ import { CiSearch } from 'react-icons/ci'
 import { useEffect, useState } from "react"
 
 
-export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen}) {
+export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen, activity}) {
     const [filter, setFilter] = useState({txt: ''})
     const [outTaskMembers, setOutTaskMembers] = useState([])
     const board = useSelector(storeState => storeState.boardModule.board)
-    
+
     useEffect(() => {
         setOutTaskMembers(board.members.filter(member => !taskMembers.includes(member)))
     }, [])
 
-    function onRemoveMember(taskMemberId) {
-        const members = taskMembers.filter(taskMember => taskMember.id !== taskMemberId)
+    function onRemoveMember(RemoveTaskMember) {
+        activity.form = 'Remove'
+        activity.to = RemoveTaskMember.imgUrl
+        const members = taskMembers.filter(taskMember => taskMember.id !== RemoveTaskMember.id)
         const membersIds = members.map(taskMember => taskMember.id)
         onUpdate(cmpType, membersIds)
         setIsModalOpen(false)
     }
 
     function onAddMember(taskMember) {
+        activity.form = 'Added'
+        activity.to = taskMember.imgUrl
         taskMembers.push(taskMember)
         const membersIds = taskMembers.map(taskMember => taskMember.id)
         onUpdate(cmpType, membersIds)
@@ -54,7 +58,7 @@ export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen}) {
                             return <li key={taskMember.id}>
                                 <img src={taskMember.imgUrl} />
                                 <span>{taskMember.fullname}</span>
-                                <span onClick={() => onRemoveMember(taskMember.id)} className="remove">x</span>
+                                <span onClick={() => onRemoveMember(taskMember)} className="remove">x</span>
                             </li>
                         })
                     }

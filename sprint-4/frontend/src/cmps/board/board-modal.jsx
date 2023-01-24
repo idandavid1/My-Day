@@ -12,26 +12,37 @@ import { TbAlignRight ,TbAlignCenter,TbAlignLeft } from 'react-icons/tb'
 import { boardService } from "../../services/board.service"
 import { utilService } from "../../services/util.service"
 import { CommentPreview } from "../modal/comment-preview"
-
+import { ActivityPreview } from "../modal/activity-preview"
+const noUpdate = require('../../assets/img/empty-update.png')
 
 export function BoardModal() {
     const [isWriteNewUpdate, setIsWriteNewUpdate] = useState(false)
     const [comment, setComment] = useState(boardService.getEmptyComment())
     const [currTask, setCurrTask] = useState(null)
+    const [isShowUpdate, setIsShowUpdate] = useState(true)
+    const [taskActivities, setTaskActivities] = useState([])
     const {groupId, taskId, boardId} = useParams()
     const navigate = useNavigate()
     const board = useSelector((storeState) => storeState.boardModule.board)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
 
     useEffect(() => {
-        if(taskId && groupId) loadTask() 
+        if(taskId && groupId){
+            loadTask()
+            loadTaskActivity()
+        }  
     }, [taskId])
     
     function loadTask() {
         const group = board.groups.find(group => group.id === groupId)
         const task = group.tasks.find(task => task.id === taskId)
         setCurrTask(task)
-    } 
+    }
+    
+    function loadTaskActivity() {
+        const taskActivities = board.activities.filter(activity => activity.task.id === taskId )
+        setTaskActivities(taskActivities)
+    }
     
     function onCloseModal() {
         navigate(`/board/${boardId}`)
@@ -125,34 +136,23 @@ export function BoardModal() {
             </div>
         </div>
             <div className="board-info">
-                <div className="updates-btn active">
+                <div onClick={() => setIsShowUpdate(!isShowUpdate)} className={`updates-btn ${isShowUpdate ? 'active' : ''}`}>
                     <GrHomeRounded />
                     <span>Updates</span>
                 </div>
-                <div className="activity-btn">
+                <div onClick={() => setIsShowUpdate(!isShowUpdate)} className={`activity-btn ${!isShowUpdate ? 'active' : ''}`}>
                     <span>Activity Log</span>
                 </div>
             </div>
-            {/* <div className="activities">
-                <div className="activity">
-                    <div className="activity-date">
-                        <HiOutlineClock />
-                        1d
-                    </div>
-                    <div className="activity-info">
-                        <img src={guest} alt="" />
-                        <span>Changed the task date</span>
-                    </div>
-                    <div className="activity-type">
-                        <CiCalendarDate/>
-                        <span>Date</span>
-                    </div>
-                    <div className="activity-date">
-                        <span>Jan 1</span>
-                    </div>
-                </div> */
-            /* </div> */}
-            <section className="update">
+            {!isShowUpdate && <ul className="activities">
+            {
+                taskActivities.map(activity => {
+                    return <li key={activity.id}><ActivityPreview activity={activity}/></li>
+               })
+            }
+            </ul>}
+       
+            {isShowUpdate && <section className="update">
                     {!isWriteNewUpdate && <span className="close-input-container" onClick={() => setIsWriteNewUpdate(true)}>Write an update</span>}
                     {isWriteNewUpdate && <form className="input-container">
                         <div className="style-txt">
@@ -181,6 +181,16 @@ export function BoardModal() {
                         )})
                     }
                 </ul>
-            </section>
+                {currTask.comments.length === 0 && 
+                <div className="no-updates">
+                    <img src={noUpdate} alt="" />
+                    <div className="txt">
+                        <h2>No updates yet for this item</h2>
+                        <p>Be the first one to update about progress, mention someone 
+                            <br/>or upload files to share with your team members
+                        </p>
+                    </div>
+                </div>}
+            </section>}
     </section>
 }

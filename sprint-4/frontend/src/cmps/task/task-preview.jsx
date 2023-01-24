@@ -98,7 +98,6 @@ export function TaskPreview({ task, group, board }) {
               <div className="task-menu">
                 <BiDotsHorizontalRounded className="icon" onClick={() => setIsTaskModalOpen(!isTaskModalOpen)} />
             </div>
-
                 <div className="check-box">
                     <input type="checkbox"
                         value={task} onChange={() => onSelectTask(task)} />

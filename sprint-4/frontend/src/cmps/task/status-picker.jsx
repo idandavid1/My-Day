@@ -14,6 +14,7 @@ export function StatusPicker({ info, onUpdate }) {
     const label = board.labels.find(label => label.title === info.status)
     const color = label ? label.color : '#c4c4c4'
     activity.from = label
+    activity.task = {id: info.id, title: info.title}
     return (
     <section className="status-priority-picker picker" style={{ backgroundColor: color }}>
         <div className={classText} onClick={() => setIsModalOpen(!isModalOpen)}>{info.status}</div>
