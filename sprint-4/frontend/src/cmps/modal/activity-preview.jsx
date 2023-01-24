@@ -1,8 +1,9 @@
 
 import { IoTimeOutline }  from 'react-icons/io5'
-import { IoIosArrowForward }  from 'react-icons/io'
+import { IoIosArrowForward, IoIosCheckboxOutline }  from 'react-icons/io'
 import { CiCalendarDate }  from 'react-icons/ci'
 import { BsPlusCircle, BsPersonPlus }  from 'react-icons/bs'
+import { FcCheckmark }  from 'react-icons/fc'
 
 import { utilService } from "../../services/util.service"
 const statusImg = require('../../assets/img/status.png')
@@ -20,6 +21,8 @@ export function ActivityPreview({ activity }) {
                 return <BsPlusCircle className='icon'/>
             case 'person': 
                 return <BsPersonPlus className='icon'/>
+            case 'check': 
+                return <IoIosCheckboxOutline className='icon'/>
             default:
                 break;
         }
@@ -37,6 +40,9 @@ export function ActivityPreview({ activity }) {
                 return <FromToCreate activity={activity}/>
             case 'person': 
                 return <FromToPerson activity={activity}/>
+            case 'check': 
+                return <FromToCheck activity={activity}/>
+                
             default:
                 break;
         }
@@ -99,10 +105,19 @@ function FromToCreate({ activity }) {
 function FromToPerson({ activity }) {
     return (
         <div className='from-to person-container'>
-            {console.log('activity.from:', activity.from)}
-            {console.log('activity.to:', activity.to)}
             <span>{activity.from}</span>
             <img src={activity.to} />
+        </div>
+    )
+}
+
+function FromToCheck({ activity }) {
+    return (
+        <div className='from-to check-container'>
+            {console.log('activity.from:', activity.from)}
+            {console.log('activity.to:', activity.to)}
+            <span>{activity.from ? <FcCheckmark /> : '    '}</span>
+            <span>{activity.to ? <FcCheckmark /> : '    '}</span>
         </div>
     )
 }

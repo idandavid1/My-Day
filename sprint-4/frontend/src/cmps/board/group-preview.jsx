@@ -2,7 +2,7 @@ import { useState } from "react"
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
 
 import { TaskPreview } from "../task/task-preview"
-import { addTask, saveBoard, updateGroupAction, updateGroups, updatePickerCmpsOrder, duplicateGroup } from "../../store/board.actions"
+import { addTask, saveBoard, updateGroupAction, updateGroups, updatePickerCmpsOrder, duplicateGroup, addActivity } from "../../store/board.actions"
 import { GroupMenuModal } from "../modal/group-menu-modal"
 import { boardService } from "../../services/board.service"
 
@@ -137,15 +137,28 @@ export function GroupPreview({ group, board, idx }) {
         return strHtml
     }
 
-    function handleCheckboxChange(task) {
-        console.log(task)
-        if (selectedTasks.includes(task) && isMainCheckbox) return 
-        if (selectedTasks.includes(task)) {
-            selectedTasks.splice(selectedTasks.indexOf(task), 1)
-            setSelectedTasks((selectedTasks) => ([...selectedTasks]))
-            return
+    async function handleCheckboxChange(task) {
+        try {
+            const activity = boardService.getEmptyActivity()
+            activity.task = {id: task.id, title: task.title}
+            activity.action = 'check'
+            if (selectedTasks.includes(task) && isMainCheckbox) return 
+            if (selectedTasks.includes(task)) {
+                selectedTasks.splice(selectedTasks.indexOf(task), 1)
+                setSelectedTasks((selectedTasks) => ([...selectedTasks]))
+                activity.from = true
+                activity.to = false
+                addActivity(board, activity) 
+                return
+            }
+            activity.to = true
+            activity.from = false
+            addActivity(board, activity) 
+            setSelectedTasks((prevTasks) => ([...prevTasks, task]))
+        } catch (err) {
+            console.log('err:', err)
         }
-        setSelectedTasks((prevTasks) => ([...prevTasks, task]))
+        
     }
 
     

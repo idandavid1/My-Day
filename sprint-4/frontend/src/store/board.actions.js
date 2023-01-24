@@ -184,3 +184,16 @@ export async function toggleStarred(currBoard) {
         throw err
     }
 }
+
+export async function addActivity(currBoard, activity) {
+    try {
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
+        board.activities.unshift(activity)
+        await boardService.save(board)
+        currBoard.activities.unshift(activity)
+        store.dispatch({ type: SET_BOARD, board: currBoard })
+    } catch (err) {
+        throw err
+    }
+}
+
