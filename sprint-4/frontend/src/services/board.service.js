@@ -26,6 +26,7 @@ async function query(filterBy = getDefaultFilterBoard()) {
         const regex = new RegExp(filterBy.title, 'i')
         boards = boards.filter(board => regex.test(board.title))
     }
+    if (filterBy.isStarred) boards = boards.filter(board => board.isStarred === true)
     return boards
 }
 
@@ -56,7 +57,10 @@ function save(board) {
 }
 
 function getDefaultFilter() {
-    return { title: '' }
+    return {
+        title: '',
+        isStarred: null
+    }
 }
 
 function getDefaultFilterBoard() {
@@ -77,19 +81,19 @@ function getEmptyGroup() {
         "title": 'New Group',
         "archivedAt": Date.now(),
         "tasks": [],
-        "color":'#ffcb00',
-        "id":utilService.makeId()
+        "color": '#ffcb00',
+        "id": utilService.makeId()
     }
 }
 
 function getEmptyTask() {
     return {
         "title": "",
-        "status": "", 
-        "priority": "", 
+        "status": "",
+        "priority": "",
         "memberIds": [],
         "dueDate": '',
-        "comments":[]
+        "comments": []
     }
 }
 
@@ -123,7 +127,7 @@ function getEmptyActivity() {
             "id": "l101",
             "title": "Done",
             "color": "#61bd4f"
-        }, 
+        },
         "to": {
             "id": "l102",
             "title": "Progress",
@@ -136,6 +140,7 @@ function getEmptyBoard() {
     return {
         "title": 'New Board',
         "archivedAt": Date.now(),
+        "isStarred": false,
         "labels": [
             {
                 "id": "l101",
@@ -179,6 +184,7 @@ function _createBoards() {
                 "_id": "b101",
                 "title": "Robot dev proj",
                 "archivedAt": 1589983468418,
+                "isStarred": false,
                 "createdBy": {
                     "_id": "m102",
                     "fullname": "Idan David",

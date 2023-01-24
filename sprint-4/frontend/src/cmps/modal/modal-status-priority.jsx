@@ -7,6 +7,7 @@ export function ModalStatusPriority({ labels, onUpdate, setIsModalOpen, cmpType 
         onUpdate(cmpType, labelTitle)
         setIsModalOpen(false)
     }
+
     return (
         <section className="modal-status-priority">
             {/* <div className="triangle-container"><VscTriangleUp className="triangle-icon"/></div> */}

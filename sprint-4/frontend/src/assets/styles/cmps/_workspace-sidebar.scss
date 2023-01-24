@@ -19,18 +19,68 @@
         gap: 10px;
     }
 
-    .workspace-title-container{
+    .workspace-title-container {
+        color: $primary-text-color;
+
         .workspace-title {
             font-weight: 400;
             font-size: 14px;
             padding: 0 0 $spacing-xs 0;
         }
-        
+
         .icon {
             font-size: 28px;
         }
+
+        .favorites-title {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-grow: 1;
+            height: auto;
+            overflow: hidden;
+            max-width: 135px;
+            font-size: 16px;
+            font-weight: 600;
+            color: $primary-text-color;
+        }
+
+        .star-icon {
+            margin-right: 8px;
+            font-size: 16px;
+            color: $color-egg_yolk;
+        }
     }
-    
+
+    .favorites-empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        line-height: 1.5;
+
+        .star-icon {
+            width: 80px;
+        }
+
+        .favorites-empty-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 12px;
+            font-size: 15px;
+            color: $primary-text-color;
+
+            b {
+                font-weight: bold;
+            }
+
+            p {
+
+            }
+        }
+    }
+
 
     .chose-workspace {
         display: flex;
@@ -104,6 +154,7 @@
             border-radius: 4px;
             color: $primary-text-color;
             height: 31px;
+
             &:has(:focus-visible) {
                 border: .5px solid $board-btn;
                 background-color: white;
@@ -123,24 +174,25 @@
 
     }
 
-    .board-list-container{
+    .board-list-container {
         display: flex;
         flex-direction: column;
         margin-top: 28px;
         gap: 5px;
+
         .board-list {
             padding: 0 18px;
-    
+
             & .active {
                 border-radius: 4px;
                 background-color: $workspace-board-active;
             }
-    
+
             .board-preview {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-    
+
                 div {
                     display: flex;
                     align-items: center;

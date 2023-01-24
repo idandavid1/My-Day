@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 
-import { loadBoards, saveBoard } from '../../store/board.actions'
+import { loadBoards, saveBoard, toggleStarred } from '../../store/board.actions'
 import { boardService } from '../../services/board.service'
 import { BoardPreview } from '../board/board-preview'
 
@@ -14,17 +14,21 @@ import { MdKeyboardArrowLeft } from 'react-icons/md'
 import { MdKeyboardArrowRight } from 'react-icons/md'
 import { BsFillLightningFill } from 'react-icons/bs'
 import { AiFillHome } from 'react-icons/ai'
+import { BsStarFill } from 'react-icons/bs'
+import star from '../../assets/img/star.gif'
 
-
-export function WorkspaceSidebar({isOpen , setIsOpen}) {
+export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen }) {
     const elSection = useRef(null)
-    
+
     const [filterByToEdit, setFilterByToEdit] = useState(boardService.getDefaultFilterBoard())
+
     const boards = useSelector(storeState => storeState.boardModule.boards)
 
     useEffect(() => {
-        loadBoards(filterByToEdit)
-    }, [filterByToEdit])
+        if (isStarredOpen) onLoadBoards()
+        else loadBoards(filterByToEdit)
+        return () => loadBoards(filterByToEdit)
+    }, [filterByToEdit, isStarredOpen])
 
     async function onAddBoard() {
         try {
@@ -42,9 +46,19 @@ export function WorkspaceSidebar({isOpen , setIsOpen}) {
         elSection.current.classList.toggle('open')
     }
 
-    function handleChange({target}) {
-        let {value , name:field} = target
-        setFilterByToEdit((prevFilter) => ({...prevFilter , [field]:value}))
+    function handleChange({ target }) {
+        let { value, name: field } = target
+        setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
+    }
+
+    function onLoadBoards() {
+        try {
+            const filter = boardService.getDefaultFilterBoard()
+            filter.isStarred = true
+            loadBoards(filter)
+        } catch (err) {
+            throw err
+        }
     }
 
     return (
@@ -53,11 +67,11 @@ export function WorkspaceSidebar({isOpen , setIsOpen}) {
                 {isOpen && <MdKeyboardArrowLeft />}
                 {!isOpen && <MdKeyboardArrowRight />}
             </div>
-            {isOpen && <div className="workspace-sidebar-header">
+            {isOpen && !isStarredOpen && <div className="workspace-sidebar-header">
                 <div className='workspace-sidebar-items'>
                     <div className="workspace-title-container flex space-between align-center">
                         <span className='workspace-title'>Workspace</span>
-                        <BiDotsHorizontalRounded className='icon'/>
+                        <BiDotsHorizontalRounded className='icon' />
                     </div>
                     <div className='chose-workspace'>
                         <div className='left'>
@@ -90,6 +104,30 @@ export function WorkspaceSidebar({isOpen , setIsOpen}) {
                     </div>
                 </div>
                 <ul className='board-list-container'>
+                    {boards.map(board => {
+                        return <li key={board._id} className='board-list'>
+                            <BoardPreview board={board} />
+                        </li>
+                    })}
+                </ul>
+            </div>}
+            {isOpen && isStarredOpen && <div className="workspace-sidebar-header">
+                {console.log(isOpen, isStarredOpen)}
+                <div className='workspace-sidebar-items'>
+                    <div className="workspace-title-container flex space-between align-center">
+                        <span className='favorites-title'><BsStarFill className="star-icon" /> Favorites</span>
+                        <BiDotsHorizontalRounded className='icon' />
+                    </div>
+                </div>
+                {boards.length === 0 && <div className="favorites-empty">
+                    <img className="star-icon" src={star} />
+                    <div className="favorites-empty-text">
+                        <b>No favorite boards yet</b>
+                        <p>"Star" any board so that you
+                            can easily access it later</p>
+                    </div>
+                </div>}
+                  <ul className='board-list-container'>
                     {boards.map(board => {
                         return <li key={board._id} className='board-list'>
                             <BoardPreview board={board} />

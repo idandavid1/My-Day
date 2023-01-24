@@ -48,11 +48,11 @@ export async function saveBoard(board) {
 
 export async function updatePickerCmpsOrder(currBoard, cmpsOrders) {
     try {
-        const board = await boardService.getById(currBoard._id , boardService.getDefaultFilter())
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
         board.cmpsOrder = cmpsOrders
         currBoard.cmpsOrder = cmpsOrders
         await saveBoard(board)
-        store.dispatch({type:SET_BOARD , board: currBoard})
+        store.dispatch({ type: SET_BOARD, board: currBoard })
     } catch (err) {
         console.log(err)
     }
@@ -81,7 +81,7 @@ export async function duplicateGroup(currBoard, group) {
         currBoard.groups.splice(idx + 1, 0, duplicatedGroup)
         store.dispatch({ type: SET_BOARD, board: currBoard })
     } catch (err) {
-       throw err
+        throw err
     }
 }
 
@@ -96,7 +96,7 @@ export async function duplicateTask(currBoard, group, task) {
         await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board: currBoard })
     } catch (err) {
-       throw err
+        throw err
     }
 }
 
@@ -156,5 +156,19 @@ export async function updateTaskAction(currBoard, groupId, saveTask) {
         store.dispatch({ type: SET_BOARD, board: currBoard })
     } catch (err) {
         console.error('cant add task:', err)
+    }
+}
+
+export async function toggleStarred(currBoard) {
+    try {
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
+        board.isStarred = !board.isStarred
+        await boardService.save(board)
+        const boards = await boardService.query(boardService.getDefaultFilterBoard())
+        currBoard.isStarred = board.isStarred
+        store.dispatch({ type: SET_BOARD, board: currBoard })
+        store.dispatch({ type: SET_BOARDS, boards })
+    } catch (err) {
+        throw err
     }
 }

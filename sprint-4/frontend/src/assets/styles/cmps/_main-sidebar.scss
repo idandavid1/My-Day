@@ -50,6 +50,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+
+            .triangle-icon {
+                position: absolute;
+                left: 36px;
+                color: $sidebar-workspace-bg;
+            }
         }
 
         >*:hover {

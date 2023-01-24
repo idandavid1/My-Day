@@ -15,6 +15,7 @@ export function BoardDetails() {
     const board = useSelector(storeState => storeState.boardModule.board)
     const boards = useSelector(storeState => storeState.boardModule.boards)
     const [isOpen, setIsOpen] = useState(false)
+    const [isStarredOpen, setIsStarredOpen] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
     const queryFilterBy = boardService.getFilterFromSearchParams(searchParams)
     const { boardId } = useParams()
@@ -25,7 +26,6 @@ export function BoardDetails() {
         loadBoard(boardId, queryFilterBy)
         if (!boards.length) loadBoards()
     }, [])
-    console.log(board);
 
     function onSetFilter(filterBy) {
         setSearchParams(filterBy)
@@ -36,8 +36,8 @@ export function BoardDetails() {
     return (
         <section className="board-details flex">
             <div className='sidebar flex'>
-                <MainSidebar />
-                <WorkspaceSidebar isOpen={isOpen} setIsOpen={setIsOpen}/>
+                <MainSidebar isOpen={isOpen} setIsOpen={setIsOpen} setIsStarredOpen={setIsStarredOpen}/>
+                <WorkspaceSidebar isOpen={isOpen} setIsOpen={setIsOpen} isStarredOpen={isStarredOpen} board={board}/>
             </div>
             <main className="board-main" >
                 <BoardHeader board={board} onSetFilter={onSetFilter} />

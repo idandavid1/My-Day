@@ -1,11 +1,12 @@
 import { BoardFilter } from '../board/board-filter'
-import { saveBoard } from '../../store/board.actions'
+import { saveBoard, toggleStarred } from '../../store/board.actions'
+import { loadBoards } from '../../store/board.actions'
 
 import { RiErrorWarningLine } from 'react-icons/ri'
 import { BsStar } from 'react-icons/bs'
+import { BsStarFill } from 'react-icons/bs'
 import { FiActivity } from 'react-icons/fi'
 import { GrHomeRounded } from 'react-icons/gr'
-import { Link } from 'react-router-dom'
 
 const guest = require('../../assets/img/guest.png')
 
@@ -15,8 +16,17 @@ export function BoardHeader({ board, onSetFilter }) {
         board.title = value
         try {
             saveBoard(board)
+            loadBoards()
         } catch (err) {
             console.log('Failed to save')
+        }
+    }
+
+    function onToggleStarred() {
+        try {
+            toggleStarred(board)
+        } catch (err) {
+            console.log(err)
         }
     }
 
@@ -27,8 +37,12 @@ export function BoardHeader({ board, onSetFilter }) {
                     <blockquote contentEditable onBlur={onSave} suppressContentEditableWarning={true}>
                         <h1>{board.title}</h1>
                     </blockquote>
-                    <div className='info-btn'><RiErrorWarningLine /></div>
-                    <div className='star-btn'><BsStar /></div>
+                    <div className='info-btn'>
+                        <RiErrorWarningLine />
+                    </div>
+                    <div className='star-btn' onClick={onToggleStarred}>
+                        {!board.isStarred ? <BsStar /> : <BsStarFill className="star-full"/>}
+                    </div>
                 </div>
                 <div className='board-tools flex'>
                     <div className='activity'><FiActivity /></div>
