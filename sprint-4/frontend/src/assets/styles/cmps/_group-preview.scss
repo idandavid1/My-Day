@@ -206,5 +206,33 @@
 }
 
 .statistic {
-    
+    // background-color: azure;
+
+    .first {
+        border-bottom-left-radius: 10px;
+        overflow: hidden;
+    }
+
+    .title.status-picker , .title.priority-picker {
+        padding: 0 8px;
+        >*{
+            height: 80%;
+            &:hover{
+                height: 90%;
+            }  
+        }
+    }
+    .empty-div {
+        border-bottom: 1px solid darken($border-color , 20%);
+        width: 100%;
+    }
+
 }
+
+.sticky-container {
+    // background-color: beige;
+    min-width: 375px;
+    position: sticky;
+    z-index: 1;
+}
+
