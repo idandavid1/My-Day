@@ -19,15 +19,14 @@ import { HiOutlineChatBubbleOvalLeft } from 'react-icons/hi2'
 export function TaskPreview({ task, group, board }) {
     const elTaskPreview = useRef(null)
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
-    const [isShowTaskToolsModal, setIsShowTaskToolsModal] = useState(false)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
     const selectedTasks = useRef([])
 
-    async function updateTask(cmpType, data) {
+    async function updateTask(cmpType, data, activity) {
         task[cmpType] = data
         try {
-            await updateTaskAction(board, group.id, task)
+            await updateTaskAction(board, group.id, task, activity)
         } catch (err) {
             console.log(err)
         }

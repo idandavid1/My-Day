@@ -120,7 +120,6 @@ export function GroupPreview({ group, board, idx }) {
         let labels = group.tasks.map(task => {
             return board.labels.find(label => label.title === task[type])
         })
-        console.log(labels)
         const mapLabel = labels.reduce((acc, label) => {
             if (acc[label.color]) acc[label.color]++
             else acc[label.color] = 1
@@ -128,7 +127,6 @@ export function GroupPreview({ group, board, idx }) {
         }, {})
         let strHtml = []
         for (let key in mapLabel) {
-            console.log(mapLabel[key])
             strHtml.push({height:'100%', background: key, width: `${mapLabel[key] / labels.length * 100}%` })
         }
         return strHtml
@@ -252,7 +250,6 @@ export function GroupPreview({ group, board, idx }) {
                                 return (
                                     <div className={cmp + ' title'}>
                                         {getStatisticsResult(cmp).map(span => {
-                                            { console.log(span) }
                                             return <span style={span}></span>
                                         })}
                                     </div>
