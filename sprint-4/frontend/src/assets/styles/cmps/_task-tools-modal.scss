@@ -1,0 +1,102 @@
+.task-tools-modal {
+    display: flex;
+    // justify-content: center;
+    position: fixed;
+    bottom: 35px;
+    height: 63px;
+    width: 80%;
+    right: 106px;
+    transition: opacity 150ms, transform 150ms;
+    z-index: 100;
+    border-radius: 5px;
+    pointer-events: auto;
+    background-color: $app-bg;
+    box-shadow: 0px 15px 50px rgba(0, 0, 0, 0.3);
+
+    // transform: translate(-50%, 0);
+    .task-tools {
+        display: flex;
+        gap: 15px;
+        color: $primary-text-color;
+        width: 100%;
+
+        >* {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .task-count {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            width: 36px;
+            height: 100%;
+            color: white;
+            width: 63px;
+            justify-content: center;
+            font-size: 24px;
+            background-color: $board-btn;
+        }
+
+        .task-info {
+            padding-left: 20px;
+            font-size: 20px;
+            flex-direction: column;
+            align-items: flex-start;
+            .group-color {
+                display: flex;
+                justify-content: flex-start;
+                gap: 4px;
+                font-size: 10px;
+                padding-left: 3px;
+            }
+
+        }
+
+        .task-btns {
+            margin-left: auto;
+            gap: 20px;
+
+            &>* {
+                display: flex;
+                flex-direction: column;
+                font-size: 12px;
+
+                &:hover {
+                    .icon {
+                        color: $board-btn;
+                    }
+                }
+
+                .icon {
+                    font-size: 18px;
+                    margin: 0 auto;
+                    color: darken($workspace-icon-color , 20%);
+                }
+
+            }
+
+            .close-btn {
+                width: 63px;
+                height: 100%;
+                justify-content: center;
+                border-left: 2px solid $task-box-shadow-color;
+
+                &:hover {
+                    .icon {
+                        color: $board-btn;
+                    }
+                }
+
+                .icon {
+                    font-size: 26px;
+                    color: black;
+                }
+            }
+        }
+    }
+
+    // width: 100%;
+    // position: fixed;
+
+}

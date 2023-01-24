@@ -12,12 +12,15 @@ import { BsFillCircleFill } from 'react-icons/bs'
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { useRef } from "react"
+import { TaskToolsModal } from "../modal/task-tools-modal"
 
 export function GroupPreview({ group, board, idx }) {
     const [taskToEdit, setTaskToEdit] = useState(boardService.getEmptyTask())
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isShowColorPicker, setIsShowColorPicker] = useState(false)
     const taskRef = useRef()
+    const [selectedTasks , setSelectedTasks ]= useState([])
+
     function onOpenModal() {
         setIsModalOpen(!isModalOpen)
     }
@@ -127,20 +130,27 @@ export function GroupPreview({ group, board, idx }) {
         }, {})
         let strHtml = []
         for (let key in mapLabel) {
-            console.log(mapLabel[key])
             strHtml.push({ background: key, width: `${mapLabel[key] / labels.length * 100}%` })
         }
         return strHtml
     }
 
+    function handleCheckboxChange({ target }) {
+        console.log(target.value)
+        if (selectedTasks.includes(target.value)) {
+            selectedTasks.splice(selectedTasks.indexOf(target.value), 1)
+            setSelectedTasks((selectedTasks) => ([...selectedTasks]))
+            return
+        }
+        setSelectedTasks((prevTasks) => ([...prevTasks, target.value]))
+    }
+
 
     return <ul className="group-preview" >
-
         {isModalOpen &&
             <GroupMenuModal onRemoveGroup={onRemoveGroup} onDuplicateGroup={onDuplicateGroup}
                 onChangeGroupColor={onChangeGroupColor} isShowColorPicker={isShowColorPicker}
                 groupId={group.id} setIsModalOpen={setIsModalOpen} />}
-
         <Draggable key={group.id} draggableId={group.id} index={idx}>
             {(provided) => {
                 return <div ref={provided.innerRef}
@@ -157,7 +167,6 @@ export function GroupPreview({ group, board, idx }) {
                             </blockquote>
                         </div>
                     </div>
-
                     <div className="group-preview-content" >
                         <DragDropContext onDragEnd={handleHorizontalDrag}>
                             <Droppable droppableId="title" direction="horizontal">
@@ -165,7 +174,7 @@ export function GroupPreview({ group, board, idx }) {
                                     return <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps} className='title-container'>
                                         <div className="sticky-div titles flex" style={{ borderColor: group.color }}>
                                             <div className="check-box" >
-                                                <input type="checkbox" />
+                                                <input type="checkbox"  />
                                             </div>
                                             <div className="task title">Task</div>
                                         </div>
@@ -191,20 +200,6 @@ export function GroupPreview({ group, board, idx }) {
                                 }}
                             </Droppable>
                         </DragDropContext>
-                        {/* original */}
-                        {/* <div className="group-preview-content" style={{ borderColor: group.color }}>
-                        <div className='title-container'>
-                            <div className="check-box" >
-                                <input type="checkbox" />
-                            </div>
-                            {titles.map((title, idx) => <li className={title + ' title'} key={idx}>{title}</li>)}
-                            <div className="add-picker-task">
-                                <span>
-                                    <AiOutlinePlus />
-                                </span>
-                            </div>
-                        </div> */}
-
                         <div ref={taskRef}>
                             <DragDropContext onDragEnd={handleOnDragEnd}>
                                 <Droppable droppableId={group.id}>
@@ -214,7 +209,7 @@ export function GroupPreview({ group, board, idx }) {
                                                 <Draggable key={task.id} draggableId={task.id} index={idx}>
                                                     {(provided) => {
                                                         return <li ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
-                                                            <TaskPreview task={task} group={group} board={board} />
+                                                            <TaskPreview task={task} group={group} board={board} handleCheckboxChange={handleCheckboxChange} />
                                                         </li>
                                                     }}
                                                 </Draggable>
@@ -225,14 +220,6 @@ export function GroupPreview({ group, board, idx }) {
                                 </Droppable>
                             </DragDropContext>
                         </div>
-
-                        {/* original */}
-                        {/* {group.tasks.map((task, idx) => {
-                            return <li key={idx}>
-                                <TaskPreview task={task} groupId={group.id} board={board} />
-                            </li>
-                        })} */}
-
                         <div className="add-task sticky-div" style={{ borderColor: group.color }}>
                             <div className="check-box add-task">
                                 <input type="checkbox" disabled />
@@ -263,5 +250,7 @@ export function GroupPreview({ group, board, idx }) {
                 </div>
             }}
         </Draggable>
+        {console.log('elSelected')}
+        {selectedTasks.length > 0 && <TaskToolsModal tasks={selectedTasks} group={group} />}
     </ul >
 }

@@ -13,15 +13,13 @@ import { BiDotsHorizontalRounded, BiMessageRoundedAdd } from 'react-icons/bi'
 import { TaskMenuModal } from "../modal/task-menu-modal"
 import { utilService } from "../../services/util.service"
 import { boardService } from "../../services/board.service"
-import { TaskToolsModal } from "../modal/task-tools-modal"
 import { HiOutlineChatBubbleOvalLeft } from 'react-icons/hi2'
 
-export function TaskPreview({ task, group, board }) {
+export function TaskPreview({ task, group, board ,handleCheckboxChange , isCheckedAll}) {
     const elTaskPreview = useRef(null)
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
-    const selectedTasks = useRef([])
 
     async function updateTask(cmpType, data, activity) {
         task[cmpType] = data
@@ -81,27 +79,17 @@ export function TaskPreview({ task, group, board }) {
             console.log(err)
         }
     }
-
-    function onSelectTask(task) {
-        if (selectedTasks.findIndex(currTask => task.id === currTask.id)) {
-            selectedTasks.splice(task.id, 1)
-        }
-        selectedTasks.push(task)
-        console.log(selectedTasks)
-    }
-
     return (
         <section className="task-preview" ref={elTaskPreview}>
             <div className="sticky-div" style={{ borderColor: group.color }}>
-            {isTaskModalOpen && <TaskMenuModal taskId={task.id} onRemoveTask={onRemoveTask} onDuplicateTask={onDuplicateTask}
-                onOpenModal={onOpenModal} onCreateNewTaskBelow={onCreateNewTaskBelow} />}
-              <div className="task-menu">
-                <BiDotsHorizontalRounded className="icon" onClick={() => setIsTaskModalOpen(!isTaskModalOpen)} />
-            </div>
-
+                {isTaskModalOpen && <TaskMenuModal taskId={task.id} onRemoveTask={onRemoveTask} onDuplicateTask={onDuplicateTask}
+                    onOpenModal={onOpenModal} onCreateNewTaskBelow={onCreateNewTaskBelow} />}
+                <div className="task-menu">
+                    <BiDotsHorizontalRounded className="icon" onClick={() => setIsTaskModalOpen(!isTaskModalOpen)} />
+                </div>
                 <div className="check-box">
-                    <input type="checkbox"
-                        value={task} onChange={() => onSelectTask(task)} />
+                    <input type="checkbox" 
+                        value={task.id } onChange={handleCheckboxChange} />
                 </div>
                 <div className="task-title picker" onClick={() => elTaskPreview.current.classList.toggle('on-typing')}>
                     <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
@@ -112,7 +100,6 @@ export function TaskPreview({ task, group, board }) {
                         <span>Open</span>
                     </div>
                     <div onClick={onOpenModal} className="chat-icon">
-                        {console.log(task.comments)}
                         {task.comments.length > 0 && <div>
                             <HiOutlineChatBubbleOvalLeft className="comment-chat" />
                             <div className="count-comment">{task.comments.length}</div>
@@ -121,28 +108,7 @@ export function TaskPreview({ task, group, board }) {
                     </div>
                 </div>
             </div>
-
-            {/* {board.cmpsOrder.map((cmp, idx) => {
-                <Draggable key={cmp} draggableId={cmp} index={idx}>
-                    {(provided, snapshot) => {
-                        return <div ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}>
-                            <DynamicCmp
-                                cmp={cmp}
-                                key={idx}
-                                info={task}
-                                onUpdate={updateTask}
-                            />
-                        </div>
-                    }}
-                    </Draggable>
-
-                { droppableProvided.placeholder }
-            })} */}
-            {/* original */}
             {board.cmpsOrder.map((cmp, idx) => {
-
                 return (
                     <DynamicCmp
                         cmp={cmp}
@@ -152,12 +118,8 @@ export function TaskPreview({ task, group, board }) {
                     />)
             })}
             <div className="empty-div"></div>
-            {selectedTasks.length && <TaskToolsModal />}
-          
-
         </section>
     )
-
 }
 
 function DynamicCmp({ cmp, info, onUpdate }) {

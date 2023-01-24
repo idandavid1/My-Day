@@ -5,7 +5,7 @@ import { RiErrorWarningLine } from 'react-icons/ri'
 import { BsStar } from 'react-icons/bs'
 import { FiActivity } from 'react-icons/fi'
 import { GrHomeRounded } from 'react-icons/gr'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 const guest = require('../../assets/img/guest.png')
 
@@ -51,10 +51,10 @@ export function BoardHeader({ board, onSetFilter }) {
                 <div className='main-table-btn active'>
                     <GrHomeRounded className='icon' />
                     <span>Main Table</span>
+                    {/* <NavLink to={`/board/${board._id}`}></NavLink> */}
                 </div>
                 {/* <div className='kanban'>
-                    <GrHomeRounded className='icon' />
-                    <Link to={`/kanban/${board._id}`} ></Link>
+                    <NavLink to={`/board/kanban/${board._id}`}>Kanban</NavLink>
                 </div> */}
             </div>
             <div className='board-border'></div>
