@@ -6,14 +6,17 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { store } from './store/store'
 import { RootCmp } from './root-cmp'
 import './assets/styles/main.scss'
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store}>
-    <Router>
-      <RootCmp />
-    </Router>
-  </Provider>
+  <GoogleOAuthProvider clientId="206331273095-es5eep8nfovokr5vilsalpr8gnqsfdut.apps.googleusercontent.com">
+    <Provider store={store}>
+      <Router>
+        <RootCmp />
+      </Router>
+    </Provider>
+  </GoogleOAuthProvider>
 )
 
 // If you want your app to work offline and load faster, you can change
