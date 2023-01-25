@@ -11,6 +11,7 @@
         width: 180px;
         height: 44px;
         margin-left: 12px;
+        cursor: pointer;
     }
 }
 
@@ -31,12 +32,13 @@
         margin-bottom: 8px;
         color: #333;
     }
-    
+
     .label-username {
         font-weight: 500;
         margin-bottom: 20px;
+        color: #333
     }
-    
+
     .input {
         width: 328px;
         border-radius: 4px;
@@ -52,24 +54,34 @@
         flex-direction: column;
         justify-content: center;
 
-        img {
-           margin-left: 140px;;
+        img{
+            margin-bottom: 10px;
+            border-radius: 50%;
         }
 
         label {
             cursor: pointer;
+            text-align: center;
+            margin-bottom: 10px;
+            color: $primary-text-color;
+            transition: color 200ms ease;
+            border-radius: 8px;
+            
+            &:hover {
+                color: #5034FF;
+                background-color: #F0F3FF;
+            }
         }
 
         input {
-            margin-left: 190px;
-            font-family: "Figtree", "Roboto", "Rubik", "Noto Kufi Arabic", "Noto Sans JP", "sans-serif";
+            display: none;
         }
 
         ::file-selector-button {
             display: none;
         }
     }
-    
+
     .btn-next {
         width: 328px;
         cursor: pointer;
@@ -85,12 +97,12 @@
         color: #fff;
         gap: 11px;
     }
-    
+
 
     .split-line {
         margin-bottom: 32px;
         margin-top: 30px;
-        
+
         .separator-line {
             border: .5px solid #c5c7d0;
             width: 200px;
