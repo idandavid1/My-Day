@@ -28,7 +28,7 @@
 
     h1 {
         font-size: 40px;
-        font-weight: $font-weight-very-light;
+        font-weight: 100;
         margin-bottom: 8px;
         color: #333;
     }
@@ -54,7 +54,7 @@
         flex-direction: column;
         justify-content: center;
 
-        img{
+        img {
             margin-bottom: 10px;
             border-radius: 50%;
         }
@@ -66,7 +66,7 @@
             color: $primary-text-color;
             transition: color 200ms ease;
             border-radius: 8px;
-            
+
             &:hover {
                 color: #5034FF;
                 background-color: #F0F3FF;
@@ -111,10 +111,33 @@
         }
     }
 
+    .btn-login-google {
+        display: flex;
+        align-items: center;
+        font-family: roboto-light;
+        padding: 12px 16px;
+        border: 1px solid #c5c7d0;
+        border-radius: 4px;
+        gap: 8px;
+        margin-bottom: 32px;
+        background-color: $app-bg ;
+
+        .img-google-login {
+            width: 16px;
+        }
+
+        span {
+            font-family: tahoma;
+            font-size: 14px;
+            color: #000000;
+        }
+    }
+
     .suggest-signup {
 
         .suggest-signup-prefix {
             padding-right: 5px;
+            font-size: 16px;
         }
 
         .btn-signup {

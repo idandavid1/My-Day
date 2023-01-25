@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { login, signup } from '../../store/user.actions'
 import { loadBoards } from '../../store/board.actions'
+import { useGoogleLogin } from '@react-oauth/google'
 
 
 export function LoginSignup() {
@@ -60,6 +61,11 @@ export function LoginSignup() {
         setCredentials({ ...credentials, imgUrl })
     }
 
+    const login = useGoogleLogin({
+        onSuccess: tokenResponse => console.log(tokenResponse),
+        flow: 'auth-code'
+      })
+
     return (
         <div className="login-signup">
             <LoginPageHeader />
@@ -102,6 +108,10 @@ export function LoginSignup() {
                     <p>{isSignup ? 'Or sign up with' : 'Or sign in with'}</p>
                     <span className="separator-line"></span>
                 </div>
+                <button className="btn-login-google" onClick={() => login()} redirect_uri="http://localhost:3000/board/63d075e98056b4b446310f22">
+                    <img className="img-google-login" src="https://cdn.monday.com/images/logo_google_v2.svg" aria-hidden="true" alt="" />
+                    <span>Google</span>
+                </button>
                 <div className="suggest-signup">
                     <span className="suggest-signup-prefix">{isSignup ? 'Already have an account?' : 'Don\'t have an account yet?'}</span>
                     <Link to={'/auth/signup'}><button className="btn-signup" onClick={toggleSignup}>{!isSignup ? 'Sign up' : 'Log in'}</button></Link>
@@ -110,3 +120,6 @@ export function LoginSignup() {
         </div>
     )
 }
+
+
+// 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
