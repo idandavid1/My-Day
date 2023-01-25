@@ -16,9 +16,10 @@ export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen, act
 
     function onRemoveMember(RemoveTaskMember) {
         activity.from = 'Remove'
+        console.log('taskMembers:', taskMembers)
         activity.to = RemoveTaskMember.imgUrl
-        const members = taskMembers.filter(taskMember => taskMember.id !== RemoveTaskMember.id)
-        const membersIds = members.map(taskMember => taskMember.id)
+        const members = taskMembers.filter(taskMember => taskMember._id !== RemoveTaskMember._id)
+        const membersIds = members.map(taskMember => taskMember._id)
         onUpdate(cmpType, membersIds, activity)
         setIsModalOpen(false)
     }
@@ -26,8 +27,9 @@ export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen, act
     function onAddMember(taskMember) {
         activity.from = 'Added'
         activity.to = taskMember.imgUrl
+        console.log('taskMembers:', taskMembers)
         taskMembers.push(taskMember)
-        const membersIds = taskMembers.map(taskMember => taskMember.id)
+        const membersIds = taskMembers.map(taskMember => taskMember._id)
         onUpdate(cmpType, membersIds, activity)
         setIsModalOpen(false)
     }

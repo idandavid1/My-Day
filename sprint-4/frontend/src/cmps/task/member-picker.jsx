@@ -13,10 +13,10 @@ export function MemberPicker({ info, onUpdate }) {
     const activity = boardService.getEmptyActivity()
     activity.action = 'person'
     activity.task = {id: info.id, title: info.title}
-
+    console.log('info.memberIds:', info.memberIds)
     const members = info.memberIds.map(member => getMember(member))
     function getMember(memberId) {
-        return board.members.find(member => member.id === memberId)
+        return board.members.find(member => member._id === memberId)
     }
 
     return (

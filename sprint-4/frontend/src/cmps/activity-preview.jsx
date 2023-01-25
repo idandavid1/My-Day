@@ -57,7 +57,7 @@ export function ActivityPreview({ activity }) {
                         <span>{utilService.calculateTime(activity.createdAt)}</span>
                     </div>
                     <div className='title'>
-                        <img src={activity.createdBy.imgUrl} alt="" />
+                        <img src={activity.byMember.imgUrl} alt="" />
                         <span>{activity.task.title}</span>
                     </div>
                 </div>

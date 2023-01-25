@@ -20,7 +20,7 @@ export const boardService = {
 }
 
 function query(filter = getDefaultFilterBoards()) {
-    const queryParams = `?title=${filter.title}`
+    const queryParams = `?title=${filter.title}&isStarred=${filter.isStarred}`
     return httpService.get(BASE_URL + queryParams)
 }
 
@@ -100,7 +100,7 @@ function getEmptyActivity() {
     return {
         "action": "status",
         "createdAt": Date.now(),
-        "createdBy": userService.getLoggedinUser() || {
+        "byMember": userService.getLoggedinUser() || {
             "_id": "u101",
             "fullname": "Abi Abambi",
             "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
@@ -166,7 +166,18 @@ function getEmptyBoard() {
                 "_id": "m102",
                 "fullname": "Idan David",
                 "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673820094/%D7%A2%D7%99%D7%93%D7%9F_jranbo.jpg"
-            }],
+            },
+            {
+                "_id": "m103",
+                "fullname": "Ofek Tarablus",
+                "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1674069458/image_exxnux.png"
+            },
+            {
+                "_id": "m104",
+                "fullname": "Ofer Tarablus",
+                "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1674069496/me_dpbzfs.jpg"
+            }
+        ],
         "groups": [],
         "activities": [],
         "cmpsOrder": ["status-picker", "member-picker", "date-picker", 'priority-picker']
