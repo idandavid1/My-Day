@@ -20,14 +20,13 @@ import star from '../../assets/img/star.gif'
 export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen }) {
     const elSection = useRef(null)
 
-    const [filterByToEdit, setFilterByToEdit] = useState(boardService.getDefaultFilterBoard())
+    const [filterByToEdit, setFilterByToEdit] = useState(boardService.getDefaultFilterBoards())
 
     const boards = useSelector(storeState => storeState.boardModule.boards)
 
     useEffect(() => {
         if (isStarredOpen) onLoadBoards()
         else loadBoards(filterByToEdit)
-        return () => loadBoards(filterByToEdit)
     }, [filterByToEdit, isStarredOpen])
 
     async function onAddBoard() {
@@ -53,7 +52,7 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen }) {
 
     function onLoadBoards() {
         try {
-            const filter = boardService.getDefaultFilterBoard()
+            const filter = boardService.getDefaultFilterBoards()
             filter.isStarred = true
             loadBoards(filter)
         } catch (err) {

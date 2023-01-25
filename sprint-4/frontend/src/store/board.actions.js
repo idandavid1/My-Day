@@ -6,6 +6,7 @@ import { utilService } from '../services/util.service.js'
 
 export async function loadBoards(filterBy) {
     try {
+        console.log('filterBy:', filterBy)
         const boards = await boardService.query(filterBy)
         store.dispatch({ type: SET_BOARDS, boards })
     } catch (err) {
@@ -170,15 +171,17 @@ export async function updateTaskAction(currBoard, groupId, saveTask, activity) {
     }
 }
 
-export async function toggleStarred(currBoard) {
+export async function toggleStarred(currBoard, isStarred) {
     try {
         const board = await boardService.getById(currBoard._id, boardService.getDefaultFilterBoard())
         board.isStarred = !board.isStarred
         await boardService.save(board)
-        const boards = await boardService.query(boardService.getDefaultFilterBoards())
+        const filter = boardService.getDefaultFilterBoards()
+        filter.isStarred = isStarred
+        let boards = await boardService.query(filter)
         currBoard.isStarred = board.isStarred
         store.dispatch({ type: SET_BOARD, board: currBoard })
-        store.dispatch({ type: SET_BOARDS, boards })
+        store.dispatch({ type: SET_BOARDS, boards})
     } catch (err) {
         throw err
     }

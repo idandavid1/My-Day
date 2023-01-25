@@ -7,8 +7,9 @@ async function getBoards(req, res) {
     logger.debug('Getting Boars')
     const filterBy = {
       title: req.query.title || '',
-      isStarred: req.query.title || false
     }
+    filterBy.isStarred = req.query.isStarred === 'true' ? true : false
+
     const boards = await boardService.query(filterBy)
     res.json(boards)
   } catch (err) {

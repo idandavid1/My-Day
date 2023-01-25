@@ -2,10 +2,11 @@ const dbService = require('../../services/db.service')
 const logger = require('../../services/logger.service')
 const ObjectId = require('mongodb').ObjectId
 
-async function query(filterBy={title:''}) {
+async function query(filterBy) {
     try {
         const criteria = {}
        if(filterBy.title) criteria.title = { $regex: filterBy.title, $options: 'i' }
+       console.log('filterBy:',filterBy )
        if(filterBy.isStarred) criteria.isStarred = filterBy.isStarred
         const collection = await dbService.getCollection('board')
         var boards = await collection.find(criteria).toArray()

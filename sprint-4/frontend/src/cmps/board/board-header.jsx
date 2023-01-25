@@ -11,7 +11,7 @@ import { Link, NavLink } from 'react-router-dom'
 
 const guest = require('../../assets/img/guest.png')
 
-export function BoardHeader({ board, onSetFilter }) {
+export function BoardHeader({ board, onSetFilter, isStarredOpen }) {
     async function onSave(ev) {
         const value = ev.target.innerText
         board.title = value
@@ -25,7 +25,7 @@ export function BoardHeader({ board, onSetFilter }) {
 
     function onToggleStarred() {
         try {
-            toggleStarred(board)
+            toggleStarred(board, isStarredOpen)
         } catch (err) {
             console.log(err)
         }

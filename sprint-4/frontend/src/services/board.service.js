@@ -41,7 +41,7 @@ function save(board) {
 function getDefaultFilterBoards() {
     return {
         title: '',
-        isStarred: null
+        isStarred: false
     }
 }
 
