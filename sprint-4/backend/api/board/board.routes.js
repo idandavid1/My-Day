@@ -1,5 +1,5 @@
 const express = require('express')
-const { getBoards, getBoardById, addBoard, updateBoard, removeBoard, addBoardMsg, removeBoardMsg } = require('./Board.controller')
+const { getBoards, getBoardById, addBoard, updateBoard, removeBoard } = require('./board.controller')
 const router = express.Router()
 
 // middleware that is specific to this router
