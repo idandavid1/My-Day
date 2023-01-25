@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { userService } from '../../services/user.service'
 import { ImgUploader } from './img-uploader'
-import { LoginPageHeader } from '../login-page-header'
+import { LoginPageHeader } from './login-page-header'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { login, signup } from '../../store/user.actions'

@@ -4,12 +4,8 @@ import { IoCloseOutline } from "react-icons/io5"
 import { BsArrowRightCircle } from "react-icons/bs"
 import { BsFillCircleFill } from 'react-icons/bs'
 import { duplicateTask, updateGroupAction } from "../../store/board.actions"
-import { useState } from "react"
-import { boardService } from "../../services/board.service"
-import { utilService } from "../../services/util.service"
-import { forEach } from "lodash"
 
-export function TaskToolsModal({ tasks, group, board, setSelectedTasks }) {
+export function TaskToolsModal({ tasks, group, board, setSelectedTasks, setIsCheckBoxActionDone }) {
     let _ = require('lodash')
 
     async function onRemoveTasks() {
@@ -20,13 +16,11 @@ export function TaskToolsModal({ tasks, group, board, setSelectedTasks }) {
                 updateGroupAction(board, group)
             })
             setSelectedTasks([])
+            setIsCheckBoxActionDone(false)
         } catch (err) {
             console.error(err)
         }
-
     }
-
-
 
     async function onDuplicateTasks() {
         try {
@@ -34,6 +28,7 @@ export function TaskToolsModal({ tasks, group, board, setSelectedTasks }) {
                 duplicateTask(board, group, task)
             })
             setSelectedTasks([])
+            setIsCheckBoxActionDone(false)
         } catch (err) {
             console.log(err)
         }
@@ -53,8 +48,8 @@ export function TaskToolsModal({ tasks, group, board, setSelectedTasks }) {
                     </div>
 
                 </div>
-                <div className="task-btns" onClick={onDuplicateTasks}>
-                    <div>
+                <div className="task-btns">
+                    <div onClick={onDuplicateTasks}>
                         <HiOutlineDocumentDuplicate className="icon" />
                         Duplicate
                     </div>

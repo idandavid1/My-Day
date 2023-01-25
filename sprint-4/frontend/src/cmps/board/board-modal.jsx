@@ -11,8 +11,8 @@ import { RxUnderline } from 'react-icons/rx'
 import { TbAlignRight ,TbAlignCenter,TbAlignLeft } from 'react-icons/tb'
 import { boardService } from "../../services/board.service"
 import { utilService } from "../../services/util.service"
-import { CommentPreview } from "../modal/comment-preview"
-import { ActivityPreview } from "../modal/activity-preview"
+import { CommentPreview } from "../task/comment-preview"
+import { ActivityPreview } from "../activity-preview"
 const noUpdate = require('../../assets/img/empty-update.png')
 
 export function BoardModal() {

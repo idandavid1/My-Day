@@ -16,7 +16,7 @@ import { BsArrowDownCircle } from 'react-icons/bs'
 
 export function BoardFilter({ board, onSetFilter }) {
     const [isShowModal, setIsShowModal] = useState(false)
-    const [filterByToEdit, setFilterByToEdit] = useState(boardService.getDefaultFilter())
+    const [filterByToEdit, setFilterByToEdit] = useState(boardService.getDefaultFilterBoard())
 
     onSetFilter = useRef(utilService.debounce(onSetFilter))
 

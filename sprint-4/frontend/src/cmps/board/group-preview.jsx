@@ -20,6 +20,7 @@ export function GroupPreview({ group, board, idx }) {
     const taskRef = useRef()
     const [isMainCheckbox, setIsMainCheckbox] = useState(false)
     const [selectedTasks, setSelectedTasks] = useState([])
+    const [isCheckBoxActionDone, setIsCheckBoxActionDone] = useState(null)
 
     function onOpenModal() {
         setIsModalOpen(!isModalOpen)
@@ -225,7 +226,7 @@ export function GroupPreview({ group, board, idx }) {
                                                 <Draggable key={task.id} draggableId={task.id} index={idx}>
                                                     {(provided) => {
                                                         return <li ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
-                                                            <TaskPreview task={task} group={group} board={board} handleCheckboxChange={handleCheckboxChange} isMainCheckbox={isMainCheckbox} />
+                                                            <TaskPreview task={task} group={group} board={board} handleCheckboxChange={handleCheckboxChange} isMainCheckbox={isMainCheckbox} isCheckBoxActionDone={isCheckBoxActionDone} setIsCheckBoxActionDone={setIsCheckBoxActionDone}/>
                                                         </li>
                                                     }}
                                                 </Draggable>
@@ -266,6 +267,6 @@ export function GroupPreview({ group, board, idx }) {
                 </div>
             }}
         </Draggable>
-        {selectedTasks.length > 0 && <TaskToolsModal board={board} tasks={selectedTasks} group={group} setSelectedTasks={setSelectedTasks}/>}
+        {selectedTasks.length > 0 && <TaskToolsModal board={board} tasks={selectedTasks} group={group} setSelectedTasks={setSelectedTasks} setIsCheckBoxActionDone={setIsCheckBoxActionDone}/>}
     </ul >
 }

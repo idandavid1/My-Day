@@ -48,7 +48,7 @@ export async function saveBoard(board) {
 
 export async function updatePickerCmpsOrder(currBoard, cmpsOrders) {
     try {
-        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilterBoard())
         board.cmpsOrder = cmpsOrders
         currBoard.cmpsOrder = cmpsOrders
         await saveBoard(board)
@@ -72,7 +72,7 @@ export async function addGroup(board) {
 
 export async function duplicateGroup(currBoard, group) {
     try {
-        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilterBoard())
         const duplicatedGroup = structuredClone(group)
         duplicatedGroup.id = utilService.makeId()
         const idx = board.groups.indexOf(group)
@@ -87,7 +87,7 @@ export async function duplicateGroup(currBoard, group) {
 
 export async function duplicateTask(currBoard, group, task) {
     try {
-        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilterBoard())
         const duplicatedTask = structuredClone(task)
         const idx = group.tasks.indexOf(task)
         duplicatedTask.id = utilService.makeId()
@@ -103,7 +103,7 @@ export async function duplicateTask(currBoard, group, task) {
 
 export async function addTask(task, group, currBoard, activity) {
     try {
-        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilterBoard())
         task.id = utilService.makeId()
         group.tasks.push(task)
         board.groups = board.groups.map(currGroup => (currGroup.id === group.id) ? group : currGroup)
@@ -143,10 +143,9 @@ export async function updateGroups(groups, board) {
 export async function updateGroupAction(currBoard, saveGroup) {
     console.log(saveGroup)
     try {
-        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilterBoard())
         board.groups = board.groups.map(group => (group.id === saveGroup.id) ? saveGroup : group)
         currBoard.groups = currBoard.groups.map(group => (group.id === saveGroup.id) ? saveGroup : group)
-        console.log('board', currBoard)
         await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board: currBoard })
     } catch (err) {
@@ -157,7 +156,7 @@ export async function updateGroupAction(currBoard, saveGroup) {
 
 export async function updateTaskAction(currBoard, groupId, saveTask, activity) {
     try {
-        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilterBoard())
         const group = board.groups.find(group => group.id === groupId)
         group.tasks = group.tasks.map(task => (task.id === saveTask.id) ? saveTask : task)
         if(activity) {
@@ -173,10 +172,10 @@ export async function updateTaskAction(currBoard, groupId, saveTask, activity) {
 
 export async function toggleStarred(currBoard) {
     try {
-        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilterBoard())
         board.isStarred = !board.isStarred
         await boardService.save(board)
-        const boards = await boardService.query(boardService.getDefaultFilterBoard())
+        const boards = await boardService.query(boardService.getDefaultFilterBoards())
         currBoard.isStarred = board.isStarred
         store.dispatch({ type: SET_BOARD, board: currBoard })
         store.dispatch({ type: SET_BOARDS, boards })
@@ -187,7 +186,7 @@ export async function toggleStarred(currBoard) {
 
 export async function addActivity(currBoard, activity) {
     try {
-        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilter())
+        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilterBoard())
         board.activities.unshift(activity)
         await boardService.save(board)
         currBoard.activities.unshift(activity)

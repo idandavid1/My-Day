@@ -16,18 +16,22 @@ import { boardService } from "../../services/board.service"
 import { HiOutlineChatBubbleOvalLeft } from 'react-icons/hi2'
 import { useEffectUpdate } from "../../customHooks/useEffectUpdate"
 
-export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCheckbox }) {
+export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCheckbox, isCheckBoxActionDone, setIsCheckBoxActionDone }) {
     const elTaskPreview = useRef(null)
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
-    const [isClick, setIsClick] = useState(isMainCheckbox)
+    const [isClick, setIsClick] = useState(isCheckBoxActionDone)
 
     useEffectUpdate(() => {
         setIsClick(isMainCheckbox)
         handleCheckboxChange(task)
-        console.log('yuessss')
     }, [isMainCheckbox])
+
+    useEffectUpdate(() => {
+        setIsClick(isCheckBoxActionDone)
+        setIsCheckBoxActionDone(null)
+    }, [isCheckBoxActionDone])
 
     async function updateTask(cmpType, data, activity) {
         task[cmpType] = data
