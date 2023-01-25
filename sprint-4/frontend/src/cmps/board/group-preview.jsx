@@ -161,7 +161,6 @@ export function GroupPreview({ group, board, idx }) {
         
     }
 
-    
     return <ul className="group-preview" >
         {isModalOpen &&
             <GroupMenuModal onRemoveGroup={onRemoveGroup} onDuplicateGroup={onDuplicateGroup}
@@ -189,6 +188,7 @@ export function GroupPreview({ group, board, idx }) {
                                 {(droppableProvided) => {
                                     return <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps} className='title-container'>
                                         <div className="sticky-div titles flex" style={{ borderColor: group.color }}>
+                                        <div className="hidden"></div>
                                             <div className="check-box"  >
                                                 <input type="checkbox" onClick={() => setIsMainCheckbox(!isMainCheckbox)} />
                                             </div>
@@ -254,7 +254,9 @@ export function GroupPreview({ group, board, idx }) {
                                <div className="empty-div"></div>     
                             </div> 
                         <div className="statistic flex">
-                            <div className="sticky-container"></div>
+                            <div className="sticky-container">
+                            <div className="hidden"></div>
+                            </div>
                             {board.cmpsOrder.map((cmp, idx) => {
                                 return (
                                     <div key={idx} className={`title ${idx === 0 ? ' first ' : ''}${cmp}`}>

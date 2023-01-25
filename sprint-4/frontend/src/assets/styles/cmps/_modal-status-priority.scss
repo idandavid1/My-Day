@@ -1,6 +1,6 @@
 .modal-status-priority {
     @include task-modal-position();
-    z-index: 10;
+    z-index: 100;
     
     .modal-status-priority-content {
         box-shadow: 0 8px 16px 0 rgb(0 0 0 / 32%);
