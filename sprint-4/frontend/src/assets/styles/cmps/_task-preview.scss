@@ -2,8 +2,7 @@
     display: flex;
     font-size: 14px;
     position: relative;
-    width: 100%;
-
+    
     .empty-div {
         @include empty-div()
     }
@@ -18,12 +17,13 @@
     .task-menu {
         position: absolute;
         width: 40px;
-        left: -43px;
+        left: -46px;
         height: 40px;
         display: flex;
         justify-content: center;
         align-items: center;
         color: $primary-text-color;
+        background-color: white;
 
         .icon {
             display: none;
@@ -132,8 +132,8 @@
         }
     }
 
-    // .empty-div {
-    //     border-bottom: 1px solid darken($border-color , 20%);
-    //     flex-grow: 1;
-    // }
+    .empty-div {
+        border-bottom: 1px solid darken($border-color , 20%);
+        flex-grow: 100%;
+    }
 }

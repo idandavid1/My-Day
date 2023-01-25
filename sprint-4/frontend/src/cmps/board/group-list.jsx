@@ -16,7 +16,15 @@ export function GroupList({ board }) {
         saveBoard(board)
     }
 
-    return <div ref={containerRef}>
+    function getCellWidth() {
+        return board.cmpsOrder.reduce((acc, cmpOrder) => {
+            if(cmpOrder === 'person') acc += 87
+            else acc += 139
+            return acc
+        }, 400)
+    }
+
+    return <div ref={containerRef} style={{minWidth: getCellWidth()}}>
         <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId={board._id}>
                 {(droppableProvided) => {

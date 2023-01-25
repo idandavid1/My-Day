@@ -8,7 +8,7 @@
     border-inline-start: 1px solid #ccc;
     min-width: 570px;
     transform: translateX(100%);
-    z-index: 12;
+    z-index: 100;
     transition: transform .6s, box-shadow .6s;
 
     &.open {
