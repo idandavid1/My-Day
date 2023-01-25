@@ -7,6 +7,7 @@ const BASE_URL = 'board/'
 export const boardService = {
     query,
     getById,
+    getFilteredBoard,
     save,
     remove,
     getDefaultFilterBoard,
@@ -24,9 +25,21 @@ function query(filter = getDefaultFilterBoards()) {
     return httpService.get(BASE_URL + queryParams)
 }
 
-function getById(boardId, filterBy = getDefaultFilterBoard()) {
-    const queryParams = `?title=${filterBy.title}`
-    return httpService.get(BASE_URL + boardId + queryParams)
+function getFilteredBoard(board, filterBy = getDefaultFilterBoard()) {
+    const filteredBoard = {...board}
+    if (filterBy.title) {
+        const regex = new RegExp(filterBy.title, 'i')
+        const groups = filteredBoard.groups.filter(group => regex.test(group.title))
+        groups.forEach(group => {
+            group.tasks = group.tasks.filter(task => regex.test(task.title))
+        })
+        filteredBoard.groups = groups
+    }
+    return filteredBoard
+}
+
+function getById(boardId) {
+    return httpService.get(BASE_URL + boardId)
 }
 
 function remove(boardId) {
@@ -64,7 +77,6 @@ function getEmptyGroup() {
         "archivedAt": Date.now(),
         "tasks": [],
         "color": '#ffcb00',
-        "id": utilService.makeId()
     }
 }
 

@@ -178,3 +178,11 @@
     }
   }
 }
+
+@mixin empty-div() {
+    width: 100%;
+    border-bottom: 2px solid darken($border-color , 20%);
+    &:first-child {
+        border-top: 2px solid darken($border-color , 20%);
+  }
+}

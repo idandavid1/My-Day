@@ -17,19 +17,10 @@ async function query(filterBy) {
     }
 }
 
-async function getById(boardId, filterBy) {
+async function getById(boardId) {
     try {
         const collection = await dbService.getCollection('board')
         const board = collection.findOne({ _id: ObjectId(boardId) })
-        if (filterBy.title) {
-            const regex = new RegExp(filterBy.title, 'i')
-            const groups = board.groups.filter(group => regex.test(group.title))
-            groups.forEach(group => {
-                group.tasks = group.tasks.filter(task => regex.test(task.title))
-            })
-            console.log('groups:', groups)
-            board.groups = groups
-        }
         return board
     } catch (err) {
         logger.error(`while finding board ${boardId}`, err)

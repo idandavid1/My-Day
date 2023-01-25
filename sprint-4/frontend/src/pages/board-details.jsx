@@ -12,15 +12,13 @@ import { BoardModal } from '../cmps/board/board-modal'
 import { boardService } from '../services/board.service'
 
 export function BoardDetails() {
-    const board = useSelector(storeState => storeState.boardModule.board)
+    const board = useSelector(storeState => storeState.boardModule.filteredBoard)
     const boards = useSelector(storeState => storeState.boardModule.boards)
     const [isOpen, setIsOpen] = useState(false)
     const [isStarredOpen, setIsStarredOpen] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
     const queryFilterBy = boardService.getFilterFromSearchParams(searchParams)
     const { boardId } = useParams()
-
-    // const mainStyle = isOpen ? {left:'317px'} : {}
 
     useEffect(() => {
         loadBoard(boardId, queryFilterBy)

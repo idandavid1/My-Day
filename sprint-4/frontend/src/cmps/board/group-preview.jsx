@@ -55,8 +55,7 @@ export function GroupPreview({ group, board, idx }) {
 
     function onRemoveGroup(groupId) {
         setIsModalOpen(!isModalOpen)
-        const groups = board.groups.filter(group => group.id !== groupId)
-        updateGroups(groups, board)
+        updateGroups(groupId, board)
     }
 
     async function onDuplicateGroup() {
@@ -173,12 +172,12 @@ export function GroupPreview({ group, board, idx }) {
                 return <div ref={provided.innerRef}
                     {...provided.draggableProps}>
                     <div {...provided.dragHandleProps} className="group-header" style={{ color: group.color }}>
-                        <MdKeyboardArrowDown className="arrow-icon" />
                         <div className="group-header-title">
+                        <MdKeyboardArrowDown className="arrow-icon" />
                             <div className="group-menu">
                                 <BiDotsHorizontalRounded className="icon" onClick={onOpenModal} />
                             </div>
-                            <blockquote contentEditable onBlur={(ev) => onSave(ev)} onFocus={() => setIsShowColorPicker(true)} suppressContentEditableWarning={true}>
+                            <blockquote className="title1" contentEditable onBlur={(ev) => onSave(ev)} onFocus={() => setIsShowColorPicker(true)} suppressContentEditableWarning={true}>
                                 {isShowColorPicker && <BsFillCircleFill onClick={onShowPalette} />}
                                 <h4 data-title={group.title}>{group.title}</h4>
                             </blockquote>
@@ -212,6 +211,7 @@ export function GroupPreview({ group, board, idx }) {
                                             <span>
                                                 <AiOutlinePlus />
                                             </span>
+                                            <div className="empty-div"></div>
                                         </div>
                                     </div>
                                 }}
@@ -237,19 +237,22 @@ export function GroupPreview({ group, board, idx }) {
                                 </Droppable>
                             </DragDropContext>
                         </div>
-                        <div className="add-task sticky-div" style={{ borderColor: group.color }}>
-                            <div className="check-box add-task">
-                                <input type="checkbox" disabled />
+                        <div className="add-task">
+                            <div className="sticky-div" style={{ borderColor: group.color }}>
+                                <div className="check-box add-task">
+                                    <input type="checkbox" disabled />
+                                </div>
+                                <form onSubmit={onAddTask} className="add-task-form">
+                                    <input type="text"
+                                        name="title"
+                                        value={taskToEdit.title}
+                                        placeholder="+ Add Task"
+                                        onChange={handleChange}
+                                        onBlur={onAddTask} />
+                                </form>
                             </div>
-                            <form onSubmit={onAddTask} className="add-task-form">
-                                <input type="text"
-                                    name="title"
-                                    value={taskToEdit.title}
-                                    placeholder="+ Add Task"
-                                    onChange={handleChange}
-                                    onBlur={onAddTask} />
-                            </form>
-                        </div>
+                               <div className="empty-div"></div>     
+                            </div> 
                         <div className="statistic flex">
                             <div className="sticky-container"></div>
                             {board.cmpsOrder.map((cmp, idx) => {

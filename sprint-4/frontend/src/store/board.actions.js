@@ -1,12 +1,11 @@
 import { boardService } from '../services/board.service.js'
 
 import { store } from './store.js'
-import { SET_BOARDS, SET_BOARD, REMOVE_BOARD, ADD_BOARD, UPDATE_BOARD, SET_FILTER, SET_MODAL, REMOVE_GROUP } from "./board.reducer.js"
+import { SET_FILTER_BOARD, SET_BOARDS, SET_BOARD, REMOVE_BOARD, ADD_BOARD, UPDATE_BOARD, SET_FILTER, SET_MODAL, REMOVE_GROUP } from "./board.reducer.js"
 import { utilService } from '../services/util.service.js'
 
 export async function loadBoards(filterBy) {
     try {
-        console.log('filterBy:', filterBy)
         const boards = await boardService.query(filterBy)
         store.dispatch({ type: SET_BOARDS, boards })
     } catch (err) {
@@ -17,8 +16,10 @@ export async function loadBoards(filterBy) {
 
 export async function loadBoard(boardId, filterBy) {
     try {
-        const board = await boardService.getById(boardId, filterBy)
+        const board = await boardService.getById(boardId)
+        const filteredBoard = boardService.getFilteredBoard(board, filterBy)
         store.dispatch({ type: SET_BOARD, board })
+        store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
     } catch (err) {
         console.log('Had issues loading', err)
         throw err
@@ -47,48 +48,51 @@ export async function saveBoard(board) {
     }
 }
 
-export async function updatePickerCmpsOrder(currBoard, cmpsOrders) {
+export async function updatePickerCmpsOrder(filteredBoard, cmpsOrders) {
     try {
-        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilterBoard())
+        const { board } = store.getState().boardModule
         board.cmpsOrder = cmpsOrders
-        currBoard.cmpsOrder = cmpsOrders
+        filteredBoard.cmpsOrder = cmpsOrders
         await saveBoard(board)
-        store.dispatch({ type: SET_BOARD, board: currBoard })
+        store.dispatch({ type: SET_BOARD, board })
+        store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
     } catch (err) {
-        console.log(err)
-    }
-}
-
-export async function addGroup(board) {
-    try {
-        const group = boardService.getEmptyGroup()
-        board.groups.unshift(group)
-        const boardToSave = await boardService.save(board)
-        store.dispatch({ type: SET_BOARD, board: boardToSave })
-    } catch (err) {
-        console.error('cant add group:', err)
         throw err
     }
 }
 
-export async function duplicateGroup(currBoard, group) {
+export async function addGroup(filteredBoard) {
     try {
-        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilterBoard())
+        const { board } = store.getState().boardModule
+        const group = boardService.getEmptyGroup()
+        group.id = utilService.makeId()
+        filteredBoard.groups.unshift(group)
+        await boardService.save(board)
+        store.dispatch({ type: SET_BOARD, board })
+        store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
+    } catch (err) {
+        throw err
+    }
+}
+
+export async function duplicateGroup(filteredBoard, group) {
+    try {
+        const { board } = store.getState().boardModule
         const duplicatedGroup = structuredClone(group)
         duplicatedGroup.id = utilService.makeId()
         const idx = board.groups.indexOf(group)
         board.groups.splice(idx + 1, 0, duplicatedGroup)
         await boardService.save(board)
-        currBoard.groups.splice(idx + 1, 0, duplicatedGroup)
-        store.dispatch({ type: SET_BOARD, board: currBoard })
+        store.dispatch({ type: SET_BOARD, board })
+        store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
     } catch (err) {
         throw err
     }
 }
 
-export async function duplicateTask(currBoard, group, task) {
+export async function duplicateTask(filteredBoard, group, task) {
     try {
-        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilterBoard())
+        const { board } = store.getState().boardModule
         const duplicatedTask = structuredClone(task)
         const idx = group.tasks.indexOf(task)
         duplicatedTask.id = utilService.makeId()
@@ -96,38 +100,42 @@ export async function duplicateTask(currBoard, group, task) {
         group.tasks.splice(idx + 1, 0, duplicatedTask)
         board.groups = board.groups.map(currGroup => currGroup.id === group.id ? group : currGroup)
         await boardService.save(board)
-        store.dispatch({ type: SET_BOARD, board: currBoard })
+        store.dispatch({ type: SET_BOARD, board })
+        store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
     } catch (err) {
         throw err
     }
 }
 
-export async function addTask(task, group, currBoard, activity) {
+export async function addTask(task, group, filteredBoard, activity) {
     try {
-        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilterBoard())
+        const { board } = store.getState().boardModule
         task.id = utilService.makeId()
         group.tasks.push(task)
         board.groups = board.groups.map(currGroup => (currGroup.id === group.id) ? group : currGroup)
         activity.task = {id: task.id, title: task.title}
         board.activities.push(activity) 
         await boardService.save(board)
-        currBoard.activities.push(activity) 
-        store.dispatch({ type: SET_BOARD, board: currBoard })
+        store.dispatch({ type: SET_BOARD, board })
+        store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
     } catch (err) {
-        console.error('cant add task:', err)
+        throw err
     }
 }
 
-export async function addTaskOnFirstGroup(board) {
-    if (!board.groups.length) addGroup(board)
+export async function addTaskOnFirstGroup(filteredBoard) {
+    
     try {
+        const { board } = store.getState().boardModule
+        if (!filteredBoard.groups.length) await addGroup(filteredBoard)
         const taskToAdd = boardService.getEmptyTask()
         taskToAdd.title = 'New Task'
         board.groups[0].tasks.push(taskToAdd)
-        const boardToSave = await boardService.save(board)
-        store.dispatch({ type: SET_BOARD, board: boardToSave })
+        await boardService.save(board)
+        store.dispatch({ type: SET_BOARD, board })
+        store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
     } catch (err) {
-        console.log('cant add task:', err)
+       throw err
     }
 }
 
@@ -135,65 +143,75 @@ export function toggleModal(isOpenModal) {
     store.dispatch({ type: SET_MODAL, isOpen: !isOpenModal })
 }
 
-export async function updateGroups(groups, board) {
-    board.groups = groups
-    const boardToSave = await boardService.save(board)
-    store.dispatch({ type: UPDATE_BOARD, board: boardToSave })
+export async function updateGroups(groupId, filteredBoard) {
+    try {
+        const { board } = store.getState().boardModule
+        const groupsToSave = board.groups.filter(group => group.id !== groupId)
+        board.groups = groupsToSave
+        filteredBoard.groups = groupsToSave
+        await boardService.save(board)
+        store.dispatch({ type: SET_BOARD, board })
+        store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
+    } catch (err) {
+        throw err
+    }
 }
 
-export async function updateGroupAction(currBoard, saveGroup) {
-    console.log(saveGroup)
+export async function updateGroupAction(filteredBoard, saveGroup) {
     try {
-        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilterBoard())
+        const { board } = store.getState().boardModule
         board.groups = board.groups.map(group => (group.id === saveGroup.id) ? saveGroup : group)
-        currBoard.groups = currBoard.groups.map(group => (group.id === saveGroup.id) ? saveGroup : group)
         await boardService.save(board)
-        store.dispatch({ type: SET_BOARD, board: currBoard })
+        store.dispatch({ type: SET_BOARD, board })
+        store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
     } catch (err) {
-        console.error('cant save group:', err)
+        throw err
     }
 
 }
 
-export async function updateTaskAction(currBoard, groupId, saveTask, activity) {
+export async function updateTaskAction(filteredBoard, groupId, saveTask, activity) {
     try {
-        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilterBoard())
+        const { board } = store.getState().boardModule
         const group = board.groups.find(group => group.id === groupId)
         group.tasks = group.tasks.map(task => (task.id === saveTask.id) ? saveTask : task)
         if(activity) {
             board.activities.unshift(activity)
-            currBoard.activities.unshift(activity)
+            filteredBoard.activities.unshift(activity)
         }
         await boardService.save(board)
-        store.dispatch({ type: SET_BOARD, board: currBoard })
+        store.dispatch({ type: SET_BOARD, board })
+        store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
     } catch (err) {
-        console.error('cant add task:', err)
+        throw err
     }
 }
 
-export async function toggleStarred(currBoard, isStarred) {
+export async function toggleStarred(filteredBoard, isStarred) {
     try {
-        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilterBoard())
+        const { board } = store.getState().boardModule
         board.isStarred = !board.isStarred
         await boardService.save(board)
         const filter = boardService.getDefaultFilterBoards()
         filter.isStarred = isStarred
         let boards = await boardService.query(filter)
-        currBoard.isStarred = board.isStarred
-        store.dispatch({ type: SET_BOARD, board: currBoard })
+        filteredBoard.isStarred = board.isStarred
+        store.dispatch({ type: SET_BOARD, board })
+        store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
         store.dispatch({ type: SET_BOARDS, boards})
     } catch (err) {
         throw err
     }
 }
 
-export async function addActivity(currBoard, activity) {
+export async function addActivity(filteredBoard, activity) {
     try {
-        const board = await boardService.getById(currBoard._id, boardService.getDefaultFilterBoard())
+        const { board } = store.getState().boardModule
         board.activities.unshift(activity)
         await boardService.save(board)
-        currBoard.activities.unshift(activity)
-        store.dispatch({ type: SET_BOARD, board: currBoard })
+        filteredBoard.activities.unshift(activity)
+        store.dispatch({ type: SET_BOARD, board })
+        store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
     } catch (err) {
         throw err
     }

@@ -1,9 +1,10 @@
 .board-header {
     padding: 16px 30px 0 38px;
     position: sticky;
+    left: 0px;
     top: 0;
     background-color: white;
-    z-index: 10;
+    z-index: 30;
 
     .board-title {
         display: flex;
