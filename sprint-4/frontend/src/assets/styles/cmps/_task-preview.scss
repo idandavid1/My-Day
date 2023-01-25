@@ -6,9 +6,13 @@
     .empty-div {
         @include empty-div()
     }
-    &:hover{
-        background-color: $task-hover-color;
+
+    &.modal-open {
         z-index: 5;
+    }
+    &:hover{
+        z-index: 5;
+        background-color: $task-hover-color;
         box-shadow: 4px 3px 6px -3px $task-box-shadow-color;
         .task-menu .icon{
             display: block;
@@ -16,7 +20,7 @@
     }
     .task-menu {
         position: absolute;
-        width: 40px;
+        width: 41px;
         left: -46px;
         height: 40px;
         display: flex;

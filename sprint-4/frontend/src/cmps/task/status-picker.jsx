@@ -18,7 +18,7 @@ export function StatusPicker({ info, onUpdate }) {
     return (
     <section className="status-priority-picker picker" style={{ backgroundColor: color }}>
         <div className={classText} onClick={() => setIsModalOpen(!isModalOpen)}>{info.status}</div>
-        <span className="fold"></span>
+        {!isModalOpen && <span className="fold"></span>}
         {isModalOpen && <ModalStatusPriority labels={board.labels} onUpdate={onUpdate} setIsModalOpen={setIsModalOpen} cmpType={'status'} activity={activity}/>}
     </section>
     )

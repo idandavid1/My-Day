@@ -35,7 +35,7 @@
         position: sticky;
         top: 229px;
         left: 40px;
-        z-index: 11;
+        z-index: 2;
         background-color: $app-bg;
         width: 100%;
 
@@ -258,6 +258,7 @@
 
         .hidden {
             width: 46px;
+            top: -3px;
         }
     }
 }
