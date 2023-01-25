@@ -35,13 +35,13 @@ export function BoardHeader({ board, onSetFilter }) {
         <header className="board-header">
             <section className='board-title'>
                 <div className="board-info">
-                    <blockquote contentEditable onBlur={onSave} suppressContentEditableWarning={true}>
+                    <blockquote data-title='Click to Edit' contentEditable onBlur={onSave} suppressContentEditableWarning={true}>
                         <h1>{board.title}</h1>
                     </blockquote>
-                    <div className='info-btn'>
+                    <div data-title='Show board description' className='info-btn'>
                         <RiErrorWarningLine />
                     </div>
-                    <div className='star-btn' onClick={onToggleStarred}>
+                    <div data-title='Add to favorites' className='star-btn' onClick={onToggleStarred}>
                         {!board.isStarred ? <BsStar /> : <BsStarFill className="star-full"/>}
                     </div>
                 </div>
@@ -63,9 +63,9 @@ export function BoardHeader({ board, onSetFilter }) {
                 <p className='board-description-link'>Add your board's description here <span>See More</span></p>
             </div>
             <div className='board-display-btns' >
-                <div className='main-table-btn active'>
+                <div className='main-table-btn active' >
                     <GrHomeRounded className='icon' />
-                    <span>Main Table</span>
+                    <span data-title='Main Table'>Main Table</span>
                     {/* <NavLink to={`/board/${board._id}`}></NavLink> */}
                 </div>
                 {/* <div className='kanban'>
