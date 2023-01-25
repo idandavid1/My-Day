@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-
+import { userService } from '../../services/user.service'
 
 import { AiOutlineStar } from 'react-icons/ai'
 import { CgMenuGridO } from 'react-icons/cg'
@@ -8,10 +8,11 @@ import { VscTriangleLeft } from 'react-icons/vsc'
 
 const logoHomePage = require('../../assets/img/logo.png')
 const guest = require('../../assets/img/guest.png')
+const user = userService.getLoggedinUser()
 
 export function MainSidebar({ setIsStarredOpen }) {
     const [iconChoose, setIconChoose] = useState('board')
-
+    
     function onChooseIcon(icon) {
         setIconChoose(icon)
         if (icon === 'starred') {
@@ -34,7 +35,7 @@ export function MainSidebar({ setIsStarredOpen }) {
             </div>
             <div className='bottom'>
                 < CgMenuGridO className='menu-icon' />
-                <img className='guest-img' src={guest} alt="" />
+                <img className='guest-img' src={user ? user.imgUrl : guest} alt="" onClick={userService.logout} />
             </div>
         </section>
     )
