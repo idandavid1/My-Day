@@ -2,10 +2,16 @@
     display: flex;
     padding: $spacing-small 0 $spacing-small 0;
     border-bottom: 1px solid $task-box-shadow-color;
+    margin: 0 25px 0 25px;
     gap: 5%;
     font-size: 16px;
     height: 60px;
     color: $primary-text-color;
+
+    img {
+        height: 30px;
+        width: 30px;
+    }
 
     .time-title {
         display: flex;
@@ -23,11 +29,11 @@
             display: flex;
             align-items: center;
             gap: $spacing-xs;
+
             img {
-                height: 30px;
-                width: 30px;
                 border-radius: 50px;
             }
+            
             span {
                 font-size: 14px;
                 font-weight: 500;
@@ -40,11 +46,13 @@
         align-items: center;
         justify-content: center;
         img {
+            margin-left: auto;
             width: 15px;
             height: 15px;
         }
 
         .icon {
+            margin-left: auto;
             font-size: 20px;
         }
     }
@@ -76,6 +84,16 @@
                     color: white;
                     border-radius: 4px;
                 }
+            }
+        }
+
+        &.person-container {
+            display: flex;
+            gap: $spacing-xl;
+            justify-content: center;
+            margin-left: 0;
+            img {
+                border-radius: 50px;
             }
         }
     }

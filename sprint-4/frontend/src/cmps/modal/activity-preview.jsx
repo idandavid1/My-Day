@@ -1,11 +1,11 @@
 
 import { IoTimeOutline }  from 'react-icons/io5'
-import { IoIosArrowForward }  from 'react-icons/io'
+import { IoIosArrowForward, IoIosCheckboxOutline }  from 'react-icons/io'
 import { CiCalendarDate }  from 'react-icons/ci'
-import { BsPlusCircle }  from 'react-icons/bs'
+import { BsPlusCircle, BsPersonPlus }  from 'react-icons/bs'
+import { FcCheckmark }  from 'react-icons/fc'
 
 import { utilService } from "../../services/util.service"
-import { useSelector } from 'react-redux'
 const statusImg = require('../../assets/img/status.png')
 export function ActivityPreview({ activity }) {
 
@@ -19,6 +19,10 @@ export function ActivityPreview({ activity }) {
                 return <CiCalendarDate className='icon'/>
             case 'create': 
                 return <BsPlusCircle className='icon'/>
+            case 'person': 
+                return <BsPersonPlus className='icon'/>
+            case 'check': 
+                return <IoIosCheckboxOutline className='icon'/>
             default:
                 break;
         }
@@ -34,6 +38,11 @@ export function ActivityPreview({ activity }) {
                 return <FromToDueDate activity={activity}/>
             case 'create': 
                 return <FromToCreate activity={activity}/>
+            case 'person': 
+                return <FromToPerson activity={activity}/>
+            case 'check': 
+                return <FromToCheck activity={activity}/>
+                
             default:
                 break;
         }
@@ -89,6 +98,26 @@ function FromToCreate({ activity }) {
         <div className='from-to create-container'>
             <span>Group: </span>
             <span style={{color: activity.from.color}}>{activity.from.title}</span>
+        </div>
+    )
+}
+
+function FromToPerson({ activity }) {
+    return (
+        <div className='from-to person-container'>
+            <span>{activity.from}</span>
+            <img src={activity.to} />
+        </div>
+    )
+}
+
+function FromToCheck({ activity }) {
+    return (
+        <div className='from-to check-container'>
+            {console.log('activity.from:', activity.from)}
+            {console.log('activity.to:', activity.to)}
+            <span>{activity.from ? <FcCheckmark /> : '    '}</span>
+            <span>{activity.to ? <FcCheckmark /> : '    '}</span>
         </div>
     )
 }
