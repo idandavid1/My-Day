@@ -61,7 +61,7 @@ export function LoginSignup() {
         setCredentials({ ...credentials, imgUrl })
     }
 
-    const login = useGoogleLogin({
+    const googleLogin = useGoogleLogin({
         onSuccess: tokenResponse => console.log(tokenResponse),
         flow: 'auth-code'
       })
@@ -108,7 +108,7 @@ export function LoginSignup() {
                     <p>{isSignup ? 'Or sign up with' : 'Or sign in with'}</p>
                     <span className="separator-line"></span>
                 </div>
-                <button className="btn-login-google" onClick={() => login()} redirect_uri="http://localhost:3000/board/63d075e98056b4b446310f22">
+                <button className="btn-login-google" onClick={() => googleLogin()} redirect_uri="http://localhost:3000/board/63d075e98056b4b446310f22">
                     <img className="img-google-login" src="https://cdn.monday.com/images/logo_google_v2.svg" aria-hidden="true" alt="" />
                     <span>Google</span>
                 </button>
@@ -120,6 +120,3 @@ export function LoginSignup() {
         </div>
     )
 }
-
-
-// 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
