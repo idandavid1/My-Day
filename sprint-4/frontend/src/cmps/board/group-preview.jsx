@@ -166,7 +166,7 @@ export function GroupPreview({ group, board, idx }) {
                             </div>
                             <blockquote contentEditable onBlur={(ev) => onSave(ev)} onFocus={() => setIsShowColorPicker(true)} suppressContentEditableWarning={true}>
                                 {isShowColorPicker && <BsFillCircleFill onClick={onShowPalette} />}
-                                <h4>{group.title}</h4>
+                                <h4 data-title={group.title}>{group.title}</h4>
                             </blockquote>
                         </div>
                     </div>

@@ -51,6 +51,9 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            &[data-title]:hover:after{
+                right: -70%;
+            }
 
             .triangle-icon {
                 position: absolute;
