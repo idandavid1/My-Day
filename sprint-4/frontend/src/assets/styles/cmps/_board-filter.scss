@@ -189,4 +189,11 @@
         }
     }
 
+    @include for-mobile-layout() {
+        & {
+            flex-direction: column;
+
+        }
+    }
+
 }

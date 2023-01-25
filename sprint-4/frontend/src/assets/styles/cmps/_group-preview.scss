@@ -72,6 +72,13 @@
 
         &.task {
             min-width: $cell-width-task;
+
+            @include for-mobile-layout {
+                &{
+                    min-width: 202px;
+                }
+                
+            }
         }
 
         &.member-picker {
@@ -218,6 +225,12 @@
         position: sticky;
         z-index: 1;
         left: 40px;
+        @include for-mobile-layout {
+            &{
+                min-width: 240px;
+            }
+            
+        }
 
         &.titles {
             border-top-left-radius: 6px;
@@ -259,6 +272,12 @@
         .hidden {
             width: 46px;
             top: -3px;
+        }
+
+        @include for-mobile-layout {
+            & {
+                min-width: 240px;
+            }
         }
     }
 }

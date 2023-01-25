@@ -5,13 +5,14 @@ import { userService } from '../../services/user.service'
 import { AiOutlineStar } from 'react-icons/ai'
 import { CgMenuGridO } from 'react-icons/cg'
 import { VscTriangleLeft } from 'react-icons/vsc'
+import { useSelector } from 'react-redux'
 
 const logoHomePage = require('../../assets/img/logo.png')
 const guest = require('../../assets/img/guest.png')
-const user = userService.getLoggedinUser()
 
 export function MainSidebar({ setIsStarredOpen }) {
     const [iconChoose, setIconChoose] = useState('board')
+    const user = useSelector(storeState => storeState.userModule.user)
     
     function onChooseIcon(icon) {
         setIconChoose(icon)
@@ -34,7 +35,6 @@ export function MainSidebar({ setIsStarredOpen }) {
                     {iconChoose === 'starred' && <VscTriangleLeft className="triangle-icon" />}</div>
             </div>
             <div className='bottom'>
-                < CgMenuGridO className='menu-icon' />
                 <img className='guest-img' src={user ? user.imgUrl : guest} alt="" onClick={userService.logout} />
             </div>
         </section>

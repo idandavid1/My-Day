@@ -122,7 +122,6 @@
     }
 
     blockquote {
-        // background-color: $app-bg;
         padding-right: 40px;
         border-radius: 5px;
         width: 200px;
@@ -130,6 +129,12 @@
         white-space: nowrap;
         margin-left: 36px;
         cursor: text;
+
+        @include for-mobile-layout() {
+            &{
+                margin-left: 5px;
+            }
+        }
 
         &:focus-visible {
             outline: 1px solid $board-btn;

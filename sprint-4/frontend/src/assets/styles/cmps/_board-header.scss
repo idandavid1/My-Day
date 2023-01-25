@@ -34,8 +34,6 @@
                 cursor: text;
                 padding: $spacing-xs;
                 margin: 0;
-                line-height: $font-reg-line-height-42;
-                font-size: $font-reg-size-24;
                 border: 1px solid transparent;
                 color: $primary-text-color;
                 letter-spacing: 0.5px;
@@ -117,7 +115,8 @@
             align-items: center;
             padding: 0 8px 0 8px;
             position: relative;
-
+            font-size: 14px;
+            white-space: nowrap;
 
             &.active {
                 border-bottom: 4px solid $board-btn;
@@ -136,7 +135,6 @@
                     bottom: 2.2em;
                 }
             }
-
 
             &:hover {
                 background-color: $workspace-hover;
@@ -158,5 +156,28 @@
         height: 1px;
         width: 100%;
         background-color: darken($border-color , 20%);
+    }
+
+    @include for-mobile-layout() {
+        &{
+            .board-title {
+                flex-direction: column;
+            }
+            .board-info h1{
+                font-size: 15px;
+                white-space: nowrap;
+            }
+
+        }
+    }
+
+    @include for-narrow-layout() {
+        &{
+            .board-info h1{
+                font-size: 24px;
+                line-height: $font-reg-line-height-42;
+            }
+
+        }
     }
 }
