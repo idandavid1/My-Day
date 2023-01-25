@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.8031e368.css",
-    "main.js": "/static/js/main.cd64af52.js",
+    "main.css": "/static/css/main.e53478be.css",
+    "main.js": "/static/js/main.f9ba706b.js",
     "static/media/empty-update.png": "/static/media/empty-update.b73424715fd2c4a44caf.png",
     "static/media/Poppins-Regular.ttf": "/static/media/Poppins-Regular.35d26b781dc5fda684cc.ttf",
     "static/media/home.avif": "/static/media/home.51669450ed4dad4b5b40.avif",
@@ -10,11 +10,11 @@
     "static/media/Figtree-Regular.ttf": "/static/media/Figtree-Regular.083435b8ca5203a524c2.ttf",
     "static/media/monday-logo.webp": "/static/media/monday-logo.bc4d4cddc764f2685cca.webp",
     "index.html": "/index.html",
-    "main.8031e368.css.map": "/static/css/main.8031e368.css.map",
-    "main.cd64af52.js.map": "/static/js/main.cd64af52.js.map"
+    "main.e53478be.css.map": "/static/css/main.e53478be.css.map",
+    "main.f9ba706b.js.map": "/static/js/main.f9ba706b.js.map"
   },
   "entrypoints": [
-    "static/css/main.8031e368.css",
-    "static/js/main.cd64af52.js"
+    "static/css/main.e53478be.css",
+    "static/js/main.f9ba706b.js"
   ]
 }
