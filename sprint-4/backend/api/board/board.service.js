@@ -6,7 +6,6 @@ async function query(filterBy) {
     try {
         const criteria = {}
        if(filterBy.title) criteria.title = { $regex: filterBy.title, $options: 'i' }
-       console.log('filterBy:',filterBy )
        if(filterBy.isStarred) criteria.isStarred = filterBy.isStarred
         const collection = await dbService.getCollection('board')
         var boards = await collection.find(criteria).toArray()
@@ -63,10 +62,37 @@ async function update(board) {
     }
 }
 
+async function updateTask(boardId, groupId, taskId, saveTask){
+    try {
+        const board =  await getById(boardId)
+        const group = board.groups.find(group => group.id === groupId)
+        group.tasks = group.tasks.map(task => (task.id === taskId) ? saveTask : task)
+        await update(board)
+        return board
+    } catch (err) {
+        logger.error(`cannot update task ${taskId}`, err)
+        throw err
+    }
+}
+
+async function updateGroup(boardId, groupId, saveGroup){
+    try {
+        const board =  await getById(boardId)
+        board.groups = board.groups.map(group => (group.id === groupId) ? saveGroup : group)
+        await update(board)
+        return board
+    } catch (err) {
+        logger.error(`cannot update task ${groupId}`, err)
+        throw err
+    }
+}
+
 module.exports = {
     remove,
     query,
     getById,
     add,
     update,
+    updateTask,
+    updateGroup
 }

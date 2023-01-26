@@ -159,27 +159,21 @@ export async function updateGroups(groupId, filteredBoard) {
 
 export async function updateGroupAction(filteredBoard, saveGroup) {
     try {
-        const { board } = store.getState().boardModule
-        board.groups = board.groups.map(group => (group.id === saveGroup.id) ? saveGroup : group)
-        await boardService.save(board)
+        const board = await boardService.updateGroup(filteredBoard._id, saveGroup)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
     } catch (err) {
         throw err
     }
-
 }
 
 export async function updateTaskAction(filteredBoard, groupId, saveTask, activity) {
     try {
-        const { board } = store.getState().boardModule
-        const group = board.groups.find(group => group.id === groupId)
-        group.tasks = group.tasks.map(task => (task.id === saveTask.id) ? saveTask : task)
-        if(activity) {
-            board.activities.unshift(activity)
-            filteredBoard.activities.unshift(activity)
-        }
-        await boardService.save(board)
+        // if(activity) {
+        //     board.activities.unshift(activity)
+        //     filteredBoard.activities.unshift(activity)
+        // }
+        const board = await boardService.updateTask(filteredBoard._id, groupId, saveTask)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
     } catch (err) {

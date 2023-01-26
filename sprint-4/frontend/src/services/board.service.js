@@ -17,7 +17,9 @@ export const boardService = {
     getEmptyTask,
     getEmptyComment,
     getEmptyActivity,
-    getEmptyBoard
+    getEmptyBoard,
+    updateTask,
+    updateGroup
 }
 
 function query(filter = getDefaultFilterBoards()) {
@@ -49,6 +51,14 @@ function remove(boardId) {
 function save(board) {
     if (board._id) return httpService.put(BASE_URL + board._id, board)
     return httpService.post(BASE_URL, board)
+}
+
+function updateTask(boardId, groupId, task) {
+    return httpService.put(`${BASE_URL}${boardId}/${groupId}/${task.id}`, task)
+}
+
+function updateGroup(boardId, group) {
+    return httpService.put(`${BASE_URL}${boardId}/${group.id}`, group)
 }
 
 function getDefaultFilterBoards() {
