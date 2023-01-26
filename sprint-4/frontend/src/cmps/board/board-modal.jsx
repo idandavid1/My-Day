@@ -4,7 +4,7 @@ import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import { toggleModal, updateTaskAction } from "../../store/board.actions"
 
-import { CgClose, CgLogOff } from 'react-icons/cg'
+import { CgClose } from 'react-icons/cg'
 import { GrHomeRounded } from 'react-icons/gr'
 import { AiOutlineBold } from 'react-icons/ai'
 import { RxUnderline } from 'react-icons/rx'
@@ -13,11 +13,13 @@ import { boardService } from "../../services/board.service"
 import { utilService } from "../../services/util.service"
 import { CommentPreview } from "../task/comment-preview"
 import { ActivityPreview } from "../activity-preview"
+import { socketService, SOCKET_EMIT_SEND_MSG, SOCKET_EMIT_SET_TOPIC, SOCKET_EVENT_ADD_MSG } from "../../services/socket.service"
 const noUpdate = require('../../assets/img/empty-update.png')
 
 export function BoardModal() {
     const [isWriteNewUpdate, setIsWriteNewUpdate] = useState(false)
     const [comment, setComment] = useState(boardService.getEmptyComment())
+    const [comments, setComments] = useState([])
     const [currTask, setCurrTask] = useState(null)
     const [isShowUpdate, setIsShowUpdate] = useState(true)
     const [taskActivities, setTaskActivities] = useState([])
@@ -30,12 +32,28 @@ export function BoardModal() {
         if(taskId && groupId){
             loadTask()
             loadTaskActivity()
-        }  
+        }
     }, [taskId])
+
+    useEffect(() => {
+        if(taskId && groupId) {
+            socketService.emit(SOCKET_EMIT_SET_TOPIC, taskId)
+            socketService.on(SOCKET_EVENT_ADD_MSG, addComment)
+        }  
+
+        return () => {
+            socketService.off(SOCKET_EVENT_ADD_MSG, addComment)
+        }
+    }, [])
+
+    function addComment(comment) {
+        setComments((prevComments) => [comment, ...prevComments])
+    }
     
     function loadTask() {
         const group = board.groups.find(group => group.id === groupId)
         const task = group.tasks.find(task => task.id === taskId)
+        setComments(task.comments) 
         setCurrTask(task)
     }
     
@@ -66,8 +84,9 @@ export function BoardModal() {
             currTask.comments.unshift(comment)
             updateTaskAction(board, groupId, currTask)
             setIsWriteNewUpdate(false)
+            socketService.emit(SOCKET_EMIT_SEND_MSG, comment)
             setComment(boardService.getEmptyComment())
-            setCurrTask(currTask)
+            // setCurrTask(currTask)
         } catch (err) {
             console.log('err:', err)
         }  
@@ -173,7 +192,7 @@ export function BoardModal() {
                     {isWriteNewUpdate && <div className="button-container"><button className="save" onMouseDown={onAddComment}>Update</button></div>}
                 <ul className="comments-list">
                     {
-                        currTask.comments.map(comment => {
+                        comments.map(comment => {
                             return (
                             <li key={comment.id}>
                                 <CommentPreview onRemoveComment={onRemoveComment} comment={comment} onEditComment={onEditComment}/>
@@ -181,7 +200,7 @@ export function BoardModal() {
                         )})
                     }
                 </ul>
-                {currTask.comments.length === 0 && 
+                {comments.length === 0 && 
                 <div className="no-updates">
                     <img src={noUpdate} alt="" />
                     <div className="txt">
