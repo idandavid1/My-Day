@@ -28,10 +28,10 @@ export function BoardDetails() {
 
     useEffect(() => {
         socketService.emit(SOCKET_EMIT_SET_TOPIC, boardId)
-        socketService.on(SOCKET_EVENT_ADD_UPDATE_BOARD , saveBoard)
+        socketService.on(SOCKET_EVENT_ADD_UPDATE_BOARD , loadBoard)
 
         return () => {
-            socketService.off(SOCKET_EVENT_ADD_UPDATE_BOARD, saveBoard)
+            socketService.off(SOCKET_EVENT_ADD_UPDATE_BOARD, loadBoard)
         }
     }, [])
 
