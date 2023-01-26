@@ -71,6 +71,7 @@ export function LoginSignup() {
             <LoginPageHeader />
             <div className="form-container">
                 <h1>{isSignup ? 'Create your MyDay account here ' : 'Log in to your account'}</h1>
+                {isSignup && <ImgUploader onUploaded={onUploaded} />}
                 {!isSignup && <label className="label-username" htmlFor="username">Enter your username and password</label>}
                 {isSignup && <label className="label-username" htmlFor="username">Enter your full name, username and password</label>}
                 {isSignup && <input className="input input-fullname"
@@ -101,7 +102,6 @@ export function LoginSignup() {
                         required
                     />
                 }
-                {isSignup && <ImgUploader onUploaded={onUploaded} />}
                 <button className="btn-next" onClick={isSignup ? onSignup : onLogin}>{isSignup ? 'Sign up' : 'Log in'}</button>
                 <div className="flex justify-center align-center split-line">
                     <span className="separator-line"></span>
