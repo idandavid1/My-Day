@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import { userService } from '../../services/user.service'
 
 import { AiOutlineStar } from 'react-icons/ai'
 import { VscTriangleLeft } from 'react-icons/vsc'
 import { useSelector } from 'react-redux'
+import { LoginLogoutModal } from '../modal/login-logout-modal'
 
 const logoHomePage = require('../../assets/img/icon.png')
 const guest = require('../../assets/img/guest.png')
@@ -12,7 +12,8 @@ const guest = require('../../assets/img/guest.png')
 export function MainSidebar({ setIsStarredOpen }) {
     const [iconChoose, setIconChoose] = useState('board')
     const user = useSelector(storeState => storeState.userModule.user)
-    
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
     function onChooseIcon(icon) {
         setIconChoose(icon)
         if (icon === 'starred') {
@@ -34,7 +35,8 @@ export function MainSidebar({ setIsStarredOpen }) {
                     {iconChoose === 'starred' && <VscTriangleLeft className="triangle-icon" />}</div>
             </div>
             <div className='bottom'>
-                <img className='logged-user-img' src={user ? user.imgUrl : guest} alt="" onClick={userService.logout} />
+                <img className='logged-user-img' src={user ? user.imgUrl : guest} alt="" onClick={() => setIsModalOpen(!isModalOpen)} />
+                {isModalOpen && <LoginLogoutModal />}
             </div>
         </section>
     )

@@ -25,15 +25,15 @@
     }
 
     .logged-user-img {
-        height: 44px;
-        width: 44px;
+        height: 37.4px;
+        width: 37.4px;
         border-radius: 50%;
         border: 1.6px solid white;
         cursor: pointer;
         transition: transform .2s;
 
         &:hover {
-            transform:  scale(.9);
+            transform: scale(.9);
         }
     }
 

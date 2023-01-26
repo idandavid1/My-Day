@@ -114,7 +114,8 @@ export function LoginSignup() {
                 </button>
                 <div className="suggest-signup">
                     <span className="suggest-signup-prefix">{isSignup ? 'Already have an account?' : 'Don\'t have an account yet?'}</span>
-                    <Link to={'/auth/signup'}><button className="btn-signup" onClick={toggleSignup}>{!isSignup ? 'Sign up' : 'Log in'}</button></Link>
+                    {!isSignup && <Link to={'/auth/signup'}><button className="btn-signup" onClick={toggleSignup}>Sign up</button></Link>}
+                    {isSignup && <Link to={'/auth/login'}><button className="btn-signup" onClick={toggleSignup}>Log in</button></Link>}
                 </div>
             </div>
         </div>

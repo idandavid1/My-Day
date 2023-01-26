@@ -1,0 +1,33 @@
+.login-logout-modal {
+    @include login-logout-modal-position();
+    box-shadow: 0 8px 16px 0 rgb(0 0 0 / 32%);
+    background-color: white;
+    border-radius: 10px;
+    z-index: 101;
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-small;
+        padding: 0;
+        margin: 0;
+
+        li {
+            flex-direction: row;
+            min-width: 152px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            .login-icon {
+                margin-right: 5px;
+            }
+
+            .logout-icon {
+                margin-right: 5px;
+            }
+        }
+    }
+}

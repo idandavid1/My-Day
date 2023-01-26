@@ -131,6 +131,13 @@
   left: -25px;
 }
 
+@mixin login-logout-modal-position() {
+  position: absolute;
+  z-index: 2;
+  left: 60px;
+  bottom: 15px;
+}
+
 @mixin triangle-icon() {
   color: white;
   position: relative;
