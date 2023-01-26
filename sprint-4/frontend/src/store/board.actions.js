@@ -22,8 +22,6 @@ export async function loadSocketBoard(board) {
     }
 }
 
-
-
 export async function loadBoard(boardId, filterBy) {
     try {
         const board = await boardService.getById(boardId)
@@ -184,7 +182,6 @@ export async function updateTaskAction(filteredBoard, groupId, saveTask, activit
             addActivity(filteredBoard, activity)
         }
         const board = await boardService.updateTask(filteredBoard._id, groupId, saveTask)
-        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD, board)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
     } catch (err) {
