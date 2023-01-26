@@ -1,3 +1,4 @@
+import { socketService, SOCKET_EMIT_SEND_UPDATE_BOARD } from "../services/socket.service"
 
 export const SET_BOARDS = 'SET_BOARDS'
 export const SET_BOARD = 'SET_BOARD'
