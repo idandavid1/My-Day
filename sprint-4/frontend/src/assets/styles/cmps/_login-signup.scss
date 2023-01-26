@@ -54,23 +54,38 @@
         flex-direction: column;
         justify-content: center;
 
-        img {
-            margin-bottom: 10px;
-            border-radius: 50%;
-        }
 
         label {
-            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
             margin-bottom: 10px;
             color: $primary-text-color;
             transition: color 200ms ease;
             border-radius: 8px;
 
-            &:hover {
-                color: #5034FF;
-                background-color: #F0F3FF;
+            .guest-img {
+                margin-top: 10px;
+                border-radius: 50%;
+                opacity: 0.3;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: 0.5;
+                }
             }
+
+            .user-img {
+                border-radius: 50%;
+                cursor: pointer;
+                opacity: 1;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+
         }
 
         input {
