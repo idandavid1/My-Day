@@ -115,8 +115,6 @@ function FromToPerson({ activity }) {
 function FromToCheck({ activity }) {
     return (
         <div className='from-to check-container'>
-            {console.log('activity.from:', activity.from)}
-            {console.log('activity.to:', activity.to)}
             <span>{activity.from ? <FcCheckmark /> : '    '}</span>
             <span>{activity.to ? <FcCheckmark /> : '    '}</span>
         </div>

@@ -83,6 +83,7 @@ export async function duplicateGroup(filteredBoard, group) {
         const idx = board.groups.indexOf(group)
         board.groups.splice(idx + 1, 0, duplicatedGroup)
         await boardService.save(board)
+        filteredBoard.groups.splice(idx + 1, 0, duplicatedGroup)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
     } catch (err) {
@@ -113,8 +114,8 @@ export async function addTask(task, group, filteredBoard, activity) {
         task.id = utilService.makeId()
         group.tasks.push(task)
         board.groups = board.groups.map(currGroup => (currGroup.id === group.id) ? group : currGroup)
-        activity.task = {id: task.id, title: task.title}
-        board.activities.push(activity) 
+        activity.task = { id: task.id, title: task.title }
+        addActivity(filteredBoard, activity)
         await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
@@ -124,7 +125,7 @@ export async function addTask(task, group, filteredBoard, activity) {
 }
 
 export async function addTaskOnFirstGroup(filteredBoard) {
-    
+
     try {
         const { board } = store.getState().boardModule
         if (!filteredBoard.groups.length) await addGroup(filteredBoard)
@@ -135,7 +136,7 @@ export async function addTaskOnFirstGroup(filteredBoard) {
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
     } catch (err) {
-       throw err
+        throw err
     }
 }
 
@@ -169,10 +170,9 @@ export async function updateGroupAction(filteredBoard, saveGroup) {
 
 export async function updateTaskAction(filteredBoard, groupId, saveTask, activity) {
     try {
-        // if(activity) {
-        //     board.activities.unshift(activity)
-        //     filteredBoard.activities.unshift(activity)
-        // }
+        if (activity) {
+            addActivity(filteredBoard, activity)
+        }
         const board = await boardService.updateTask(filteredBoard._id, groupId, saveTask)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
@@ -192,7 +192,7 @@ export async function toggleStarred(filteredBoard, isStarred) {
         filteredBoard.isStarred = board.isStarred
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
-        store.dispatch({ type: SET_BOARDS, boards})
+        store.dispatch({ type: SET_BOARDS, boards })
     } catch (err) {
         throw err
     }
@@ -201,6 +201,10 @@ export async function toggleStarred(filteredBoard, isStarred) {
 export async function addActivity(filteredBoard, activity) {
     try {
         const { board } = store.getState().boardModule
+        if (board.activities.length >= 30) {
+            filteredBoard.activities.splice(19, 10)
+            board.activities.splice(19, 10)
+        }
         board.activities.unshift(activity)
         await boardService.save(board)
         filteredBoard.activities.unshift(activity)
