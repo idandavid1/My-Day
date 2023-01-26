@@ -22,8 +22,6 @@ export async function loadSocketBoard(board) {
     }
 }
 
-
-
 export async function loadBoard(boardId, filterBy) {
     try {
         const board = await boardService.getById(boardId)
