@@ -60,13 +60,13 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreate
                     <div className="workspace-title-container flex space-between align-center">
                         <span className='workspace-title'>Workspace</span>
                     </div>
-                    <div className='chose-workspace'>
-                        <div className='left'>
+                    <div className='workspace-select'>
+                        <div className='workspace-logo'>
                             <div className='lightning-container'>
                                 <BsFillLightningFill />
                             </div>
                             <AiFillHome className='home' />
-                            <h5>Sprint 4</h5>
+                            <h5 className='workspace-title'>Sprint 4</h5>
                         </div>
                         <IoIosArrowDown className='icon' />
                     </div>

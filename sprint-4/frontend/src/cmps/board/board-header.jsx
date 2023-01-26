@@ -38,10 +38,10 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen }) {
                     <blockquote data-title='Click to Edit' contentEditable onBlur={onSave} suppressContentEditableWarning={true}>
                         <h1>{board.title}</h1>
                     </blockquote>
-                    <div data-title='Show board description' className='info-btn'>
+                    <div data-title='Show board description' className='info-btn icon'>
                         <RiErrorWarningLine />
                     </div>
-                    <div data-title='Add to favorites' className='star-btn' onClick={onToggleStarred}>
+                    <div data-title='Add to favorites' className='star-btn icon' onClick={onToggleStarred}>
                         {!board.isStarred ? <BsStar /> : <BsStarFill className="star-full"/>}
                     </div>
                 </div>

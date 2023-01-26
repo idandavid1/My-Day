@@ -49,7 +49,7 @@ export function BoardFilter({ board, onSetFilter }) {
                 </div>
             </div>}
         </div>
-        <div className='flex align-center'>
+        <div className='flex align-center board-tools'>
             <div className='search-task'>
                 <TfiSearch className='icon' />
                 <input type="text"
@@ -58,9 +58,20 @@ export function BoardFilter({ board, onSetFilter }) {
                     placeholder="Search"
                     onChange={handleChange} />
             </div>
-            <button className="person-btn btn1"><BsPersonCircle /> Person</button>
-            <button className="hide-btn btn1"><AiOutlineEyeInvisible /> Hide</button>
-            <button className="more-btn btn1"><BiDotsHorizontalRounded /> </button>
+            <div className='person-filter'>
+                <BsPersonCircle className='icon' />
+                <span>Person</span>
+            </div>
+            <div className='hide-filter'>
+                <AiOutlineEyeInvisible />
+                <span>Hide</span>
+            </div>
+            <div className='more-btn'>
+                <BiDotsHorizontalRounded />
+            </div>
+            {/* <button className="person-btn btn1"><BsPersonCircle /> Person</button> */}
+            {/* <button className="hide-btn btn1"><AiOutlineEyeInvisible /> Hide</button> */}
+            {/* <button className="more-btn btn1"><BiDotsHorizontalRounded /> </button> */}
         </div>
     </section>
     )

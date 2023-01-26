@@ -3,7 +3,7 @@
     flex-direction: column;
     margin-bottom: 64px;
     position: relative;
-    
+
     .hidden {
         position: absolute;
         left: -46px;
@@ -38,8 +38,9 @@
         z-index: 2;
         background-color: $app-bg;
         width: 100%;
+
         @include for-mobile-layout {
-            &{
+            & {
                 top: 280px;
             }
         }
@@ -74,15 +75,16 @@
         min-width: $cell-width;
         height: $cell-height;
         border: 1px solid darken($border-color , 20%);
+        font-size: 14px;
 
         &.task {
             min-width: $cell-width-task;
 
             @include for-mobile-layout {
-                &{
+                & {
                     min-width: 202px;
                 }
-                
+
             }
         }
 
@@ -105,9 +107,33 @@
         line-height: $font-reg-line-height-24;
 
         @include for-mobile-layout {
-            &{
+            & {
                 top: 240px;
             }
+        }
+
+        .group-title-info {
+            display: flex;
+            align-items: center;
+            border: 1px;
+            margin-bottom: 8px;
+
+            &.showBorder {
+                border: 1px solid $board-btn;
+                border-radius: 4px;
+            }
+
+            .group-title:focus-visible {
+                outline: none;
+                margin-left: 4px;
+            }
+
+            blockquote {
+                width: auto;
+                min-width: 40px;
+                height: 35px;
+            }
+
         }
 
         .group-header-title {
@@ -118,7 +144,7 @@
             left: 40px;
             z-index: 2;
         }
-        
+
         .group-title {
             width: 200px;
             white-space: nowrap;
@@ -238,11 +264,12 @@
         position: sticky;
         z-index: 1;
         left: 40px;
+
         @include for-mobile-layout {
-            &{
+            & {
                 min-width: 240px;
             }
-            
+
         }
 
         &.titles {
@@ -260,18 +287,28 @@
 }
 
 .statistic {
+    .statistic-container {
+        height: 36px;
+        width: 100%;
+    }
+
     .first {
         border-bottom-left-radius: 10px;
         overflow: hidden;
     }
-    .title.status-picker , .title.priority-picker {
+
+
+    .title.status-picker,
+    .title.priority-picker {
         border-top: 0;
         padding: 0 8px;
-        >*{
+
+        >* {
             height: 80%;
-            &:hover{
+
+            &:hover {
                 height: 90%;
-            }  
+            }
         }
     }
 
@@ -294,6 +331,3 @@
         }
     }
 }
-
-
-
