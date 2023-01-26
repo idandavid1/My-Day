@@ -10,10 +10,19 @@ export async function loadBoards(filterBy) {
         const boards = await boardService.query(filterBy)
         store.dispatch({ type: SET_BOARDS, boards })
     } catch (err) {
-        console.log('Had issues loading', err)
         throw err
     }
 }
+
+export async function loadSocketBoard(board) {
+    try {
+        store.dispatch({ type: SET_FILTER_BOARD, filteredBoard: board  })
+    } catch (err) {
+        throw err
+    }
+}
+
+
 
 export async function loadBoard(boardId, filterBy) {
     try {

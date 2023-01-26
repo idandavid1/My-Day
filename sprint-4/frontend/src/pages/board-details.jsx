@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { loadBoard, loadBoards, saveBoard } from "../store/board.actions"
+import { loadBoard, loadBoards, loadSocketBoard, saveBoard } from "../store/board.actions"
 
 import { BoardHeader } from "../cmps/board/board-header"
 import { MainSidebar } from "../cmps/sidebar/main-sidebar"
@@ -28,10 +28,10 @@ export function BoardDetails() {
 
     useEffect(() => {
         socketService.emit(SOCKET_EMIT_SET_TOPIC, boardId)
-        socketService.on(SOCKET_EVENT_ADD_UPDATE_BOARD , loadBoard)
+        socketService.on(SOCKET_EVENT_ADD_UPDATE_BOARD , loadSocketBoard)
 
         return () => {
-            socketService.off(SOCKET_EVENT_ADD_UPDATE_BOARD, loadBoard)
+            socketService.off(SOCKET_EVENT_ADD_UPDATE_BOARD, loadSocketBoard)
         }
     }, [])
 

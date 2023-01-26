@@ -27,6 +27,7 @@ function setupSocketAPI(http) {
             socket.broadcast.to(socket.myTopic).emit('chat-add-msg', msg)
         })
         socket.on('board-send-update', board => {
+            console.log('board:')
             logger.info(`New task update from socket [id: ${socket.id}], emitting to topic ${socket.myTopic}`)
             socket.broadcast.to(socket.myTopic).emit('board-add-update', board)
         })
