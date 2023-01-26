@@ -33,11 +33,16 @@
     .title-container {
         display: flex;
         position: sticky;
-        top: 229px;
+        top: 218px;
         left: 40px;
         z-index: 2;
         background-color: $app-bg;
         width: 100%;
+        @include for-mobile-layout {
+            &{
+                top: 280px;
+            }
+        }
 
 
         .add-picker-task {
@@ -89,7 +94,7 @@
 
     .group-header {
         position: sticky;
-        top: 189px;
+        top: 181px;
         // left: 40px;
         display: flex;
         z-index: 2;
@@ -98,6 +103,12 @@
         width: 100%;
         align-items: center;
         line-height: $font-reg-line-height-24;
+
+        @include for-mobile-layout {
+            &{
+                top: 240px;
+            }
+        }
 
         .group-header-title {
             display: flex;
@@ -108,8 +119,10 @@
             z-index: 2;
         }
         
-        .title1 {
-            width: 100px;
+        .group-title {
+            width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
         }
 
         &:hover {

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { HomeHeader } from '../cmps/home-header'
 import { loadBoards } from '../store/board.actions'
-import { AiOutlineArrowRight } from 'react-icons/ai'
+import { HiOutlineArrowRight } from 'react-icons/hi'
 import { BsStars } from 'react-icons/bs'
 
 const homeImg = require('../assets/img/home.avif')
@@ -36,7 +36,7 @@ export function HomePage() {
                     </h1>
                 </div>
                 <div className="btn-container">
-                    <Link to={`/board/${boards[0]._id}`}><button className='btn home-btn'>Get Started <span className="arrow"><AiOutlineArrowRight /></span></button></Link>
+                    <Link to={`/board/${boards[0]._id}`}><button className='btn home-btn'>Get Started <span className="arrow"><HiOutlineArrowRight /></span></button></Link>
                     <p className="btn-text">No credit card needed <BsStars /> Unlimited time on Free Plan</p>
                 </div>
             </div>

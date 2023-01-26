@@ -35,7 +35,7 @@ export function MainSidebar({ setIsStarredOpen }) {
                     {iconChoose === 'starred' && <VscTriangleLeft className="triangle-icon" />}</div>
             </div>
             <div className='bottom'>
-                <img className='guest-img' src={user ? user.imgUrl : guest} alt="" onClick={userService.logout} />
+                <img className='logged-user-img' src={user ? user.imgUrl : guest} alt="" onClick={userService.logout} />
             </div>
         </section>
     )

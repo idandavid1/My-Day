@@ -117,6 +117,8 @@
             position: relative;
             font-size: 14px;
             white-space: nowrap;
+            display: flex;
+            align-items: center;
 
             &.active {
                 border-bottom: 4px solid $board-btn;

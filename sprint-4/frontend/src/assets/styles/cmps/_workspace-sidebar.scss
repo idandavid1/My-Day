@@ -201,25 +201,37 @@
 
     .toggle-workspace {
         position: absolute;
+        padding: 5px 7px 5px 5px;
         border-radius: 20px;
         border: 1px solid #c3c6d4;
         background-color: #fff;
-        height: 23px;
-        width: 23px;
-        top: 20px;
+        top: 13px;
         @include center-flex();
         right: -12px;
-        transition: width .2s;
+        transition: .2s;
         cursor: pointer;
         z-index: 50;
-        width: 31px;
+        right: unset;
+        left: calc(100% - 14px);
 
         &:hover {
             color: white;
             background-color: $board-btn;
+            padding-left: 16px;
+            padding-right: 5px;
+        }
+    }
+}
+
+.workspace-sidebar {
+    &.open {
+        .toggle-workspace {
             
-            padding-right: 2px;
-            padding-left: 7px;
+            &:hover {
+                padding: unset;
+                padding: 5px 7px 5px 5px;
+                padding-right: 14px;
+            }
         }
     }
 }

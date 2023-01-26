@@ -2,6 +2,7 @@
   background-image: $home-bg;
   margin: 0;
   padding: 0;
+  height: 100vh;
 
   .home-content {
     padding-top: $spacing-xxl;
@@ -37,14 +38,13 @@
 
     .home-btn {
       background-image: $home-btn-bg-gradient;
-      position: relative;
       padding-right: 20px;
       border-radius: 40px;
       margin-bottom: 15px;
-
+      
       &:hover {
         background-image: $home-btn-bg-gradient-hover;
-
+        
         .arrow {
           transition: 0.3s;
           transform: translateX(4px);
@@ -54,6 +54,8 @@
 
     .arrow {
       padding-left: 10px;
+      display: flex;
+      align-self: center;
     }
 
     .btn-text {

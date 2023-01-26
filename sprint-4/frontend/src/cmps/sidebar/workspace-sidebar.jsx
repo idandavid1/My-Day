@@ -61,8 +61,8 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen }) {
     }
 
     return (
-        <section ref={elSection} className="workspace-sidebar close">
-            <div onClick={onToggleWorkspace} className='toggle-workspace'>
+        <section ref={elSection} className={`workspace-sidebar ${isOpen ? 'open' : 'close'}`}>
+            <div onClick={onToggleWorkspace} className='toggle-workspace '>
                 {isOpen && <MdKeyboardArrowLeft />}
                 {!isOpen && <MdKeyboardArrowRight />}
             </div>
@@ -70,7 +70,6 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen }) {
                 <div className='workspace-sidebar-items'>
                     <div className="workspace-title-container flex space-between align-center">
                         <span className='workspace-title'>Workspace</span>
-                        <BiDotsHorizontalRounded className='icon' />
                     </div>
                     <div className='chose-workspace'>
                         <div className='left'>
@@ -126,7 +125,7 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen }) {
                             can easily access it later</p>
                     </div>
                 </div>}
-                  <ul className='board-list-container'>
+                <ul className='board-list-container'>
                     {boards.map(board => {
                         return <li key={board._id} className='board-list'>
                             <BoardPreview board={board} />

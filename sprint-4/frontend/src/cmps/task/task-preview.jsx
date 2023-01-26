@@ -15,7 +15,6 @@ import { utilService } from "../../services/util.service"
 import { boardService } from "../../services/board.service"
 import { HiOutlineChatBubbleOvalLeft } from 'react-icons/hi2'
 import { useEffectUpdate } from "../../customHooks/useEffectUpdate"
-import { ModalStatusPriority } from "../modal/modal-status-priority"
 
 export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCheckbox, isCheckBoxActionDone, setIsCheckBoxActionDone }) {
     const elTaskPreview = useRef(null)
@@ -23,8 +22,6 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
     const [isClick, setIsClick] = useState(isCheckBoxActionDone)
-    const elButton = useRef()
-    const modalPosition = useRef({left:0, top:0})
     useEffectUpdate(() => {
         setIsClick(isMainCheckbox)
         handleCheckboxChange(task)
@@ -100,7 +97,7 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
                 {isTaskModalOpen && <TaskMenuModal taskId={task.id} onRemoveTask={onRemoveTask} onDuplicateTask={onDuplicateTask}
                     onOpenModal={onOpenModal} onCreateNewTaskBelow={onCreateNewTaskBelow} />}
                 <div className="task-menu">
-                    <BiDotsHorizontalRounded className="icon" ref={elButton} onClick={() => setIsTaskModalOpen(!isTaskModalOpen)} />
+                    <BiDotsHorizontalRounded className="icon" onClick={() => setIsTaskModalOpen(!isTaskModalOpen)} />
                 </div>
                 <div className="check-box">
                     <input type="checkbox" checked={isClick}

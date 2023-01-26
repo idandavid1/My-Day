@@ -11,7 +11,7 @@
         z-index: 5;
     }
     &:hover{
-        z-index: 5;
+        z-index: 4;
         background-color: $task-hover-color;
         box-shadow: 4px 3px 6px -3px $task-box-shadow-color;
         .task-menu .icon{
@@ -21,7 +21,7 @@
     .task-menu {
         position: absolute;
         width: 41px;
-        left: -46px;
+        left: -47px;
         height: 40px;
         display: flex;
         justify-content: center;

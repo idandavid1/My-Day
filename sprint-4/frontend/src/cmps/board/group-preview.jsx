@@ -176,7 +176,7 @@ export function GroupPreview({ group, board, idx }) {
                             <div className="group-menu">
                                 <BiDotsHorizontalRounded className="icon" onClick={onOpenModal} />
                             </div>
-                            <blockquote className="title1" contentEditable onBlur={(ev) => onSave(ev)} onFocus={() => setIsShowColorPicker(true)} suppressContentEditableWarning={true}>
+                            <blockquote className="group-title" contentEditable onBlur={(ev) => onSave(ev)} onFocus={() => setIsShowColorPicker(true)} suppressContentEditableWarning={true}>
                                 {isShowColorPicker && <BsFillCircleFill onClick={onShowPalette} />}
                                 <h4 data-title={group.title}>{group.title}</h4>
                             </blockquote>

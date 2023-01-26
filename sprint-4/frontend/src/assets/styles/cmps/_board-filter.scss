@@ -25,7 +25,7 @@
             cursor: pointer;
             padding: 4px 8px;
             transition: .4s;
-
+            white-space: nowrap;
             &:hover {
                 background-color: $primary-hover-color;
                 border-top-left-radius: 5px;
@@ -98,7 +98,7 @@
         color: $primary-text-color;
         background-color: $app-bg;
         cursor: pointer;
-
+        white-space: nowrap;
         &:hover {
             background-color: $workspace-hover;
         }
@@ -121,7 +121,12 @@
             &:focus-visible {
                 cursor: text;
                 outline: none;
-                width: 180px;
+                width: 140px;
+                @include for-mobile-layout(){
+                    &{
+                        width: 120px;
+                    }
+                }
             }
 
         }

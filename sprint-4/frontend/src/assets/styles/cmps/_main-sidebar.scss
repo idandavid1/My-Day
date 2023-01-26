@@ -24,12 +24,17 @@
         }
     }
 
-    .guest-img {
+    .logged-user-img {
         height: 44px;
         width: 44px;
         border-radius: 50%;
         border: 1.6px solid white;
         cursor: pointer;
+        transition: transform .2s;
+
+        &:hover {
+            transform:  scale(.9);
+        }
     }
 
     .middle-div {
@@ -60,6 +65,7 @@
             .triangle-icon {
                 position: absolute;
                 color: $sidebar-workspace-bg;
+
                 @include for-narrow-layout {
                     & {
                         left: 36px;
