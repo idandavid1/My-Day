@@ -20,7 +20,7 @@ export function GroupPreview({ group, board, idx }) {
     const taskRef = useRef()
     const [isMainCheckbox, setIsMainCheckbox] = useState(false)
     const [selectedTasks, setSelectedTasks] = useState([])
-    const [isCheckBoxActionDone, setIsCheckBoxActionDone] = useState(null)
+    const [isCheckBoxActionDone, setIsCheckBoxActionDone] = useState({isDone: false})
 
     function onOpenModal() {
         setIsModalOpen(!isModalOpen)
@@ -190,7 +190,7 @@ export function GroupPreview({ group, board, idx }) {
                                         <div className="sticky-div titles flex" style={{ borderColor: group.color }}>
                                         <div className="hidden"></div>
                                             <div className="check-box"  >
-                                                <input type="checkbox" onClick={() => setIsMainCheckbox(!isMainCheckbox)} />
+                                                <input type="checkbox" checked={isMainCheckbox} onClick={() => setIsMainCheckbox(!isMainCheckbox)} />
                                             </div>
                                             <div className="task title">Task</div>
                                         </div>
@@ -272,6 +272,6 @@ export function GroupPreview({ group, board, idx }) {
                 </div>
             }}
         </Draggable>
-        {selectedTasks.length > 0 && <TaskToolsModal board={board} tasks={selectedTasks} group={group} setSelectedTasks={setSelectedTasks} setIsCheckBoxActionDone={setIsCheckBoxActionDone}/>}
+        {selectedTasks.length > 0 && <TaskToolsModal board={board} tasks={selectedTasks} group={group} setSelectedTasks={setSelectedTasks} setIsCheckBoxActionDone={setIsCheckBoxActionDone} setIsMainCheckbox={setIsMainCheckbox}/>}
     </ul >
 }

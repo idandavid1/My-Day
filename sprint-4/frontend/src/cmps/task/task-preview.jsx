@@ -21,15 +21,19 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
-    const [isClick, setIsClick] = useState(isCheckBoxActionDone)
+    const [isClick, setIsClick] = useState(false)
     useEffectUpdate(() => {
-        setIsClick(isMainCheckbox)
-        handleCheckboxChange(task)
+        if (!isCheckBoxActionDone.isDone){
+            setIsClick(isMainCheckbox)
+            handleCheckboxChange(task)
+        } 
     }, [isMainCheckbox])
 
     useEffectUpdate(() => {
-        setIsClick(isCheckBoxActionDone)
-        setIsCheckBoxActionDone(null)
+        if(isCheckBoxActionDone.isDone) {
+            setIsClick(false)
+            setIsCheckBoxActionDone({isDone: false})
+        } 
     }, [isCheckBoxActionDone])
 
     async function updateTask(cmpType, data, activity) {

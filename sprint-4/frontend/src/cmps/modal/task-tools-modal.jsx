@@ -5,7 +5,7 @@ import { BsArrowRightCircle } from "react-icons/bs"
 import { BsFillCircleFill } from 'react-icons/bs'
 import { duplicateTask, updateGroupAction } from "../../store/board.actions"
 
-export function TaskToolsModal({ tasks, group, board, setSelectedTasks, setIsCheckBoxActionDone }) {
+export function TaskToolsModal({ tasks, group, board, setSelectedTasks, setIsCheckBoxActionDone, setIsMainCheckbox }) {
     let _ = require('lodash')
 
     async function onRemoveTasks() {
@@ -16,7 +16,8 @@ export function TaskToolsModal({ tasks, group, board, setSelectedTasks, setIsChe
                 updateGroupAction(board, group)
             })
             setSelectedTasks([])
-            setIsCheckBoxActionDone(false)
+            setIsCheckBoxActionDone({isDone: true})
+            setIsMainCheckbox(false)
         } catch (err) {
             console.error(err)
         }
@@ -28,7 +29,8 @@ export function TaskToolsModal({ tasks, group, board, setSelectedTasks, setIsChe
                 duplicateTask(board, group, task)
             })
             setSelectedTasks([])
-            setIsCheckBoxActionDone(false)
+            setIsCheckBoxActionDone({isDone: true})
+            setIsMainCheckbox(false)
         } catch (err) {
             console.log(err)
         }
