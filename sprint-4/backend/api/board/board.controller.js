@@ -20,7 +20,7 @@ async function getBoards(req, res) {
 
 async function getBoardById(req, res) {
   try {
-    const boardId = req.params.id
+    const boardId = req.params.boardId
     const board = await boardService.getById(boardId)
     res.json(board)
   } catch (err) {
@@ -55,12 +55,36 @@ async function updateBoard(req, res) {
 
 async function removeBoard(req, res) {
   try {
-    const boardId = req.params.id
+    const boardId = req.params.boardId
     const removedId = await boardService.remove(boardId)
     res.send(removedId)
   } catch (err) {
     logger.error('Failed to remove board', err)
     res.status(500).send({ err: 'Failed to remove board' })
+  }
+}
+
+async function updateTask(req, res) {
+  try {
+    const task = req.body
+    const {boardId, groupId, taskId} = req.params
+    const taskToSend = await boardService.updateTask(boardId, groupId, taskId, task)
+    res.send(taskToSend)
+  } catch (err) {
+    logger.error('Failed to update task', err)
+    res.status(500).send({ err: 'Failed to update task' })
+  }
+}
+
+async function updateGroup(req, res) {
+  try {
+    const group = req.body
+    const {boardId, groupId} = req.params
+    const groupToSend = await boardService.updateGroup(boardId, groupId, group)
+    res.send(groupToSend)
+  } catch (err) {
+    logger.error('Failed to update group', err)
+    res.status(500).send({ err: 'Failed to update group' })
   }
 }
 
@@ -102,4 +126,6 @@ module.exports = {
   addBoard,
   updateBoard,
   removeBoard,
+  updateTask,
+  updateGroup
 }
