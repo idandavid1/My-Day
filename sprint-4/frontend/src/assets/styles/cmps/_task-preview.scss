@@ -58,6 +58,7 @@
     .task-title {
         width: $cell-width-task;
         display: flex;
+        align-items: center;
         justify-content: space-between;
         cursor: pointer;
 
@@ -66,6 +67,10 @@
                 opacity: 1;
             }
         }
+        blockquote {
+            height: 70%;
+        }
+
 
         .open-task-details {
             opacity: 0;
@@ -138,6 +143,9 @@
 
         &:focus-visible {
             outline: 1px solid $board-btn;
+        }
+        &:hover{
+            outline: 1px solid darken($border-color, 20%);
         }
     }
 

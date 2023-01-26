@@ -140,25 +140,25 @@ export function GroupPreview({ group, board, idx }) {
     async function handleCheckboxChange(task) {
         try {
             const activity = boardService.getEmptyActivity()
-            activity.task = {id: task.id, title: task.title}
+            activity.task = { id: task.id, title: task.title }
             activity.action = 'check'
-            if (selectedTasks.includes(task) && isMainCheckbox) return 
+            if (selectedTasks.includes(task) && isMainCheckbox) return
             if (selectedTasks.includes(task)) {
                 selectedTasks.splice(selectedTasks.indexOf(task), 1)
                 setSelectedTasks((selectedTasks) => ([...selectedTasks]))
                 activity.from = true
                 activity.to = false
-                addActivity(board, activity) 
+                addActivity(board, activity)
                 return
             }
             activity.to = true
             activity.from = false
-            addActivity(board, activity) 
+            addActivity(board, activity)
             setSelectedTasks((prevTasks) => ([...prevTasks, task]))
         } catch (err) {
             console.log('err:', err)
         }
-        
+
     }
 
     return <ul className="group-preview" >
@@ -172,14 +172,16 @@ export function GroupPreview({ group, board, idx }) {
                     {...provided.draggableProps}>
                     <div {...provided.dragHandleProps} className="group-header" style={{ color: group.color }}>
                         <div className="group-header-title">
-                        <MdKeyboardArrowDown className="arrow-icon" />
+                            <MdKeyboardArrowDown className="arrow-icon" />
                             <div className="group-menu">
                                 <BiDotsHorizontalRounded className="icon" onClick={onOpenModal} />
                             </div>
-                            <blockquote className="group-title" contentEditable onBlur={(ev) => onSave(ev)} onFocus={() => setIsShowColorPicker(true)} suppressContentEditableWarning={true}>
+                            <div className={`group-title-info ${isShowColorPicker ? 'showBorder' : ''} `} onFocus={() => setIsShowColorPicker(true)}>
                                 {isShowColorPicker && <BsFillCircleFill onClick={onShowPalette} />}
-                                <h4 data-title={group.title}>{group.title}</h4>
-                            </blockquote>
+                                <blockquote className="group-title" contentEditable onBlur={(ev) => onSave(ev)} suppressContentEditableWarning={true}>
+                                    <h4 data-title={group.title}>{group.title}</h4>
+                                </blockquote>
+                            </div>
                         </div>
                     </div>
                     <div className="group-preview-content" >
@@ -188,7 +190,7 @@ export function GroupPreview({ group, board, idx }) {
                                 {(droppableProvided) => {
                                     return <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps} className='title-container'>
                                         <div className="sticky-div titles flex" style={{ borderColor: group.color }}>
-                                        <div className="hidden"></div>
+                                            <div className="hidden"></div>
                                             <div className="check-box"  >
                                                 <input type="checkbox" onClick={() => setIsMainCheckbox(!isMainCheckbox)} />
                                             </div>
@@ -226,7 +228,7 @@ export function GroupPreview({ group, board, idx }) {
                                                 <Draggable key={task.id} draggableId={task.id} index={idx}>
                                                     {(provided) => {
                                                         return <li ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
-                                                            <TaskPreview task={task} group={group} board={board} handleCheckboxChange={handleCheckboxChange} isMainCheckbox={isMainCheckbox} isCheckBoxActionDone={isCheckBoxActionDone} setIsCheckBoxActionDone={setIsCheckBoxActionDone}/>
+                                                            <TaskPreview task={task} group={group} board={board} handleCheckboxChange={handleCheckboxChange} isMainCheckbox={isMainCheckbox} isCheckBoxActionDone={isCheckBoxActionDone} setIsCheckBoxActionDone={setIsCheckBoxActionDone} />
                                                         </li>
                                                     }}
                                                 </Draggable>
@@ -251,27 +253,30 @@ export function GroupPreview({ group, board, idx }) {
                                         onBlur={onAddTask} />
                                 </form>
                             </div>
-                               <div className="empty-div"></div>     
-                            </div> 
+                            <div className="empty-div"></div>
+                        </div>
                         <div className="statistic flex">
                             <div className="sticky-container">
-                            <div className="hidden"></div>
+                                <div className="hidden"></div>
                             </div>
-                            {board.cmpsOrder.map((cmp, idx) => {
-                                return (
-                                    <div key={idx} className={`title ${idx === 0 ? ' first ' : ''}${cmp}`}>
-                                        {getStatisticsResult(cmp).map((span, idx) => {
-                                            return <span key={idx} style={span} ></span>
-                                        })}
-                                    </div>
-                                )
-                            })}
+                            <div className="statistic-container flex">
+
+                                {board.cmpsOrder.map((cmp, idx) => {
+                                    return (
+                                        <div key={idx} className={`title ${idx === 0 ? ' first ' : ''}${cmp}`}>
+                                            {getStatisticsResult(cmp).map((span, idx) => {
+                                                return <span key={idx} style={span} ></span>
+                                            })}
+                                        </div>
+                                    )
+                                })}
+                            </div>
                             <div className="empty-div"></div>
                         </div>
                     </div>
                 </div>
             }}
         </Draggable>
-        {selectedTasks.length > 0 && <TaskToolsModal board={board} tasks={selectedTasks} group={group} setSelectedTasks={setSelectedTasks} setIsCheckBoxActionDone={setIsCheckBoxActionDone}/>}
+        {selectedTasks.length > 0 && <TaskToolsModal board={board} tasks={selectedTasks} group={group} setSelectedTasks={setSelectedTasks} setIsCheckBoxActionDone={setIsCheckBoxActionDone} />}
     </ul >
 }

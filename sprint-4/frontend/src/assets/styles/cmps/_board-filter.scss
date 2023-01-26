@@ -11,7 +11,30 @@
         display: flex;
         align-items: center;
         height: 32px;
-        gap: 5px;
+    }
+
+    .board-tools {
+        >* {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            color: $workspace-icon-color;
+            height: 100%;
+            padding: 0 8px;
+        cursor: pointer;
+
+
+            &:hover {
+                border-radius: 4px;
+                background-color: $workspace-hover;
+            }
+
+            .icon {
+                font-size: 18px;
+                color: $workspace-icon-color;
+
+            }
+        }
     }
 
     .add-btn {
@@ -26,6 +49,7 @@
             padding: 4px 8px;
             transition: .4s;
             white-space: nowrap;
+
             &:hover {
                 background-color: $primary-hover-color;
                 border-top-left-radius: 5px;
@@ -97,8 +121,10 @@
         border-radius: 4px;
         color: $primary-text-color;
         background-color: $app-bg;
-        cursor: pointer;
         white-space: nowrap;
+        padding: 0;
+        margin-left: 3px;
+
         &:hover {
             background-color: $workspace-hover;
         }
@@ -115,52 +141,28 @@
 
             border: none;
             background-color: inherit;
-            padding: 5px;
-            width: 60px;
+            width: 58px;
 
             &:focus-visible {
                 cursor: text;
                 outline: none;
                 width: 140px;
-                @include for-mobile-layout(){
-                    &{
+
+                @include for-mobile-layout() {
+                    & {
                         width: 120px;
                     }
                 }
             }
-
+            
+        }
+        .icon{
+            margin-left: 2px;
         }
 
-        .icon {
-            margin-left: 10px;
-        }
     }
 
     .person-btn {
-        color: $primary-text-color;
-        background-color: $app-bg;
-        display: flex;
-        align-items: center;
-        border-radius: 4px;
-
-        &:hover {
-            background-color: $workspace-hover;
-        }
-    }
-
-    .filter-btn {
-        color: $primary-text-color;
-        background-color: $app-bg;
-        display: flex;
-        align-items: center;
-        border-radius: 4px;
-
-        &:hover {
-            background-color: $workspace-hover;
-        }
-    }
-
-    .sort-btn {
         color: $primary-text-color;
         background-color: $app-bg;
         display: flex;
@@ -177,16 +179,6 @@
         background-color: $app-bg;
         display: flex;
         align-items: center;
-        border-radius: 4px;
-
-        &:hover {
-            background-color: $workspace-hover;
-        }
-    }
-
-    .more-btn {
-        color: $primary-text-color;
-        background-color: $app-bg;
         border-radius: 4px;
 
         &:hover {
