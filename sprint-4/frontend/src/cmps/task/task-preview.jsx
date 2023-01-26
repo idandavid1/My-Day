@@ -15,11 +15,9 @@ import { utilService } from "../../services/util.service"
 import { boardService } from "../../services/board.service"
 import { HiOutlineChatBubbleOvalLeft } from 'react-icons/hi2'
 import { useEffectUpdate } from "../../customHooks/useEffectUpdate"
-import { socketService, SOCKET_EMIT_SEND_UPDATE_TASK, SOCKET_EMIT_SET_TOPIC, SOCKET_EVENT_ADD_UPDATE_TASK } from "../../services/socket.service"
 
 export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCheckbox, isCheckBoxActionDone, setIsCheckBoxActionDone }) {
     const elTaskPreview = useRef(null)
-    const [currTask, setCurrTask] = useState(task)
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
@@ -34,21 +32,10 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
         setIsCheckBoxActionDone(null)
     }, [isCheckBoxActionDone])
 
-    useEffect(() => {
-        socketService.emit(SOCKET_EMIT_SET_TOPIC, task._id)
-        socketService.on(SOCKET_EVENT_ADD_UPDATE_TASK , setCurrTask)
-
-        return () => {
-            socketService.off(SOCKET_EVENT_ADD_UPDATE_TASK, setCurrTask)
-        }
-    }, [])
-
     async function updateTask(cmpType, data, activity) {
-        currTask[cmpType] = data
+        task[cmpType] = data
         try {
             await updateTaskAction(board, group.id, task, activity)
-            socketService.emit(SOCKET_EMIT_SEND_UPDATE_TASK, currTask)
-            setCurrTask(currTask)
         } catch (err) {
             console.log(err)
         }
@@ -56,10 +43,10 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
 
     async function onUpdateTaskTitle(ev) {
         const value = ev.target.innerText
-        currTask.title = value
+        task.title = value
         try {
             elTaskPreview.current.classList.toggle('on-typing')
-            await updateTaskAction(board, group.id, currTask)
+            await updateTaskAction(board, group.id, task)
         } catch (err) {
             console.log('Failed to save')
         }
@@ -83,7 +70,7 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
 
     async function onDuplicateTask() {
         try {
-            duplicateTask(board, group, currTask)
+            duplicateTask(board, group, task)
             setIsTaskModalOpen(false)
         } catch (err) {
             console.log(err)
@@ -107,29 +94,29 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
     return (
         <section className={`task-preview ${isTaskModalOpen ? ' modal-open' : ''}`} ref={elTaskPreview}>
             <div className="sticky-div" style={{ borderColor: group.color }}>
-                {isTaskModalOpen && <TaskMenuModal taskId={currTask.id} onRemoveTask={onRemoveTask} onDuplicateTask={onDuplicateTask}
+                {isTaskModalOpen && <TaskMenuModal taskId={task.id} onRemoveTask={onRemoveTask} onDuplicateTask={onDuplicateTask}
                     onOpenModal={onOpenModal} onCreateNewTaskBelow={onCreateNewTaskBelow} />}
                 <div className="task-menu">
                     <BiDotsHorizontalRounded className="icon" onClick={() => setIsTaskModalOpen(!isTaskModalOpen)} />
                 </div>
                 <div className="check-box">
                     <input type="checkbox" checked={isClick}
-                        onChange={() => handleCheckboxChange(currTask)} onClick={() => setIsClick(!isClick)} />
+                        onChange={() => handleCheckboxChange(task)} onClick={() => setIsClick(!isClick)} />
                 </div>
                 <div className="task-title picker" onClick={() => elTaskPreview.current.classList.toggle('on-typing')}>
                     <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
-                        <span>{currTask.title}</span>
+                        <span>{task.title}</span>
                     </blockquote>
                     <div className="open-task-details" onClick={onOpenModal}>
                         <TbArrowsDiagonal />
                         <span>Open</span>
                     </div>
                     <div onClick={onOpenModal} className="chat-icon">
-                        {currTask.comments.length > 0 && <div>
+                        {task.comments.length > 0 && <div>
                             <HiOutlineChatBubbleOvalLeft className="comment-chat" />
-                            <div className="count-comment">{currTask.comments.length}</div>
+                            <div className="count-comment">{task.comments.length}</div>
                         </div>}
-                        {currTask.comments.length === 0 && <BiMessageRoundedAdd className="icon" />}
+                        {task.comments.length === 0 && <BiMessageRoundedAdd className="icon" />}
                     </div>
                 </div>
             </div>
@@ -138,7 +125,7 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
                     <DynamicCmp
                         cmp={cmp}
                         key={idx}
-                        info={currTask}
+                        info={task}
                         onUpdate={updateTask}
                     />)
             })}

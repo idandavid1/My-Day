@@ -3,8 +3,8 @@ import { userService } from './user.service'
 
 export const SOCKET_EVENT_ADD_MSG = 'chat-add-msg'
 export const SOCKET_EMIT_SEND_MSG = 'chat-send-msg'
-export const SOCKET_EVENT_ADD_UPDATE_TASK = 'task-add-update'
-export const SOCKET_EMIT_SEND_UPDATE_TASK = 'task-send-update'
+export const SOCKET_EVENT_ADD_UPDATE_BOARD = 'board-add-update'
+export const SOCKET_EMIT_SEND_UPDATE_BOARD = 'board-send-update'
 export const SOCKET_EMIT_SET_TOPIC = 'chat-set-topic'
 export const SOCKET_EMIT_USER_WATCH = 'user-watch'
 

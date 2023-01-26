@@ -26,9 +26,9 @@ function setupSocketAPI(http) {
             logger.info(`New chat msg from socket [id: ${socket.id}], emitting to topic ${socket.myTopic}`)
             socket.broadcast.to(socket.myTopic).emit('chat-add-msg', msg)
         })
-        socket.on('task-send-update', task => {
+        socket.on('board-send-update', board => {
             logger.info(`New task update from socket [id: ${socket.id}], emitting to topic ${socket.myTopic}`)
-            socket.broadcast.to(socket.myTopic).emit('task-add-update', task)
+            socket.broadcast.to(socket.myTopic).emit('board-add-update', board)
         })
         socket.on('set-user-socket', userId => {
             logger.info(`Setting socket.userId = ${userId} for socket [id: ${socket.id}]`)

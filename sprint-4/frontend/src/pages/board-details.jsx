@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { loadBoard, loadBoards } from "../store/board.actions"
+import { loadBoard, loadBoards, saveBoard } from "../store/board.actions"
 
 import { BoardHeader } from "../cmps/board/board-header"
 import { MainSidebar } from "../cmps/sidebar/main-sidebar"
@@ -10,6 +10,7 @@ import { GroupList } from '../cmps/board/group-list'
 import { useParams, useSearchParams } from 'react-router-dom'
 import { BoardModal } from '../cmps/board/board-modal'
 import { boardService } from '../services/board.service'
+import { socketService, SOCKET_EMIT_SET_TOPIC, SOCKET_EVENT_ADD_UPDATE_BOARD } from '../services/socket.service'
 
 export function BoardDetails() {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)
@@ -23,6 +24,15 @@ export function BoardDetails() {
     useEffect(() => {
         loadBoard(boardId, queryFilterBy)
         if (!boards.length) loadBoards()
+    }, [])
+
+    useEffect(() => {
+        socketService.emit(SOCKET_EMIT_SET_TOPIC, boardId)
+        socketService.on(SOCKET_EVENT_ADD_UPDATE_BOARD , saveBoard)
+
+        return () => {
+            socketService.off(SOCKET_EVENT_ADD_UPDATE_BOARD, saveBoard)
+        }
     }, [])
 
     function onSetFilter(filterBy) {
