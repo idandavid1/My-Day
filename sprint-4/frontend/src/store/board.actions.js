@@ -3,6 +3,7 @@ import { boardService } from '../services/board.service.js'
 import { store } from './store.js'
 import { SET_FILTER_BOARD, SET_BOARDS, SET_BOARD, REMOVE_BOARD, ADD_BOARD, UPDATE_BOARD, SET_FILTER, SET_MODAL, REMOVE_GROUP } from "./board.reducer.js"
 import { utilService } from '../services/util.service.js'
+import { socketService, SOCKET_EMIT_SEND_UPDATE_BOARD } from '../services/socket.service.js'
 
 export async function loadBoards(filterBy) {
     try {
@@ -174,6 +175,7 @@ export async function updateTaskAction(filteredBoard, groupId, saveTask, activit
             addActivity(filteredBoard, activity)
         }
         const board = await boardService.updateTask(filteredBoard._id, groupId, saveTask)
+        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD, board)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
     } catch (err) {
