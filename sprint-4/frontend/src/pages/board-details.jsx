@@ -11,6 +11,7 @@ import { useParams, useSearchParams } from 'react-router-dom'
 import { BoardModal } from '../cmps/board/board-modal'
 import { boardService } from '../services/board.service'
 import { socketService, SOCKET_EMIT_SET_TOPIC, SOCKET_EVENT_ADD_UPDATE_BOARD } from '../services/socket.service'
+import { CreateBoard } from '../cmps/modal/craete-board'
 
 export function BoardDetails() {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)
@@ -18,6 +19,7 @@ export function BoardDetails() {
     const [isOpen, setIsOpen] = useState(false)
     const [isStarredOpen, setIsStarredOpen] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
     const queryFilterBy = boardService.getFilterFromSearchParams(searchParams)
     const { boardId } = useParams()
 
@@ -45,13 +47,14 @@ export function BoardDetails() {
         <section className="board-details flex">
             <div className='sidebar flex'>
                 <MainSidebar isOpen={isOpen} setIsOpen={setIsOpen} setIsStarredOpen={setIsStarredOpen}/>
-                <WorkspaceSidebar isOpen={isOpen} setIsOpen={setIsOpen} isStarredOpen={isStarredOpen} board={board}/>
+                <WorkspaceSidebar isOpen={isOpen} setIsOpen={setIsOpen} isStarredOpen={isStarredOpen} board={board} setIsCreateModalOpen={setIsCreateModalOpen}/>
             </div>
             <main className="board-main" >
                 <BoardHeader board={board} onSetFilter={onSetFilter} isStarredOpen={isStarredOpen}/>
                 <GroupList board={board} />
                 <BoardModal />
             </main>
+            {isCreateModalOpen && <CreateBoard setIsModalOpen={setIsCreateModalOpen}/>}
         </section>
     )
 }
