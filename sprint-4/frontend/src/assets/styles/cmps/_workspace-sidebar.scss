@@ -129,6 +129,13 @@
         .icon {
             width: 19px;
             height: 19px;
+            color: $primary-text-color;
+            font-weight: 400;
+        }
+
+        span {
+            color: $primary-text-color ;
+            font-weight: 400;
         }
 
         >* {
@@ -160,6 +167,12 @@
             input {
                 border: none;
                 background-color: inherit;
+
+
+                &::-webkit-input-placeholder {
+                    color: $primary-text-color ;
+                    font-weight: 400;
+                }
 
                 &:focus-visible {
                     outline: none;
@@ -201,7 +214,7 @@
 
     .toggle-workspace {
         position: absolute;
-        padding: 5px 7px 5px 5px;
+        padding: 4px;
         border-radius: 20px;
         border: 1px solid #c3c6d4;
         background-color: #fff;
@@ -226,11 +239,13 @@
 .workspace-sidebar {
     &.open {
         .toggle-workspace {
-            
+
             &:hover {
                 padding: unset;
-                padding: 5px 7px 5px 5px;
-                padding-right: 14px;
+                padding: 4px;
+                padding-right: 16px;
+                left: auto;
+                right: -12px;
             }
         }
     }
