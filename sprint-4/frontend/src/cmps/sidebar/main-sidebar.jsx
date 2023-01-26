@@ -3,11 +3,10 @@ import { useState } from 'react'
 import { userService } from '../../services/user.service'
 
 import { AiOutlineStar } from 'react-icons/ai'
-import { CgMenuGridO } from 'react-icons/cg'
 import { VscTriangleLeft } from 'react-icons/vsc'
 import { useSelector } from 'react-redux'
 
-const logoHomePage = require('../../assets/img/logo.png')
+const logoHomePage = require('../../assets/img/icon.png')
 const guest = require('../../assets/img/guest.png')
 
 export function MainSidebar({ setIsStarredOpen }) {

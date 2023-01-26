@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { HiOutlineArrowRight } from 'react-icons/hi'
 
-const logo = require('../assets/img/monday-logo.webp')
+const logo = require('../assets/img/logo.png')
 
 export function HomeHeader({ boards }) {
     return (
