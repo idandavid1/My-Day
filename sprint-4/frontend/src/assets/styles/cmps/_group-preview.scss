@@ -53,13 +53,41 @@
             border-bottom: 1px solid darken($border-color , 20%);
             width: 100%;
 
-            span {
+            .normal {
                 display: flex;
                 align-items: center;
                 padding: 3px $spacing-xs;
                 margin-left: $spacing-xs;
                 border-radius: $spacing-xs;
                 cursor: pointer;
+                position: relative;
+
+                .close {
+                    transition: transform .2s ease, color .1s ease;
+                    transform: rotate(45deg);
+                    color: $primary-hover-color;
+                }
+
+                &:hover {
+                    background-color: $layout-border-color;
+                }
+            }
+
+            .active {
+                display: flex;
+                align-items: center;
+                padding: 3px $spacing-xs;
+                margin-left: $spacing-xs;
+                border-radius: $spacing-xs;
+                cursor: pointer;
+                background-color: $layout-border-color;
+                position: relative;
+
+                .close {
+                    transition: transform .2s ease, color .1s ease;
+                    transform: rotate(45deg);
+                    color: $primary-hover-color;
+                }
 
                 &:hover {
                     background-color: $layout-border-color;

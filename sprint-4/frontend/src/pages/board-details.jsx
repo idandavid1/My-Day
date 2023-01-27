@@ -11,6 +11,7 @@ import { useParams, useSearchParams } from 'react-router-dom'
 import { BoardModal } from '../cmps/board/board-modal'
 import { boardService } from '../services/board.service'
 import { socketService, SOCKET_EMIT_SET_TOPIC, SOCKET_EVENT_ADD_UPDATE_BOARD } from '../services/socket.service'
+import { LoginLogoutModal } from '../cmps/modal/login-logout-modal'
 
 export function BoardDetails() {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)
@@ -20,6 +21,7 @@ export function BoardDetails() {
     const [searchParams, setSearchParams] = useSearchParams()
     const queryFilterBy = boardService.getFilterFromSearchParams(searchParams)
     const { boardId } = useParams()
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
 
     useEffect(() => {
         loadBoard(boardId, queryFilterBy)
@@ -28,7 +30,7 @@ export function BoardDetails() {
 
     useEffect(() => {
         socketService.emit(SOCKET_EMIT_SET_TOPIC, boardId)
-        socketService.on(SOCKET_EVENT_ADD_UPDATE_BOARD , loadSocketBoard)
+        socketService.on(SOCKET_EVENT_ADD_UPDATE_BOARD, loadSocketBoard)
 
         return () => {
             socketService.off(SOCKET_EVENT_ADD_UPDATE_BOARD, loadSocketBoard)
@@ -44,11 +46,12 @@ export function BoardDetails() {
     return (
         <section className="board-details flex">
             <div className='sidebar flex'>
-                <MainSidebar isOpen={isOpen} setIsOpen={setIsOpen} setIsStarredOpen={setIsStarredOpen}/>
-                <WorkspaceSidebar isOpen={isOpen} setIsOpen={setIsOpen} isStarredOpen={isStarredOpen} board={board}/>
+                <MainSidebar isOpen={isOpen} setIsOpen={setIsOpen} setIsStarredOpen={setIsStarredOpen} setIsLoginModalOpen={setIsLoginModalOpen} />
+                <WorkspaceSidebar isOpen={isOpen} setIsOpen={setIsOpen} isStarredOpen={isStarredOpen} board={board} />
+                {/* {isLoginModalOpen && <LoginLogoutModal />} */}
             </div>
             <main className="board-main" >
-                <BoardHeader board={board} onSetFilter={onSetFilter} isStarredOpen={isStarredOpen}/>
+                <BoardHeader board={board} onSetFilter={onSetFilter} isStarredOpen={isStarredOpen} />
                 <GroupList board={board} />
                 <BoardModal />
             </main>

@@ -19,16 +19,6 @@ export function HomePage() {
         <section className='home-page'>
             <HomeHeader boards={boards} />
             <div className='home-content layout'>
-                <section className="shooting-stars">
-                    <span className="star"></span>
-                    <span className="star"></span>
-                    <span className="star"></span>
-                    <span className="star"></span>
-                    <span className="star"></span>
-                    <span className="star"></span>
-                    <span className="star"></span>
-                    <span className="star"></span>
-                </section>
                 <div className="headers-container">
                     <h1>A platform built for a
                         <br></br>
@@ -40,9 +30,7 @@ export function HomePage() {
                     <p className="btn-text">No credit card needed <BsStars /> Unlimited time on Free Plan</p>
                 </div>
             </div>
-            {/* <div className="home-img-div full">
-            </div> */}
-                <img className="bottom-img" src={homeImg} />
+            <img className="bottom-img" src={homeImg} />
         </section >
     )
 }

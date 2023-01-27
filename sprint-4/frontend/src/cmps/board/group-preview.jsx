@@ -12,6 +12,7 @@ import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { useRef } from "react"
 import { TaskToolsModal } from "../modal/task-tools-modal"
+import { AddColumnModal } from "../modal/add-column-modal"
 
 export function GroupPreview({ group, board, idx }) {
     const [taskToEdit, setTaskToEdit] = useState(boardService.getEmptyTask())
@@ -20,7 +21,9 @@ export function GroupPreview({ group, board, idx }) {
     const taskRef = useRef()
     const [isMainCheckbox, setIsMainCheckbox] = useState(false)
     const [selectedTasks, setSelectedTasks] = useState([])
-    const [isCheckBoxActionDone, setIsCheckBoxActionDone] = useState({isDone: false})
+    const [isCheckBoxActionDone, setIsCheckBoxActionDone] = useState({ isDone: false })
+    const [isPlus, setIsPlus] = useState(true)
+    const [isActive, setIsActive] = useState(false)
 
     function onOpenModal() {
         setIsModalOpen(!isModalOpen)
@@ -210,10 +213,11 @@ export function GroupPreview({ group, board, idx }) {
                                             </Draggable>
                                         )}
                                         <div className="add-picker-task">
-                                            <span>
-                                                <AiOutlinePlus />
+                                            <span onClick={() => setIsActive(!isActive)} className={isActive ? 'active' : 'normal'}>
+                                                <AiOutlinePlus onClick={() => setIsPlus(!isPlus)} className={isPlus ? 'plus' : 'close'} />
+                                                {!isPlus && <AddColumnModal />}
                                             </span>
-                                            <div className="empty-div"></div>
+                                            {/* <div className="empty-div"></div> */}
                                         </div>
                                     </div>
                                 }}
@@ -278,6 +282,6 @@ export function GroupPreview({ group, board, idx }) {
             }}
         </Draggable>
         {/* {selectedTasks.length > 0 && <TaskToolsModal board={board} tasks={selectedTasks} group={group} setSelectedTasks={setSelectedTasks} setIsCheckBoxActionDone={setIsCheckBoxActionDone} />} */}
-        {selectedTasks.length > 0 && <TaskToolsModal board={board} tasks={selectedTasks} group={group} setSelectedTasks={setSelectedTasks} setIsCheckBoxActionDone={setIsCheckBoxActionDone} setIsMainCheckbox={setIsMainCheckbox}/>}
+        {selectedTasks.length > 0 && <TaskToolsModal board={board} tasks={selectedTasks} group={group} setSelectedTasks={setSelectedTasks} setIsCheckBoxActionDone={setIsCheckBoxActionDone} setIsMainCheckbox={setIsMainCheckbox} />}
     </ul >
 }

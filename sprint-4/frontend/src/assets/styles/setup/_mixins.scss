@@ -132,7 +132,7 @@
 }
 
 @mixin login-logout-modal-position() {
-  position: absolute;
+  position: sticky;
   z-index: 2;
   left: 60px;
   bottom: 15px;

@@ -9,10 +9,9 @@ import { LoginLogoutModal } from '../modal/login-logout-modal'
 const logoHomePage = require('../../assets/img/icon.png')
 const guest = require('../../assets/img/guest.png')
 
-export function MainSidebar({ setIsStarredOpen }) {
+export function MainSidebar({ setIsStarredOpen, setIsLoginModalOpen }) {
     const [iconChoose, setIconChoose] = useState('board')
     const user = useSelector(storeState => storeState.userModule.user)
-    const [isModalOpen, setIsModalOpen] = useState(false)
 
     function onChooseIcon(icon) {
         setIconChoose(icon)
@@ -35,8 +34,8 @@ export function MainSidebar({ setIsStarredOpen }) {
                     {iconChoose === 'starred' && <VscTriangleLeft className="triangle-icon" />}</div>
             </div>
             <div className='bottom'>
-                <img className='logged-user-img' src={user ? user.imgUrl : guest} alt="" onClick={() => setIsModalOpen(!isModalOpen)} />
-                {isModalOpen && <LoginLogoutModal />}
+                <img className='logged-user-img' src={user ? user.imgUrl : guest} alt="" onClick={() => setIsLoginModalOpen(prev => !prev)} />
+               {/* {console.log(setIsloginModalOpen)} */}
             </div>
         </section>
     )
