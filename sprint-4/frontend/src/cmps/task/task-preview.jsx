@@ -15,6 +15,8 @@ import { utilService } from "../../services/util.service"
 import { boardService } from "../../services/board.service"
 import { HiOutlineChatBubbleOvalLeft } from 'react-icons/hi2'
 import { useEffectUpdate } from "../../customHooks/useEffectUpdate"
+import { NumberPicker } from "./number-picker"
+import { FilePicker } from "./file-picker"
 
 export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCheckbox, isCheckBoxActionDone, setIsCheckBoxActionDone }) {
     const elTaskPreview = useRef(null)
@@ -148,6 +150,10 @@ function DynamicCmp({ cmp, info, onUpdate }) {
             return <DueDate info={info} onUpdate={onUpdate} />
         case "priority-picker":
             return <PriorityPicker info={info} onUpdate={onUpdate} />
+        case "number-picker":
+            return <NumberPicker info={info} onUpdate={onUpdate} />
+        case "file-picker":
+            return <FilePicker info={info} onUpdate={onUpdate} />
         default:
             return <p>UNKNOWN {cmp}</p>
     }
