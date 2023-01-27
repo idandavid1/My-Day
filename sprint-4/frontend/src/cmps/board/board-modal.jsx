@@ -16,7 +16,7 @@ import { ActivityPreview } from "../activity-preview"
 import { socketService, SOCKET_EMIT_SEND_MSG, SOCKET_EMIT_SET_TOPIC, SOCKET_EVENT_ADD_MSG } from "../../services/socket.service"
 const noUpdate = require('../../assets/img/empty-update.png')
 
-export function BoardModal() {
+export function BoardModal({ setIsMouseOver }) {
     const [isWriteNewUpdate, setIsWriteNewUpdate] = useState(false)
     const [comment, setComment] = useState(boardService.getEmptyComment())
     const [comments, setComments] = useState([])
@@ -82,11 +82,10 @@ export function BoardModal() {
         try {
             comment.id = utilService.makeId()
             currTask.comments.unshift(comment)
+            socketService.emit(SOCKET_EMIT_SEND_MSG, comment)
             updateTaskAction(board, groupId, currTask)
             setIsWriteNewUpdate(false)
-            socketService.emit(SOCKET_EMIT_SEND_MSG, comment)
             setComment(boardService.getEmptyComment())
-            // setCurrTask(currTask)
         } catch (err) {
             console.log('err:', err)
         }  
@@ -145,7 +144,7 @@ export function BoardModal() {
     }
 
     if (!currTask) return <div></div>
-    return <section className={`board-modal ${isOpen ? 'open' : ''}`}>
+    return <section className={`board-modal ${isOpen ? 'open' : ''}`} onMouseOver={() => setIsMouseOver(true)} onMouseOut={() => setIsMouseOver(false)}>
         <div className="board-modal-header">
             <CgClose className="close-btn" onClick={onCloseModal} />
             <div className="title">

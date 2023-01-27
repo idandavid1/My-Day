@@ -1,6 +1,5 @@
 import { addGroup, addTaskOnFirstGroup } from '../../store/board.actions'
 import { useRef, useState } from 'react'
-import { boardService } from '../../services/board.service'
 import { useEffectUpdate } from '../../customHooks/useEffectUpdate'
 import { utilService } from '../../services/util.service'
 
@@ -11,16 +10,20 @@ import { AiOutlineEyeInvisible } from 'react-icons/ai'
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { CgViewComfortable } from 'react-icons/cg'
 import { BsArrowDownCircle } from 'react-icons/bs'
+import { useSelector } from 'react-redux'
 
 export function BoardFilter({ board, onSetFilter }) {
     const [isShowModal, setIsShowModal] = useState(false)
-    const [filterByToEdit, setFilterByToEdit] = useState(boardService.getDefaultFilterBoard())
+    const filter = useSelector(storeState => storeState.boardModule.filter)
+    const [filterBy, setFilterBy] = useState(filter)
 
     onSetFilter = useRef(utilService.debounce(onSetFilter))
 
     useEffectUpdate(() => {
-        onSetFilter.current(filterByToEdit)
-    }, [filterByToEdit])
+        console.log('filterBy:', filterBy)
+        console.log('filter:', filter)
+        onSetFilter.current(filterBy)
+    }, [filterBy])
 
     function onAddGroup() {
         addGroup(board)
@@ -29,7 +32,7 @@ export function BoardFilter({ board, onSetFilter }) {
 
     function handleChange({ target }) {
         let { value, name: field } = target
-        setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
+        setFilterBy((prevFilter) => ({ ...prevFilter, [field]: value }))
     }
 
     return (<section className="board-filter">
@@ -54,7 +57,7 @@ export function BoardFilter({ board, onSetFilter }) {
                 <TfiSearch className='icon' />
                 <input type="text"
                     name='title'
-                    value={filterByToEdit.title}
+                    value={filterBy.title}
                     placeholder="Search"
                     onChange={handleChange} />
             </div>

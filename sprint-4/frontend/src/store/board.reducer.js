@@ -1,3 +1,4 @@
+import { boardService } from "../services/board.service"
 import { socketService, SOCKET_EMIT_SEND_UPDATE_BOARD } from "../services/socket.service"
 
 export const SET_BOARDS = 'SET_BOARDS'
@@ -16,6 +17,7 @@ const initialState = {
     filteredBoard: null,
     board: null,
     isBoardModalOpen: false,
+    filter: boardService.getDefaultFilterBoard()
 }
 
 export function boardReducer(state = initialState, action) {
@@ -26,7 +28,6 @@ export function boardReducer(state = initialState, action) {
         case SET_BOARD:
             return { ...state, board: {...action.board} }
         case SET_FILTER_BOARD:
-            socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD, action.filteredBoard)
             return { ...state, filteredBoard: {...action.filteredBoard} }
         case REMOVE_BOARD:
             boards = state.boards.filter(board => board._id !== action.boardId)
@@ -40,6 +41,9 @@ export function boardReducer(state = initialState, action) {
         case SET_MODAL:
             return {...state, isBoardModalOpen:action.isOpen}
 
+        case SET_FILTER:
+            return { ...state, filter: action.filter }   
+            
         default:
             return state
     }

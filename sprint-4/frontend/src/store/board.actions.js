@@ -14,9 +14,10 @@ export async function loadBoards(filterBy) {
     }
 }
 
-export async function loadSocketBoard(board) {
+export async function loadSocketBoard(filteredBoard, board) {
     try {
-        store.dispatch({ type: SET_FILTER_BOARD, filteredBoard: board  })
+        store.dispatch({ type: SET_BOARD, board })
+        store.dispatch({ type: SET_FILTER_BOARD, filteredBoard  })
     } catch (err) {
         throw err
     }
@@ -24,10 +25,12 @@ export async function loadSocketBoard(board) {
 
 export async function loadBoard(boardId, filterBy) {
     try {
+        console.log('filterBy:', filterBy)
         const board = await boardService.getById(boardId)
         const filteredBoard = boardService.getFilteredBoard(board, filterBy)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
+        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD,{filteredBoard, board})
     } catch (err) {
         console.log('Had issues loading', err)
         throw err
@@ -64,6 +67,7 @@ export async function updatePickerCmpsOrder(filteredBoard, cmpsOrders) {
         await saveBoard(board)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
+        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD,{filteredBoard, board})
     } catch (err) {
         throw err
     }
@@ -78,6 +82,7 @@ export async function addGroup(filteredBoard) {
         await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
+        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD,{filteredBoard, board})
     } catch (err) {
         throw err
     }
@@ -94,6 +99,7 @@ export async function duplicateGroup(filteredBoard, group) {
         filteredBoard.groups.splice(idx + 1, 0, duplicatedGroup)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
+        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD,{filteredBoard, board})
     } catch (err) {
         throw err
     }
@@ -111,6 +117,7 @@ export async function duplicateTask(filteredBoard, group, task) {
         await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
+        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD,{filteredBoard, board})
     } catch (err) {
         throw err
     }
@@ -127,6 +134,7 @@ export async function addTask(task, group, filteredBoard, activity) {
         await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
+        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD,{filteredBoard, board})
     } catch (err) {
         throw err
     }
@@ -143,6 +151,7 @@ export async function addTaskOnFirstGroup(filteredBoard) {
         await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
+        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD,{filteredBoard, board})
     } catch (err) {
         throw err
     }
@@ -161,6 +170,7 @@ export async function updateGroups(groupId, filteredBoard) {
         await boardService.save(board)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
+        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD,filteredBoard, board)
     } catch (err) {
         throw err
     }
@@ -171,6 +181,7 @@ export async function updateGroupAction(filteredBoard, saveGroup) {
         const board = await boardService.updateGroup(filteredBoard._id, saveGroup)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
+        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD,{filteredBoard, board})
     } catch (err) {
         throw err
     }
@@ -182,6 +193,7 @@ export async function updateTaskAction(filteredBoard, groupId, saveTask, activit
             addActivity(filteredBoard, activity)
         }
         const board = await boardService.updateTask(filteredBoard._id, groupId, saveTask)
+        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD,{filteredBoard, board})
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
     } catch (err) {
@@ -201,6 +213,7 @@ export async function toggleStarred(filteredBoard, isStarred) {
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
         store.dispatch({ type: SET_BOARDS, boards })
+        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD,{filteredBoard, board})
     } catch (err) {
         throw err
     }
@@ -218,8 +231,13 @@ export async function addActivity(filteredBoard, activity) {
         filteredBoard.activities.unshift(activity)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
+        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD,{filteredBoard, board})
     } catch (err) {
         throw err
     }
+}
+
+export function setFilter(filter) {
+    store.dispatch({ type: SET_FILTER, filter })
 }
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { loadBoard, loadBoards, loadSocketBoard } from "../store/board.actions"
+import { loadBoard, loadBoards, loadSocketBoard, setFilter } from "../store/board.actions"
 
 import { BoardHeader } from "../cmps/board/board-header"
 import { MainSidebar } from "../cmps/sidebar/main-sidebar"
@@ -17,13 +17,15 @@ import { CreateBoard } from '../cmps/modal/create-board'
 export function BoardDetails() {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)
     const boards = useSelector(storeState => storeState.boardModule.boards)
+    const isBoardModalOpen = useSelector(storeState => storeState.boardModule.isBoardModalOpen)
     const [isOpen, setIsOpen] = useState(false)
+    const [isMouseOver, setIsMouseOver] = useState(false)
     const [isStarredOpen, setIsStarredOpen] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
     const queryFilterBy = boardService.getFilterFromSearchParams(searchParams)
     const { boardId } = useParams()
-    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+    // const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
 
     useEffect(() => {
         loadBoard(boardId, queryFilterBy)
@@ -42,21 +44,23 @@ export function BoardDetails() {
     function onSetFilter(filterBy) {
         setSearchParams(filterBy)
         loadBoard(boardId, filterBy)
+        setFilter(filterBy)
     }
 
     if (!board) return <div>Loading...</div>
     return (
         <section className="board-details flex">
             <div className='sidebar flex'>
-                <MainSidebar isOpen={isOpen} setIsOpen={setIsOpen} setIsStarredOpen={setIsStarredOpen}/>
-                <WorkspaceSidebar isOpen={isOpen} setIsOpen={setIsOpen} isStarredOpen={isStarredOpen} board={board}/>
+                <MainSidebar isOpen={isOpen} setIsOpen={setIsOpen} setIsStarredOpen={setIsStarredOpen} />
+                <WorkspaceSidebar isOpen={isOpen} setIsOpen={setIsOpen} isStarredOpen={isStarredOpen} board={board} setIsCreateModalOpen={setIsCreateModalOpen}/>
             </div>
             <main className="board-main" >
                 <BoardHeader board={board} onSetFilter={onSetFilter} isStarredOpen={isStarredOpen} />
                 <GroupList board={board} />
-                <BoardModal />
+                <BoardModal setIsMouseOver={setIsMouseOver}/>
             </main>
-            {isCreateModalOpen && <CreateBoard setIsModalOpen={setIsCreateModalOpen}/>}
+            {isCreateModalOpen && <CreateBoard setIsModalOpen={setIsCreateModalOpen} />}
+            {(isCreateModalOpen || (isBoardModalOpen && isMouseOver)) && <div className='dark-screen'></div>}
         </section>
     )
 }
