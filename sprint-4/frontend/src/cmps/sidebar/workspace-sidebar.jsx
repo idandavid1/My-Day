@@ -16,7 +16,6 @@ import { BsFillLightningFill } from 'react-icons/bs'
 import { AiFillHome } from 'react-icons/ai'
 import { BsStarFill } from 'react-icons/bs'
 import star from '../../assets/img/star.gif'
-import { CreateBoard } from '../modal/craete-board'
 
 export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreateModalOpen }) {
     const elSection = useRef(null)
