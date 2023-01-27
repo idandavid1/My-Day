@@ -2,12 +2,14 @@ import { useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 
 import { removeBoard, saveBoard, loadBoard } from "../../store/board.actions"
-
-import { HiOutlineDocumentDuplicate } from 'react-icons/hi'
-import { FiTrash } from 'react-icons/fi'
+import { BoardMenuModal } from "../modal/board-menu-modal"
+import { BiDotsHorizontalRounded } from "react-icons/bi"
+import { useSelector } from "react-redux"
 
 export function BoardPreview({ board }) {
     const [isMouseOver, setIsMouseOver] = useState(false)
+    const [isMenuModalOpen, setIsMenuModalOpen] = useState(false)
+    const boards = useSelector(storeState => storeState.boardModule.boards)
     const { boardId } = useParams()
     const navigate = useNavigate()
 
@@ -18,7 +20,8 @@ export function BoardPreview({ board }) {
 
     async function onRemove(boardId) {
         try {
-            removeBoard(boardId)
+            await removeBoard(boardId)
+            onChangeBoard(boards[0]._id)
         } catch (err) {
             console.log('err:', err)
         }
@@ -43,9 +46,9 @@ export function BoardPreview({ board }) {
                 </svg>
                 <span>{board.title}</span>
             </div>
-            {isMouseOver && <div className='icons'>
-                <HiOutlineDocumentDuplicate onClick={() => onDuplicate(board)} />
-                <FiTrash onClick={() => onRemove(boardId)} />
+            {(isMouseOver || isMenuModalOpen) && <div className={`menu-icon-container ${isMenuModalOpen ? ' active' : ''}`}>
+                <BiDotsHorizontalRounded className="icon" onClick={() => setIsMenuModalOpen(!isMenuModalOpen)}/>
+                {isMenuModalOpen && <BoardMenuModal onRemove={onRemove} onDuplicate={onDuplicate} setIsMenuModalOpen={setIsMenuModalOpen} board={board}/>}
             </div>}
         </section>
     )

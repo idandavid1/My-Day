@@ -1,4 +1,3 @@
-
 import { BsPinAngle } from 'react-icons/bs'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { FiEdit2 } from 'react-icons/fi'

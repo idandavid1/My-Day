@@ -16,28 +16,17 @@ import { BsFillLightningFill } from 'react-icons/bs'
 import { AiFillHome } from 'react-icons/ai'
 import { BsStarFill } from 'react-icons/bs'
 import star from '../../assets/img/star.gif'
+import { CreateBoard } from '../modal/craete-board'
 
-export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen }) {
+export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreateModalOpen }) {
     const elSection = useRef(null)
-
     const [filterByToEdit, setFilterByToEdit] = useState(boardService.getDefaultFilterBoards())
-
     const boards = useSelector(storeState => storeState.boardModule.boards)
 
     useEffect(() => {
         if (isStarredOpen) onLoadBoards()
         else loadBoards(filterByToEdit)
     }, [filterByToEdit, isStarredOpen])
-
-    async function onAddBoard() {
-        try {
-            const newBoard = boardService.getEmptyBoard()
-            await saveBoard(newBoard)
-            loadBoards()
-        } catch (err) {
-            console.log('err:', err)
-        }
-    }
 
     function onToggleWorkspace() {
         setIsOpen((prevIsOpen) => !prevIsOpen)
@@ -82,7 +71,7 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen }) {
                         <IoIosArrowDown className='icon' />
                     </div>
                     <div className='workspace-btns'>
-                        <div onClick={onAddBoard} >
+                        <div onClick={() => setIsCreateModalOpen((prev) => !prev)} >
                             <AiOutlinePlus className='icon' />
                             <span>Add</span>
                         </div>
