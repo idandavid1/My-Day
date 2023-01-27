@@ -24,6 +24,7 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
     const [isClick, setIsClick] = useState(false)
+    
     useEffectUpdate(() => {
         if (!isCheckBoxActionDone.isDone){
             setIsClick(isMainCheckbox)
