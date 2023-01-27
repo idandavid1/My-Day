@@ -43,7 +43,6 @@ export function ActivityPreview({ activity }) {
                 return <FromToPerson activity={activity}/>
             case 'check': 
                 return <FromToCheck activity={activity}/>
-                
             default:
                 break;
         }

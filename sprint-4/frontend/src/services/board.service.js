@@ -35,7 +35,12 @@ function getFilteredBoard(board, filterBy = getDefaultFilterBoard()) {
         groups.forEach(group => {
             group.tasks = group.tasks.filter(task => regex.test(task.title))
         })
-        filteredBoard.groups = groups
+    }
+    if (filterBy.memberId) {
+        const groups = filteredBoard.groups
+        groups.forEach(group => {
+            group.tasks = group.tasks.filter(task => task.memberIds.includes(filterBy.memberId))
+        })
     }
     return filteredBoard
 }

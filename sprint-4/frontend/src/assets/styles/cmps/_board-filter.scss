@@ -11,6 +11,7 @@
         display: flex;
         align-items: center;
         height: 32px;
+        gap: 5px;
     }
 
     .board-tools {
@@ -183,6 +184,21 @@
 
         &:hover {
             background-color: $workspace-hover;
+        }
+    }
+
+    .person-filter {
+        position: relative;
+        border-radius: 4px;
+
+        &.active {
+            background-color: $primary-selected-color;
+        }
+
+        .member-img {
+            height: rem(18px);
+            width: rem(18px);
+            border-radius: 50%;
         }
     }
 
