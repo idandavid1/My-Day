@@ -1,32 +1,21 @@
 import { useSelector } from "react-redux";
-import { boardService } from "../../services/board.service";
-import { loadBoard } from "../../store/board.actions";
 
-export function MemberFilterModal({ setIsModalOpen }) {
+export function MemberFilterModal({ filterBy, setFilterBy }) {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)
-    const filter = useSelector(storeState => storeState.boardModule.filter)
-    const [filterBy, setFilterBy] = useState(filter)
     
-    async function onFilterBoard(memberId) {
-        try {
-            const filter = boardService.getDefaultFilterBoard()
-            filter.memberId = memberId
-            loadBoard(board._id, filter)
-            // setIsModalOpen(false)
-        } catch (err) {
-            console.log('err:', err)
-        }
+    function onFilterBoard(memberId) {
+        filterBy.memberId = memberId
+        setFilterBy({...filterBy})
     }
 
     return (
-        <section className="create-board-modal">
-            {console.log('memberId:', memberId)}
+        <section className="filter-member-modal">
             <h2>Quick person filter</h2>
-            <h3>Filter items and subitems by person</h3>
+            <div className="secondary-title">Filter items and subitems by person</div>
             <ul>
                 {
                     board.members.map(member => {
-                        return <li>
+                        return <li className={filterBy.memberId === member._id ? 'active' : ''}>
                             <img onClick={() => onFilterBoard(member._id)} src={member.imgUrl} alt="" />
                         </li>
                     })
