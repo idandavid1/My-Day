@@ -69,7 +69,10 @@ function getDefaultFilterBoards() {
 }
 
 function getDefaultFilterBoard() {
-    return { title: '' }
+    return {
+            title: '',
+            memberId: '' 
+        }
 }
 
 function getFilterFromSearchParams(searchParams) {
