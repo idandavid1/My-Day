@@ -6,6 +6,7 @@ import { boardService } from "../../services/board.service"
 
 export function NumberPicker({ info, onUpdate }) {
     const [number, setNumber] = useState(info.number || '')
+    const [isShowInput , setIsShowInput] = useState(false)
     const activity = boardService.getEmptyActivity()
 
     activity.action = 'number'
@@ -21,10 +22,15 @@ export function NumberPicker({ info, onUpdate }) {
         onUpdate('number', number, activity)
     }
 
+    function onClearNumber() {
+        setNumber('')
+        onSave()
+    }
+
     return (
         <section className="number-picker picker">
-            {!number && <span className="add-number-icons"><BsFillPlusCircleFill className="plus-icon" /><TbNumbers /></span>}
-            {number &&
+            {(!number && !isShowInput) && <span onClick={() => setIsShowInput(true)} className="add-number-icons"><BsFillPlusCircleFill className="plus-icon" /><TbNumbers /></span>}
+            {(number || isShowInput) &&
                 <>
                     <input type="number"
                         name="number"
@@ -32,7 +38,7 @@ export function NumberPicker({ info, onUpdate }) {
                         onChange={handleNumberChange}
                         onBlur={onSave} />
 
-                    <button type="button" className="clear-input" onClick={() => setNumber('')}><AiOutlineClose /></button>
+                    <button type="button" className="clear-input" onClick={onClearNumber}><AiOutlineClose /></button>
                 </>
             }
         </section>
