@@ -23,7 +23,7 @@ export function boardReducer(state = initialState, action) {
     switch (action.type) {
         case SET_BOARDS:
             return { ...state, boards: action.boards }
-        case SET_BOARD:
+            case SET_BOARD:
             return { ...state, board: {...action.board} }
         case SET_FILTER_BOARD:
             socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD, action.filteredBoard)

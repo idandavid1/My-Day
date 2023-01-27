@@ -17,6 +17,7 @@ import { AddColumnModal } from "../modal/add-column-modal"
 export function GroupPreview({ group, board, idx }) {
     const [taskToEdit, setTaskToEdit] = useState(boardService.getEmptyTask())
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isTyping, setIsTyping] = useState(false)
     const [isShowColorPicker, setIsShowColorPicker] = useState(false)
     const taskRef = useRef()
     const [isMainCheckbox, setIsMainCheckbox] = useState(false)
@@ -35,6 +36,7 @@ export function GroupPreview({ group, board, idx }) {
         try {
             await updateGroupAction(board, group)
             setIsModalOpen(false)
+            setIsTyping(false)
             setIsShowColorPicker(false)
         } catch (err) {
             console.log('Failed to save')
@@ -161,7 +163,12 @@ export function GroupPreview({ group, board, idx }) {
         } catch (err) {
             console.log('err:', err)
         }
+    }
 
+    function getSumOfTasks() {
+        const sum = group.tasks.length
+        if (sum > 1) return sum + 'items'
+        else return 'No items'
     }
 
     return <ul className="group-preview" >
@@ -181,9 +188,10 @@ export function GroupPreview({ group, board, idx }) {
                             </div>
                             <div className={`group-title-info ${isShowColorPicker ? 'showBorder' : ''} `} onFocus={() => setIsShowColorPicker(true)}>
                                 {isShowColorPicker && <BsFillCircleFill onClick={onShowPalette} />}
-                                <blockquote className="group-title" contentEditable onBlur={(ev) => onSave(ev)} suppressContentEditableWarning={true}>
+                                <blockquote className="group-title" onFocus={() => setIsTyping(true)} contentEditable onBlur={(ev) => onSave(ev)} suppressContentEditableWarning={true}>
                                     <h4 data-title={group.title}>{group.title}</h4>
                                 </blockquote>
+                                {!isTyping && <span className="task-count">{() => getSumOfTasks()}</span>}
                             </div>
                         </div>
                     </div>
@@ -213,7 +221,7 @@ export function GroupPreview({ group, board, idx }) {
                                             </Draggable>
                                         )}
                                         <div className="add-picker-task">
-                                            <span onClick={() => setIsActive(!isActive)} className={isActive ? 'active' : 'normal'}>
+                                            <span onClick={() => setIsActive(!isActive)} className={`add-btn ${isActive ? ' active' : ' normal' }`}>
                                                 <AiOutlinePlus onClick={() => setIsPlus(!isPlus)} className={isPlus ? 'plus' : 'close'} />
                                                 {!isPlus && <AddColumnModal />}
                                             </span>
@@ -231,7 +239,7 @@ export function GroupPreview({ group, board, idx }) {
                                             {group.tasks.map((task, idx) => (
                                                 <Draggable key={task.id} draggableId={task.id} index={idx}>
                                                     {(provided) => {
-                                                        return <li ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
+                                                        return <li className={`parent-task-preview ${isPlus ? '' : ' add-modal-open'}`} ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
                                                             <TaskPreview task={task} group={group} board={board} handleCheckboxChange={handleCheckboxChange} isMainCheckbox={isMainCheckbox} isCheckBoxActionDone={isCheckBoxActionDone} setIsCheckBoxActionDone={setIsCheckBoxActionDone} />
                                                         </li>
                                                     }}

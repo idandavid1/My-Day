@@ -1,8 +1,20 @@
+.parent-task-preview {
+    &:not(.add-modal-open) {
+        .task-preview:hover {
+            z-index: 4;
+            background-color: $task-hover-color;
+            box-shadow: 4px 3px 6px -3px $task-box-shadow-color;
+
+
+        }
+    }
+}
+
 .task-preview {
     display: flex;
     font-size: 14px;
-    // position: relative;
-    
+    position: relative;
+
     .empty-div {
         @include empty-div()
     }
@@ -10,14 +22,13 @@
     &.modal-open {
         z-index: 5;
     }
-    &:hover{
-        z-index: 4;
-        background-color: $task-hover-color;
-        box-shadow: 4px 3px 6px -3px $task-box-shadow-color;
-        .task-menu .icon{
+
+    &:hover {
+        .task-menu .icon {
             display: block;
         }
     }
+
     .task-menu {
         position: absolute;
         width: 41px;
@@ -46,9 +57,11 @@
         padding: 8px;
         left: -34px;
     }
+
     .task-tools-modal {
         @include menu-modal();
     }
+
     .picker {
         min-width: $cell-width;
         height: $cell-height;
@@ -67,6 +80,7 @@
                 opacity: 1;
             }
         }
+
         blockquote {
             height: 70%;
         }
@@ -136,7 +150,7 @@
         cursor: text;
 
         @include for-mobile-layout() {
-            &{
+            & {
                 margin-left: 5px;
             }
         }
@@ -144,7 +158,8 @@
         &:focus-visible {
             outline: 1px solid $board-btn;
         }
-        &:hover{
+
+        &:hover {
             outline: 1px solid darken($border-color, 20%);
         }
     }

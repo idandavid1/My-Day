@@ -51,7 +51,7 @@ export function BoardDetails() {
                 <MainSidebar isOpen={isOpen} setIsOpen={setIsOpen} setIsStarredOpen={setIsStarredOpen}/>
                 <WorkspaceSidebar isOpen={isOpen} setIsOpen={setIsOpen} isStarredOpen={isStarredOpen} board={board}/>
             </div>
-            <main className="board-main" >
+            <main className="board-main">
                 <BoardHeader board={board} onSetFilter={onSetFilter} isStarredOpen={isStarredOpen} />
                 <GroupList board={board} />
                 <BoardModal />
