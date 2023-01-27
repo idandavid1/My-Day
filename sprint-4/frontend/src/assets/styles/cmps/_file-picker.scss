@@ -1,0 +1,15 @@
+.file-picker {
+    max-width: 140px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    input {
+        width: 90%;
+        outline: none;
+        border: none;
+        text-align: center;
+        height: 80%;
+        margin: auto;
+    }
+}

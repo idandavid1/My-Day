@@ -108,6 +108,10 @@ export function GroupPreview({ group, board, idx }) {
                 return 'Date'
             case 'priority-picker':
                 return 'Priority'
+            case 'number-picker':
+                return 'Number'
+            case 'file-picker':
+                return 'Files'
             default: return ''
         }
     }
@@ -171,6 +175,12 @@ export function GroupPreview({ group, board, idx }) {
         else return 'No items'
     }
 
+    function onAddColumn(columnType) {
+        console.log(columnType)
+        return board.cmpsOrder.push(columnType)
+    }
+    console.log(board.cmpsOrder)
+    
     return <ul className="group-preview" >
         {isModalOpen &&
             <GroupMenuModal onRemoveGroup={onRemoveGroup} onDuplicateGroup={onDuplicateGroup}
@@ -221,9 +231,9 @@ export function GroupPreview({ group, board, idx }) {
                                             </Draggable>
                                         )}
                                         <div className="add-picker-task">
-                                            <span onClick={() => setIsActive(!isActive)} className={`add-btn ${isActive ? ' active' : ' normal' }`}>
+                                            <span onClick={() => setIsActive(!isActive)} className={`add-btn ${isActive ? ' active' : ' normal'}`}>
                                                 <AiOutlinePlus onClick={() => setIsPlus(!isPlus)} className={isPlus ? 'plus' : 'close'} />
-                                                {!isPlus && <AddColumnModal />}
+                                                {!isPlus && <AddColumnModal onAddColumn={onAddColumn} />}
                                             </span>
                                             {/* <div className="empty-div"></div> */}
                                         </div>

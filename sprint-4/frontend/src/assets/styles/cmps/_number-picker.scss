@@ -1,0 +1,54 @@
+.number-picker {
+    max-width: 140px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    &:hover {
+        .clear-input , .add-number-icons {
+            opacity: 1;
+        }
+    }
+
+    input {
+        width: 90%;
+        outline: none;
+        border: none;
+        text-align: center;
+        height: 80%;
+        margin: auto;
+
+        &:hover {
+            border: .2px solid $workspace-hover;
+        }
+
+        &:focus-visible {
+            border: .2px solid $board-btn;
+        }
+    }
+
+    .clear-input {
+        opacity: 0;
+        margin: 0;
+        padding: 0 2px;
+        font-size: 14px;
+        position: absolute;
+        right: 13px;
+        background-color: $workspace-hover;
+        color: $primary-text-color;
+    }
+
+    .add-number-icons{
+        opacity: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        width: 100%;
+        font-size: 14px;
+
+        .plus-icon{
+            color: $board-btn;
+        }
+    }
+}
