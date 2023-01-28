@@ -17,7 +17,6 @@ const guest = require('../../assets/img/guest.png')
 
 export function BoardHeader({ board, onSetFilter, isStarredOpen }) {
     const isOpen = useSelector(storeState => storeState.boardModule.isBoardModalOpen)
-    // const [isOpen , setIsOpen] = useState(false)
     const navigate = useNavigate()
     const [isModalOpen, setIsModalOpen] = useState(false)
     // const members = info.memberIds.map(member => getMember(member))

@@ -35,7 +35,6 @@ export function MainSidebar({ setIsStarredOpen, setIsLoginModalOpen }) {
             </div>
             <div className='bottom'>
                 <img className='logged-user-img' src={user ? user.imgUrl : guest} alt="" onClick={() => setIsLoginModalOpen(prev => !prev)} />
-               {/* {console.log(setIsloginModalOpen)} */}
             </div>
         </section>
     )

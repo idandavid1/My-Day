@@ -26,8 +26,8 @@ export function BoardDetails() {
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
     const queryFilterBy = boardService.getFilterFromSearchParams(searchParams)
     const { boardId } = useParams()
-    // const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
-
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+    
     useEffect(() => {
         loadBoard(boardId, queryFilterBy)
         if (!boards.length) loadBoards()
@@ -52,7 +52,7 @@ export function BoardDetails() {
     return (
         <section className="board-details flex">
             <div className='sidebar flex'>
-                <MainSidebar isOpen={isOpen} setIsOpen={setIsOpen} setIsStarredOpen={setIsStarredOpen} />
+                <MainSidebar isOpen={isOpen} setIsOpen={setIsOpen} setIsStarredOpen={setIsStarredOpen} setIsLoginModalOpen={setIsLoginModalOpen} isLoginModalOpen={isLoginModalOpen}/>
                 <WorkspaceSidebar isOpen={isOpen} setIsOpen={setIsOpen} isStarredOpen={isStarredOpen} board={board} setIsCreateModalOpen={setIsCreateModalOpen}/>
             </div>
             <main className="board-main">
@@ -62,6 +62,7 @@ export function BoardDetails() {
             </main>
             {isCreateModalOpen && <CreateBoard setIsModalOpen={setIsCreateModalOpen} />}
             {(isCreateModalOpen || (isBoardModalOpen && isMouseOver)) && <div className='dark-screen'></div>}
+            {isLoginModalOpen && <LoginLogoutModal setIsLoginModalOpen={setIsLoginModalOpen}/>}
         </section>
     )
 }
