@@ -9,6 +9,7 @@ import { utilService } from "../services/util.service"
 const statusImg = require('../assets/img/status.png')
 
 export function ActivityPreview({ activity }) {
+    const guest = require('../assets/img/guest.png')
 
     function getIconAction(action) {
         switch (action) {
@@ -56,7 +57,7 @@ export function ActivityPreview({ activity }) {
                         <span>{utilService.calculateTime(activity.createdAt)}</span>
                     </div>
                     <div className='title'>
-                        <img src={activity.byMember.imgUrl} alt="" />
+                        <img src={activity.byMember.imgUrl || guest} alt="" />
                         <span>{activity.task.title}</span>
                     </div>
                 </div>

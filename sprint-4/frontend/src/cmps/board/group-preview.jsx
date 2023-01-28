@@ -151,13 +151,13 @@ export function GroupPreview({ group, board, idx }) {
         return strHtml
     }
 
-    // function getStatisticsNumbers() {
-    //     let tasks = group.tasks.filter(task => typeof (task.number) === 'number')
-    //     const sumOfNumbers = tasks.reduce((acc, task) => {
-    //         return acc + task.number
-    //     }, 0)
-    //     return sumOfNumbers
-    // }
+    function getStatisticsNumbers() {
+        let tasks = group.tasks.filter(task => typeof (task.number) === 'number')
+        const sumOfNumbers = tasks.reduce((acc, task) => {
+            return acc + task.number
+        }, 0)
+        return sumOfNumbers
+    }
 
     async function handleCheckboxChange(task) {
         try {
@@ -190,7 +190,6 @@ export function GroupPreview({ group, board, idx }) {
     }
 
     function addColumn(columnType) {
-        if (board.cmpsOrder.includes(columnType)) columnType += _.uniqueId('KEY_')
         board.cmpsOrder.push(columnType)
         setIsPlus(true)
     }

@@ -13,7 +13,7 @@ export function CommentPreview({onRemoveComment, comment, onEditComment}) {
     const [isMenuModalOpen, setIsMenuModalOpen] = useState(false)
     const [isEditOpen, setIsEditOpen] = useState(false)
     const [editComment, setEditComment] = useState({...comment})
-
+    const guest = require('../.././assets/img/guest.png')
     function handleChange({ target }) {
         let { value, name: field } = target
         setEditComment((prevComment) => ({ ...prevComment, [field]: value }))
@@ -54,7 +54,7 @@ export function CommentPreview({onRemoveComment, comment, onEditComment}) {
         <section className="comment-preview">
             <div className="header-comment">
                 <div className="left">
-                    <img src={comment.byMember.imgUrl} alt="" />
+                    <img src={comment.byMember?.imgUrl || guest} alt="" />
                     <span>{comment.byMember.fullname}</span>
                 </div>
                 <div className="right">

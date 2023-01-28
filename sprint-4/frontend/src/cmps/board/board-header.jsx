@@ -12,7 +12,6 @@ import { GrHomeRounded } from 'react-icons/gr'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RiUserAddLine } from 'react-icons/ri'
-import { ModalMember } from '../modal/modal-member'
 
 const guest = require('../../assets/img/guest.png')
 
@@ -63,7 +62,7 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen }) {
                 </div>
                 <div className='board-tools flex'>
                     <div className='activity' onClick={toggleIsOpen}><FiActivity /></div>
-                    <div className='members-last-seen'>
+                    <div className='members-last-seen'onClick={toggleIsOpen}>
                         <span className='last-seen-title'>Last seen</span>
                         <div className='flex members-imgs'>
                             <img className='member-img1' src={board.members.length ? board.members[0].imgUrl : guest} alt="member" />
