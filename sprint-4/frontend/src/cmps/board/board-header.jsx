@@ -1,5 +1,5 @@
 import { BoardFilter } from '../board/board-filter'
-import { saveBoard, toggleStarred } from '../../store/board.actions'
+import { saveBoard, toggleModal, toggleStarred } from '../../store/board.actions'
 import { loadBoards } from '../../store/board.actions'
 
 import { RiErrorWarningLine } from 'react-icons/ri'
@@ -7,11 +7,16 @@ import { BsStar } from 'react-icons/bs'
 import { BsStarFill } from 'react-icons/bs'
 import { FiActivity } from 'react-icons/fi'
 import { GrHomeRounded } from 'react-icons/gr'
-import { Link, NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const guest = require('../../assets/img/guest.png')
 
 export function BoardHeader({ board, onSetFilter, isStarredOpen }) {
+    const isOpen = useSelector(storeState => storeState.boardModule.isBoardModalOpen)
+    // const [isOpen , setIsOpen] = useState(false)
+    const navigate = useNavigate()
     async function onSave(ev) {
         const value = ev.target.innerText
         board.title = value
@@ -31,6 +36,11 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen }) {
         }
     }
 
+    function toggleIsOpen() {
+        toggleModal(isOpen)
+        navigate(`/board/${board._id}/activityLog`)
+    }
+    console.log('Toggling', isOpen)
     return (
         <header className="board-header">
             <section className='board-title'>
@@ -42,11 +52,11 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen }) {
                         <RiErrorWarningLine />
                     </div>
                     <div data-title='Add to favorites' className='star-btn icon' onClick={onToggleStarred}>
-                        {!board.isStarred ? <BsStar /> : <BsStarFill className="star-full"/>}
+                        {!board.isStarred ? <BsStar /> : <BsStarFill className="star-full" />}
                     </div>
                 </div>
                 <div className='board-tools flex'>
-                    <div className='activity'><FiActivity /></div>
+                    <div className='activity' onClick={toggleIsOpen}><FiActivity /></div>
                     <div className='members-last-seen'>
                         <span className='last-seen-title'>Last seen</span>
                         <div className='flex members-imgs'>

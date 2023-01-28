@@ -25,6 +25,7 @@ export function GroupPreview({ group, board, idx }) {
     const [isCheckBoxActionDone, setIsCheckBoxActionDone] = useState({ isDone: false })
     const [isPlus, setIsPlus] = useState(true)
     const [isActive, setIsActive] = useState(false)
+    let _ = require('lodash')
 
     function onOpenModal() {
         setIsModalOpen(!isModalOpen)
@@ -112,6 +113,8 @@ export function GroupPreview({ group, board, idx }) {
                 return 'Number'
             case 'file-picker':
                 return 'Files'
+            case 'updated-picker':
+                return 'Last Updated'
             default: return ''
         }
     }
@@ -126,6 +129,8 @@ export function GroupPreview({ group, board, idx }) {
                 return getStatisticsStatus('priority')
             case 'date-picker':
                 return []
+            // case 'number-picker':
+            //     return getStatisticsNumbers()
             default: return []
         }
     }
@@ -145,6 +150,14 @@ export function GroupPreview({ group, board, idx }) {
         }
         return strHtml
     }
+
+    // function getStatisticsNumbers() {
+    //     let tasks = group.tasks.filter(task => typeof (task.number) === 'number')
+    //     const sumOfNumbers = tasks.reduce((acc, task) => {
+    //         return acc + task.number
+    //     }, 0)
+    //     return sumOfNumbers
+    // }
 
     async function handleCheckboxChange(task) {
         try {
@@ -171,16 +184,17 @@ export function GroupPreview({ group, board, idx }) {
 
     function getSumOfTasks() {
         const sum = group.tasks.length
-        if (sum > 1) return sum + 'items'
+        if (sum > 1) return sum + ' items'
+        else if (sum === 1) return 1 + ' item'
         else return 'No items'
     }
 
-    function onAddColumn(columnType) {
-        console.log(columnType)
-        return board.cmpsOrder.push(columnType)
+    function addColumn(columnType) {
+        if (board.cmpsOrder.includes(columnType)) columnType += _.uniqueId('KEY_')
+        board.cmpsOrder.push(columnType)
+        setIsPlus(true)
     }
-    console.log(board.cmpsOrder)
-    
+
     return <ul className="group-preview" >
         {isModalOpen &&
             <GroupMenuModal onRemoveGroup={onRemoveGroup} onDuplicateGroup={onDuplicateGroup}
@@ -201,7 +215,7 @@ export function GroupPreview({ group, board, idx }) {
                                 <blockquote className="group-title" onFocus={() => setIsTyping(true)} contentEditable onBlur={(ev) => onSave(ev)} suppressContentEditableWarning={true}>
                                     <h4 data-title={group.title}>{group.title}</h4>
                                 </blockquote>
-                                {!isTyping && <span className="task-count">{() => getSumOfTasks()}</span>}
+                                {!isTyping && <span className="task-count">{getSumOfTasks()}</span>}
                             </div>
                         </div>
                     </div>
@@ -233,7 +247,7 @@ export function GroupPreview({ group, board, idx }) {
                                         <div className="add-picker-task">
                                             <span onClick={() => setIsActive(!isActive)} className={`add-btn ${isActive ? ' active' : ' normal'}`}>
                                                 <AiOutlinePlus onClick={() => setIsPlus(!isPlus)} className={isPlus ? 'plus' : 'close'} />
-                                                {!isPlus && <AddColumnModal onAddColumn={onAddColumn} />}
+                                                {!isPlus && <AddColumnModal addColumn={addColumn} />}
                                             </span>
                                             {/* <div className="empty-div"></div> */}
                                         </div>

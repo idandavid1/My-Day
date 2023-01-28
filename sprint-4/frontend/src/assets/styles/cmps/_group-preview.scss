@@ -54,6 +54,8 @@
             border-top: 1px solid darken($border-color , 20%);
             border-bottom: 1px solid darken($border-color , 20%);
             width: 100%;
+            transition: transform .2s, color .1s ease;
+            padding-right: 150px;
 
             .normal {
                 display: flex;
@@ -86,8 +88,8 @@
                 position: relative;
 
                 .close {
-                    transition: transform .2s ease, color .1s ease;
                     transform: rotate(45deg);
+                    transition: transform .2s, color .1s ease;
                     color: $primary-hover-color;
                 }
 
@@ -136,27 +138,39 @@
         align-items: center;
         line-height: $font-reg-line-height-24;
 
+
+
         @include for-mobile-layout {
             & {
                 top: 240px;
             }
         }
 
-        .task-count {
-            display: flex;
-            align-items: center;
-            color: $workspace-icon-color;
-            white-space: nowrap;
-            font-size: 14px;
-            line-height: 19px;
-            margin-left: $spacing-xs;
-        }
+
 
         .group-title-info {
             display: flex;
             align-items: center;
             border: 1px;
             margin-bottom: 8px;
+
+            &:hover {
+                .task-count {
+                    opacity: 1;
+                }
+            }
+
+            .task-count {
+                display: flex;
+                align-items: center;
+                color: $workspace-icon-color;
+                white-space: nowrap;
+                font-size: 14px;
+                line-height: 19px;
+                margin-left: $spacing-small;
+                transition: .2s;
+                opacity: 0;
+            }
 
             &.showBorder {
                 border: 1px solid $board-btn;
