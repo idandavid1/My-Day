@@ -210,7 +210,8 @@ function getEmptyBoard() {
         ],
         "groups": [],
         "activities": [],
-        "cmpsOrder": ["status-picker", "member-picker", "date-picker", 'priority-picker']
+        "cmpsOrder": ["status-picker", "member-picker", "date-picker", 'priority-picker'],
+        "cmpsOption": ["status-picker", "member-picker", "date-picker", 'priority-picker', 'number-picker', 'file-picker', 'updated-picker']
     }
 }
 

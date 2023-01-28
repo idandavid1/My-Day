@@ -13,22 +13,21 @@ export function BoardModal({ setIsMouseOver }) {
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
 
     useEffect(() => {
-        if (taskId && groupId) {
+        if (groupId && taskId) {
             loadTask()
         }
-    }, [taskId])
+    }, [isOpen])
 
     function loadTask() {
         const group = board.groups.find(group => group.id === groupId)
         const task = group.tasks.find(task => task.id === taskId)
         setCurrTask(task)
     }
-
     if (!currTask && !activityLog) return <div></div>
     return <section className={`board-modal ${isOpen ? 'open' : ''}`} onMouseOver={() => setIsMouseOver(true)} onMouseOut={() => setIsMouseOver(false)}>
-        {!activityLog && <TaskModal task={currTask} board={board} groupId={groupId} />}
+        {!activityLog && <TaskModal task={currTask} board={board} groupId={groupId} setModalCurrTask={setCurrTask} />}
         {activityLog && <section className="board-activity-modal">
-            <BoardActivityModal board={board}/>
+            <BoardActivityModal board={board} activityLog={activityLog}/>
         </section>}
     </section>
 }
