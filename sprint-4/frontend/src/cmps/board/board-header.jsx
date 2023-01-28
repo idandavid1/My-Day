@@ -17,7 +17,6 @@ const guest = require('../../assets/img/guest.png')
 
 export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescription }) {
     const isOpen = useSelector(storeState => storeState.boardModule.isBoardModalOpen)
-    // const [isOpen , setIsOpen] = useState(false)
     const navigate = useNavigate()
     const [isModalOpen, setIsModalOpen] = useState(false)
     // const members = info.memberIds.map(member => getMember(member))
@@ -41,9 +40,9 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
         }
     }
 
-    function toggleIsOpen() {
+    function toggleIsOpen(type) {
         toggleModal(isOpen)
-        navigate(`/board/${board._id}/activityLog`)
+        navigate(`/board/${board._id}/${type}`)
     }
     if (!board.members) return <div>Loading...</div>
 
@@ -62,8 +61,8 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
                     </div>
                 </div>
                 <div className='board-tools flex'>
-                    <div className='activity' onClick={toggleIsOpen}><FiActivity /></div>
-                    <div className='members-last-seen' onClick={toggleIsOpen}>
+                    <div className='activity' onClick={() => toggleIsOpen('activity')}><FiActivity /></div>
+                    <div className='members-last-seen'onClick={() => toggleIsOpen('last-viewed')}>
                         <span className='last-seen-title'>Last seen</span>
                         <div className='flex members-imgs'>
                             <img className='member-img1' src={board.members.length ? board.members[0].imgUrl : guest} alt="member" />

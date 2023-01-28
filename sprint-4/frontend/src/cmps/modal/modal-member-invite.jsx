@@ -5,13 +5,13 @@ import { CiSearch } from 'react-icons/ci'
 import { useEffect, useState } from "react"
 
 
-export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen, activity}) {
-    const [filter, setFilter] = useState({txt: ''})
-    const [outTaskMembers, setOutTaskMembers] = useState([])
-    const board = useSelector(storeState => storeState.boardModule.board)
+export function ModalMember({ board }) {
+    const [filter, setFilter] = useState({ txt: '' })
+    const [outBoardMembers, setOutBoardMembers] = useState([])
+    const users = useSelector(storeState => storeState.userModule.users)
 
     useEffect(() => {
-        setOutTaskMembers(board.members.filter(member => !taskMembers.includes(member)))
+        setOutBoardMembers(users.filter(user => !board.members.some(member => member._id === user._id)))
     }, [])
 
     function onRemoveMember(RemoveTaskMember) {
@@ -44,42 +44,42 @@ export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen, act
         if (filter.txt) {
             const regex = new RegExp(filter.txt, 'i')
             members = members.filter(member => regex.test(member.fullname))
-          }
-          setOutTaskMembers(members)
+        }
+        setOutTaskMembers(members)
     }
 
     return (
         <section className="modal-member">
-            <VscTriangleUp className="triangle-icon"/>
+            <VscTriangleUp className="triangle-icon" />
             <section className="modal-member-content" >
                 <ul className="taskMembers">
                     {
-                        taskMembers.map(taskMember => {
-                            return <li key={taskMember.id}>
-                                <img src={taskMember.imgUrl} />
-                                <span>{taskMember.fullname}</span>
-                                <span onClick={() => onRemoveMember(taskMember)} className="remove">x</span>
+                        board.members.map(member => {
+                            return <li key={member._id}>
+                                <img src={member.imgUrl} />
+                                <span>{member.fullname}</span>
+                                <span onClick={() => onRemoveMember(member)} className="remove">x</span>
                             </li>
                         })
                     }
                 </ul>
                 <div className="outTaskMembers">
                     <form className="search-div" onSubmit={onSubmit}>
-                        <input type="text" 
-                        placeholder="Search names"
-                        name="txt"
-                        value={filter.txt}
-                        onChange={handleChange}
+                        <input type="text"
+                            placeholder="Search names"
+                            name="txt"
+                            value={filter.txt}
+                            onChange={handleChange}
                         />
-                        <button className="icon-container"><CiSearch className="icon"/></button>
+                        <button className="icon-container"><CiSearch className="icon" /></button>
                     </form>
                     <span>Suggested people</span>
-                    {outTaskMembers.length > 0 && <ul>
+                    {outBoardMembers.length > 0 && <ul>
                         {
-                            outTaskMembers.map(taskMember => {
-                               return  <li key={taskMember.id} onClick={() => onAddMember(taskMember)}>
-                                    <img src={taskMember.imgUrl} />
-                                    <span>{taskMember.fullname}</span>
+                            outBoardMembers.map(member => {
+                                return <li key={member.id} onClick={() => onAddMember(member)}>
+                                    <img src={member.imgUrl} />
+                                    <span>{member.fullname}</span>
                                 </li>
                             })
                         }

@@ -15,7 +15,7 @@ import { socketService, SOCKET_EMIT_SEND_MSG, SOCKET_EMIT_SET_TOPIC, SOCKET_EVEN
 import { useNavigate } from "react-router-dom"
 const noUpdate = require('../../assets/img/empty-update.png')
 
-export function TaskModal({ task, board, groupId }) {
+export function TaskModal({ task, board, groupId, setModalCurrTask }) {
     const [isWriteNewUpdate, setIsWriteNewUpdate] = useState(false)
     const [comment, setComment] = useState(boardService.getEmptyComment())
     const [comments, setComments] = useState(task.comments)
@@ -46,6 +46,7 @@ export function TaskModal({ task, board, groupId }) {
     function onCloseModal() {
         navigate(`/board/${board._id}`)
         toggleModal(true)
+        setModalCurrTask(null)
         setComment(boardService.getEmptyComment())
     }
 
@@ -83,6 +84,7 @@ export function TaskModal({ task, board, groupId }) {
             currTask.comments = currTask.comments.filter(comment => comment.id !== commentId)
             updateTaskAction(board, groupId, currTask)
             setCurrTask({...currTask})
+            setComments(currTask.comments)
         } catch (err) {
             console.log('err:', err)
         }
@@ -119,6 +121,7 @@ export function TaskModal({ task, board, groupId }) {
             currTask.comments = currTask.comments.map(comment => (comment.id === saveComment.id) ? saveComment : comment)
             updateTaskAction(board, groupId, currTask)
             setCurrTask({...currTask})
+            setComments(currTask.comments)
         } catch (err) {
             console.log('err:', err)
         }

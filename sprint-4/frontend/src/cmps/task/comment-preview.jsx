@@ -9,11 +9,12 @@ import { TbAlignRight ,TbAlignCenter,TbAlignLeft } from 'react-icons/tb'
 import { CommentMenuModal } from "../modal/modal-comment"
 import { utilService } from "../../services/util.service"
 
-export function CommentPreview({onRemoveComment, comment, onEditComment}) {
+const guest = require('../.././assets/img/guest.png')
+
+export function CommentPreview({onRemoveComment, comment, taskId, onEditComment}) {
     const [isMenuModalOpen, setIsMenuModalOpen] = useState(false)
     const [isEditOpen, setIsEditOpen] = useState(false)
     const [editComment, setEditComment] = useState({...comment})
-    const guest = require('../.././assets/img/guest.png')
     function handleChange({ target }) {
         let { value, name: field } = target
         setEditComment((prevComment) => ({ ...prevComment, [field]: value }))
@@ -25,7 +26,7 @@ export function CommentPreview({onRemoveComment, comment, onEditComment}) {
     }
 
     function onSaveEdit() {
-        onEditComment(editComment)
+        onEditComment(editComment, taskId)
         setIsEditOpen(false)
     }
 
@@ -64,7 +65,7 @@ export function CommentPreview({onRemoveComment, comment, onEditComment}) {
                     </div>
                     <div className={`menu-icon-container ${isMenuModalOpen ? ' active' : ''}`}>
                         <BiDotsHorizontalRounded onClick={() => setIsMenuModalOpen(!isMenuModalOpen)}/>
-                        {isMenuModalOpen && <CommentMenuModal onRemoveComment={onRemoveComment} commentId={comment.id} onOpenEdit={setIsEditOpen} setIsMenuModalOpen={setIsMenuModalOpen}/>}
+                        {isMenuModalOpen && <CommentMenuModal onRemoveComment={onRemoveComment} commentId={comment.id} onOpenEdit={setIsEditOpen} setIsMenuModalOpen={setIsMenuModalOpen} taskId={taskId}/>}
                     </div>
                 </div>
             </div>
