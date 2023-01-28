@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { BoardFilter } from '../board/board-filter'
 import { saveBoard, toggleModal, toggleStarred } from '../../store/board.actions'
 import { loadBoards } from '../../store/board.actions'
@@ -8,8 +10,9 @@ import { BsStarFill } from 'react-icons/bs'
 import { FiActivity } from 'react-icons/fi'
 import { GrHomeRounded } from 'react-icons/gr'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { RiUserAddLine } from 'react-icons/ri'
+import { ModalMember } from '../modal/modal-member'
 
 const guest = require('../../assets/img/guest.png')
 
@@ -17,6 +20,9 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen }) {
     const isOpen = useSelector(storeState => storeState.boardModule.isBoardModalOpen)
     // const [isOpen , setIsOpen] = useState(false)
     const navigate = useNavigate()
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    // const members = info.memberIds.map(member => getMember(member))
+
     async function onSave(ev) {
         const value = ev.target.innerText
         board.title = value
@@ -66,6 +72,11 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen }) {
                                 <span className='show-more-count'>+2</span>
                             </div>
                         </div>
+                    </div>
+                    <div className="invite" onClick={() => setIsModalOpen(!isModalOpen)}>
+                        <RiUserAddLine className="invite-icon" />
+                        Invite / 1
+                        {/* {isModalOpen && <ModalMember className="invite-modal"/>} */}
                     </div>
                 </div>
             </section>

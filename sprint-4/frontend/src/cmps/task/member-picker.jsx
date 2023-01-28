@@ -14,6 +14,7 @@ export function MemberPicker({ info, onUpdate }) {
     activity.action = 'person'
     activity.task = {id: info.id, title: info.title}
     const members = info.memberIds.map(member => getMember(member))
+    
     function getMember(memberId) {
         return board.members.find(member => member._id === memberId)
     }

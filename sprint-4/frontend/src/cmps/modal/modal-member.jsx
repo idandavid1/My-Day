@@ -10,9 +10,9 @@ export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen, act
     const [outTaskMembers, setOutTaskMembers] = useState([])
     const board = useSelector(storeState => storeState.boardModule.board)
 
-    useEffect(() => {
-        setOutTaskMembers(board.members.filter(member => !taskMembers.includes(member)))
-    }, [])
+    // useEffect(() => {
+    //     setOutTaskMembers(board.members.filter(member => !taskMembers.includes(member)))
+    // }, [])
 
     function onRemoveMember(RemoveTaskMember) {
         activity.from = 'Remove'
@@ -52,7 +52,7 @@ export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen, act
         <section className="modal-member">
             <VscTriangleUp className="triangle-icon"/>
             <section className="modal-member-content" >
-                <ul className="taskMembers">
+                {/* <ul className="taskMembers">
                     {
                         taskMembers.map(taskMember => {
                             return <li key={taskMember.id}>
@@ -62,7 +62,7 @@ export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen, act
                             </li>
                         })
                     }
-                </ul>
+                </ul> */}
                 <div className="outTaskMembers">
                     <form className="search-div" onSubmit={onSubmit}>
                         <input type="text" 

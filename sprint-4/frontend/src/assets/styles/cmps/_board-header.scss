@@ -50,9 +50,11 @@
                     background-color: $workspace-hover;
                 }
             }
-            .icon{
+
+            .icon {
                 font-size: 20px;
             }
+
             .star-full {
                 color: $color-egg_yolk;
             }
@@ -62,6 +64,8 @@
             gap: $spacing-small;
             align-items: center;
             height: fit-content;
+            gap: $spacing-small;
+            cursor: pointer;
 
             .activity {
                 font-size: 14px;
@@ -72,6 +76,8 @@
             }
 
             .members-last-seen {
+                display: flex;
+                flex-direction: row;
                 width: max-content;
                 height: rem(32px);
 
@@ -79,11 +85,25 @@
                     background-color: $workspace-hover;
                 }
             }
+
+            .invite {
+                height: rem(32px);
+                width: max-content;
+                
+                &:hover {
+                    background-color: $workspace-hover;
+                }
+
+                .invite-icon {
+                    width: 32px;
+                }
+            }
         }
 
         .members-imgs {
             @include member-img(white, #323338, 24px, 26px)
         }
+
     }
 
     .board-description {
@@ -163,11 +183,12 @@
     }
 
     @include for-mobile-layout() {
-        &{
+        & {
             .board-title {
                 flex-direction: column;
             }
-            .board-info h1{
+
+            .board-info h1 {
                 font-size: 15px;
                 white-space: nowrap;
             }
@@ -176,8 +197,8 @@
     }
 
     @include for-narrow-layout() {
-        &{
-            .board-info h1{
+        & {
+            .board-info h1 {
                 font-size: 24px;
                 line-height: $font-reg-line-height-42;
             }
