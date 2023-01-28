@@ -3,22 +3,23 @@
     box-sizing: border-box;
     scrollbar-width: thin;
     scrollbar-color: #878787 #D9D9D9;
+
     /* Chrome, Edge, and Safari */
-  &::-webkit-scrollbar {
-    width: 8px;
-    cursor: pointer;
-  }
+    &::-webkit-scrollbar {
+        width: 8px;
+        cursor: pointer;
+    }
 
-  &::-webkit-scrollbar-track {
-    background: #D9D9D9;
-  }
+    &::-webkit-scrollbar-track {
+        background: #D9D9D9;
+    }
 
-  &::-webkit-scrollbar-thumb {
-    border-radius: 25px;
-    background-color: #A6A5A5;
-    cursor: pointer;
-    // border: 1px double #FFFFFF;
-  }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 25px;
+        background-color: #A6A5A5;
+        cursor: pointer;
+        // border: 1px double #FFFFFF;
+    }
 }
 
 .dark-screen {
@@ -34,7 +35,12 @@ html {
 }
 
 
-h1,h2,h3,h4,h5,h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin: 0;
     padding: 0;
     font-family: $title-font-family;
@@ -71,19 +77,20 @@ a {
 
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
-  }
+}
+
 
 button {
     cursor: pointer;
 }
 
-main{
+main {
     width: 100%;
     overflow: auto;
     height: 100vh;
 
     @include for-mobile-layout {
-        &{
+        & {
             height: 92vh;
         }
     }
@@ -99,16 +106,18 @@ blockquote {
     display: flex;
     align-items: center;
     cursor: text;
-    &:focus-visible{
+
+    &:focus-visible {
         outline: 1px solid darken($border-color , 20%);
     }
 }
 
 [data-title]:hover:after {
     opacity: 1;
-    transition: all .3s ;
+    transition: all .3s;
     visibility: visible;
 }
+
 [data-title]:after {
     content: attr(data-title);
     position: absolute;
@@ -118,23 +127,24 @@ blockquote {
     padding: 8px 12px;
     color: white;
     text-align: center;
-    white-space: nowrap; 
+    white-space: nowrap;
     width: max-content;
-    -moz-border-radius: 5px; 
-    -webkit-border-radius: 5px;  
-    border-radius: 5px;  
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
     background-color: #3d3636;
-    -moz-box-shadow: 0px 0px 4px #222;  
-    background-image: -moz-linear-gradient(top, #f8f8f8, #cccccc);  
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #f8f8f8),color-stop(1, #cccccc));
-    background-image: -webkit-linear-gradient(top, #f8f8f8, #cccccc);  
-    background-image: -moz-linear-gradient(top, #f8f8f8, #cccccc);  
-    background-image: -ms-linear-gradient(top, #f8f8f8, #cccccc);  
+    -moz-box-shadow: 0px 0px 4px #222;
+    background-image: -moz-linear-gradient(top, #f8f8f8, #cccccc);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f8f8f8), color-stop(1, #cccccc));
+    background-image: -webkit-linear-gradient(top, #f8f8f8, #cccccc);
+    background-image: -moz-linear-gradient(top, #f8f8f8, #cccccc);
+    background-image: -ms-linear-gradient(top, #f8f8f8, #cccccc);
     background-image: -o-linear-gradient(top, #f8f8f8, #cccccc);
     opacity: 0;
     z-index: 10000;
     visibility: hidden;
 }
+
 [data-title] {
     position: relative;
 }

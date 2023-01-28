@@ -1,0 +1,7 @@
+.updated-picker {
+    @include center-flex();
+    gap: 7px;
+    img {
+        @include members;
+    }
+}

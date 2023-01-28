@@ -17,6 +17,7 @@ import { HiOutlineChatBubbleOvalLeft } from 'react-icons/hi2'
 import { useEffectUpdate } from "../../customHooks/useEffectUpdate"
 import { NumberPicker } from "./number-picker"
 import { FilePicker } from "./file-picker"
+import { UpdatedPicker } from "./updated-picker"
 
 export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCheckbox, isCheckBoxActionDone, setIsCheckBoxActionDone }) {
     const elTaskPreview = useRef(null)
@@ -49,8 +50,10 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
     }
 
     async function onUpdateTaskTitle(ev) {
+        console.log('enter')
         const value = ev.target.innerText
         task.title = value
+        task.updatedAt = Date.now()
         try {
             elTaskPreview.current.classList.toggle('on-typing')
             await updateTaskAction(board, group.id, task)
@@ -142,6 +145,7 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
 }
 
 function DynamicCmp({ cmp, info, onUpdate }) {
+    console.log(cmp)
     switch (cmp) {
         case "status-picker":
             return <StatusPicker info={info} onUpdate={onUpdate} />
@@ -155,6 +159,8 @@ function DynamicCmp({ cmp, info, onUpdate }) {
             return <NumberPicker info={info} onUpdate={onUpdate} />
         case "file-picker":
             return <FilePicker info={info} onUpdate={onUpdate} />
+        case "updated-picker":
+            return <UpdatedPicker info={info} onUpdate={onUpdate} />
         default:
             return <p>UNKNOWN {cmp}</p>
     }

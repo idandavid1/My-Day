@@ -3,13 +3,24 @@
     display: flex;
     align-items: center;
     position: relative;
-
+    width: 100%;
+    &:hover{
+        .icon{
+            opacity: 1;
+        }
+    }
     input {
-        width: 90%;
-        outline: none;
-        border: none;
-        text-align: center;
-        height: 80%;
+        display: none;
+    }
+
+    label{
+        width: 100%;
+        @include center-flex();
+    }
+    .icon {
         margin: auto;
+        font-size: 19px;
+        opacity: 0;
+        cursor: pointer;
     }
 }

@@ -26,12 +26,14 @@
 @import "cmps/date-picker";
 @import "cmps/modal-status-priority";
 @import "cmps/board-modal";
+@import "cmps/board-activity-modal";
 @import "cmps/modal-member";
 @import "cmps/board-filter";
 @import "cmps/login-signup";
 @import "cmps/status-priority-picker";
 @import "cmps/member-picker";
 @import "cmps/number-picker";
+@import "cmps/update-picker";
 @import "cmps/file-picker";
 @import "cmps/comment-preview";
 @import "cmps/task-tools-modal";
@@ -42,3 +44,4 @@
 @import "cmps/add-column-modal";
 @import "cmps/member-filter-modal";
 @import "cmps/invite-modal";
+@import "cmps/last-viewed";

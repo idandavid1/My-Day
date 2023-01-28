@@ -1,0 +1,12 @@
+.board-activity {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    >* {
+        @include center-flex();
+    }
+
+    img {
+        @include members();
+    }
+}

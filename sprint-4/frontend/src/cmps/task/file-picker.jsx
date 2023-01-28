@@ -1,13 +1,13 @@
-import { useState } from "react"
+import { AiOutlineFileAdd } from 'react-icons/ai'
 
+export function FilePicker({ info, onUpdate }) {
 
-
-export function FilePicker({info , onUpdate}) {
-
-    const [file , setFile] = useState(info.file || '')
     return (
         <section className="file-picker picker">
-            <input type="file" />
+            <label htmlFor="file-upload">
+                <AiOutlineFileAdd className="icon" />
+            </label>
+            <input type="file" id="file-upload" />
         </section>
     )
 }

@@ -1,0 +1,31 @@
+.board-activity-header {
+    flex-direction: column;
+    height: 100vh;
+    background-color: $app-bg;
+    min-width: 570px;
+    transition: transform .6s, box-shadow .6s;
+    margin: 20px 20px 6px 24px;
+
+    @include for-mobile-layout() {
+        & {
+            min-width: 100vw;
+        }
+    }
+
+    .close-btn {
+        color: #777;
+        cursor: pointer;
+    }
+
+    .views {
+        display: flex;
+        gap: 18px;
+
+        >* {
+            @include center-flex();
+        }
+        .active{
+            border-bottom: 2px solid $board-btn;
+        }
+    }
+}

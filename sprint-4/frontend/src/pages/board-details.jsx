@@ -13,6 +13,7 @@ import { boardService } from '../services/board.service'
 import { socketService, SOCKET_EMIT_SET_TOPIC, SOCKET_EVENT_ADD_UPDATE_BOARD } from '../services/socket.service'
 import { LoginLogoutModal } from '../cmps/modal/login-logout-modal'
 import { CreateBoard } from '../cmps/modal/create-board'
+import { BoardActivityModal } from '../cmps/board/board-activity-modal'
 
 export function BoardDetails() {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)

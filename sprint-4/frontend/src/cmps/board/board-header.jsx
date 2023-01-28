@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { BoardFilter } from '../board/board-filter'
-import { saveBoard, toggleStarred } from '../../store/board.actions'
+import { saveBoard, toggleModal, toggleStarred } from '../../store/board.actions'
 import { loadBoards } from '../../store/board.actions'
 
 import { RiErrorWarningLine } from 'react-icons/ri'
@@ -9,12 +9,16 @@ import { BsStar } from 'react-icons/bs'
 import { BsStarFill } from 'react-icons/bs'
 import { FiActivity } from 'react-icons/fi'
 import { GrHomeRounded } from 'react-icons/gr'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { RiUserAddLine } from 'react-icons/ri'
-import { ModalMember } from '../modal/modal-member'
 
 const guest = require('../../assets/img/guest.png')
 
 export function BoardHeader({ board, onSetFilter, isStarredOpen }) {
+    const isOpen = useSelector(storeState => storeState.boardModule.isBoardModalOpen)
+    // const [isOpen , setIsOpen] = useState(false)
+    const navigate = useNavigate()
     const [isModalOpen, setIsModalOpen] = useState(false)
     // const members = info.memberIds.map(member => getMember(member))
 
@@ -37,6 +41,11 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen }) {
         }
     }
 
+    function toggleIsOpen() {
+        toggleModal(isOpen)
+        navigate(`/board/${board._id}/activityLog`)
+    }
+    console.log('Toggling', isOpen)
     return (
         <header className="board-header">
             <section className='board-title'>
@@ -52,8 +61,8 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen }) {
                     </div>
                 </div>
                 <div className='board-tools flex'>
-                    <div className='activity'><FiActivity /></div>
-                    <div className='members-last-seen'>
+                    <div className='activity' onClick={toggleIsOpen}><FiActivity /></div>
+                    <div className='members-last-seen'onClick={toggleIsOpen}>
                         <span className='last-seen-title'>Last seen</span>
                         <div className='flex members-imgs'>
                             <img className='member-img1' src={board.members.length ? board.members[0].imgUrl : guest} alt="member" />
