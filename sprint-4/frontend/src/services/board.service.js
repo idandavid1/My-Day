@@ -105,7 +105,8 @@ function getEmptyTask() {
         "priority": "",
         "memberIds": [],
         "dueDate": '',
-        "comments": []
+        "comments": [],
+        "updatedBy":{}
     }
 }
 
@@ -149,6 +150,11 @@ function getEmptyBoard() {
         "title": 'New Board',
         "archivedAt": Date.now(),
         "isStarred": false,
+        "createdBy":{
+            "fullname":"Ofer Gavrilov",
+            "imgUrl":"https://res.cloudinary.com/du63kkxhl/image/upload/v1674069496/me_dpbzfs.jpg",
+            "_id": utilService.makeId()
+        },
         "labels": [
             {
                 "id": "l101",
@@ -210,7 +216,8 @@ function getEmptyBoard() {
         ],
         "groups": [],
         "activities": [],
-        "cmpsOrder": ["status-picker", "member-picker", "date-picker", 'priority-picker']
+        "cmpsOrder": ["status-picker", "member-picker", "date-picker", 'priority-picker'],
+        "description": "",
     }
 }
 

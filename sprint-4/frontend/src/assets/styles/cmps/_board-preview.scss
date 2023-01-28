@@ -3,29 +3,37 @@
     align-items: center;
     justify-content: space-between;
 
+    &:hover {
+        .menu-icon-container {
+
+            opacity: 1;
+        }
+    }
+
     div {
         display: flex;
         align-items: center;
         gap: $spacing-small;
     }
+
     .menu-icon-container {
         position: relative;
         width: 24px;
         height: 24px;
         border-radius: 4px;
         @include center-flex();
+        opacity: 0;
 
         .icon {
             font-size: 40px;
         }
 
-        &:hover {
-            background-color: $workspace-hover;
-        }
+       
 
         &.active {
             background-color: $workspace-board-active;
         }
+
         .board-menu-modal {
             @include menu-modal();
             right: -240px;

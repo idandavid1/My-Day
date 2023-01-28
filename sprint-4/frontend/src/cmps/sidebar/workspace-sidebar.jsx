@@ -74,10 +74,6 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreate
                             <AiOutlinePlus className='icon' />
                             <span>Add</span>
                         </div>
-                        <div>
-                            <FiFilter className='icon' />
-                            <span>Filters</span>
-                        </div>
                         <div className='search-board'>
                             <BiSearch className='icon' />
                             <input type="text"
@@ -98,7 +94,6 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreate
                 </ul>
             </div>}
             {isOpen && isStarredOpen && <div className="workspace-sidebar-header">
-                {console.log(isOpen, isStarredOpen)}
                 <div className='workspace-sidebar-items'>
                     <div className="workspace-title-container flex space-between align-center">
                         <span className='favorites-title'><BsStarFill className="star-icon" /> Favorites</span>

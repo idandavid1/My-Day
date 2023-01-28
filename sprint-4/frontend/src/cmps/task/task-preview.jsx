@@ -42,6 +42,7 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
 
     async function updateTask(cmpType, data, activity) {
         task[cmpType] = data
+        task.updatedBy.date = Date.now()
         try {
             await updateTaskAction(board, group.id, task, activity)
         } catch (err) {
@@ -50,7 +51,6 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
     }
 
     async function onUpdateTaskTitle(ev) {
-        console.log('enter')
         const value = ev.target.innerText
         task.title = value
         task.updatedAt = Date.now()
@@ -145,7 +145,6 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
 }
 
 function DynamicCmp({ cmp, info, onUpdate }) {
-    console.log(cmp)
     switch (cmp) {
         case "status-picker":
             return <StatusPicker info={info} onUpdate={onUpdate} />

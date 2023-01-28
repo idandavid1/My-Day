@@ -15,7 +15,7 @@ import { RiUserAddLine } from 'react-icons/ri'
 
 const guest = require('../../assets/img/guest.png')
 
-export function BoardHeader({ board, onSetFilter, isStarredOpen }) {
+export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescription }) {
     const isOpen = useSelector(storeState => storeState.boardModule.isBoardModalOpen)
     // const [isOpen , setIsOpen] = useState(false)
     const navigate = useNavigate()
@@ -45,7 +45,8 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen }) {
         toggleModal(isOpen)
         navigate(`/board/${board._id}/activityLog`)
     }
-    console.log('Toggling', isOpen)
+    if (!board.members) return <div>Loading...</div>
+
     return (
         <header className="board-header">
             <section className='board-title'>
@@ -53,7 +54,7 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen }) {
                     <blockquote data-title='Click to Edit' contentEditable onBlur={onSave} suppressContentEditableWarning={true}>
                         <h1>{board.title}</h1>
                     </blockquote>
-                    <div data-title='Show board description' className='info-btn icon'>
+                    <div data-title='Show board description' className='info-btn icon' onClick={() => setIsShowDescription(true)}>
                         <RiErrorWarningLine />
                     </div>
                     <div data-title='Add to favorites' className='star-btn icon' onClick={onToggleStarred}>
@@ -62,7 +63,7 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen }) {
                 </div>
                 <div className='board-tools flex'>
                     <div className='activity' onClick={toggleIsOpen}><FiActivity /></div>
-                    <div className='members-last-seen'onClick={toggleIsOpen}>
+                    <div className='members-last-seen' onClick={toggleIsOpen}>
                         <span className='last-seen-title'>Last seen</span>
                         <div className='flex members-imgs'>
                             <img className='member-img1' src={board.members.length ? board.members[0].imgUrl : guest} alt="member" />
@@ -80,7 +81,7 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen }) {
                 </div>
             </section>
             <div className='board-description'>
-                <p className='board-description-link'>Add your board's description here <span>See More</span></p>
+                <p className='board-description-link'>{board.description} <span onClick={() => setIsShowDescription(true)}>See More</span></p>
             </div>
             <div className='board-display-btns' >
                 <div className='main-table-btn active' >
