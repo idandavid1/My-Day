@@ -1,33 +1,31 @@
 .login-logout-modal {
-    @include login-logout-modal-position();
-    box-shadow: 0 8px 16px 0 rgb(0 0 0 / 32%);
-    background-color: white;
-    border-radius: 10px;
-    z-index: 101;
+    background-color: $app-bg;
+    border-radius: $spacing-small;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    color: $primary-text-color;
+    box-shadow: -3px 4px 14px rgb(0 0 0 / 20%);
+    padding: $spacing-small;
+    font-size: 14px;
+    z-index: 10;
+    border: 1px solid darken($border-color , 20%);
+    left: 60px;
+    bottom: 15px;
 
     ul {
-        display: flex;
-        flex-direction: column;
-        gap: $spacing-small;
-        padding: 0;
         margin: 0;
 
         li {
-            flex-direction: row;
-            min-width: 152px;
-            height: 32px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             cursor: pointer;
+            padding: $spacing-xs;
+            border-radius: 4px;
+            align-items: center;
 
-            .login-icon {
-                margin-right: 5px;
-            }
-
-            .logout-icon {
-                margin-right: 5px;
+            &:hover {
+                background-color: $workspace-hover;
             }
         }
     }
+
 }

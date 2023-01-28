@@ -145,7 +145,6 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
 }
 
 function DynamicCmp({ cmp, info, onUpdate }) {
-    console.log(cmp)
     switch (cmp) {
         case "status-picker":
             return <StatusPicker info={info} onUpdate={onUpdate} />
