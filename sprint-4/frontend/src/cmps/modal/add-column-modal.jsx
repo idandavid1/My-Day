@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 
 import { ImFilesEmpty } from 'react-icons/im'
-import { CiCalculator2 } from 'react-icons/ci'
+import { CiCalculator2, CiCalendarDate } from 'react-icons/ci'
 import { RxCountdownTimer } from "react-icons/rx"
 import { BsCheckSquare } from "react-icons/bs"
-import { CiCalendarDate }  from 'react-icons/ci'
+import { HiOutlineUserCircle } from 'react-icons/hi'
 
 const statusImg = require('../../assets/img/status.png')
 
@@ -26,59 +26,59 @@ export function AddColumnModal({ addColumn, board }) {
         switch (column) {
             case 'status-picker':
                 return (
-                    <span onClick={() => addColumn('status-picker')}>
+                    <div onClick={() => addColumn('status-picker')}>
                         <img src={statusImg} alt="" />
                         Status
-                    </span>
+                    </div>
                 )
             case 'priority-picker':
                 return (
-                        <span onClick={() => addColumn('priority-picker')}>
+                        <div onClick={() => addColumn('priority-picker')}>
                             <img src={statusImg} alt="" />
                             Priority
-                        </span>
+                        </div>
                     )
             case 'date-picker': 
                 return (
-                    <span onClick={() => addColumn('date-picker')}>
+                    <div onClick={() => addColumn('date-picker')}>
                         <CiCalendarDate className='icon'/>
                         Date
-                    </span>
+                    </div>
                 )
             case "member-picker":
                 return (
-                    <span onClick={() => addColumn('member-picker')}>
-                        <CiCalendarDate className='icon'/>
+                    <div onClick={() => addColumn('member-picker')}>
+                        <HiOutlineUserCircle className='icon'/>
                         Person
-                    </span>
+                    </div>
                 )
             case "file-picker":
                 return (
-                    <span onClick={() => addColumn('file-picker')}>
+                    <div onClick={() => addColumn('file-picker')}>
                         <ImFilesEmpty />
                         Files
-                    </span>
+                    </div>
                 )
             case "number-picker":
                 return (
-                    <span onClick={() => addColumn('number-picker')}>
+                    <div onClick={() => addColumn('number-picker')}>
                         <CiCalculator2 />
                         Numbers
-                    </span>
+                    </div>
                 )
             case "updated-picker":
                 return (
-                    <span onClick={() => addColumn('updated-picker')}>
+                    <div onClick={() => addColumn('updated-picker')}>
                         <RxCountdownTimer />
                         Updated
-                    </span>
+                    </div>
                 )
             case "checkbox-picker":
                 return (
-                    <span onClick={() => addColumn('checkbox-picker')}>
+                    <div onClick={() => addColumn('checkbox-picker')}>
                         <BsCheckSquare />
                         Checkbox
-                    </span>
+                    </div>
                 )
             default:
                 break;

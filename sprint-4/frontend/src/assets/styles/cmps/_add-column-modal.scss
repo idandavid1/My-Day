@@ -2,4 +2,16 @@
     @include menu-modal();
     top: 27px;
     right: -11px;
+    width: 220px;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    div {
+        width: 100px;
+    }
+
+    img {
+        width: 14px;
+        height: 14px;
+    }
 }
