@@ -74,7 +74,7 @@ export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen, act
                         <button className="icon-container"><CiSearch className="icon"/></button>
                     </form>
                     <span>Suggested people</span>
-                    {outTaskMembers.length > 0 && <ul>
+                    {outTaskMembers.length > 0 && <ul className="out-member-list">
                         {
                             outTaskMembers.map(taskMember => {
                                return  <li key={taskMember.id} onClick={() => onAddMember(taskMember)}>

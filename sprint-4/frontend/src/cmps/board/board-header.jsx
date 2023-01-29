@@ -15,10 +15,9 @@ import { RiUserAddLine } from 'react-icons/ri'
 
 const guest = require('../../assets/img/guest.png')
 
-export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescription }) {
+export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescription, setIsInviteModalOpen }) {
     const isOpen = useSelector(storeState => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
-    const [isModalOpen, setIsModalOpen] = useState(false)
     // const members = info.memberIds.map(member => getMember(member))
 
     async function onSave(ev) {
@@ -72,10 +71,9 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
                             </div>
                         </div>
                     </div>
-                    <div className="invite" onClick={() => setIsModalOpen(!isModalOpen)}>
+                    <div className="invite" onClick={() => setIsInviteModalOpen(prev => !prev)}>
                         <RiUserAddLine className="invite-icon" />
                         Invite / 1
-                        {/* {isModalOpen && <ModalMember className="invite-modal"/>} */}
                     </div>
                 </div>
             </section>

@@ -3,7 +3,7 @@ import { httpService } from './http.service'
 import { socketService } from './socket.service'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
-const BASE_URL = 'board/'
+const BASE_URL = 'user/'
 
 export const userService = {
     login,

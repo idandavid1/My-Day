@@ -15,6 +15,8 @@ import { LoginLogoutModal } from '../cmps/modal/login-logout-modal'
 import { CreateBoard } from '../cmps/modal/create-board'
 import { BoardActivityModal } from '../cmps/board/board-activity-modal'
 import { BoardDescription } from '../cmps/board/board-description'
+import { ModalMemberInvite } from '../cmps/modal/modal-member-invite'
+import { loadUsers } from '../store/user.actions'
 
 export function BoardDetails() {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)
@@ -26,12 +28,14 @@ export function BoardDetails() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
     const [isShowDescription, setIsShowDescription] = useState(false)
+    const [isInviteModalOpen, setIsInviteModalOpen] = useState(false)
     const queryFilterBy = boardService.getFilterFromSearchParams(searchParams)
     const { boardId } = useParams()
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
     
     useEffect(() => {
         loadBoard(boardId, queryFilterBy)
+        loadUsers()
         if (!boards.length) loadBoards()
     }, [])
 
@@ -58,12 +62,12 @@ export function BoardDetails() {
                 <WorkspaceSidebar isOpen={isOpen} setIsOpen={setIsOpen} isStarredOpen={isStarredOpen} board={board} setIsCreateModalOpen={setIsCreateModalOpen}/>
             </div>
             <main className="board-main">
-                <BoardHeader board={board} onSetFilter={onSetFilter} isStarredOpen={isStarredOpen} setIsShowDescription={setIsShowDescription} />
+                <BoardHeader board={board} onSetFilter={onSetFilter} isStarredOpen={isStarredOpen} setIsShowDescription={setIsShowDescription} setIsInviteModalOpen={setIsInviteModalOpen} />
                 <GroupList board={board} />
                 <BoardModal setIsMouseOver={setIsMouseOver} />
             </main>
             {isCreateModalOpen && <CreateBoard setIsModalOpen={setIsCreateModalOpen} />}
-            {(isCreateModalOpen || (isBoardModalOpen && isMouseOver)) && <div className='dark-screen'></div>}
+            {(isInviteModalOpen || isCreateModalOpen || (isBoardModalOpen && isMouseOver)) && <div className='dark-screen'></div>}
             {isShowDescription &&
                 <>
                     <BoardDescription setIsShowDescription={setIsShowDescription} board={board}/>
@@ -71,6 +75,7 @@ export function BoardDetails() {
                 </>
             }
             {isLoginModalOpen && <LoginLogoutModal setIsLoginModalOpen={setIsLoginModalOpen}/>}
+            {isInviteModalOpen && <ModalMemberInvite board={board} setIsInviteModalOpen={setIsInviteModalOpen}/>}
         </section>
     )
 }
