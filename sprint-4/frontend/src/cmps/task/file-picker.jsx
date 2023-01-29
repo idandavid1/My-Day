@@ -12,6 +12,7 @@ export function FilePicker({ info, onUpdate }) {
 
     async function uploadImg(ev) {
         const { secure_url, height, width } = await uploadService.uploadImg(ev)
+        console.log(secure_url)
         setImgData({ imgUrl: secure_url, width, height })
         onUpdate('file', secure_url)
     }
@@ -22,7 +23,7 @@ export function FilePicker({ info, onUpdate }) {
                 {!imgData.imgUrl && <AiOutlineFileAdd className="icon" />}
                 {imgData.imgUrl && <img className="file-img" src={imgData.imgUrl} style={{ maxWidth: '19px', float: 'right' }} />}
             </label>
-            <input type="file" onUpdate={uploadImg} id="file-upload" />
+            <input type="file" onChange={uploadImg} accept="img/*" id="file-upload" />
         </section>
     )
 }
