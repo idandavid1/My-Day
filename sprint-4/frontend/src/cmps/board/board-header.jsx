@@ -44,7 +44,7 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
         toggleModal(isOpen)
         navigate(`/board/${board._id}/${type}`)
     }
-    if (!board.members) return <div>Loading...</div>
+    if (!board.members) return <div></div>
 
     return (
         <header className="board-header">
