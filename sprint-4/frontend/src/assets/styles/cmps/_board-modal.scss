@@ -10,7 +10,6 @@
     transform: translateX(100%);
     z-index: 100;
     transition: transform .6s, box-shadow .6s;
-    overflow-y: auto;
 
     @include for-mobile-layout() {
         &{
@@ -175,5 +174,10 @@
             text-align: center;
             }
         } 
+    }
+
+    .activities {
+        height: 85vh;
+        overflow: auto;
     }
 }

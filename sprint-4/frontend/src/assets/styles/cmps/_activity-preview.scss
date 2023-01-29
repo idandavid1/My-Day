@@ -8,6 +8,12 @@
     height: 60px;
     color: $primary-text-color;
 
+    @include for-mobile-layout() {
+        &{
+            font-size: 12px;
+        }
+    }
+
     img {
         height: 30px;
         width: 30px;
@@ -17,12 +23,25 @@
         display: flex;
         align-items: center;
         width: 200px;
+
+        @include for-mobile-layout() {
+            &{
+                width: 100px;
+                gap: 0;
+            }
+        }
         
         .time {
             display: flex;
             align-items: center;
             width: 60px;
+            @include for-mobile-layout() {
+                &{
+                    width: 50px;
+                }
+            }
         }
+
 
         .title {
             height: 100%;
@@ -30,8 +49,21 @@
             align-items: center;
             gap: $spacing-xs;
 
+            @include for-mobile-layout() {
+                &{
+                    width: 50px;
+                    gap: 0;
+                    overflow: hidden;
+                }
+            }
+
             img {
                 border-radius: 50px;
+                @include for-mobile-layout() {
+                    &{
+                        display: none;
+                    }
+                }
             }
             
             span {
@@ -44,15 +76,23 @@
         display: flex;
         gap: $spacing-small;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
+        width: 80px;
+
+        @include for-mobile-layout() {
+            &{
+                width: 60px;
+            }
+        }
+
         img {
             margin-left: auto;
-            width: 15px;
-            height: 15px;
+            width: 13px;
+            height: 13px;
+
         }
 
         .icon {
-            margin-left: auto;
             font-size: 20px;
         }
     }
@@ -62,19 +102,31 @@
         align-items: center;
         height: 100%;
         margin-left: auto;
+        width: 200px;
+        @include for-mobile-layout() {
+            &{
+                width: 100px;
+            }
+        }
 
         span {
             height: 100%;
-            min-width: 80px;
             @include center-flex();
-            width: 100%;
+            // width: 100%;
+            width: 90px;
 
             @include for-mobile-layout() {
                 &{
                     width: 40px;
                 }
             }
+
+            @include for-narrow-layout() {
+                &{
+                    min-width: 80px;
+                }
         }
+    }
 
         .icon {
             font-size: 35px;
