@@ -15,9 +15,11 @@ import { useRef } from "react"
 import { TaskToolsModal } from "../modal/task-tools-modal"
 import { AddColumnModal } from "../modal/add-column-modal"
 import { TitleGroupPreview } from "./title-group-preview"
+import { useSelector } from "react-redux"
 
 export function GroupPreview({ group, board, idx }) {
     const [taskToEdit, setTaskToEdit] = useState(boardService.getEmptyTask())
+    const user = useSelector(storeState => storeState.userModule.user)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isTyping, setIsTyping] = useState(false)
     const [isShowColorPicker, setIsShowColorPicker] = useState(false)
@@ -28,6 +30,7 @@ export function GroupPreview({ group, board, idx }) {
     const [isPlus, setIsPlus] = useState(true)
     const [isDeleteCmpTitleModalOpen, setIsDeleteCmpTitleModalOpen] = useState(false)
     const [isActive, setIsActive] = useState(false)
+    const guest = require('../../assets/img/guest.png')
     let _ = require('lodash')
 
     function onOpenModal() {
@@ -58,6 +61,9 @@ export function GroupPreview({ group, board, idx }) {
         const activity = boardService.getEmptyActivity()
         activity.from = { color: group.color, title: group.title }
         activity.action = 'create'
+        console.log(taskToEdit)
+        taskToEdit.updatedBy.date = Date.now()
+        taskToEdit.updatedBy.imgUrl = user?.imgUrl || guest
         addTask(taskToEdit, group, board, activity)
         setTaskToEdit(boardService.getEmptyTask())
     }

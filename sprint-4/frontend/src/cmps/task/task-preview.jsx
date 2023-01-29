@@ -22,27 +22,31 @@ import { UpdatedPicker } from "./updated-picker"
 export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCheckbox, isCheckBoxActionDone, setIsCheckBoxActionDone }) {
     const elTaskPreview = useRef(null)
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
+    const user = useSelector(storeState => storeState.userModule.user)
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
     const [isClick, setIsClick] = useState(false)
-    
+    const guest = require('../../assets/img/guest.png')
+
+
     useEffectUpdate(() => {
-        if (!isCheckBoxActionDone.isDone){
+        if (!isCheckBoxActionDone.isDone) {
             setIsClick(isMainCheckbox)
             handleCheckboxChange(task)
-        } 
+        }
     }, [isMainCheckbox])
 
     useEffectUpdate(() => {
-        if(isCheckBoxActionDone.isDone) {
+        if (isCheckBoxActionDone.isDone) {
             setIsClick(false)
-            setIsCheckBoxActionDone({isDone: false})
-        } 
+            setIsCheckBoxActionDone({ isDone: false })
+        }
     }, [isCheckBoxActionDone])
 
     async function updateTask(cmpType, data, activity) {
         task[cmpType] = data
         task.updatedBy.date = Date.now()
+        task.updatedBy.imgUrl = user.imgUrl || guest
         try {
             await updateTaskAction(board, group.id, task, activity)
         } catch (err) {
@@ -53,7 +57,6 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
     async function onUpdateTaskTitle(ev) {
         const value = ev.target.innerText
         task.title = value
-        task.updatedAt = Date.now()
         try {
             elTaskPreview.current.classList.toggle('on-typing')
             await updateTaskAction(board, group.id, task)
