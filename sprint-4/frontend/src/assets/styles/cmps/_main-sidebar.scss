@@ -24,6 +24,19 @@
         }
     }
 
+    .open-workspace-btn {
+        display: none;
+    }
+
+    @include for-mobile-layout() {
+        .open-workspace-btn {
+            color: white;
+            font-size: 24px;
+            height: 100%;
+            @include center-flex();
+        }
+    }
+
     .logged-user-img {
         height: 37.4px;
         width: 37.4px;
@@ -74,9 +87,12 @@
             }
         }
 
+
         >*:hover {
             @include hover-sidebar()
         }
+
+
     }
 
     .bottom {
@@ -103,7 +119,7 @@
             width: 100vw;
             top: initial;
             bottom: 0;
-            height: 66px;
+            height: 8vh;
             flex-direction: row;
             align-items: center;
             justify-content: center;
@@ -117,7 +133,7 @@
 
             .triangle-icon {
                 left: 8px;
-                top: -23px;
+                top: -16px;
                 transform: rotate(270deg);
             }
 
@@ -126,5 +142,6 @@
             }
 
         }
+
     }
 }

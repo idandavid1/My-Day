@@ -3,13 +3,14 @@ import { useState } from 'react'
 
 import { AiOutlineStar } from 'react-icons/ai'
 import { VscTriangleLeft } from 'react-icons/vsc'
+import { HiMenu } from 'react-icons/hi'
 import { useSelector } from 'react-redux'
 import { LoginLogoutModal } from '../modal/login-logout-modal'
 
 const logoHomePage = require('../../assets/img/icon.png')
 const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
 
-export function MainSidebar({ setIsStarredOpen, setIsLoginModalOpen }) {
+export function MainSidebar({ setIsStarredOpen, setIsLoginModalOpen ,setIsOpen}) {
     const [iconChoose, setIconChoose] = useState('board')
     const user = useSelector(storeState => storeState.userModule.user)
 
@@ -23,6 +24,7 @@ export function MainSidebar({ setIsStarredOpen, setIsLoginModalOpen }) {
 
     return (
         <section className="main-sidebar">
+            <span className='open-workspace-btn' onClick={() => setIsOpen(prev => !prev)}><HiMenu /></span>
             <Link to={'/'}> <img className='home-img' src={logoHomePage} alt="" /> </Link>
             <div className='middle-div'>
                 <div className="icon-container">

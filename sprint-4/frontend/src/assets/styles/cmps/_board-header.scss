@@ -15,7 +15,7 @@
         div {
             display: flex;
             align-items: center;
-            padding-top: 4px ;
+            padding-top: 4px;
             height: rem(32px);
             border-radius: 4px;
         }
@@ -90,7 +90,7 @@
             .invite {
                 height: rem(32px);
                 width: max-content;
-                
+
                 &:hover {
                     background-color: $workspace-hover;
                 }
@@ -99,10 +99,21 @@
                     width: 32px;
                 }
             }
-        }
 
-        .members-imgs {
-            @include member-img(white, #323338, 24px, 26px)
+            .members-imgs {
+                @include member-img(white, #323338, 24px, 26px);
+
+            }
+
+            @include for-mobile-layout() {
+                & {
+                    gap: 0;
+                }
+
+                .members-imgs {
+                    display: none;
+                }
+            }
         }
 
     }
@@ -187,30 +198,34 @@
 
     @include for-mobile-layout() {
         & {
-            // .board-title {
-            //     flex-direction: column;
-            // }
+            padding: 16px 10px 0 10px;
 
             .board-info h1 {
                 font-size: 15px;
                 white-space: nowrap;
             }
-            .last-seen-title{
+
+            .last-seen-title {
                 display: none;
             }
-            .invite-title{
+
+            .invite-title {
                 display: none;
             }
-            .board-tools{
+
+            .board-tools {
                 margin-right: auto;
             }
-            .board-description{
+
+            .board-description {
                 display: none;
             }
-            blockquote{
+
+            blockquote {
                 max-width: 180px;
                 white-space: nowrap;
             }
+
 
         }
     }

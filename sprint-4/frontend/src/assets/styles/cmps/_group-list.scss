@@ -3,4 +3,10 @@
     margin: 0 0 40px 40px;
     position: relative;
     color: $primary-text-color;
+
+    @include for-mobile-layout() {
+        &{
+            margin: 0;
+        }
+    }
 }

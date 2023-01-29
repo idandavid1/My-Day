@@ -36,6 +36,12 @@ export function TaskToolsModal({ tasks, group, board, setSelectedTasks, setIsChe
         }
     }
 
+    function onClose() {
+        setSelectedTasks([])
+        setIsCheckBoxActionDone({ isDone: true })
+        setIsMainCheckbox(false)
+    }
+
     return (
 
         <section className="task-tools-modal">
@@ -66,7 +72,7 @@ export function TaskToolsModal({ tasks, group, board, setSelectedTasks, setIsChe
                             Move to
                         </div>
                     </div>
-                    <div className="close-btn">
+                    <div className="close-btn" onClick={onClose}>
                         <IoCloseOutline className="icon" />
                     </div>
 

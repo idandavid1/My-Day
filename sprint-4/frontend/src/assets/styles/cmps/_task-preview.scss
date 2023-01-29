@@ -38,6 +38,13 @@
         color: $primary-text-color;
         background-color: white;
 
+        @include for-mobile-layout() {
+            & {
+                display: none;
+                // width: 10px;
+            }
+        }
+
         .icon {
             display: none;
             cursor: pointer;
@@ -92,7 +99,7 @@
             color: $workspace-icon-color;
 
             @include for-mobile-layout() {
-                & .open-btn{
+                & .open-btn {
                     display: none;
                 }
             }

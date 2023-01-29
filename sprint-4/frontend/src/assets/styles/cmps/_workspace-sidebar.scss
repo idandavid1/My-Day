@@ -5,6 +5,7 @@
     color: $workspace-icon-color;
     transition: .4s;
 
+  
     &.open {
         min-width: $workspace-width;
     }
@@ -223,6 +224,17 @@
             background-color: $board-btn;
             padding-left: 16px;
             padding-right: 5px;
+        }
+    }
+    @include for-mobile-layout() {
+        &.close{
+            min-width: 0;
+        }
+        &.open{
+            width: 100vw;
+        }
+        .toggle-workspace{
+            display: none;
         }
     }
 }
