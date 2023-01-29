@@ -3,16 +3,17 @@ import { AiOutlineFileAdd } from 'react-icons/ai'
 import { uploadService } from '../../services/upload.service'
 
 export function FilePicker({ info, onUpdate }) {
+
+    console.log('info' , info)
     const [imgData, setImgData] = useState({
         imgUrl: info.file ? info.file : null,
         height: 19,
         width: 19,
     })
-
-
+    
+    
     async function uploadImg(ev) {
         const { secure_url, height, width } = await uploadService.uploadImg(ev)
-        console.log(secure_url)
         setImgData({ imgUrl: secure_url, width, height })
         onUpdate('file', secure_url)
     }

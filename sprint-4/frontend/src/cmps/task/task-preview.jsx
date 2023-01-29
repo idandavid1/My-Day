@@ -44,6 +44,7 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
     }, [isCheckBoxActionDone])
 
     async function updateTask(cmpType, data, activity) {
+        console.log('task' , task)
         task[cmpType] = data
         task.updatedBy.date = Date.now()
         task.updatedBy.imgUrl = user.imgUrl || guest

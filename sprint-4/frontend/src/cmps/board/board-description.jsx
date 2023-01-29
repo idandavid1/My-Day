@@ -8,10 +8,9 @@ export function BoardDescription({ setIsShowDescription, board }) {
 
     async function onSave(ev) {
         let value = ev.target.innerText
-        if(value === '') value = board.title 
         const key = ev.target.id
+        if(value === '' && key === 'title') value = board.title 
         board[key] = value
-        console.log(board)
         try {
             saveBoard(board)
             loadBoards()

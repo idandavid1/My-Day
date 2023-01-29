@@ -1,7 +1,13 @@
 .updated-picker {
     @include center-flex();
     gap: 7px;
+
     img {
         @include members;
+    }
+
+    .icon-person {
+        font-size: 26px;
+        color: darken($border-color, 20%);
     }
 }

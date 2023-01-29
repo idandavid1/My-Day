@@ -15,7 +15,7 @@
         div {
             display: flex;
             align-items: center;
-            padding: 4px 8px;
+            padding-top: 4px ;
             height: rem(32px);
             border-radius: 4px;
         }
@@ -23,6 +23,7 @@
         .board-info {
             display: flex;
             width: 100%;
+            gap: $spacing-small;
 
             blockquote[data-title]:after {
                 left: 20%;
@@ -32,7 +33,7 @@
 
             h1 {
                 cursor: text;
-                padding: $spacing-xs;
+                padding: 4px 4px 4px 0;
                 margin: 0;
                 border: 1px solid transparent;
                 color: $primary-text-color;
@@ -64,7 +65,7 @@
             gap: $spacing-small;
             align-items: center;
             height: fit-content;
-            gap: $spacing-small;
+            gap: $spacing-medium;
             cursor: pointer;
 
             .activity {
@@ -110,7 +111,7 @@
         border: 1px solid transparent;
         display: flex;
         align-items: flex-start;
-        padding: em(4px) em(8px);
+        padding: em(4px) em(8px) em(4px) 0;
         cursor: pointer;
         color: $workspace-icon-color;
 
@@ -143,8 +144,8 @@
             align-items: center;
 
             &.active {
-                // border-bottom: 2px solid $board-btn;
-                box-shadow: 0px 2px 0 0 #0073ea
+                border-bottom: 2px solid $board-btn;
+                // box-shadow: 0px 2px 0 0 #0073ea
             }
 
             svg {
@@ -186,12 +187,28 @@
 
     @include for-mobile-layout() {
         & {
-            .board-title {
-                flex-direction: column;
-            }
+            // .board-title {
+            //     flex-direction: column;
+            // }
 
             .board-info h1 {
                 font-size: 15px;
+                white-space: nowrap;
+            }
+            .last-seen-title{
+                display: none;
+            }
+            .invite-title{
+                display: none;
+            }
+            .board-tools{
+                margin-right: auto;
+            }
+            .board-description{
+                display: none;
+            }
+            blockquote{
+                max-width: 180px;
                 white-space: nowrap;
             }
 

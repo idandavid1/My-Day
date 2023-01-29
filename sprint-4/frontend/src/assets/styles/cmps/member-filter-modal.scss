@@ -48,4 +48,11 @@
         }
     }
 
+    @include for-mobile-layout(){
+        &.filter-member-modal{
+            left: -76px;
+            width: max-content;
+        }
+    }
+
 }
