@@ -90,6 +90,12 @@
             margin: 0 6px;
             align-items: center;
             color: $workspace-icon-color;
+
+            @include for-mobile-layout() {
+                & .open-btn{
+                    display: none;
+                }
+            }
         }
 
         .chat-icon {

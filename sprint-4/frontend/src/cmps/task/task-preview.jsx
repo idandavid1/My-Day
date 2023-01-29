@@ -122,7 +122,7 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
                     </blockquote>
                     <div className="open-task-details" onClick={onOpenModal}>
                         <TbArrowsDiagonal />
-                        <span>Open</span>
+                        <span className="open-btn">Open</span>
                     </div>
                     <div onClick={onOpenModal} className="chat-icon">
                         {task.comments.length > 0 && <div>

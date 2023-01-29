@@ -16,7 +16,7 @@ export function TaskToolsModal({ tasks, group, board, setSelectedTasks, setIsChe
                 updateGroupAction(board, group)
             })
             setSelectedTasks([])
-            setIsCheckBoxActionDone({isDone: true})
+            setIsCheckBoxActionDone({ isDone: true })
             setIsMainCheckbox(false)
         } catch (err) {
             console.error(err)
@@ -29,7 +29,7 @@ export function TaskToolsModal({ tasks, group, board, setSelectedTasks, setIsChe
                 duplicateTask(board, group, task)
             })
             setSelectedTasks([])
-            setIsCheckBoxActionDone({isDone: true})
+            setIsCheckBoxActionDone({ isDone: true })
             setIsMainCheckbox(false)
         } catch (err) {
             console.log(err)
@@ -43,25 +43,28 @@ export function TaskToolsModal({ tasks, group, board, setSelectedTasks, setIsChe
                 <div className="task-count">
                     {tasks.length}
                 </div>
-                <div className="task-info">
-                    <span>Task selected</span>
-                    <div className="group-color">
-                        {_.times(tasks.length, () => <BsFillCircleFill key={_.uniqueId('KEY_')} className="icon" style={{ color: group.color }} />)}
-                    </div>
+                <div className="tasks-container flex">
 
-                </div>
-                <div className="task-btns">
-                    <div onClick={onDuplicateTasks}>
-                        <HiOutlineDocumentDuplicate className="icon" />
-                        Duplicate
+                    <div className="task-info">
+                        <span>Task selected</span>
+                        <div className="group-color">
+                            {_.times(tasks.length, () => <BsFillCircleFill key={_.uniqueId('KEY_')} className="icon" style={{ color: group.color }} />)}
+                        </div>
+
                     </div>
-                    <div onClick={onRemoveTasks}>
-                        <FiTrash className="icon" />
-                        Delete
-                    </div>
-                    <div>
-                        <BsArrowRightCircle className="icon" />
-                        Move to
+                    <div className="task-btns">
+                        <div onClick={onDuplicateTasks}>
+                            <HiOutlineDocumentDuplicate className="icon" />
+                            Duplicate
+                        </div>
+                        <div onClick={onRemoveTasks}>
+                            <FiTrash className="icon" />
+                            Delete
+                        </div>
+                        <div>
+                            <BsArrowRightCircle className="icon" />
+                            Move to
+                        </div>
                     </div>
                     <div className="close-btn">
                         <IoCloseOutline className="icon" />
