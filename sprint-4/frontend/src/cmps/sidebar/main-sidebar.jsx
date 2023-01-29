@@ -34,7 +34,7 @@ export function MainSidebar({ setIsStarredOpen, setIsLoginModalOpen }) {
                     {iconChoose === 'starred' && <VscTriangleLeft className="triangle-icon" />}</div>
             </div>
             <div className='bottom'>
-                <img className='logged-user-img' src={user ? user.imgUrl : guest} alt="" onClick={() => setIsLoginModalOpen(prev => !prev)} />
+                <img className='logged-user-img' src={(user && user.imgUrl) ? user.imgUrl : guest} alt="" onClick={() => setIsLoginModalOpen(prev => !prev)} />
             </div>
         </section>
     )

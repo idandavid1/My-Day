@@ -68,6 +68,12 @@
             min-width: 80px;
             @include center-flex();
             width: 100%;
+
+            @include for-mobile-layout() {
+                &{
+                    width: 40px;
+                }
+            }
         }
 
         .icon {
@@ -83,6 +89,15 @@
                     padding: 0 $spacing-small;
                     color: white;
                     border-radius: 4px;
+
+                    @include for-mobile-layout() {
+                        &.label {
+                            width: 40px;
+                            height: 30px;
+
+                            font-size: 10px;
+                        }
+                    }
                 }
             }
         }
