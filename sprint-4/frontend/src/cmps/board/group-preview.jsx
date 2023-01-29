@@ -198,7 +198,7 @@ export function GroupPreview({ group, board, idx }) {
             {(provided) => {
                 return <div ref={provided.innerRef}
                     {...provided.draggableProps}>
-                    <div {...provided.dragHandleProps} className="group-header" style={{ color: group.color }}>
+                    <div {...provided.dragHandleProps} className={`group-header ${!board.description ? ' not-des' : ''}`} style={{ color: group.color }}>
                         <div className="group-header-title">
                             <MdKeyboardArrowDown className="arrow-icon" />
                             <div className="group-menu">
@@ -217,7 +217,7 @@ export function GroupPreview({ group, board, idx }) {
                         <DragDropContext onDragEnd={handleHorizontalDrag}>
                             <Droppable droppableId="title" direction="horizontal">
                                 {(droppableProvided) => {
-                                    return <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps} className='title-container'>
+                                    return <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps} className={`title-container ${!board.description ? ' not-des' : ''}`}>
                                         <div className="sticky-div titles flex" style={{ borderColor: group.color }}>
                                             <div className="hidden"></div>
                                             <div className="check-box"  >
