@@ -77,26 +77,47 @@
                 }
             }
 
-            li {
-                padding: $spacing-small;
-                display: flex;
-                gap: $spacing-small;
-                border-radius: 8px;
-                cursor: pointer;
-            
-                img {
-                    width: 26px;
-                    height: 26px;
-                }
-
-                &:hover {
-                    background-color: $layout-border-color;
+            .out-member-list {
+                height: 200px;
+                overflow-y: scroll;
+                  
+                li {
+                    padding: $spacing-small;
+                    display: flex;
+                    gap: $spacing-small;
+                    border-radius: 8px;
+                    cursor: pointer;
+                
+                    img {
+                        width: 26px;
+                        height: 26px;
+                    }
+    
+                    &:hover {
+                        background-color: $layout-border-color;
+                    }
                 }
             }
+
             
         }
     }
+
     
+    &.invite {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+
+        .modal-member-content {
+            width: 420px;
+        }
+
+        .triangle-icon {
+            display: none;
+        }
+    }
     .triangle-icon {
         @include triangle-icon();
         right: -170px;
