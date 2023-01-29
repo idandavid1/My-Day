@@ -25,7 +25,6 @@ export async function loadSocketBoard(filteredBoard, board) {
 
 export async function loadBoard(boardId, filterBy) {
     try {
-        console.log('filterBy:', filterBy)
         const board = await boardService.getById(boardId)
         const filteredBoard = boardService.getFilteredBoard(board, filterBy)
         store.dispatch({ type: SET_BOARD, board })
