@@ -52,7 +52,7 @@ export function BoardDetails() {
     return (
         <section className="board-details flex">
             <div className='sidebar flex'>
-                <MainSidebar isOpen={isOpen} setIsOpen={setIsOpen} setIsStarredOpen={setIsStarredOpen} setIsLoginModalOpen={setIsLoginModalOpen} isLoginModalOpen={isLoginModalOpen}/>
+                <MainSidebar isOpen={isOpen} setIsOpen={setIsOpen} setIsStarredOpen={setIsStarredOpen} setIsLoginModalOpen={setIsLoginModalOpen} />
                 <WorkspaceSidebar isOpen={isOpen} setIsOpen={setIsOpen} isStarredOpen={isStarredOpen} board={board} setIsCreateModalOpen={setIsCreateModalOpen}/>
             </div>
             <main className="board-main">

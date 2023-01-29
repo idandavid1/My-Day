@@ -105,7 +105,8 @@ function getEmptyTask() {
         "priority": "",
         "memberIds": [],
         "dueDate": '',
-        "comments": []
+        "comments": [],
+        "file": ""
     }
 }
 
