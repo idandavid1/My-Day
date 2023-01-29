@@ -17,6 +17,7 @@ import { BoardActivityModal } from '../cmps/board/board-activity-modal'
 import { BoardDescription } from '../cmps/board/board-description'
 import { ModalMemberInvite } from '../cmps/modal/modal-member-invite'
 import { loadUsers } from '../store/user.actions'
+import { Loader } from '../cmps/loader'
 
 export function BoardDetails() {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)
@@ -54,7 +55,7 @@ export function BoardDetails() {
         setFilter(filterBy)
     }
 
-    if (!board) return <div>Loading...</div>
+    if (!board) return <Loader />
     return (
         <section className="board-details flex">
             <div className='sidebar flex'>
