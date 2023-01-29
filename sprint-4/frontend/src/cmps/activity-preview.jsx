@@ -7,10 +7,9 @@ import { FcCheckmark }  from 'react-icons/fc'
 
 import { utilService } from "../services/util.service"
 const statusImg = require('../assets/img/status.png')
+const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
 
 export function ActivityPreview({ activity }) {
-    const guest = require('../assets/img/guest.png')
-
     function getIconAction(action) {
         switch (action) {
             case 'status':

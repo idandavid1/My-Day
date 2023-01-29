@@ -9,7 +9,7 @@ import { TbAlignRight ,TbAlignCenter,TbAlignLeft } from 'react-icons/tb'
 import { CommentMenuModal } from "../modal/modal-comment"
 import { utilService } from "../../services/util.service"
 
-const guest = require('../.././assets/img/guest.png')
+const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
 
 export function CommentPreview({onRemoveComment, comment, taskId, onEditComment}) {
     const [isMenuModalOpen, setIsMenuModalOpen] = useState(false)

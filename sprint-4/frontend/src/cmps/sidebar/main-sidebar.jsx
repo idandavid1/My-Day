@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import { LoginLogoutModal } from '../modal/login-logout-modal'
 
 const logoHomePage = require('../../assets/img/icon.png')
-const guest = require('../../assets/img/guest.png')
+const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
 
 export function MainSidebar({ setIsStarredOpen, setIsLoginModalOpen }) {
     const [iconChoose, setIconChoose] = useState('board')

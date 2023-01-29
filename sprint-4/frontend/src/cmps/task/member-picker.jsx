@@ -5,8 +5,7 @@ import { ModalMember } from "../modal/modal-member"
 import { BsPersonCircle } from 'react-icons/bs'
 import { boardService } from "../../services/board.service"
 
-const guest = require('../../assets/img/guest.png')
-
+const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
 export function MemberPicker({ info, onUpdate }) {
     const board = useSelector(storeState => storeState.boardModule.board)
     const [isModalOpen, setIsModalOpen] = useState(false)

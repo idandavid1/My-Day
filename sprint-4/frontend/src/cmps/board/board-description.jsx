@@ -1,10 +1,9 @@
 import { BsFillLightningFill } from "react-icons/bs";
 import { CgClose } from "react-icons/cg";
 import { loadBoards, saveBoard } from "../../store/board.actions";
+const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
 
 export function BoardDescription({ setIsShowDescription, board }) {
-
-    const guest = require('../../assets/img/guest.png')
 
     async function onSave(ev) {
         let value = ev.target.innerText

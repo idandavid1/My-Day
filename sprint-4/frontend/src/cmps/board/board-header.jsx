@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RiUserAddLine } from 'react-icons/ri'
 
-const guest = require('../../assets/img/guest.png')
+const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
 
 export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescription, setIsInviteModalOpen }) {
     const isOpen = useSelector(storeState => storeState.boardModule.isBoardModalOpen)

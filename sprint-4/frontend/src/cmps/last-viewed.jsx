@@ -1,12 +1,8 @@
 import { IoTimeOutline } from 'react-icons/io5'
-
-
-
-
+const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
 
 export function LastViewed({ member }) {
 
-    const guest = require('../assets/img/guest.png')
     return (
         <div className="last-viewed-main">
             <div className="member-info">

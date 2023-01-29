@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { uploadService } from '../../services/upload.service'
-const guest = require('../../assets/img/guest.png')
+const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
 
 export function ImgUploader({ onUploaded = null }) {
   const [imgData, setImgData] = useState({

@@ -26,7 +26,7 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
     const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
     const [isClick, setIsClick] = useState(false)
-    const guest = require('../../assets/img/guest.png')
+    const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
 
 
     useEffectUpdate(() => {

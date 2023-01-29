@@ -17,6 +17,7 @@ import { BoardDescription } from '../cmps/board/board-description'
 import { ModalMemberInvite } from '../cmps/modal/modal-member-invite'
 import { loadUsers } from '../store/user.actions'
 import { Loader } from '../cmps/loader'
+import { useEffectUpdate } from '../customHooks/useEffectUpdate'
 
 export function BoardDetails() {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)
@@ -47,6 +48,12 @@ export function BoardDetails() {
             socketService.off(SOCKET_EVENT_ADD_UPDATE_BOARD, loadSocketBoard)
         }
     }, [])
+
+    useEffect(() => {
+        socketService.off(SOCKET_EVENT_ADD_UPDATE_BOARD, loadSocketBoard)
+        socketService.emit(SOCKET_EMIT_SET_TOPIC, boardId)
+        socketService.on(SOCKET_EVENT_ADD_UPDATE_BOARD, loadSocketBoard)
+    }, [boardId, isBoardModalOpen])
 
     function onSetFilter(filterBy) {
         setSearchParams(filterBy)

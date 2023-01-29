@@ -19,7 +19,6 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
     const [isWriteNewUpdate, setIsWriteNewUpdate] = useState(false)
     const [comment, setComment] = useState(boardService.getEmptyComment())
     const [comments, setComments] = useState(task.comments)
-    const [currTask, setCurrTask] = useState(task)
     const navigate = useNavigate()
     const [isShowUpdate, setIsShowUpdate] = useState(true)
     const [taskActivities, setTaskActivities] = useState([])
@@ -52,9 +51,9 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
 
     async function onUpdateTaskTitle(ev) {
         const value = ev.target.innerText
-        currTask.title = value
+        task.title = value
         try {
-            await updateTaskAction(board, groupId, currTask)
+            await updateTaskAction(board, groupId, task)
         } catch (err) {
             console.log('Failed to save')
         }
@@ -63,11 +62,12 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
     async function onAddComment() {
         try {
             comment.id = utilService.makeId()
-            currTask.comments.unshift(comment)
+            task.comments.unshift(comment)
             socketService.emit(SOCKET_EMIT_SEND_MSG, comment)
-            updateTaskAction(board, groupId, currTask)
+            updateTaskAction(board, groupId, task)
             setIsWriteNewUpdate(false)
             setComment(boardService.getEmptyComment())
+            addComment(comment)
         } catch (err) {
             console.log('err:', err)
         }  
@@ -81,10 +81,10 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
 
     async function onRemoveComment(commentId) {
         try {
-            currTask.comments = currTask.comments.filter(comment => comment.id !== commentId)
-            updateTaskAction(board, groupId, currTask)
-            setCurrTask({...currTask})
-            setComments(currTask.comments)
+            task.comments = task.comments.filter(comment => comment.id !== commentId)
+            updateTaskAction(board, groupId, task)
+            // setCurrTask({...currTask})
+            setComments(task.comments)
         } catch (err) {
             console.log('err:', err)
         }
@@ -118,21 +118,20 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
 
     async function onEditComment(saveComment) {
         try {
-            currTask.comments = currTask.comments.map(comment => (comment.id === saveComment.id) ? saveComment : comment)
-            updateTaskAction(board, groupId, currTask)
-            setCurrTask({...currTask})
-            setComments(currTask.comments)
+            task.comments = task.comments.map(comment => (comment.id === saveComment.id) ? saveComment : comment)
+            updateTaskAction(board, groupId, task)
+            // setCurrTask({...currTask})
+            setComments(task.comments)
         } catch (err) {
             console.log('err:', err)
         }
     }
-
     return <section className='task-modal'>
         <div className="board-modal-header">
             <CgClose className="close-btn" onClick={onCloseModal} />
             <div className="title">
                 <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
-                    {currTask.title}
+                    {task.title}
                 </blockquote>
             </div>
         </div>

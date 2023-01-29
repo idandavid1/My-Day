@@ -30,7 +30,7 @@ export function GroupPreview({ group, board, idx }) {
     const [isPlus, setIsPlus] = useState(true)
     const [isDeleteCmpTitleModalOpen, setIsDeleteCmpTitleModalOpen] = useState(false)
     const [isActive, setIsActive] = useState(false)
-    const guest = require('../../assets/img/guest.png')
+    const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
     let _ = require('lodash')
 
     function onOpenModal() {
