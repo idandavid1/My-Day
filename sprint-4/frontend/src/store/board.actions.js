@@ -222,8 +222,8 @@ export async function addActivity(filteredBoard, activity) {
     try {
         const { board } = store.getState().boardModule
         if (board.activities.length >= 30) {
-            filteredBoard.activities.splice(19, 10)
-            board.activities.splice(19, 10)
+            board.activities.pop()
+            filteredBoard.activities.pop()
         }
         board.activities.unshift(activity)
         await boardService.save(board)

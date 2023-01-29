@@ -55,43 +55,47 @@ export function BoardActivityModal({ board, activityLog }) {
         }
     }
     return (
-        <section className="board-activity-header">
-            <CgClose className="close-btn" onClick={onCloseModal} />
-            <h3 className="board-title">{board.title} <span>Log</span></h3>
-            <div className="views">
-            <span id="1" className={view === 'activity' ? 'active' : ''} onClick={() => setView('activity')}>Activity</span>
-                <span id="2" className={view === 'last-viewed' ? 'active' : ''} onClick={() => setView('last-viewed')}>Last Viewed</span>
-                <span id="3" className={view === 'updates' ? 'active' : ''} onClick={() => setView('updates')}>Updates</span>
+        <section className="board-activity">
+            <div className="board-activity-header">
+                    <CgClose className="close-btn" onClick={onCloseModal} />
+                    <h3 className="board-title">{board.title} <span>Log</span></h3>
+                    <div className="views">
+                    <span id="1" className={view === 'activity' ? 'active' : ''} onClick={() => setView('activity')}>Activity</span>
+                        <span id="2" className={view === 'last-viewed' ? 'active' : ''} onClick={() => setView('last-viewed')}>Last Viewed</span>
+                        <span id="3" className={view === 'updates' ? 'active' : ''} onClick={() => setView('updates')}>Updates</span>
+                    </div>
             </div>
-            {view === 'activity' &&
-                board.activities.map(activity => {
-                    return <li key={activity.id}><ActivityPreview activity={activity} /></li>
-                })
-            }
-            {view === 'last-viewed' &&
-                <section className="last-viewed">
-                    <div className="title">
-                        <span>Name</span>
-                        <span>Last viewed</span>
-                    </div>
+            <div className="board-activity-content">
+                {view === 'activity' &&
+                    board.activities.map(activity => {
+                        return <li key={activity.id}><ActivityPreview activity={activity} /></li>
+                    })
+                }
+                {view === 'last-viewed' &&
+                    <section className="last-viewed">
+                        <div className="title">
+                            <span>Name</span>
+                            <span>Last viewed</span>
+                        </div>
 
-                    {board.members.map(member => {
-                        return <li key={member._id}> <LastViewed member={member} /> </li>
-                    })}
-                </section>
-            }
-            {view === 'updates' &&
-                <section className="update">
-                    <div className="comments-list">
-                    {tasks.map(task => {
-                        return task.comments.map(comment => {
-                            return <li key={comment._id}><CommentPreview onRemoveComment={onRemoveComment} comment={comment} onEditComment={onEditComment} taskId={task.id}/></li>
-                        })
-                        
-                    })} 
-                    </div>
-                </section>
-            }
+                        {board.members.map(member => {
+                            return <li key={member._id}> <LastViewed member={member} /> </li>
+                        })}
+                    </section>
+                }
+                {view === 'updates' &&
+                    <section className="update">
+                        <div className="comments-list">
+                        {tasks.map(task => {
+                            return task.comments.map(comment => {
+                                return <li key={comment._id}><CommentPreview onRemoveComment={onRemoveComment} comment={comment} onEditComment={onEditComment} taskId={task.id}/></li>
+                            })
+                            
+                        })} 
+                        </div>
+                    </section>
+                }
+            </div>
         </section>
     )
 }
