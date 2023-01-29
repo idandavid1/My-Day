@@ -74,12 +74,10 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
                     <div className="invite" onClick={() => setIsInviteModalOpen(prev => !prev)}>
                         <RiUserAddLine className="invite-icon" />
                         <span className='invite-title'> Invite / 1</span>
-                        {/* {isModalOpen && <ModalMember className="invite-modal"/>} */}
                     </div>
                 </div>
             </section>
             <div className='board-description'>
-                {console.log(board.description)}
                 {board.description && <p className='board-description-link'>{board.description} <span onClick={() => setIsShowDescription(true)}>See More</span></p>}
             </div>
             <div className='board-display-btns' >

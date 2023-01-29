@@ -12,22 +12,31 @@ export function ModalMemberInvite({ board, setIsInviteModalOpen }) {
     const users = useSelector(storeState => storeState.userModule.users)
 
     useEffect(() => {
-        console.log('users:', users)
         setOutBoardMembers(users.filter(user => !board.members.some(member => member._id === user._id)))
     }, [])
 
-    function onRemoveMember(removeMemberId) {
-        board.members = board.members.filter(member => member._id !== removeMemberId)
-        saveBoard(board)
-        loadBoard(board)
-        setIsInviteModalOpen(false)
+    async function onRemoveMember(removeMemberId) {
+        try {
+            board.members = board.members.filter(member => member._id !== removeMemberId)
+            await saveBoard(board)
+            loadBoard(board._id)
+            setIsInviteModalOpen(false)
+        } catch (err) {
+            console.log('cant save board:', err)
+        }
+        
     }
 
-    function onAddMember(member) {
-        board.members.push(member)
-        saveBoard(board)
-        loadBoard(board)
-        setIsInviteModalOpen(false)
+    async function onAddMember(member) {
+        try {
+            board.members.push(member)
+            await saveBoard(board)
+            loadBoard(board._id)
+            setIsInviteModalOpen(false)
+        } catch (err) {
+            console.log('cant save board:', err)
+        }
+        
     }
 
     function handleChange({ target }) {
