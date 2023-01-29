@@ -24,6 +24,7 @@ export function HomePage() {
                         <br></br>
                         new way of working
                     </h1>
+                    <h2>Start managing with MyDay Work OS</h2>
                 </div>
                 <div className="btn-container">
                     <Link to={`/board/${boards[0]._id}`}><button className='btn home-btn'>Get Started <span className="arrow"><HiOutlineArrowRight /></span></button></Link>
