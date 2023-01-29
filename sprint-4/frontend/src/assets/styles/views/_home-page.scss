@@ -27,10 +27,16 @@
     background: linear-gradient(360deg, #ffffff 53.95%, #0b0b4a 207.37%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     line-height: 85px;
     z-index: 10;
     position: relative;
+  }
+
+  h2 {
+    color: rgb(255, 255, 255);
+    font-weight: 300;
+    font-size: 1.375rem;
   }
 
   .btn-container {
