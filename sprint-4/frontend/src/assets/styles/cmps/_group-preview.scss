@@ -12,6 +12,25 @@
         background-color: white;
     }
 
+    .cmp-order-title {
+        position: relative;
+        .open-modal-icon {
+            opacity: 0;
+            position: absolute;
+            right: 4px;
+        }
+
+        &:hover {
+            .open-modal-icon {
+                opacity: 1;
+                z-index: 20;
+            }
+        }
+
+        .delete-modal {
+            @include menu-modal();
+        }
+    }
 
 
     .group-menu-modal {
@@ -75,6 +94,8 @@
                 &:hover {
                     background-color: $layout-border-color;
                 }
+
+
             }
 
             .active {

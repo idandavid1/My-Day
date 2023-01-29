@@ -2,7 +2,7 @@ import { useState } from "react"
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
 
 import { TaskPreview } from "../task/task-preview"
-import { addTask, saveBoard, updateGroupAction, updateGroups, updatePickerCmpsOrder, duplicateGroup, addActivity } from "../../store/board.actions"
+import { addTask, saveBoard, updateGroupAction, updateGroups, updatePickerCmpsOrder, duplicateGroup, addActivity, loadBoard } from "../../store/board.actions"
 import { GroupMenuModal } from "../modal/group-menu-modal"
 import { boardService } from "../../services/board.service"
 
@@ -10,9 +10,11 @@ import { MdKeyboardArrowDown } from 'react-icons/md'
 import { BsFillCircleFill } from 'react-icons/bs'
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
+
 import { useRef } from "react"
 import { TaskToolsModal } from "../modal/task-tools-modal"
 import { AddColumnModal } from "../modal/add-column-modal"
+import { TitleGroupPreview } from "./title-group-preview"
 
 export function GroupPreview({ group, board, idx }) {
     const [taskToEdit, setTaskToEdit] = useState(boardService.getEmptyTask())
@@ -24,6 +26,7 @@ export function GroupPreview({ group, board, idx }) {
     const [selectedTasks, setSelectedTasks] = useState([])
     const [isCheckBoxActionDone, setIsCheckBoxActionDone] = useState({ isDone: false })
     const [isPlus, setIsPlus] = useState(true)
+    const [isDeleteCmpTitleModalOpen, setIsDeleteCmpTitleModalOpen] = useState(false)
     const [isActive, setIsActive] = useState(false)
     let _ = require('lodash')
 
@@ -99,26 +102,6 @@ export function GroupPreview({ group, board, idx }) {
         updatePickerCmpsOrder(board, updatedTitles)
     }
 
-    function getTitleName(cmpOrder) {
-        switch (cmpOrder) {
-            case 'member-picker':
-                return 'Person'
-            case 'status-picker':
-                return 'Status'
-            case 'date-picker':
-                return 'Date'
-            case 'priority-picker':
-                return 'Priority'
-            case 'number-picker':
-                return 'Number'
-            case 'file-picker':
-                return 'Files'
-            case 'updated-picker':
-                return 'Last Updated'
-            default: return ''
-        }
-    }
-
     function getStatisticsResult(cmp) {
         switch (cmp) {
             case 'member-picker':
@@ -189,9 +172,15 @@ export function GroupPreview({ group, board, idx }) {
         else return 'No items'
     }
 
-    function addColumn(columnType) {
-        board.cmpsOrder.push(columnType)
-        setIsPlus(true)
+    async function addColumn(columnType) {
+        try {
+            board.cmpsOrder.push(columnType)
+            await saveBoard(board)
+            loadBoard(board._id)
+            setIsPlus(true)
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     return <ul className="group-preview" >
@@ -236,8 +225,8 @@ export function GroupPreview({ group, board, idx }) {
                                                     return (
                                                         <li ref={provided.innerRef}
                                                             {...provided.draggableProps}
-                                                            {...provided.dragHandleProps} className={title + ' title'} key={idx}>
-                                                            {getTitleName(title)}
+                                                            {...provided.dragHandleProps} className={title + ' cmp-order-title title'} key={idx}>
+                                                            <TitleGroupPreview title={title} board={board} setModalOpen={setIsDeleteCmpTitleModalOpen}/>
                                                         </li>
                                                     )
                                                 }}
@@ -246,7 +235,7 @@ export function GroupPreview({ group, board, idx }) {
                                         <div className="add-picker-task">
                                             <span onClick={() => setIsActive(!isActive)} className={`add-btn ${isActive ? ' active' : ' normal'}`}>
                                                 <AiOutlinePlus onClick={() => setIsPlus(!isPlus)} className={isPlus ? 'plus' : 'close'} />
-                                                {!isPlus && <AddColumnModal addColumn={addColumn} />}
+                                                {!isPlus && <AddColumnModal addColumn={addColumn} board={board} />}
                                             </span>
                                             {/* <div className="empty-div"></div> */}
                                         </div>
@@ -262,7 +251,7 @@ export function GroupPreview({ group, board, idx }) {
                                             {group.tasks.map((task, idx) => (
                                                 <Draggable key={task.id} draggableId={task.id} index={idx}>
                                                     {(provided) => {
-                                                        return <li className={`parent-task-preview ${isPlus ? '' : ' add-modal-open'}`} ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
+                                                        return <li className={`parent-task-preview ${(!isPlus || isDeleteCmpTitleModalOpen) ? ' add-modal-open' : ''}`} ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
                                                             <TaskPreview task={task} group={group} board={board} handleCheckboxChange={handleCheckboxChange} isMainCheckbox={isMainCheckbox} isCheckBoxActionDone={isCheckBoxActionDone} setIsCheckBoxActionDone={setIsCheckBoxActionDone} />
                                                         </li>
                                                     }}

@@ -46,7 +46,7 @@ export function BoardPreview({ board }) {
                 </svg>
                 <span>{board.title}</span>
             </div>
-            {(isMouseOver || isMenuModalOpen) && <div className={`menu-icon-container ${isMenuModalOpen ? ' active' : ''}`}>
+            { <div className={`menu-icon-container ${isMenuModalOpen ? ' active' : ''}`}>
                 <BiDotsHorizontalRounded className="icon" onClick={() => setIsMenuModalOpen(!isMenuModalOpen)}/>
                 {isMenuModalOpen && <BoardMenuModal onRemove={onRemove} onDuplicate={onDuplicate} setIsMenuModalOpen={setIsMenuModalOpen} board={board}/>}
             </div>}

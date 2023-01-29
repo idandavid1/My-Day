@@ -1,0 +1,155 @@
+.board-description-modal {
+    position: absolute;
+    display: flex;
+    inset: 50% auto auto 50%;
+    border: 1px solid rgb(204, 204, 204);
+    background: $app-bg;
+    overflow: hidden;
+    border-radius: 8px;
+    outline: none;
+    padding: 0px;
+    height: 550px;
+    width: 850px;
+    max-height: 90vh;
+    max-width: 95vw;
+    transform: translate(-50%, -50%);
+    transition: all 0.4s ease 0s;
+    box-shadow: rgb(0 0 0) 1px 0px 20px 0px;
+    color: $primary-text-color;
+    z-index: 51;
+
+    .close-btn {
+        position: fixed;
+        right: 15px;
+        top: 15px;
+        border-radius: 6px;
+        color: $primary-text-color;
+        @include center-flex();
+        padding: 7px;
+
+        &:hover {
+            background-color: $workspace-hover;
+        }
+
+        svg {
+            font-size: 22px;
+        }
+    }
+
+    .board-edit {
+        display: flex;
+        flex-direction: column;
+        padding: 16px 32px 32px 32px;
+        width: 62%;
+        height: 100%;
+        flex: auto;
+        gap: 8px;
+
+        .board-edit-title {
+            margin-top: 12px;
+            font-size: 24px;
+
+            blockquote {
+                border-radius: 4px;
+                white-space: nowrap;
+
+                &:hover {
+                    outline: 1px solid $task-box-shadow-color;
+                }
+
+                &:focus-visible {
+                    outline: 1px solid $board-btn;
+                }
+            }
+        }
+
+        .board-edit-description {
+            max-height: 71%;
+            height: 71%;
+            overflow-y: auto;
+            min-width: 460px;
+            top: 78px;
+            left: auto;
+            font-size: 14px;
+            font-weight: 400;
+            overflow: hidden;
+            cursor: default;
+            width: 70%;
+            max-width: 800px;
+            border: 1px solid transparent;
+            white-space: pre-wrap;
+
+            &:hover {
+                border: 1px dashed $task-box-shadow-color;
+                cursor: text;
+            }
+
+            blockquote {
+                width: 100%;
+                height: 100%;
+                align-items: flex-start;
+
+                &:focus-visible {
+                    outline: none;
+                }
+            }
+        }
+    }
+
+    .board-info {
+        padding: 32px;
+        height: 100%;
+        flex: initial;
+        width: 38%;
+        display: flex;
+        flex-direction: column;
+        background-color: $board-description-bg;
+
+        >* {
+            margin-bottom: 24px;
+
+            >* {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                span {
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 24px;
+        }
+
+        .header {
+            font-size: 14px;
+            color: $workspace-icon-color;
+        }
+
+        .lightning-container {
+            width: 24px;
+            height: 24px;
+            background-color: $color-done-green;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            border-radius: 8px;
+        }
+
+        .created-by,
+        .owners {
+            img {
+                @include members();
+            }
+        }
+
+        .board-details {
+            align-items: flex-start;
+        }
+    }
+}
