@@ -106,6 +106,7 @@ function getEmptyTask() {
         "memberIds": [],
         "dueDate": '',
         "comments": [],
+        "file": "",
         "updatedBy":{}
     }
 }
