@@ -108,7 +108,8 @@ function getEmptyTask() {
         "comments": [],
         "updatedBy":{
             "imgUrl":"",
-        }
+        },
+        "file": "",
     }
 }
 
