@@ -13,6 +13,7 @@ import { CommentPreview } from "../task/comment-preview"
 import { ActivityPreview } from "../activity-preview"
 import { socketService, SOCKET_EMIT_SEND_MSG, SOCKET_EMIT_SET_TOPIC, SOCKET_EVENT_ADD_MSG } from "../../services/socket.service"
 import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
 const noUpdate = require('../../assets/img/empty-update.png')
 
 export function TaskModal({ task, board, groupId, setModalCurrTask }) {
@@ -22,6 +23,7 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
     const navigate = useNavigate()
     const [isShowUpdate, setIsShowUpdate] = useState(true)
     const [taskActivities, setTaskActivities] = useState([])
+    const user = useSelector(storeState => storeState.userModule.user)
 
     useEffect(() => {
         loadTaskActivity()
@@ -63,6 +65,10 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
     async function onAddComment() {
         try {
             comment.id = utilService.makeId()
+            if(user) {
+                comment.byMember.fullname = user.fullname
+                comment.byMember.imgUrl = user.imgUrl
+            }
             currTask.comments.unshift(comment)
             socketService.emit(SOCKET_EMIT_SEND_MSG, comment)
             await updateTaskAction(board, groupId, currTask)
@@ -82,8 +88,8 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
 
     async function onRemoveComment(commentId) {
         try {
-            task.comments = task.comments.filter(comment => comment.id !== commentId)
-            updateTaskAction(board, groupId, task)
+            currTask.comments = currTask.comments.filter(comment => comment.id !== commentId)
+            updateTaskAction(board, groupId, currTask)
             setCurrTask({...currTask})
         } catch (err) {
             console.log('err:', err)
