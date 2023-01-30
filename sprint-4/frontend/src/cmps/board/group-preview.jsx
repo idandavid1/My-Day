@@ -109,10 +109,6 @@ export function GroupPreview({ group, board, idx }) {
         updatePickerCmpsOrder(board, updatedTitles)
     }
 
- 
-
-
-
     async function handleCheckboxChange(task) {
         try {
             const activity = boardService.getEmptyActivity()

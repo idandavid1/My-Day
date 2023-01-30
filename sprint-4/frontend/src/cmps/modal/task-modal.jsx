@@ -18,7 +18,7 @@ const noUpdate = require('../../assets/img/empty-update.png')
 export function TaskModal({ task, board, groupId, setModalCurrTask }) {
     const [isWriteNewUpdate, setIsWriteNewUpdate] = useState(false)
     const [comment, setComment] = useState(boardService.getEmptyComment())
-    const [comments, setComments] = useState(task.comments)
+    const [currTask, setCurrTask] = useState(task)
     const navigate = useNavigate()
     const [isShowUpdate, setIsShowUpdate] = useState(true)
     const [taskActivities, setTaskActivities] = useState([])
@@ -34,7 +34,8 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
     }, [])
 
     function addComment(comment) {
-        setComments((prevComments) => [comment, ...prevComments])
+        currTask.comments.unshift(comment)
+        setCurrTask({...currTask})
     }
     
     function loadTaskActivity() {
@@ -62,12 +63,12 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
     async function onAddComment() {
         try {
             comment.id = utilService.makeId()
-            task.comments.unshift(comment)
+            currTask.comments.unshift(comment)
             socketService.emit(SOCKET_EMIT_SEND_MSG, comment)
-            updateTaskAction(board, groupId, task)
+            await updateTaskAction(board, groupId, currTask)
             setIsWriteNewUpdate(false)
+            setCurrTask({...currTask})
             setComment(boardService.getEmptyComment())
-            addComment(comment)
         } catch (err) {
             console.log('err:', err)
         }  
@@ -83,8 +84,7 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
         try {
             task.comments = task.comments.filter(comment => comment.id !== commentId)
             updateTaskAction(board, groupId, task)
-            // setCurrTask({...currTask})
-            setComments(task.comments)
+            setCurrTask({...currTask})
         } catch (err) {
             console.log('err:', err)
         }
@@ -118,10 +118,10 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
 
     async function onEditComment(saveComment) {
         try {
-            task.comments = task.comments.map(comment => (comment.id === saveComment.id) ? saveComment : comment)
+            currTask.comments = currTask.comments.map(comment => (comment.id === saveComment.id) ? saveComment : comment)
             updateTaskAction(board, groupId, task)
-            // setCurrTask({...currTask})
-            setComments(task.comments)
+            setCurrTask({...currTask})
+            // setComments(task.comments)
         } catch (err) {
             console.log('err:', err)
         }
@@ -172,7 +172,7 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
                     {isWriteNewUpdate && <div className="button-container"><button className="save" onMouseDown={onAddComment}>Update</button></div>}
                 <ul className="comments-list">
                     {
-                        comments.map(comment => {
+                        currTask.comments.map(comment => {
                             return (
                             <li key={comment.id}>
                                 <CommentPreview onRemoveComment={onRemoveComment} comment={comment} onEditComment={onEditComment}/>
@@ -180,7 +180,7 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
                         )})
                     }
                 </ul>
-                {comments.length === 0 && 
+                {currTask.comments.length === 0 && 
                 <div className="no-updates">
                     <img src={noUpdate} alt="" />
                     <div className="txt">

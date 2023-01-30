@@ -82,8 +82,9 @@ export async function addGroup(filteredBoard) {
         const { board } = store.getState().boardModule
         const group = boardService.getEmptyGroup()
         group.id = utilService.makeId()
-        filteredBoard.groups.unshift(group)
+        board.groups.unshift(group)
         await boardService.save(board)
+        // filteredBoard.groups.unshift(group)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
         socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD,{filteredBoard, board})
@@ -170,11 +171,11 @@ export async function updateGroups(groupId, filteredBoard) {
         const { board } = store.getState().boardModule
         const groupsToSave = board.groups.filter(group => group.id !== groupId)
         board.groups = groupsToSave
-        filteredBoard.groups = groupsToSave
         await boardService.save(board)
+        filteredBoard.groups = groupsToSave
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
-        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD,filteredBoard, board)
+        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD, {filteredBoard, board})
     } catch (err) {
         throw err
     }
@@ -197,9 +198,9 @@ export async function updateTaskAction(filteredBoard, groupId, saveTask, activit
             await addActivity(filteredBoard, activity)
         }
         const board = await boardService.updateTask(filteredBoard._id, groupId, saveTask)
-        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD,{filteredBoard, board})
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
+        socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD,{filteredBoard, board})
     } catch (err) {
         throw err
     }
@@ -231,7 +232,6 @@ export async function addActivity(filteredBoard, activity) {
             filteredBoard.activities.pop()
         }
         board.activities.unshift(activity)
-        console.log('board:', board)
         await boardService.save(board)
         filteredBoard.activities.unshift(activity)
         store.dispatch({ type: SET_BOARD, board })
