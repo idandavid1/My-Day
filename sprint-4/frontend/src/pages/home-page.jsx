@@ -5,6 +5,7 @@ import { HomeHeader } from '../cmps/home-header'
 import { loadBoards } from '../store/board.actions'
 import { HiOutlineArrowRight } from 'react-icons/hi'
 import { BsStars } from 'react-icons/bs'
+import { Loader } from '../cmps/loader'
 
 const homeImg = require('../assets/img/home.avif')
 
@@ -14,7 +15,7 @@ export function HomePage() {
         loadBoards()
     }, [])
 
-    if (!boards.length) return <div>Loading...</div>
+    if (!boards.length) return <Loader />
     return (
         <section className='home-page'>
             <HomeHeader boards={boards} />
