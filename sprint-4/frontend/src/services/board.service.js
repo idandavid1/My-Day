@@ -117,9 +117,9 @@ function getEmptyComment() {
     return {
         "archivedAt": Date.now(),
         "byMember": {
-            "_id": "m101",
-            "fullname": "Tal Tarablus",
-            "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
+            "_id": null,
+            "fullname": "Guest",
+            "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
         }, "txt": "",
         "style": {
             "textDecoration": "none",
@@ -135,9 +135,9 @@ function getEmptyActivity() {
         "action": "status",
         "createdAt": Date.now(),
         "byMember": userService.getLoggedinUser() || {
-            "_id": "u101",
-            "fullname": "Abi Abambi",
-            "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1673788222/cld-sample.jpg"
+            "_id": null,
+            "fullname": "Guest",
+            "imgUrl": "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
         },
         "task": {
             "id": "c101",
