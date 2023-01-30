@@ -232,7 +232,6 @@ export async function addActivity(filteredBoard, activity) {
             filteredBoard.activities.pop()
         }
         board.activities.unshift(activity)
-        console.log('board:', board)
         await boardService.save(board)
         filteredBoard.activities.unshift(activity)
         store.dispatch({ type: SET_BOARD, board })
