@@ -27,9 +27,14 @@ export function BoardFilter({ board, onSetFilter }) {
         loadMemberImg()
     }, [filterBy])
 
-    function onAddGroup() {
-        addGroup(board)
-        setIsShowModal(false)
+    async function onAddGroup() {
+        try {
+            addGroup(board)
+            setIsShowModal(false)
+        } catch (err) {
+            console.log('cant add group:', err)
+        }
+        
     }
 
     function loadMemberImg() {
