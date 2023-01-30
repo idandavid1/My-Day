@@ -18,6 +18,7 @@
         .taskMembers {
             display: flex;
             flex-wrap: wrap;
+
             li {
                 display: flex;
                 align-items: center;
@@ -78,8 +79,9 @@
             }
 
             .out-member-list {
-                height: 200px;
-                overflow-y: scroll;
+                max-height: 200px;
+                overflow-y: auto;
+                
                   
                 li {
                     padding: $spacing-small;
