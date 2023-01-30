@@ -266,7 +266,6 @@ export function GroupPreview({ group, board, idx }) {
                 </div>
             }}
         </Draggable>
-        {/* {selectedTasks.length > 0 && <TaskToolsModal board={board} tasks={selectedTasks} group={group} setSelectedTasks={setSelectedTasks} setIsCheckBoxActionDone={setIsCheckBoxActionDone} />} */}
         {selectedTasks.length > 0 && <TaskToolsModal board={board} tasks={selectedTasks} group={group} setSelectedTasks={setSelectedTasks} setIsCheckBoxActionDone={setIsCheckBoxActionDone} setIsMainCheckbox={setIsMainCheckbox} />}
     </ul >
 }

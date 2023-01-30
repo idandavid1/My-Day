@@ -17,7 +17,6 @@ import { BoardDescription } from '../cmps/board/board-description'
 import { ModalMemberInvite } from '../cmps/modal/modal-member-invite'
 import { loadUsers } from '../store/user.actions'
 import { Loader } from '../cmps/loader'
-import { useEffectUpdate } from '../customHooks/useEffectUpdate'
 
 export function BoardDetails() {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)

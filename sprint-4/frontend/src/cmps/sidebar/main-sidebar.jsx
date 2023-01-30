@@ -5,7 +5,6 @@ import { AiOutlineStar } from 'react-icons/ai'
 import { VscTriangleLeft } from 'react-icons/vsc'
 import { HiMenu } from 'react-icons/hi'
 import { useSelector } from 'react-redux'
-import { LoginLogoutModal } from '../modal/login-logout-modal'
 
 const logoHomePage = require('../../assets/img/icon.png')
 const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"

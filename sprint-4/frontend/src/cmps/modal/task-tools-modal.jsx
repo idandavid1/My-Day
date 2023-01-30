@@ -50,13 +50,11 @@ export function TaskToolsModal({ tasks, group, board, setSelectedTasks, setIsChe
                     {tasks.length}
                 </div>
                 <div className="tasks-container flex">
-
                     <div className="task-info">
                         <span>Task selected</span>
                         <div className="group-color">
                             {_.times(tasks.length, () => <BsFillCircleFill key={_.uniqueId('KEY_')} className="icon" style={{ color: group.color }} />)}
                         </div>
-
                     </div>
                     <div className="task-btns">
                         <div onClick={onDuplicateTasks}>

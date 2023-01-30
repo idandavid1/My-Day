@@ -1,14 +1,13 @@
 import { useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 
-import { loadBoards, saveBoard, toggleStarred } from '../../store/board.actions'
+import { loadBoards } from '../../store/board.actions'
 import { boardService } from '../../services/board.service'
 import { BoardPreview } from '../board/board-preview'
 
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { IoIosArrowDown } from 'react-icons/io'
 import { AiOutlinePlus } from 'react-icons/ai'
-import { FiFilter } from 'react-icons/fi'
 import { BiSearch } from 'react-icons/bi'
 import { MdKeyboardArrowLeft } from 'react-icons/md'
 import { MdKeyboardArrowRight } from 'react-icons/md'

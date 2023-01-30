@@ -6,8 +6,7 @@ import { utilService } from '../../services/util.service'
 import { FaAngleDown } from 'react-icons/fa'
 import { TfiSearch } from 'react-icons/tfi'
 import { BsPersonCircle } from 'react-icons/bs'
-import { AiOutlineEyeInvisible, AiFillCloseCircle } from 'react-icons/ai'
-import { BiDotsHorizontalRounded } from 'react-icons/bi'
+import { AiFillCloseCircle } from 'react-icons/ai'
 import { CgViewComfortable } from 'react-icons/cg'
 import { BsArrowDownCircle } from 'react-icons/bs'
 import { useSelector } from 'react-redux'
@@ -86,16 +85,6 @@ export function BoardFilter({ board, onSetFilter }) {
                 {isMemberModal && <MemberFilterModal filterBy={filterBy} setFilterBy={setFilterBy}/>}
                 {(!isMemberModal && filterBy.memberId) && <AiFillCloseCircle onClick={onRemovePersonFilter} />}
             </div>
-            {/* <div className='hide-filter'>
-                <AiOutlineEyeInvisible />
-                <span>Hide</span>
-            </div>
-            <div className='more-btn'>
-                <BiDotsHorizontalRounded />
-            </div> */}
-            {/* <button className="person-btn btn1"><BsPersonCircle /> Person</button> */}
-            {/* <button className="hide-btn btn1"><AiOutlineEyeInvisible /> Hide</button> */}
-            {/* <button className="more-btn btn1"><BiDotsHorizontalRounded /> </button> */}
         </div>
     </section>
     )

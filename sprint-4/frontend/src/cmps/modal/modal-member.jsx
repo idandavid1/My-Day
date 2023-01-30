@@ -4,7 +4,6 @@ import { VscTriangleUp } from 'react-icons/vsc'
 import { CiSearch } from 'react-icons/ci'
 import { useEffect, useState } from "react"
 
-
 export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen, activity}) {
     const [filter, setFilter] = useState({txt: ''})
     const [outTaskMembers, setOutTaskMembers] = useState([])

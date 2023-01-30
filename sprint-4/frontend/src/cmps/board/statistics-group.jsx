@@ -18,13 +18,10 @@ export function StatisticGroup({ cmpType, group, board }) {
     }
 
     function getStatisticsNumber() {
-        // const tasks = group.tasks.filter(task => typeof(task.number) === 'number')
-
         const sumOfNumbers = group.tasks.reduce((acc, task) => {
             if (task.number) return acc + task.number
             return acc
         }, 0)
-        console.log(sumOfNumbers)
         return sumOfNumbers
     }
 
@@ -60,7 +57,6 @@ function GetStatisticsLabel({ statisticLabels }) {
 }
 
 function GetStatisticsNumber({ statisticNumber }) {
-    console.log(statisticNumber)
     return (
         <div className="statistic-number">
             <span className="number"> {statisticNumber}</span>

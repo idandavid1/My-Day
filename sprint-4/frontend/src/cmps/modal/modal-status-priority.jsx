@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 
 export function ModalStatusPriority({ labels, onUpdate, setIsModalOpen, cmpType, activity }) {
     const board = useSelector(storeState => storeState.boardModule.board)
-    // const loggedInUser = useSelector(storeState => storeState.userModule.user)
 
     function onClickModal(labelTitle) {
         activity.action = cmpType
@@ -15,7 +14,6 @@ export function ModalStatusPriority({ labels, onUpdate, setIsModalOpen, cmpType,
 
     return (
         <section className="modal-status-priority">
-            {/* <div className="triangle-container"><VscTriangleUp className="triangle-icon"/></div> */}
             <VscTriangleUp className="triangle-icon"/>
             <section className="modal-status-priority-content" >
                 <ul>

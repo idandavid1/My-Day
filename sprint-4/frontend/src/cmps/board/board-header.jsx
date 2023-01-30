@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { BoardFilter } from '../board/board-filter'
 import { saveBoard, toggleModal, toggleStarred } from '../../store/board.actions'
 import { loadBoards } from '../../store/board.actions'
@@ -42,8 +40,8 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
         toggleModal(isOpen)
         navigate(`/board/${board._id}/${type}`)
     }
-    if (!board.members) return <div></div>
 
+    if (!board.members) return <div></div>
     return (
         <header className="board-header">
             <section className='board-title'>
@@ -83,11 +81,7 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
                 <div className='main-table-btn active' >
                     <GrHomeRounded className='icon' />
                     <span data-title='Main Table'>Main Table</span>
-                    {/* <NavLink to={`/board/${board._id}`}></NavLink> */}
                 </div>
-                {/* <div className='kanban'>
-                    <NavLink to={`/board/kanban/${board._id}`}>Kanban</NavLink>
-                </div> */}
             </div>
             <div className='board-border'></div>
             <BoardFilter onSetFilter={onSetFilter} board={board} />

@@ -23,9 +23,8 @@ export function GroupList({ board }) {
             return acc
         }, 400)
     }
-    if (!board.groups) return <div></div>
-        
 
+    if (!board.groups) return <div></div>
     return <div ref={containerRef} style={{ minWidth: getCellWidth() }}>
         <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId={board._id}>

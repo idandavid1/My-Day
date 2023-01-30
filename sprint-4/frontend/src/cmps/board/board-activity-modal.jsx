@@ -54,6 +54,7 @@ export function BoardActivityModal({ board, activityLog }) {
             console.log('err:', err)
         }
     }
+    
     return (
         <section className="board-activity">
             <div className="board-activity-header">

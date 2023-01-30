@@ -127,7 +127,6 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
             currTask.comments = currTask.comments.map(comment => (comment.id === saveComment.id) ? saveComment : comment)
             updateTaskAction(board, groupId, task)
             setCurrTask({...currTask})
-            // setComments(task.comments)
         } catch (err) {
             console.log('err:', err)
         }
