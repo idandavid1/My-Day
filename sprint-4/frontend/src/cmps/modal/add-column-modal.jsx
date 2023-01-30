@@ -84,6 +84,7 @@ export function AddColumnModal({ addColumn, board }) {
                 break;
         }
     }
+    
 
     if(!columns.length) return <div></div>
     return <section className="add-column-modal">
