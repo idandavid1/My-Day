@@ -16,8 +16,8 @@
 
     @include for-mobile-layout() {
         & {
-            inset: 71% auto auto 14%;
-            width: 77%;
+            inset: 72% auto auto 11%;
+            width: 78%;
             height: unset;
 
             .task-info {
@@ -55,6 +55,7 @@
             & >*{
                 align-items: flex-start;
             }
+          
         }
         .task-count {
             border-top-left-radius: 5px;
@@ -78,15 +79,21 @@
             font-size: 20px;
             flex-direction: column;
             align-items: flex-start;
+            display: flex;
+            margin-bottom: 4px;
 
             .group-color {
                 display: flex;
                 justify-content: flex-start;
-                gap: 4px;
                 font-size: 10px;
                 padding-left: 3px;
+                gap: 4px;
             }
-
+            @include for-mobile-layout() {
+                &{
+                    flex-direction: column;
+                }
+            }
         }
 
 
@@ -145,8 +152,8 @@
             @include for-mobile-layout() {
                 & {
                     position: absolute;
-                    right: -5px;
-                    top: -20px;
+                    right: -11px;
+                    top: -26px;
                     border: none;
                 }
 

@@ -16,6 +16,7 @@ import { TaskToolsModal } from "../modal/task-tools-modal"
 import { AddColumnModal } from "../modal/add-column-modal"
 import { TitleGroupPreview } from "./title-group-preview"
 import { useSelector } from "react-redux"
+import { StatisticGroup } from "./statistics-group"
 
 export function GroupPreview({ group, board, idx }) {
     const [taskToEdit, setTaskToEdit] = useState(boardService.getEmptyTask())
@@ -108,45 +109,9 @@ export function GroupPreview({ group, board, idx }) {
         updatePickerCmpsOrder(board, updatedTitles)
     }
 
-    function getStatisticsResult(cmp) {
-        switch (cmp) {
-            case 'member-picker':
-                return []
-            case 'status-picker':
-                return getStatisticsStatus('status')
-            case 'priority-picker':
-                return getStatisticsStatus('priority')
-            case 'date-picker':
-                return []
-            // case 'number-picker':
-            //     return getStatisticsNumbers()
-            default: return []
-        }
-    }
+ 
 
-    function getStatisticsStatus(type) {
-        let labels = group.tasks.map(task => {
-            return board.labels.find(label => label.title === task[type])
-        })
-        const mapLabel = labels.reduce((acc, label) => {
-            if (acc[label.color]) acc[label.color]++
-            else acc[label.color] = 1
-            return acc
-        }, {})
-        let strHtml = []
-        for (let key in mapLabel) {
-            strHtml.push({ background: key, width: `${mapLabel[key] / labels.length * 100}%` })
-        }
-        return strHtml
-    }
 
-    function getStatisticsNumbers() {
-        let tasks = group.tasks.filter(task => typeof (task.number) === 'number')
-        const sumOfNumbers = tasks.reduce((acc, task) => {
-            return acc + task.number
-        }, 0)
-        return sumOfNumbers
-    }
 
     async function handleCheckboxChange(task) {
         try {
@@ -291,12 +256,10 @@ export function GroupPreview({ group, board, idx }) {
                             </div>
                             <div className="statistic-container flex">
 
-                                {board.cmpsOrder.map((cmp, idx) => {
+                                {board.cmpsOrder.map((cmpType, idx) => {
                                     return (
-                                        <div key={idx} className={`title ${idx === 0 ? ' first ' : ''}${cmp}`}>
-                                            {getStatisticsResult(cmp).map((span, idx) => {
-                                                return <span key={idx} style={span} ></span>
-                                            })}
+                                        <div key={idx} className={`title ${idx === 0 ? ' first ' : ''}${cmpType}`}>
+                                            <StatisticGroup cmpType={cmpType} board={board} group={group}/>
                                         </div>
                                     )
                                 })}
