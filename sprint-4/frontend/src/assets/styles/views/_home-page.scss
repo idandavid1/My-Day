@@ -11,6 +11,12 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
+
+    @include for-mobile-layout() {
+      &{
+        padding: 48px 20px 0 20px;
+      }
+    }
   }
 
   .headers-container {
@@ -67,7 +73,8 @@
     }
 
     .btn-text {
-      color: #ffffff;
+      color: $app-bg;
+      text-align: center;
       font-family: Poppins, Roboto, Helvetica, Arial, sans-serif;
     }
   }
