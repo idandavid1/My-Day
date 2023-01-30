@@ -41,6 +41,7 @@ export function BoardDetails() {
     }, [])
 
     useEffect(() => {
+        console.log('boardId1:', boardId)
         socketService.emit(SOCKET_EMIT_SET_TOPIC, boardId)
         socketService.on(SOCKET_EVENT_ADD_UPDATE_BOARD, loadSocketBoard)
 
@@ -50,6 +51,7 @@ export function BoardDetails() {
     }, [])
 
     useEffect(() => {
+        console.log('boardId2:', boardId)
         socketService.off(SOCKET_EVENT_ADD_UPDATE_BOARD, loadSocketBoard)
         socketService.emit(SOCKET_EMIT_SET_TOPIC, boardId)
         socketService.on(SOCKET_EVENT_ADD_UPDATE_BOARD, loadSocketBoard)
