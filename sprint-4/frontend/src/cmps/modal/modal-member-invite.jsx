@@ -18,13 +18,19 @@ export function ModalMemberInvite({ board, setIsInviteModalOpen }) {
     async function onRemoveMember(removeMemberId) {
         try {
             board.members = board.members.filter(member => member._id !== removeMemberId)
+            board.groups.forEach(group => {
+                group.tasks.forEach(task => task.memberIds = removeMemberFromTask(task, removeMemberId))
+            })
             await saveBoard(board)
             loadBoard(board._id)
             setIsInviteModalOpen(false)
         } catch (err) {
             console.log('cant save board:', err)
         }
-        
+    }
+
+    function removeMemberFromTask(task, removeMemberId) {
+        return task.memberIds.filter(memberId => memberId !== removeMemberId)
     }
 
     async function onAddMember(member) {

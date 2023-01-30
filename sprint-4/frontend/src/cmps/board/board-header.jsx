@@ -18,7 +18,6 @@ const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/gue
 export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescription, setIsInviteModalOpen }) {
     const isOpen = useSelector(storeState => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
-    // const members = info.memberIds.map(member => getMember(member))
 
     async function onSave(ev) {
         const value = ev.target.innerText

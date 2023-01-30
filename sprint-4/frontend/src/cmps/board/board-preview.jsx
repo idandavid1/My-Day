@@ -5,6 +5,7 @@ import { removeBoard, saveBoard, loadBoard } from "../../store/board.actions"
 import { BoardMenuModal } from "../modal/board-menu-modal"
 import { BiDotsHorizontalRounded } from "react-icons/bi"
 import { useSelector } from "react-redux"
+import { boardService } from "../../services/board.service"
 
 export function BoardPreview({ board }) {
     const [isMouseOver, setIsMouseOver] = useState(false)
@@ -21,6 +22,7 @@ export function BoardPreview({ board }) {
     async function onRemove(boardId) {
         try {
             await removeBoard(boardId)
+            if(!boards.length) await saveBoard(boardService.getEmptyBoard())
             onChangeBoard(boards[0]._id)
         } catch (err) {
             console.log('err:', err)
