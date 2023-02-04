@@ -1,8 +1,9 @@
-.task-preview {
+.task-preview , .task-preview-kanban{
     .task-person {
         min-width: $cell-width-person;
         position: relative;
         border: 1px solid darken($border-color , 20%);
+        @include center-flex();
 
         .members-imgs {
             width: $cell-width-person;

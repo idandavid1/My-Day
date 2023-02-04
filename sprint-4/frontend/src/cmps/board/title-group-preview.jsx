@@ -4,7 +4,7 @@ import { FiTrash } from 'react-icons/fi'
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { loadBoard, saveBoard } from "../../store/board.actions"
 
-export function TitleGroupPreview({title, board, setModalOpen}) {
+export function TitleGroupPreview({ title, board, setModalOpen, isKanban }) {
     const [isShowCmpModal, setIsShowCmpModal] = useState(false)
 
     async function onRemoveColumn(cmpOrder) {
@@ -46,7 +46,7 @@ export function TitleGroupPreview({title, board, setModalOpen}) {
     return (
         <>
             {getTitleName(title)}
-            <BiDotsHorizontalRounded className="open-modal-icon" onClick={onOpenModal}/>
+            {!isKanban && <BiDotsHorizontalRounded className="open-modal-icon" onClick={onOpenModal} />}
             {isShowCmpModal && <div className="delete-modal">
                 <div className="delete" onClick={() => onRemoveColumn(title)}>
                     <FiTrash />

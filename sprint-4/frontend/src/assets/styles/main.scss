@@ -47,3 +47,9 @@
 @import "cmps/board-description";
 @import "cmps/loader";
 @import "cmps/statistics-group";
+
+// Kanban
+@import "cmps/kanban/group-list-kanban";
+@import "cmps/kanban/group-preview-kanban";
+@import "cmps/kanban/task-list-kanban";
+@import "cmps/kanban/task-preview-kanban";

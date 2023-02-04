@@ -5,6 +5,7 @@ import { BoardDetails } from './pages/board-details'
 import { HomePage } from './pages/home-page'
 import { store } from './store/store'
 import { LoginSignup } from './cmps/login/login-signup'
+import { KanbanDetails } from './cmps/kanban/group-list-kanban'
 
 export function RootCmp() {
     return (
@@ -13,6 +14,7 @@ export function RootCmp() {
                 <main>
                     <Routes>
                         <Route element={<HomePage />} path='/' />
+                        <Route element={<BoardDetails />} path='/board/:kanban/:boardId'></Route>
                         <Route element={<BoardDetails />} path='/board/:boardId/' />
                         <Route element={<BoardDetails />} path='/board/:boardId/:groupId/:taskId' />
                         <Route element={<BoardDetails />} path='/board/:boardId/:activityLog' />

@@ -7,7 +7,7 @@ import { BsStar } from 'react-icons/bs'
 import { BsStarFill } from 'react-icons/bs'
 import { FiActivity } from 'react-icons/fi'
 import { GrHomeRounded } from 'react-icons/gr'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RiUserAddLine } from 'react-icons/ri'
 
@@ -80,7 +80,10 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
             <div className='board-display-btns' >
                 <div className='main-table-btn active' >
                     <GrHomeRounded className='icon' />
-                    <span data-title='Main Table'>Main Table</span>
+                    <NavLink to={`/board/${board._id}`}><span data-title='Main Table'>Main Table</span></NavLink>
+                </div>
+                <div className='kanban'>
+                    <NavLink to={`/board/kanban/${board._id}`}>Kanban</NavLink>
                 </div>
             </div>
             <div className='board-border'></div>

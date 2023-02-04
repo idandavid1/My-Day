@@ -1,0 +1,16 @@
+.group-preview-kanban {
+    width: 260px;
+    background-color: $sidebar-workspace-bg;
+    .group-title-container {
+        height: 44px;
+        color: $app-bg;
+        @include center-flex();
+        font-weight: 400;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    .group-preview-content {
+        display: flex;
+    }
+}

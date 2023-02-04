@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { loadBoard, loadBoards, loadSocketBoard, setFilter } from "../store/board.actions"
+import { loadBoard, loadBoards, loadSocketBoard, saveBoard, setFilter, updateGroupAction } from "../store/board.actions"
 
 import { BoardHeader } from "../cmps/board/board-header"
 import { MainSidebar } from "../cmps/sidebar/main-sidebar"
@@ -17,6 +17,8 @@ import { BoardDescription } from '../cmps/board/board-description'
 import { ModalMemberInvite } from '../cmps/modal/modal-member-invite'
 import { loadUsers } from '../store/user.actions'
 import { Loader } from '../cmps/loader'
+import { GroupListKanban, KanbanDetails } from '../cmps/kanban/group-list-kanban'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 export function BoardDetails() {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)
@@ -31,8 +33,11 @@ export function BoardDetails() {
     const [isInviteModalOpen, setIsInviteModalOpen] = useState(false)
     const queryFilterBy = boardService.getFilterFromSearchParams(searchParams)
     const { boardId } = useParams()
+    const { kanban } = useParams()
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
-    
+    const [boardToDrag, setBoardToDrag] = useState(board)
+
+
     useEffect(() => {
         loadBoard(boardId, queryFilterBy)
         loadUsers()
@@ -40,7 +45,6 @@ export function BoardDetails() {
     }, [])
 
     useEffect(() => {
-        console.log('boardId1:', boardId)
         socketService.emit(SOCKET_EMIT_SET_TOPIC, boardId)
         socketService.on(SOCKET_EVENT_ADD_UPDATE_BOARD, loadSocketBoard)
 
@@ -50,7 +54,6 @@ export function BoardDetails() {
     }, [])
 
     useEffect(() => {
-        console.log('boardId2:', boardId)
         socketService.off(SOCKET_EVENT_ADD_UPDATE_BOARD, loadSocketBoard)
         socketService.emit(SOCKET_EMIT_SET_TOPIC, boardId)
         socketService.on(SOCKET_EVENT_ADD_UPDATE_BOARD, loadSocketBoard)
@@ -62,28 +65,66 @@ export function BoardDetails() {
         setFilter(filterBy)
     }
 
+    function handleOnDragEnd(result) {
+        let newBoard = structuredClone(board);
+        if (!result.destination) {
+            return;
+        }
+        // Reordering groups
+        if (result.type === 'group') {
+            const updatedGroups = [...board.groups]
+            const [draggedItem] = updatedGroups.splice(result.source.index, 1)
+            updatedGroups.splice(result.destination.index, 0, draggedItem)
+            board.groups = updatedGroups
+            saveBoard(board)
+        }
+        // Reordering tasks
+        if (result.type === 'task') {
+            console.log(result)
+            const group = newBoard.groups.find(group => group.id === result.source.droppableId)
+            const updatedTasks = [...group.tasks]
+            const [draggedItem] = updatedTasks.splice(result.source.index, 1)
+            updatedTasks.splice(result.destination.index, 0, draggedItem)
+            console.log(updatedTasks)
+            group.tasks = updatedTasks
+            updateGroupAction(board, group)
+        }
+    }
+
     if (!board) return <Loader />
     return (
-        <section className="board-details flex">
-            <div className='sidebar flex'>
-                <MainSidebar isOpen={isOpen} setIsOpen={setIsOpen} setIsStarredOpen={setIsStarredOpen} setIsLoginModalOpen={setIsLoginModalOpen} />
-                <WorkspaceSidebar isOpen={isOpen} setIsOpen={setIsOpen} isStarredOpen={isStarredOpen} board={board} setIsCreateModalOpen={setIsCreateModalOpen}/>
-            </div>
-            <main className="board-main">
-                <BoardHeader board={board} onSetFilter={onSetFilter} isStarredOpen={isStarredOpen} setIsShowDescription={setIsShowDescription} setIsInviteModalOpen={setIsInviteModalOpen} />
-                <GroupList board={board} />
-                <BoardModal setIsMouseOver={setIsMouseOver} />
-            </main>
-            {isCreateModalOpen && <CreateBoard setIsModalOpen={setIsCreateModalOpen} />}
-            {(isInviteModalOpen || isCreateModalOpen || (isBoardModalOpen && isMouseOver)) && <div className='dark-screen'></div>}
-            {isShowDescription &&
-                <>
-                    <BoardDescription setIsShowDescription={setIsShowDescription} board={board}/>
-                    <div className='dark-screen'></div>
-                </>
-            }
-            {isLoginModalOpen && <LoginLogoutModal setIsLoginModalOpen={setIsLoginModalOpen}/>}
-            {isInviteModalOpen && <ModalMemberInvite board={board} setIsInviteModalOpen={setIsInviteModalOpen}/>}
-        </section>
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+            <section className="board-details flex">
+                <div className='sidebar flex'>
+                    <MainSidebar isOpen={isOpen} setIsOpen={setIsOpen} setIsStarredOpen={setIsStarredOpen} setIsLoginModalOpen={setIsLoginModalOpen} />
+                    <WorkspaceSidebar isOpen={isOpen} setIsOpen={setIsOpen} isStarredOpen={isStarredOpen} board={board} setIsCreateModalOpen={setIsCreateModalOpen} />
+                </div>
+                <main className="board-main">
+                    <BoardHeader board={board} onSetFilter={onSetFilter} isStarredOpen={isStarredOpen} setIsShowDescription={setIsShowDescription} setIsInviteModalOpen={setIsInviteModalOpen} />
+                    {!kanban && <GroupList board={board} />}
+                    {kanban &&
+                        <Droppable droppableId='groupList' type='group' direction='horizontal'>
+                            {(provided) => (
+                                <div ref={provided.innerRef}
+                                    {...provided.droppableProps}>
+                                    <GroupListKanban board={board} />
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>}
+                    <BoardModal setIsMouseOver={setIsMouseOver} />
+                </main>
+                {isCreateModalOpen && <CreateBoard setIsModalOpen={setIsCreateModalOpen} />}
+                {(isInviteModalOpen || isCreateModalOpen || (isBoardModalOpen && isMouseOver)) && <div className='dark-screen'></div>}
+                {isShowDescription &&
+                    <>
+                        <BoardDescription setIsShowDescription={setIsShowDescription} board={board} />
+                        <div className='dark-screen'></div>
+                    </>
+                }
+                {isLoginModalOpen && <LoginLogoutModal setIsLoginModalOpen={setIsLoginModalOpen} />}
+                {isInviteModalOpen && <ModalMemberInvite board={board} setIsInviteModalOpen={setIsInviteModalOpen} />}
+            </section>
+        </DragDropContext>
     )
 }

@@ -1,0 +1,20 @@
+.group-list-kanban {
+    display: flex;
+    padding-left: 38px;
+    gap: 30px;
+    border-radius: 8px;
+    border-bottom-left-radius: 4px;
+    vertical-align: top;
+    max-height: 410px;
+    flex-wrap: wrap;
+    .group-list-ul {
+        min-height: 110px;
+        max-height: 100%;
+        padding: 0px 4px 0 10px;
+        margin: 8px 4px 0 0;
+
+        >* li {
+            background-color: #ffffff;
+        }
+    }
+}

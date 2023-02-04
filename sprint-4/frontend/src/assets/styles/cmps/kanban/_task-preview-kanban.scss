@@ -1,0 +1,15 @@
+.task-preview-kanban{
+    display: flex;
+    flex-direction: column;
+    width: 140px;
+    >*{
+
+        margin-bottom: 8px;
+    }
+    
+    & .picker{
+        background-color: $board-description-bg;
+        height: 36px;
+
+    }
+}
