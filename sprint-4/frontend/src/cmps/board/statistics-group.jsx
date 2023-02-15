@@ -43,7 +43,6 @@ export function StatisticGroup({ cmpType, group, board }) {
     return (
         <>
             {getStatisticsResult()}
-
         </>
     )
 }
@@ -59,7 +58,7 @@ function GetStatisticsLabel({ statisticLabels }) {
 function GetStatisticsNumber({ statisticNumber }) {
     return (
         <div className="statistic-number">
-            <span className="number"> {statisticNumber}</span>
+            <span className="number">{statisticNumber}</span>
             <span className="sum">sum</span>
         </div>
     )
