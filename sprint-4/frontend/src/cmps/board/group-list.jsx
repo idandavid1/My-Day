@@ -21,7 +21,7 @@ export function GroupList({ board }) {
             if (cmpOrder === 'person') acc += 87
             else acc += 139
             return acc
-        }, 400)
+        }, 600)
     }
 
     if (!board.groups) return <div></div>

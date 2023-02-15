@@ -44,11 +44,12 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
     }, [isCheckBoxActionDone])
 
     async function updateTask(cmpType, data, activity) {
-        task[cmpType] = data
-        task.updatedBy.date = Date.now()
-        task.updatedBy.imgUrl = (user && user.imgUrl) || guest
+        const taskToUpdate = structuredClone(task)
+        taskToUpdate[cmpType] = data
+        taskToUpdate.updatedBy.date = Date.now()
+        taskToUpdate.updatedBy.imgUrl = (user && user.imgUrl) || guest
         try {
-            await updateTaskAction(board, group.id, task, activity)
+            await updateTaskAction(board, group.id, taskToUpdate, activity)
         } catch (err) {
             console.log(err)
         }
@@ -134,6 +135,9 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
                 </div>
             </div>
             {board.cmpsOrder.map((cmp, idx) => {
+                // if(cmp === 'file-picker'){
+                //     console.log(task)
+                // }
                 return (
                     <DynamicCmp
                         cmp={cmp}
@@ -159,8 +163,9 @@ function DynamicCmp({ cmp, info, onUpdate }) {
             return <PriorityPicker info={info} onUpdate={onUpdate} />
         case "number-picker":
             return <NumberPicker info={info} onUpdate={onUpdate} />
-        case "file-picker":
+        case "file-picker":{
             return <FilePicker info={info} onUpdate={onUpdate} />
+        }
         case "updated-picker":
             return <UpdatedPicker info={info} onUpdate={onUpdate} />
         default:

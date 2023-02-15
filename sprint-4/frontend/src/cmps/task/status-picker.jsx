@@ -5,7 +5,6 @@ import { ModalStatusPriority } from "../modal/modal-status-priority"
 
 export function StatusPicker({ info, onUpdate }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
-    
     let classText = !info.status ? 'empty-label ' : ''
     classText += 'label-text'
     const board = useSelector(storeState => storeState.boardModule.board)
