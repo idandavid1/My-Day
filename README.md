@@ -7,7 +7,7 @@ For those of you who are already familliar with Monday, we added some intersting
 If you are not familliar with the App, read about it [here](#monday-description).
 And, if you are tired and just want to see some images of the website, [scroll to the bottom...](#showcase)
 
-![Main board image](sprint-4/frontend/src/assets/imgs/readme/table.png "Board-main-page")
+![Main board image](frontend/src/assets/imgs/readme/table.png "Board-main-page")
 
 ___
 
