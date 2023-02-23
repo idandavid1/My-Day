@@ -80,9 +80,10 @@ describe('StatisticGroup', () => {
         "activities": [],
         "cmpsOrder": ["member-picker", "status-picker", "date-picker", 'priority-picker']
     }
-    const {getByTestId} = render(<StatisticGroup cmpType={'number-picker'} group={mockBoard.groups[0]} board={mockBoard} />)
+    const {getStatistics} = render(<StatisticGroup cmpType={'number-picker'} group={mockBoard.groups[0]} board={mockBoard} />)
 
-
+    console.log(getStatistics)
+    expect(getStatistics).toBe(30)
     // const divWrapper = screen.getByTestId("div");
     // expect(findByTestId.caller).toBe(" 30sum");
     // expect(findByTestId('text-grid-item')).toHaveTextContent('test table dat')
