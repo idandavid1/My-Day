@@ -28,18 +28,10 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
     const [isClick, setIsClick] = useState(false)
     const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
     
-    console.log('task', task, 'isclick', isClick)
-    useEffectUpdate(() => {
-        // setIsClick(isMainCheckbox)
-        // handleCheckboxChange(task)
+    useEffect(() => {
+        console.log('task', task, 'isclick', isClick)
+        setIsClick(isMainCheckbox.isActive)
     }, [isMainCheckbox])
-
-    // useEffectUpdate(() => {
-    //     if (isCheckBoxActionDone.isDone) {
-    //         setIsClick(false)
-    //         setIsCheckBoxActionDone({ isDone: false })
-    //     }
-    // }, [isCheckBoxActionDone])
 
     async function updateTask(cmpType, data, activity) {
         const taskToUpdate = structuredClone(task)
@@ -103,6 +95,11 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
         }
     }
 
+    function onCheckBoxChange() {
+        handleCheckboxChange(task)
+        setIsClick(!isClick)
+    }
+
     return (
         <section className={`task-preview ${isTaskModalOpen ? ' modal-open' : ''}`} ref={elTaskPreview}>
             <div className="sticky-div" style={{ borderColor: group.color }}>
@@ -112,8 +109,7 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
                     <BiDotsHorizontalRounded className="icon" onClick={() => setIsTaskModalOpen(!isTaskModalOpen)} />
                 </div>
                 <div className="check-box">
-                    <input type="checkbox" checked={isClick}
-                        onChange={() => handleCheckboxChange(task)} onClick={() => setIsClick(!isClick)} />
+                    <input type="checkbox" checked={isClick} onChange={onCheckBoxChange} />
                 </div>
                 <div className="task-title picker" onClick={() => elTaskPreview.current.classList.toggle('on-typing')}>
                     <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>

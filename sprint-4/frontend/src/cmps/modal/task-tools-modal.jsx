@@ -16,7 +16,7 @@ export function TaskToolsModal({ tasks, group, board, setSelectedTasks, setIsMai
                 updateGroupAction(board, group)
             })
             setSelectedTasks([])
-            setIsMainCheckbox(false)
+            setIsMainCheckbox({isActive: false})
         } catch (err) {
             console.error(err)
         }
@@ -27,7 +27,7 @@ export function TaskToolsModal({ tasks, group, board, setSelectedTasks, setIsMai
             tasks.forEach(task => {
                 duplicateTask(board, group, task)
             })
-            setIsMainCheckbox(false)
+            setIsMainCheckbox({isActive: false})
             setSelectedTasks([])
         } catch (err) {
             console.log(err)
@@ -36,7 +36,7 @@ export function TaskToolsModal({ tasks, group, board, setSelectedTasks, setIsMai
 
     function onClose() {
         setSelectedTasks([])
-        setIsMainCheckbox(false)
+        setIsMainCheckbox({isActive: false})
     }
 
     return (

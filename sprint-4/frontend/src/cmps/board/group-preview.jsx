@@ -25,7 +25,7 @@ export function GroupPreview({ group, board, idx }) {
     const [isTyping, setIsTyping] = useState(false)
     const [isShowColorPicker, setIsShowColorPicker] = useState(false)
     const taskRef = useRef()
-    const [isMainCheckbox, setIsMainCheckbox] = useState(false)
+    const [isMainCheckbox, setIsMainCheckbox] = useState({isActive: false})
     const [selectedTasks, setSelectedTasks] = useState([])
     
     const [isPlus, setIsPlus] = useState(true)
@@ -111,27 +111,33 @@ export function GroupPreview({ group, board, idx }) {
 
     async function handleCheckboxChange(task) {
         try {
-            const activity = boardService.getEmptyActivity()
-            activity.task = { id: task.id, title: task.title }
-            activity.action = 'check'
-            if (selectedTasks.includes(task) && isMainCheckbox) return
             if (selectedTasks.includes(task)) {
                 selectedTasks.splice(selectedTasks.indexOf(task), 1)
                 setSelectedTasks((selectedTasks) => ([...selectedTasks]))
-                activity.from = true
-                activity.to = false
-                addActivity(board, activity)
-                return
+                addCheckActivity(true, task)
+            } else {
+                addCheckActivity(false, task)
+                setSelectedTasks((prevTasks) => ([...prevTasks, task]))
             }
-            activity.to = true
-            activity.from = false
-            // addActivity(board, activity)
-            setSelectedTasks((prevTasks) => ([...prevTasks, task]))
         } catch (err) {
             console.log('err:', err)
         }
     }
-    console.log('selectedTasks' , selectedTasks)
+
+    function onClickMainCheckbox() {
+        if(isMainCheckbox.isActive) setSelectedTasks([])
+        else setSelectedTasks(group.tasks)
+        setIsMainCheckbox(!isMainCheckbox)
+    }
+
+    function addCheckActivity(isCheckBoxDown, task) {
+        const activity = boardService.getEmptyActivity()
+        activity.task = { id: task.id, title: task.title }
+        activity.action = 'check'
+        activity.from = isCheckBoxDown
+        activity.to = !isCheckBoxDown
+        addActivity(board, activity)
+    }
 
     function getSumOfTasks() {
         const sum = group.tasks.length
@@ -156,6 +162,7 @@ export function GroupPreview({ group, board, idx }) {
             <GroupMenuModal onRemoveGroup={onRemoveGroup} onDuplicateGroup={onDuplicateGroup}
                 onChangeGroupColor={onChangeGroupColor} isShowColorPicker={isShowColorPicker}
                 groupId={group.id} setIsModalOpen={setIsModalOpen} />}
+                {console.log('group:', group)}
         <Draggable key={group.id} draggableId={group.id} index={idx}>
             {(provided) => {
                 return <div ref={provided.innerRef}
@@ -183,7 +190,7 @@ export function GroupPreview({ group, board, idx }) {
                                         <div className="sticky-div titles flex" style={{ borderColor: group.color }}>
                                             <div className="hidden"></div>
                                             <div className="check-box"  >
-                                                <input type="checkbox" checked={isMainCheckbox} onClick={() => setIsMainCheckbox(!isMainCheckbox)} />
+                                                <input type="checkbox" checked={isMainCheckbox.isActive} onChange={onClickMainCheckbox} />
                                             </div>
                                             <div className="task title">Task</div>
                                         </div>
