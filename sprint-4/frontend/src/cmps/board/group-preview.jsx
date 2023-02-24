@@ -127,7 +127,7 @@ export function GroupPreview({ group, board, idx }) {
     function onClickMainCheckbox() {
         if(isMainCheckbox.isActive) setSelectedTasks([])
         else setSelectedTasks(group.tasks)
-        setIsMainCheckbox(!isMainCheckbox)
+        setIsMainCheckbox({isActive: !isMainCheckbox.isActive})
     }
 
     function addCheckActivity(isCheckBoxDown, task) {
