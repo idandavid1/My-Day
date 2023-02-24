@@ -102,6 +102,8 @@ Here the members can add messages and to follow after the activity for every tas
 Just a taste of the mobile experience. We used different **mixins**, **conditional rendering**, and the **"mobile first"** approach. 
 The layout we have built from the very first moment enabled us to make the website responsive without a lot of effort.
 
+<img src="sprint-4/frontend/src/assets/imgs/readme/phone-board.png" width="25%" style="float: left"/><img src="sprint-4/frontend/src/assets/imgs/readme/chat-phone.png" width="25%" style="float: left;"/><img src="sprint-4/frontend/src/assets/imgs/readme/favorite-phone.png" width="25%" style="float: left;"/><img src="sprint-4/frontend/src/assets/imgs/readme/activity-phone.png" width="25%" style="float: left;"/>
+
 ### Authors
  - [Idan David](https://github.com/idandavid1)
  - [Ofer Gavrilov](https://github.com/oferGavrilov)
