@@ -145,7 +145,7 @@
         display: flex;
         margin-top: $spacing-small;
 
-        .main-table-btn {
+        .type-btn {
             height: 32px;
             align-items: center;
             padding: 0px 8px 0px 8px;
@@ -153,7 +153,7 @@
             font-size: 14px;
             white-space: nowrap;
             display: flex;
-            align-items: center;
+            cursor: pointer;
 
             &.active {
                 border-bottom: 2px solid $board-btn;

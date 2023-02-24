@@ -27,7 +27,7 @@ export function GroupPreview({ group, board, idx }) {
     const taskRef = useRef()
     const [isMainCheckbox, setIsMainCheckbox] = useState(false)
     const [selectedTasks, setSelectedTasks] = useState([])
-    const [isCheckBoxActionDone, setIsCheckBoxActionDone] = useState({ isDone: false })
+    
     const [isPlus, setIsPlus] = useState(true)
     const [isDeleteCmpTitleModalOpen, setIsDeleteCmpTitleModalOpen] = useState(false)
     const [isActive, setIsActive] = useState(false)
@@ -125,12 +125,13 @@ export function GroupPreview({ group, board, idx }) {
             }
             activity.to = true
             activity.from = false
-            addActivity(board, activity)
+            // addActivity(board, activity)
             setSelectedTasks((prevTasks) => ([...prevTasks, task]))
         } catch (err) {
             console.log('err:', err)
         }
     }
+    console.log('selectedTasks' , selectedTasks)
 
     function getSumOfTasks() {
         const sum = group.tasks.length
@@ -219,7 +220,7 @@ export function GroupPreview({ group, board, idx }) {
                                                 <Draggable key={task.id} draggableId={task.id} index={idx}>
                                                     {(provided) => {
                                                         return <li className={`parent-task-preview ${(!isPlus || isDeleteCmpTitleModalOpen) ? ' add-modal-open' : ''}`} ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
-                                                            <TaskPreview task={task} group={group} board={board} handleCheckboxChange={handleCheckboxChange} isMainCheckbox={isMainCheckbox} isCheckBoxActionDone={isCheckBoxActionDone} setIsCheckBoxActionDone={setIsCheckBoxActionDone} />
+                                                            <TaskPreview task={task} group={group} board={board} handleCheckboxChange={handleCheckboxChange} isMainCheckbox={isMainCheckbox}  />
                                                         </li>
                                                     }}
                                                 </Draggable>
@@ -266,6 +267,6 @@ export function GroupPreview({ group, board, idx }) {
                 </div>
             }}
         </Draggable>
-        {selectedTasks.length > 0 && <TaskToolsModal board={board} tasks={selectedTasks} group={group} setSelectedTasks={setSelectedTasks} setIsCheckBoxActionDone={setIsCheckBoxActionDone} setIsMainCheckbox={setIsMainCheckbox} />}
+        {selectedTasks.length > 0 && <TaskToolsModal board={board} tasks={selectedTasks} group={group} setSelectedTasks={setSelectedTasks} setIsMainCheckbox={setIsMainCheckbox} />}
     </ul >
 }

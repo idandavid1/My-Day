@@ -13,7 +13,7 @@ import { RiUserAddLine } from 'react-icons/ri'
 
 const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
 
-export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescription, setIsInviteModalOpen }) {
+export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescription, setIsInviteModalOpen , setBoardType , boardType}) {
     const isOpen = useSelector(storeState => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
 
@@ -78,12 +78,12 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
                 {board.description && <p className='board-description-link'>{board.description} <span onClick={() => setIsShowDescription(true)}>See More</span></p>}
             </div>
             <div className='board-display-btns' >
-                <div className='main-table-btn active' >
+                <div className={`type-btn ${boardType === 'table' ? ' active' : ''}`} >
                     <GrHomeRounded className='icon' />
-                    <NavLink to={`/board/${board._id}`}><span data-title='Main Table'>Main Table</span></NavLink>
+                    <span data-title='Main Table' onClick={() => setBoardType('table')}>Main Table</span>
                 </div>
-                <div className='kanban'>
-                    <NavLink to={`/board/kanban/${board._id}`}>Kanban</NavLink>
+                <div className={`type-btn ${boardType === 'kanban' ? ' active' : ''}`}>
+                    <span onClick={() => setBoardType('kanban')}>Kanban</span>
                 </div>
             </div>
             <div className='board-border'></div>

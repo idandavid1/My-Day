@@ -19,7 +19,7 @@ import { NumberPicker } from "./number-picker"
 import { FilePicker } from "./file-picker"
 import { UpdatedPicker } from "./updated-picker"
 
-export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCheckbox, isCheckBoxActionDone, setIsCheckBoxActionDone }) {
+export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCheckbox }) {
     const elTaskPreview = useRef(null)
     const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
     const user = useSelector(storeState => storeState.userModule.user)
@@ -27,21 +27,19 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
     const navigate = useNavigate()
     const [isClick, setIsClick] = useState(false)
     const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
-
-
+    
+    console.log('task', task, 'isclick', isClick)
     useEffectUpdate(() => {
-        if (!isCheckBoxActionDone.isDone) {
-            setIsClick(isMainCheckbox)
-            handleCheckboxChange(task)
-        }
+        // setIsClick(isMainCheckbox)
+        // handleCheckboxChange(task)
     }, [isMainCheckbox])
 
-    useEffectUpdate(() => {
-        if (isCheckBoxActionDone.isDone) {
-            setIsClick(false)
-            setIsCheckBoxActionDone({ isDone: false })
-        }
-    }, [isCheckBoxActionDone])
+    // useEffectUpdate(() => {
+    //     if (isCheckBoxActionDone.isDone) {
+    //         setIsClick(false)
+    //         setIsCheckBoxActionDone({ isDone: false })
+    //     }
+    // }, [isCheckBoxActionDone])
 
     async function updateTask(cmpType, data, activity) {
         const taskToUpdate = structuredClone(task)
@@ -163,7 +161,7 @@ function DynamicCmp({ cmp, info, onUpdate }) {
             return <PriorityPicker info={info} onUpdate={onUpdate} />
         case "number-picker":
             return <NumberPicker info={info} onUpdate={onUpdate} />
-        case "file-picker":{
+        case "file-picker": {
             return <FilePicker info={info} onUpdate={onUpdate} />
         }
         case "updated-picker":

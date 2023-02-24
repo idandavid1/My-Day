@@ -33,10 +33,8 @@ export function BoardDetails() {
     const [isInviteModalOpen, setIsInviteModalOpen] = useState(false)
     const queryFilterBy = boardService.getFilterFromSearchParams(searchParams)
     const { boardId } = useParams()
-    const { kanban } = useParams()
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
-    const [boardToDrag, setBoardToDrag] = useState(board)
-
+    const [boardType , setBoardType] = useState('table')
 
     useEffect(() => {
         loadBoard(boardId, queryFilterBy)
@@ -80,12 +78,10 @@ export function BoardDetails() {
         }
         // Reordering tasks
         if (result.type === 'task') {
-            console.log(result)
             const group = newBoard.groups.find(group => group.id === result.source.droppableId)
             const updatedTasks = [...group.tasks]
             const [draggedItem] = updatedTasks.splice(result.source.index, 1)
             updatedTasks.splice(result.destination.index, 0, draggedItem)
-            console.log(updatedTasks)
             group.tasks = updatedTasks
             updateGroupAction(board, group)
         }
@@ -100,9 +96,9 @@ export function BoardDetails() {
                     <WorkspaceSidebar isOpen={isOpen} setIsOpen={setIsOpen} isStarredOpen={isStarredOpen} board={board} setIsCreateModalOpen={setIsCreateModalOpen} />
                 </div>
                 <main className="board-main">
-                    <BoardHeader board={board} onSetFilter={onSetFilter} isStarredOpen={isStarredOpen} setIsShowDescription={setIsShowDescription} setIsInviteModalOpen={setIsInviteModalOpen} />
-                    {!kanban && <GroupList board={board} />}
-                    {kanban &&
+                    <BoardHeader boardType={boardType} setBoardType={setBoardType} board={board} onSetFilter={onSetFilter} isStarredOpen={isStarredOpen} setIsShowDescription={setIsShowDescription} setIsInviteModalOpen={setIsInviteModalOpen} />
+                    {boardType === 'table' && <GroupList board={board} />}
+                    {boardType === 'kanban' &&
                         <Droppable droppableId='groupList' type='group' direction='horizontal'>
                             {(provided) => (
                                 <div ref={provided.innerRef}
