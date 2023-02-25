@@ -129,9 +129,6 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
                 </div>
             </div>
             {board.cmpsOrder.map((cmp, idx) => {
-                // if(cmp === 'file-picker'){
-                //     console.log(task)
-                // }
                 return (
                     <DynamicCmp
                         cmp={cmp}

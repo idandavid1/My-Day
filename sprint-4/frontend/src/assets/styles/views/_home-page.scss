@@ -3,58 +3,50 @@
   margin: 0;
   padding: 0;
   height: 100vh;
+  color: $app-bg;
+  font-family: $title-font-family;
 
   .home-content {
     padding-top: $spacing-xxl;
-    display: flex;
+    @include center-flex();
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     gap: 20px;
+    margin-bottom: $spacing-medium;
 
-    @include for-mobile-layout() {
-      &{
-        padding: 48px 20px 0 20px;
-      }
+    p {
+      color: $app-bg;
+      text-align: center;
     }
-  }
 
-  .headers-container {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+    .headers-container {
+      text-align: center;
+    }
 
-  h1 {
-    font-size: 72px;
-    font-weight: 400;
-    color: rgb(255, 255, 255);
-    background: linear-gradient(360deg, #ffffff 53.95%, #0b0b4a 207.37%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 20px;
-    line-height: 85px;
-    z-index: 10;
-    position: relative;
-  }
+    .main-title {
+      display: flex;
+      flex-direction: column;
+      font-size: rem(72px);
+      font-weight: 400;
+      background: linear-gradient(360deg, #ffffff 53.95%, #0b0b4a 207.37%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: $spacing-large;
+      line-height: 85px;
+    }
 
-  h2 {
-    color: rgb(255, 255, 255);
-    font-weight: 300;
-    font-size: 1.375rem;
-  }
+    h2 {
+      font-weight: 300;
+      font-size: rem(22px);
+    }
 
-  .btn-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .home-btn {
+    .get-started-btn {
+      display: flex;
       background-image: $home-btn-bg-gradient;
-      padding-right: 20px;
       border-radius: 40px;
-      margin-bottom: 15px;
+      padding: $spacing-medium $spacing-xl;
+      line-height: $font-reg-line-height-18;
+      font-size: rem(16px);
+      transition: background-color 0.2s;
 
       &:hover {
         background-image: $home-btn-bg-gradient-hover;
@@ -67,42 +59,21 @@
     }
 
     .arrow {
-      padding-left: 10px;
-      display: flex;
-      align-self: center;
+      padding-left: $spacing-medium;
+      @include center-flex();
     }
 
-    .btn-text {
-      color: $app-bg;
-      text-align: center;
-      font-family: Poppins, Roboto, Helvetica, Arial, sans-serif;
+    @include for-mobile-layout() {
+      & {
+        padding: 48px 20px 0 20px;
+      }
     }
   }
-
-  .bottom-img {
+  .hero {
     width: 100%;
     height: auto;
     margin: 0;
     padding: 0;
   }
 
-  @keyframes move-twink-back {
-    from {
-      background-position: 0 0;
-    }
-
-    to {
-      background-position: -10000px 5000px;
-    }
-  }
-
-  @keyframes move-clouds-back {
-    from {
-      background-position: 0 0;
-    }
-
-    to {
-      background-position: 10000px 0;
-    }
-  }
 }

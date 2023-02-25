@@ -1,11 +1,10 @@
 .home-header {
     background-color: $app-bg;
-    // height: 72px;
+    height: rem(72px);
 
     nav {
-        display: flex;
+        @include center-flex();
         justify-content: space-between;
-        align-items: center;
         height: 100%;
 
         img {
@@ -15,20 +14,16 @@
     }
 
     .header-btns {
-        display: flex;
-        align-items: center;
+        @include center-flex();
 
         .btn-start {
+            @include center-flex();
             background-color: $home-btn-bg;
-            padding-right: 14px;
             height: 40px;
-            min-width: 130px;
-            font-size: 0.8125rem;
-            padding: 8px 16px;
+            width: 130px;
+            font-size: rem(13px);
+            padding: $spacing-small $spacing-medium;
             border-radius: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
 
             &:hover {
                 background-color: #5151d5;
@@ -40,49 +35,42 @@
             }
 
             .arrow {
-                padding-left: 10px;
-                display: flex;
-                align-items: center;
+                padding-left: $spacing-medium;
+                @include center-flex();
             }
         }
 
         .btn-login {
             background-color: $app-bg;
             color: #535768;
-            align-items: center;
-            padding: 8px 10px;
-            font-size: 0.875rem;
-            transition: color 200ms ease;
+            padding: $spacing-small $spacing-medium;
+            font-size: rem(14px);
             border-radius: 8px;
             font-weight: 300;
+            margin-right: $spacing-medium;
 
             &:hover {
                 color: #5034FF;
                 background-color: #F0F3FF;
             }
         }
-
     }
 
     @include for-mobile-layout() {
-        & {
-            
-            nav {
-                padding: 8px 20px;
-                img {
-                    height: rem(45px);
-                }
+        nav {
+            img {
+                height: rem(45px);
             }
+        }
 
-            .header-btns {
+        .header-btns {
 
-                .btn-start {
-                    height: 30px;
-                    min-width: 80px;
+            .btn-start {
+                height: 30px;
+                min-width: 80px;
 
-                    .arrow {
-                        display: none;
-                    }
+                .arrow {
+                    display: none;
                 }
             }
         }

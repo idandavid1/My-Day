@@ -24,56 +24,6 @@
   }
 }
 
-/* Media  Mixins */
-@mixin aspect-ratio($width, $height) {
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    display: block;
-    content: "";
-    width: 100%;
-    padding-top: calc(($height / $width) * 100%);
-  }
-
-  >* {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-
-  >img {
-    height: 100%;
-    object-fit: cover;
-  }
-}
-
-// Mixin for removing hover efects on iphone screen
-@mixin hover-supported {
-  @media not all and (pointer: coarse) {
-    &:hover {
-      @content;
-    }
-  }
-}
-
-@mixin btn() {
-  display: inline-flex;
-  border-radius: 20px;
-  align-items: center;
-  text-decoration: none;
-  // text-transform: uppercase;
-  padding: $spacing-medium $spacing-xl;
-  line-height: $font-reg-line-height-18;
-  font-size: 16px;
-  border: none;
-  min-width: 160px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
 @mixin members() {
   height: rem(26px);
   width: rem(26px);

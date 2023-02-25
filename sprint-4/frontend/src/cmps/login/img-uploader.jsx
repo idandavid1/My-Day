@@ -23,12 +23,13 @@ export function ImgUploader({ onUploaded = null }) {
     return isUploading ? 'Uploading....' : 'Upload a profile picture'
   }
 
+  // TODO: fix all
   return (
     <div className="upload-preview">
       <label htmlFor="imgUpload">
         {getUploadLabel()}
-        {!imgData.imgUrl && <img className="guest-img" src={guest} style={{ maxWidth: '200px', float: 'right' }} />}
-        {imgData.imgUrl && <img className="user-img" src={imgData.imgUrl} style={{ maxWidth: '100px', float: 'right' }} />}
+        {!imgData.imgUrl && <img className="guest-img" src={guest} style={{ maxWidth: '200px', float: 'right' }} alt="" />}
+        {imgData.imgUrl && <img className="user-img" src={imgData.imgUrl} style={{ maxWidth: '100px', float: 'right' }} alt="" />}
       </label>
       <input type="file" onChange={uploadImg} accept="img/*" id="imgUpload" />
     </div>

@@ -12,19 +12,8 @@ import { useGoogleLogin } from '@react-oauth/google'
 export function LoginSignup() {
     const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '' })
     const [isSignup, setIsSignup] = useState(false)
-    const [users, setUsers] = useState([])
     const navigate = useNavigate()
     const boards = useSelector(storeState => storeState.boardModule.boards)
-
-    useEffect(() => {
-        loadUsers()
-        if (!boards.length) loadBoards()
-    }, [])
-
-    async function loadUsers() {
-        const users = await userService.getUsers()
-        setUsers(users)
-    }
 
     function clearState() {
         setCredentials({ username: '', password: '', fullname: '', imgUrl: '' })
@@ -64,12 +53,16 @@ export function LoginSignup() {
     const googleLogin = useGoogleLogin({
         onSuccess: tokenResponse => console.log(tokenResponse),
         flow: 'auth-code'
-      })
+    })
 
     return (
-        <div className="login-signup">
+        //TODO: Change to form
+        // TODO: Change header to the original header(option)
+        // TODO: Change label to p
+        // TODO: fix image uplouder 
+        <div className="login-signup ">
             <LoginPageHeader />
-            <div className="form-container">
+            <div className="form-container layout">
                 <h1>{isSignup ? 'Create your MyDay account here ' : 'Log in to your account'}</h1>
                 {isSignup && <ImgUploader onUploaded={onUploaded} />}
                 {!isSignup && <label className="label-username" htmlFor="username">Enter your username and password</label>}

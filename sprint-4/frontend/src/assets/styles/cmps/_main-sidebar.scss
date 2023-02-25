@@ -9,9 +9,7 @@
     top: 0;
 
     a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        @include center-flex();
         margin: $spacing-small 0;
 
         .home-img {
@@ -30,10 +28,11 @@
 
     @include for-mobile-layout() {
         .open-workspace-btn {
-            color: white;
-            font-size: 24px;
-            height: 100%;
             @include center-flex();
+            color: white;
+            font-size: rem(24px);
+            height: 100%;
+            cursor: pointer;
         }
     }
 
@@ -55,20 +54,19 @@
         border-top: 1px solid $border-color;
 
         display: flex;
-        flex-direction: column;
         align-items: center;
+        flex-direction: column;
         height: 100%;
         color: white;
         gap: $spacing-medium;
-        font-size: 23px;
+        font-size: rem(23px);
         padding: $spacing-medium 0;
 
         .icon-container {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: rem(36px);
+            width: rem(36px);
+            height: rem(36px);
+            @include center-flex();
             position: relative;
 
             &[data-title]:hover:after {
@@ -87,12 +85,9 @@
             }
         }
 
-
         >*:hover {
             @include hover-sidebar()
         }
-
-
     }
 
     .bottom {
@@ -104,8 +99,8 @@
     }
 
     .menu-icon {
-        width: 42px;
-        height: 42px;
+        width: rem(42px);
+        height: rem(42px);
         color: $menu-icon-color;
 
         &:hover {
@@ -115,14 +110,13 @@
 
     @include for-mobile-layout {
         & {
+            @include center-flex();
+            flex-direction: row;
             position: fixed;
             width: 100vw;
             top: initial;
             bottom: 0;
             height: 8vh;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
             gap: 30px;
 
             .middle-div,
@@ -133,7 +127,7 @@
 
             .triangle-icon {
                 left: 8px;
-                top: -16px;
+                top: -29px;
                 transform: rotate(270deg);
             }
 

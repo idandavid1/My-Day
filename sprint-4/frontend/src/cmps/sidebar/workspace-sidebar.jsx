@@ -58,8 +58,8 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreate
                     <div className="workspace-title-container flex space-between align-center">
                         <span className='workspace-title'>Workspace</span>
                     </div>
-                    <div className='workspace-select'>
-                        <div className='workspace-logo'>
+                    <div className='workspace-select flex space-between align-center'>
+                        <div className='workspace-logo flex align-items'>
                             <div className='lightning-container'>
                                 <BsFillLightningFill />
                             </div>
@@ -84,7 +84,7 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreate
                         </div>
                     </div>
                 </div>
-                <ul className='board-list-container'>
+                <ul className='board-list-container flex column'>
                     {boards.map(board => {
                         return <li key={board._id} className='board-list'>
                             <BoardPreview board={board} />
@@ -95,7 +95,7 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreate
             {isOpen && isStarredOpen && <div className="workspace-sidebar-header">
                 <div className='workspace-sidebar-items'>
                     <div className="workspace-title-container flex space-between align-center">
-                        <span className='favorites-title'><BsStarFill className="star-icon" /> Favorites</span>
+                        <span className='favorites-title flex align-center'><BsStarFill className="star-icon" /> Favorites</span>
                         <BiDotsHorizontalRounded className='icon' />
                     </div>
                 </div>

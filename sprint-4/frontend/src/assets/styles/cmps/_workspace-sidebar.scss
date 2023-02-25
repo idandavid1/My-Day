@@ -5,7 +5,6 @@
     color: $workspace-icon-color;
     transition: .4s;
 
-  
     &.open {
         min-width: $workspace-width;
     }
@@ -15,7 +14,7 @@
     }
 
     .workspace-sidebar-items {
-        margin: 16px 16px 18px 16px;
+        margin: $spacing-medium $spacing-medium 18px $spacing-medium;
         border-bottom: 1px solid darken($border-color , 30%);
         gap: 10px;
     }
@@ -25,31 +24,23 @@
 
         .workspace-title {
             font-weight: 400;
-            font-size: 14px;
+            font-size: rem(14px);
             padding: 0 0 $spacing-xs 0;
         }
 
         .icon {
-            font-size: 28px;
+            font-size: rem(28px);
         }
 
         .favorites-title {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            flex-grow: 1;
-            height: auto;
-            overflow: hidden;
-            max-width: 135px;
-            font-size: 16px;
+            font-size: rem(16px);
             font-weight: 600;
             color: $primary-text-color;
-        }
 
-        .star-icon {
-            margin-right: 8px;
-            font-size: 16px;
-            color: $color-egg_yolk;
+            .star-icon {
+                margin-right: $spacing-small;
+                color: $color-egg_yolk;
+            }
         }
     }
 
@@ -80,35 +71,25 @@
 
 
     .workspace-select {
-        display: flex;
-        justify-content: space-between;
         padding: $spacing-small;
         border: 1px solid $workspace-icon-color;
         border-radius: 4px;
-        align-items: center;
-        padding: 6px;
 
         .workspace-logo {
-            display: flex;
-            align-items: center;
             position: relative;
 
-            // gap: $spacing-xs;
             .lightning-container {
-                width: 30px;
-                height: 30px;
+                @include center-flex();
+                width: rem(30px);
+                height: rem(30px);
                 background-color: $color-done-green;
-                display: flex;
-                justify-content: center;
-                align-items: center;
                 color: #fff;
                 border-radius: 8px;
-
             }
 
             .home {
                 position: absolute;
-                font-size: 18px;
+                font-size: rem(18px);
                 z-index: 2;
                 color: black;
                 bottom: -1px;
@@ -116,9 +97,8 @@
             }
 
             .workspace-title {
-                font-size: 16px;
+                font-size: rem(16px);
                 color: $primary-text-color;
-                padding: 0;
                 margin-left: 12px;
                 font-weight: bold;
             }
@@ -128,7 +108,7 @@
 
     .workspace-btns,
     .board-list {
-        padding: 16px 0 16px 2px;
+        padding: $spacing-medium 0 $spacing-medium 2px;
         width: 100%;
 
         .icon {
@@ -173,7 +153,6 @@
                 border: none;
                 background-color: inherit;
 
-
                 &::-webkit-input-placeholder {
                     color: $primary-text-color ;
                     font-weight: 400;
@@ -182,20 +161,16 @@
                 &:focus-visible {
                     outline: none;
                 }
-
             }
         }
-
     }
 
     .board-list-container {
-        display: flex;
-        flex-direction: column;
-        margin-top: 28px;
+        margin-top: $spacing-large;
         gap: 5px;
 
         .board-list {
-            padding: 0 18px;
+            padding: 0 $spacing-medium;
 
             & .active {
                 border-radius: 4px;
@@ -206,7 +181,7 @@
 
     .toggle-workspace {
         position: absolute;
-        padding: 4px;
+        padding: $spacing-xs;
         border-radius: 20px;
         border: 1px solid #c3c6d4;
         background-color: #fff;
@@ -222,18 +197,21 @@
         &:hover {
             color: white;
             background-color: $board-btn;
-            padding-left: 16px;
-            padding-right: 5px;
+            padding-left: $spacing-medium;
+            padding-right: $spacing-xs;
         }
     }
+
     @include for-mobile-layout() {
-        &.close{
+        &.close {
             min-width: 0;
         }
-        &.open{
+
+        &.open {
             width: 100vw;
         }
-        .toggle-workspace{
+
+        .toggle-workspace {
             display: none;
         }
     }
@@ -242,11 +220,9 @@
 .workspace-sidebar {
     &.open {
         .toggle-workspace {
-
             &:hover {
-                padding: unset;
-                padding: 4px;
-                padding-right: 16px;
+                padding: $spacing-xs;
+                padding-right: $spacing-medium;
                 left: auto;
                 right: -12px;
             }

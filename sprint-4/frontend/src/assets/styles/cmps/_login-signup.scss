@@ -1,34 +1,26 @@
 .login-page-header {
-    width: 100%;
-    display: block;
-    padding-left: 8px;
     border-bottom: 1px solid #e0e0e0;
     height: 65px;
-    background: #f7f7f7;
+    background: $login-bg;
 
     .logo {
-        width: 180px;
         height: 65px;
-        margin-left: 12px;
         cursor: pointer;
     }
 }
 
 
 .form-container {
-    display: flex;
+    @include center-flex();
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     margin-top: 40px;
-    margin-bottom: 16px;
-    width: 100%;
+    margin-bottom: $spacing-medium;
     text-align: center;
 
     h1 {
-        font-size: 40px;
+        font-size: rem(40px);
         font-weight: 100;
-        margin-bottom: 8px;
+        margin-bottom: $spacing-small;
         color: #333;
     }
 
@@ -43,9 +35,9 @@
         border-radius: 4px;
         border: 1px solid #ccc;
         padding: 6px 12px;
-        font-size: 16px;
+        font-size: rem(16px);
         outline: none;
-        margin-bottom: 15px;
+        margin-bottom: $spacing-medium;
     }
 
     .upload-preview {
@@ -53,19 +45,16 @@
         flex-direction: column;
         justify-content: center;
 
-
         label {
-            display: flex;
+            @include center-flex();
             flex-direction: column;
-            align-items: center;
-            text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: $spacing-medium;
             color: $primary-text-color;
             transition: color 200ms ease;
             border-radius: 8px;
 
             .guest-img {
-                margin-top: 10px;
+                margin-bottom: $spacing-small;
                 border-radius: 50%;
                 opacity: 0.3;
                 cursor: pointer;
@@ -84,52 +73,40 @@
                     opacity: 0.8;
                 }
             }
-
         }
 
         input {
             display: none;
         }
-
-        ::file-selector-button {
-            display: none;
-        }
     }
 
     .btn-next {
+        text-align: center;
         width: 328px;
-        cursor: pointer;
-        outline: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        line-height: 28px;
+        padding: 6px 0;
         border: none;
         border-radius: 4px;
-        font-size: 18px;
+        font-size: rem(18px);
         background-color: $board-btn;
         color: #fff;
-        gap: 11px;
     }
 
-
     .split-line {
-        margin-bottom: 32px;
+        margin-bottom: $spacing-medium;
         margin-top: 30px;
-
+        width: 100%;
+        
         .separator-line {
             border: .5px solid #c5c7d0;
             width: 200px;
-            margin: 16px;
-
+            margin: $spacing-medium;
         }
     }
 
     .btn-login-google {
-        display: flex;
-        align-items: center;
+        @include center-flex();
         font-family: roboto-light;
-        padding: 12px 16px;
+        padding: 12px $spacing-medium;
         border: 1px solid #c5c7d0;
         border-radius: 4px;
         gap: 8px;
@@ -142,7 +119,7 @@
 
         span {
             font-family: tahoma;
-            font-size: 14px;
+            font-size: rem(14px);
             color: #000000;
         }
     }
@@ -150,8 +127,8 @@
     .suggest-signup {
 
         .suggest-signup-prefix {
-            padding-right: 5px;
-            font-size: 16px;
+            padding-right: $spacing-xs;
+            font-size: rem(16px);
         }
 
         .btn-signup {
@@ -159,7 +136,7 @@
             background-color: $app-bg;
             margin: 0;
             padding: 0;
-            font-size: 16px;
+            font-size: rem(16px);
         }
     }
 }

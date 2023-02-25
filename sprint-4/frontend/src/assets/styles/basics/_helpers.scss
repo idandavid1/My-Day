@@ -28,17 +28,4 @@
     &.align-center {
         align-items: center;
     }
-
-}
-
-// Media helpers
-
-.square-ratio {
-    @include aspect-ratio(1, 1);
-}
-.video-ratio {
-    @include aspect-ratio(16, 9);
-}
-.portrait-ratio {
-    @include aspect-ratio(9, 16);
 }
