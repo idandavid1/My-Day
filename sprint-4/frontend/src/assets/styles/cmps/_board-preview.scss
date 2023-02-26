@@ -1,34 +1,26 @@
 .board-preview {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
     &:hover {
         .menu-icon-container {
-
             opacity: 1;
         }
     }
 
     div {
-        display: flex;
-        align-items: center;
+        @include center-flex();
         gap: $spacing-small;
     }
 
     .menu-icon-container {
+        @include center-flex();
         position: relative;
         width: 24px;
         height: 24px;
         border-radius: 4px;
-        @include center-flex();
         opacity: 0;
 
         .icon {
-            font-size: 40px;
+            font-size: rem(40px);
         }
-
-       
 
         &.active {
             background-color: $workspace-board-active;

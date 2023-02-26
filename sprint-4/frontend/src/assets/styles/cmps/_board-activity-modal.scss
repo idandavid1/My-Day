@@ -1,13 +1,14 @@
-.board-activity {
+.board-activity-modal {
+
     .board-activity-header {
-        margin: 20px 20px 6px 24px;
+        margin: 20px 20px $spacing-small $spacing-large;
+        
         .close-btn {
             color: #777;
             cursor: pointer;
         }
     
         .views {
-            display: flex;
             gap: 18px;
             >* {
                 @include center-flex();

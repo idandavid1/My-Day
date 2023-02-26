@@ -1,3 +1,4 @@
+import { utilService } from "../services/util.service"
 
 import { IoTimeOutline }  from 'react-icons/io5'
 import { IoIosArrowForward, IoIosCheckboxOutline }  from 'react-icons/io'
@@ -5,7 +6,6 @@ import { CiCalendarDate }  from 'react-icons/ci'
 import { BsPlusCircle, BsPersonPlus }  from 'react-icons/bs'
 import { FcCheckmark }  from 'react-icons/fc'
 
-import { utilService } from "../services/util.service"
 const statusImg = require('../assets/img/status.png')
 const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
 
@@ -51,16 +51,16 @@ export function ActivityPreview({ activity }) {
     return (
         <section className="activity-preview">
                 <div className="time-title flex align-center">
-                    <div className="time">
+                    <div className="time flex align-center">
                         <IoTimeOutline />
                         <span>{utilService.calculateTime(activity.createdAt)}</span>
                     </div>
-                    <div className='title'>
+                    <div className='title flex align-center'>
                         <img src={activity.byMember.imgUrl || guest} alt="" />
                         <span>{activity.task.title}</span>
                     </div>
                 </div>
-                <div className='action'>
+                <div className='action flex align-center space-between'>
                     {getIconAction(activity.action)}
                     <div>{activity.action}</div>
                 </div>
@@ -71,7 +71,7 @@ export function ActivityPreview({ activity }) {
 
 function FromToStatusPriority({ activity }) {
     return (
-        <div className='from-to label-container'>
+        <div className='from-to label-container flex align-center'>
             <span className='label' style={{backgroundColor: activity.from.color}}>{activity.from.title}</span>
             <IoIosArrowForward className='icon'/>
             <span className='label' style={{backgroundColor: activity.to.color}}>{activity.to.title}</span>
@@ -106,7 +106,7 @@ function FromToPerson({ activity }) {
     return (
         <div className='from-to person-container'>
             <span>{activity.from}</span>
-            <img src={activity.to} />
+            <img src={activity.to} alt="activity-img" />
         </div>
     )
 }

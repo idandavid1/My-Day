@@ -56,11 +56,11 @@ export function BoardActivityModal({ board, activityLog }) {
     }
     
     return (
-        <section className="board-activity">
+        <section className="board-activity-modal">
             <div className="board-activity-header">
                     <CgClose className="close-btn" onClick={onCloseModal} />
                     <h3 className="board-title">{board.title} <span>Log</span></h3>
-                    <div className="views">
+                    <div className="views flex">
                     <span id="1" className={view === 'activity' ? 'active' : ''} onClick={() => setView('activity')}>Activity</span>
                         <span id="2" className={view === 'last-viewed' ? 'active' : ''} onClick={() => setView('last-viewed')}>Last Viewed</span>
                         <span id="3" className={view === 'updates' ? 'active' : ''} onClick={() => setView('updates')}>Updates</span>
@@ -68,13 +68,13 @@ export function BoardActivityModal({ board, activityLog }) {
             </div>
             <div className="board-activity-content">
                 {view === 'activity' &&
-                    board.activities.map(activity => {
-                        return <li key={activity.id}><ActivityPreview activity={activity} /></li>
+                    board.activities.map((activity, idx) => {
+                        return <li key={idx}><ActivityPreview activity={activity} /></li>
                     })
                 }
                 {view === 'last-viewed' &&
                     <section className="last-viewed">
-                        <div className="title">
+                        <div className="title flex space-between">
                             <span>Name</span>
                             <span>Last viewed</span>
                         </div>

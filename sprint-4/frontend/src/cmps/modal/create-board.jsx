@@ -23,7 +23,7 @@ export function CreateBoard({ setIsModalOpen }) {
     }
 
     return (
-        <section className="create-board-modal">
+        <section className="create-board-modal flex column">
             <div className="close" onClick={() => setIsModalOpen(false)}>
                 <AiOutlineClose className="icon" />
             </div>

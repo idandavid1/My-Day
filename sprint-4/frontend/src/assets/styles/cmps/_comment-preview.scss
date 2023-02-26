@@ -5,15 +5,11 @@
         margin-bottom: $spacing-medium;
         padding: $spacing-medium;
         .header-comment {
-            display: flex;
-            justify-content: space-between;
             padding-bottom: $spacing-small;
-            font-size: 14px;
+            font-size: rem(14px);
             color: $workspace-icon-color;
 
             .left {
-                display: flex;
-                align-items: center;
                 gap: $spacing-small;
                 font-size: 16px;
                 color: $primary-text-color;
@@ -24,22 +20,18 @@
             }
 
             .right {
-                display: flex;
-                align-items: center;
                 gap: $spacing-small;
 
                 .time {
-                    display: flex;
-                    align-items: center;
                     gap: 2px;
                 }
 
                 .menu-icon-container {
+                    @include center-flex();
                     position: relative;
                     width: 24px;
                     height: 24px;
                     border-radius: 4px;
-                    @include center-flex();
 
                     &:hover {
                         background-color: $workspace-hover;
@@ -60,7 +52,7 @@
 
         p {
             margin-top: $spacing-small;
-            padding: 0 15px 15px 15px;
+            padding: 0 $spacing-medium $spacing-medium $spacing-medium;
             max-width: 540px;
             overflow-wrap: break-word;
         }

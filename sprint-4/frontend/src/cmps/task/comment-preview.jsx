@@ -53,13 +53,13 @@ export function CommentPreview({onRemoveComment, comment, taskId, onEditComment}
 
     return (
         <section className="comment-preview">
-            <div className="header-comment">
-                <div className="left">
+            <div className="header-comment flex space-between">
+                <div className="left flex align-center">
                     <img src={comment.byMember?.imgUrl || guest} alt="" />
                     <span>{comment.byMember.fullname}</span>
                 </div>
-                <div className="right">
-                    <div className="time">
+                <div className="right flex align-center">
+                    <div className="time flex align-center">
                         <IoTimeOutline />
                         <span>{utilService.calculateTime(comment.archivedAt)}</span>
                     </div>

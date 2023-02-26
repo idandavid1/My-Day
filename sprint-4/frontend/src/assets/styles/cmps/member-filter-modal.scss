@@ -14,11 +14,13 @@
     max-height: 500px;
     overflow: auto;
     padding: $spacing-medium;
+    cursor: default;
 
     img {
         height: rem(30px);
         width: rem(30px);
         border-radius: 50%;
+        cursor: pointer;
     }
 
     h2 {

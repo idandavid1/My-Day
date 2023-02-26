@@ -18,11 +18,11 @@ export function BoardDescription({ setIsShowDescription, board }) {
         }
     }
     return (
-        <section className="board-description-modal">
+        <section className="board-description-modal flex">
             <div className="close-btn">
                 <CgClose onClick={() => setIsShowDescription(false)} />
             </div>
-            <div className="board-edit">
+            <div className="board-edit flex column">
                 <div className="board-edit-title">
                     <blockquote onBlur={onSave} id='title' contentEditable suppressContentEditableWarning={true}>
                         <h1>{board.title}</h1>
@@ -34,7 +34,7 @@ export function BoardDescription({ setIsShowDescription, board }) {
                     </blockquote>
                 </div>
             </div>
-            <div className="board-info">
+            <div className="board-info flex column">
                 <span className="title">Board info</span>
                 <div className="workspace-info">
                     <span className="header">Workspace</span>

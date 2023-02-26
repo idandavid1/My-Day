@@ -12,7 +12,7 @@
     transition: transform .6s, box-shadow .6s;
 
     @include for-mobile-layout() {
-        &{
+        & {
             min-width: 100vw;
         }
     }
@@ -20,7 +20,6 @@
     &.open {
         transform: translateX(0);
         box-shadow: -6px 0px 14px rgb(0 0 0 / 20%);
-
     }
 
     .close-btn {
@@ -28,62 +27,58 @@
         cursor: pointer;
     }
 
-    .board-modal-header {
-        display: flex;
-        flex-direction: column;
+    .task-modal-header {
         justify-content: flex-start;
         margin: 20px 20px 6px 24px;
         height: 53px;
-        font-size: 18px;
+        font-size: rem(18px);
     }
 
-    .board-info {
-        padding: 0 24px;
-        display: flex;
+    .task-modal-type {
+        padding: 0 $spacing-large;
         border-bottom: 1px solid $border-color;
 
         >* {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            @include center-flex();
+            gap: $spacing-small;
             border-right: 1px solid $border-color;
             width: fit-content;
-            padding: 8px;
+            padding: $spacing-small;
             font-weight: 500;
-            font-size: 14px;
+            font-size: rem(14px);
             cursor: pointer;
 
             &:hover {
-                border-radius: 4px;
+                border-top-left-radius: $spacing-xs;
+                border-top-right-radius: $spacing-xs;
                 background-color: $workspace-hover;
             }
         }
-        & .active{
+
+        & .active {
             border-bottom: 2px solid #0073ea;
         }
     }
 
     .update {
-        padding: 20px 20px 6px 24px;
+        padding: 20px 20px 6px $spacing-large;
         height: 85vh;
         overflow: auto;
 
         &::-webkit-scrollbar {
             display: none;
         }
-        
-        .close-input-container {
-             padding-left: 20px;
-             display: flex;
-             align-items: center;
-             outline: 1px solid $board-btn;
-             min-height: 40px;
-             border-radius: 4px;
-             color: $workspace-icon-color;
 
-             &:hover {
+        .close-input-container {
+            padding-left: 20px;
+            outline: 1px solid $board-btn;
+            min-height: 40px;
+            border-radius: 4px;
+            color: $workspace-icon-color;
+
+            &:hover {
                 background-color: $workspace-hover;
-             }
+            }
         }
 
         .button-container {
@@ -92,13 +87,13 @@
             gap: $spacing-small;
 
             .save {
+                @include center-flex();
                 background-color: $board-btn;
                 color: white;
                 margin: 0;
                 height: 32px;
                 border-radius: 4px;
                 padding: $spacing-xs $spacing-small;
-                @include center-flex();
 
                 &:hover {
                     background-color: $primary-hover-color;
@@ -116,23 +111,21 @@
             .style-txt {
                 width: 100%;
                 display: flex;
-                border-bottom: 1px solid darken($border-color, 20%);;
+                border-bottom: 1px solid darken($border-color, 20%);
 
                 >* {
+                    @include center-flex();
                     padding: $spacing-xs $spacing-small;
                     cursor: pointer;
                     border-radius: 4px;
-                    font-size: 14px;
+                    font-size: rem(14px);
                     text-align: center;
-                    display: flex;
-                    align-items: center;
-                    margin: 4px 2px 4px 4px;
-                    
-                    &:hover{
+                    margin: $spacing-xs 2px $spacing-xs $spacing-xs;
+
+                    &:hover {
                         background-color: $workspace-hover;
                     }
                 }
-
             }
 
             textarea {
@@ -141,39 +134,33 @@
                 padding: 0 18px;
                 border: 0;
                 resize: none;
-                
+
                 &:focus-visible {
                     outline: 0;
                 }
             }
         }
-        .no-updates {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
 
+        .no-updates {
             img {
-            width: 290px;
-            height: auto;
-            } 
+                width: 290px;
+                height: auto;
+            }
 
             .txt {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 15px;
+                padding: $spacing-medium;
             }
 
             h2 {
                 font-weight: 500;
-                font-size: 24px;
+                font-size: rem(24px);
             }
 
             p {
-            margin-top: $spacing-medium;
-            text-align: center;
+                margin-top: $spacing-medium;
+                text-align: center;
             }
-        } 
+        }
     }
 
     .activities {

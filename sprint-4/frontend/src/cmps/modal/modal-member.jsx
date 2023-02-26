@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 
-import { VscTriangleUp } from 'react-icons/vsc'
 import { CiSearch } from 'react-icons/ci'
-import { useEffect, useState } from "react"
+import { VscTriangleUp } from 'react-icons/vsc'
 
 export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen, activity}) {
     const [filter, setFilter] = useState({txt: ''})
@@ -55,7 +55,7 @@ export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen, act
                     {
                         taskMembers.map(taskMember => {
                             return <li key={taskMember.id}>
-                                <img src={taskMember.imgUrl} />
+                                <img src={taskMember.imgUrl} alt="member-img" />
                                 <span>{taskMember.fullname}</span>
                                 <span onClick={() => onRemoveMember(taskMember)} className="remove">x</span>
                             </li>
@@ -63,7 +63,7 @@ export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen, act
                     }
                 </ul>
                 <div className="outTaskMembers">
-                    <form className="search-div" onSubmit={onSubmit}>
+                    <form className="search-div flex space-between" onSubmit={onSubmit}>
                         <input type="text" 
                         placeholder="Search names"
                         name="txt"
@@ -77,7 +77,7 @@ export function ModalMember({taskMembers, cmpType, onUpdate, setIsModalOpen, act
                         {
                             outTaskMembers.map(taskMember => {
                                return  <li key={taskMember.id} onClick={() => onAddMember(taskMember)}>
-                                    <img src={taskMember.imgUrl} />
+                                    <img src={taskMember.imgUrl} alt="member-img" />
                                     <span>{taskMember.fullname}</span>
                                 </li>
                             })

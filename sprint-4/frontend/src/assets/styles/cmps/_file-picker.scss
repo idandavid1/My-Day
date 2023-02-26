@@ -1,25 +1,27 @@
 .file-picker {
     max-width: 140px;
-    display: flex;
-    align-items: center;
+    @include center-flex();
     position: relative;
     width: 100%;
-    &:hover{
-        .icon{
+
+    &:hover {
+        .icon {
             opacity: 1;
         }
     }
+
     input {
         display: none;
     }
 
-    label{
+    label {
         width: 100%;
         @include center-flex();
     }
+
     .icon {
         margin: auto;
-        font-size: 19px;
+        font-size: rem(19px);
         opacity: 0;
         cursor: pointer;
     }

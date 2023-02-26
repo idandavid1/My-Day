@@ -1,22 +1,18 @@
-.last-viewed{
-    padding: 32px 16px;
-    .title{
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 8px;
+.last-viewed {
+    padding: $spacing-xl $spacing-medium;
+
+    .title {
+        margin-bottom: $spacing-small;
     }
-    .last-viewed-main{
-        display: flex;
-        justify-content: space-between;
-        .member-info{
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            img{
+
+    .last-viewed-main {
+        .member-info {
+            gap: $spacing-small;
+            margin-bottom: $spacing-small;
+
+            img {
                 @include members();
             }
         }
-
     }
 }
