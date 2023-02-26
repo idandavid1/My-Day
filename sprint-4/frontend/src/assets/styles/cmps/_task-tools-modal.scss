@@ -1,6 +1,4 @@
 .task-tools-modal {
-    display: flex;
-    // justify-content: center;
     position: fixed;
     bottom: 35px;
     height: 63px;
@@ -39,9 +37,7 @@
         }
     }
 
-    // transform: translate(-50%, 0);
     .task-tools {
-        display: flex;
         color: $primary-text-color;
         width: 100%;
 
@@ -58,16 +54,15 @@
           
         }
         .task-count {
+            @include center-flex();
             border-top-left-radius: 5px;
             border-bottom-left-radius: 5px;
             width: 36px;
             height: 100%;
             color: white;
             width: 63px;
-            justify-content: center;
-            font-size: 24px;
+            font-size: rem(24px);
             background-color: $board-btn;
-            align-items: center;
         }
 
         .tasks-container {
@@ -76,18 +71,16 @@
 
         .task-info {
             padding-left: 20px;
-            font-size: 20px;
+            font-size: rem(20px);
             flex-direction: column;
             align-items: flex-start;
-            display: flex;
-            margin-bottom: 4px;
+            margin-bottom: $spacing-xs;
 
             .group-color {
-                display: flex;
                 justify-content: flex-start;
-                font-size: 10px;
-                padding-left: 3px;
-                gap: 4px;
+                font-size: rem(10px);
+                padding-left: $spacing-xs;
+                gap: $spacing-xs;
             }
             @include for-mobile-layout() {
                 &{
@@ -96,19 +89,15 @@
             }
         }
 
-
-
         .task-btns {
             margin-left: auto;
             gap: 20px;
-            display: flex;
 
             &>* {
                 display: flex;
                 flex-direction: column;
                 font-size: 12px;
                 white-space: nowrap;
-
 
                 &:hover {
                     .icon {
@@ -117,7 +106,7 @@
                 }
 
                 .icon {
-                    font-size: 18px;
+                    font-size: rem(18px);
                     margin: 0 auto;
                     color: darken($workspace-icon-color , 20%);
                 }
@@ -131,12 +120,10 @@
         }
 
         .close-btn {
+            @include center-flex();
             width: 63px;
             height: 100%;
-            justify-content: center;
             border-left: 2px solid $task-box-shadow-color;
-            display: flex;
-            align-items: center;
 
             &:hover {
                 .icon {
@@ -145,7 +132,7 @@
             }
 
             .icon {
-                font-size: 26px;
+                font-size: rem(26px);
                 color: black;
             }
 
@@ -156,13 +143,7 @@
                     top: -26px;
                     border: none;
                 }
-
-
             }
         }
     }
-
-    // width: 100%;
-    // position: fixed;
-
 }

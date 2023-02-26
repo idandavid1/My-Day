@@ -157,7 +157,7 @@ export function GroupPreview({ group, board, idx }) {
         }
     }
 
-    return <ul className="group-preview" >
+    return <ul className="group-preview flex column" >
         {isModalOpen &&
             <GroupMenuModal onRemoveGroup={onRemoveGroup} onDuplicateGroup={onDuplicateGroup}
                 onChangeGroupColor={onChangeGroupColor} isShowColorPicker={isShowColorPicker}
@@ -166,18 +166,18 @@ export function GroupPreview({ group, board, idx }) {
             {(provided) => {
                 return <div ref={provided.innerRef}
                     {...provided.draggableProps}>
-                    <div {...provided.dragHandleProps} className={`group-header ${!board.description ? ' not-des' : ''}`} style={{ color: group.color }}>
-                        <div className="group-header-title">
+                    <div {...provided.dragHandleProps} className={`group-header flex align-center ${!board.description ? ' not-des' : ''}`} style={{ color: group.color }}>
+                        <div className="group-header-title flex align-center">
                             <MdKeyboardArrowDown className="arrow-icon" />
                             <div className="group-menu">
                                 <BiDotsHorizontalRounded className="icon" onClick={onOpenModal} />
                             </div>
-                            <div className={`group-title-info ${isShowColorPicker ? 'showBorder' : ''} `} onFocus={() => setIsShowColorPicker(true)}>
+                            <div className={`group-title-info flex align-center ${isShowColorPicker ? 'showBorder' : ''} `} onFocus={() => setIsShowColorPicker(true)}>
                                 {isShowColorPicker && <BsFillCircleFill onClick={onShowPalette} />}
                                 <blockquote className="group-title" onFocus={() => setIsTyping(true)} contentEditable onBlur={(ev) => onSave(ev)} suppressContentEditableWarning={true}>
                                     <h4 data-title={group.title}>{group.title}</h4>
                                 </blockquote>
-                                {!isTyping && <span className="task-count">{getSumOfTasks()}</span>}
+                                {!isTyping && <span className="task-count flex align-center">{getSumOfTasks()}</span>}
                             </div>
                         </div>
                     </div>
@@ -185,7 +185,7 @@ export function GroupPreview({ group, board, idx }) {
                         <DragDropContext onDragEnd={handleHorizontalDrag}>
                             <Droppable droppableId="title" direction="horizontal">
                                 {(droppableProvided) => {
-                                    return <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps} className={`title-container ${!board.description ? ' not-des' : ''}`}>
+                                    return <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps} className={`title-container flex ${!board.description ? ' not-des' : ''}`}>
                                         <div className="sticky-div titles flex" style={{ borderColor: group.color }}>
                                             <div className="hidden"></div>
                                             <div className="check-box"  >
@@ -206,8 +206,8 @@ export function GroupPreview({ group, board, idx }) {
                                                 }}
                                             </Draggable>
                                         )}
-                                        <div className="add-picker-task">
-                                            <span onClick={() => setIsActive(!isActive)} className={`add-btn ${isActive ? ' active' : ' normal'}`}>
+                                        <div className="add-picker-task flex align-items">
+                                            <span onClick={() => setIsActive(!isActive)} className={`add-btn ${isActive ? ' active' : ''}`}>
                                                 <AiOutlinePlus onClick={() => setIsPlus(!isPlus)} className={isPlus ? 'plus' : 'close'} />
                                                 {!isPlus && <AddColumnModal addColumn={addColumn} board={board} />}
                                             </span>
@@ -237,12 +237,12 @@ export function GroupPreview({ group, board, idx }) {
                                 </Droppable>
                             </DragDropContext>
                         </div>
-                        <div className="add-task">
+                        <div className="add-task flex">
                             <div className="sticky-div" style={{ borderColor: group.color }}>
                                 <div className="check-box add-task">
                                     <input type="checkbox" disabled />
                                 </div>
-                                <form onSubmit={onAddTask} className="add-task-form">
+                                <form onSubmit={onAddTask} className="add-task-form flex align-center">
                                     <input type="text"
                                         name="title"
                                         value={taskToEdit.title}

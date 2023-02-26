@@ -6,7 +6,7 @@ import { CgClose } from 'react-icons/cg'
 import { GrHomeRounded } from 'react-icons/gr'
 import { AiOutlineBold } from 'react-icons/ai'
 import { RxUnderline } from 'react-icons/rx'
-import { TbAlignRight ,TbAlignCenter,TbAlignLeft } from 'react-icons/tb'
+import { TbAlignRight, TbAlignCenter, TbAlignLeft } from 'react-icons/tb'
 import { boardService } from "../../services/board.service"
 import { utilService } from "../../services/util.service"
 import { CommentPreview } from "../task/comment-preview"
@@ -37,14 +37,14 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
 
     function addComment(comment) {
         currTask.comments.unshift(comment)
-        setCurrTask({...currTask})
+        setCurrTask({ ...currTask })
     }
-    
+
     function loadTaskActivity() {
-        const taskActivities = board.activities.filter(activity => activity.task.id === task.id )
+        const taskActivities = board.activities.filter(activity => activity.task.id === task.id)
         setTaskActivities(taskActivities)
     }
-    
+
     function onCloseModal() {
         navigate(`/board/${board._id}`)
         toggleModal(true)
@@ -65,7 +65,7 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
     async function onAddComment() {
         try {
             comment.id = utilService.makeId()
-            if(user) {
+            if (user) {
                 comment.byMember.fullname = user.fullname
                 comment.byMember.imgUrl = user.imgUrl
             }
@@ -73,11 +73,11 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
             socketService.emit(SOCKET_EMIT_SEND_MSG, comment)
             await updateTaskAction(board, groupId, currTask)
             setIsWriteNewUpdate(false)
-            setCurrTask({...currTask})
+            setCurrTask({ ...currTask })
             setComment(boardService.getEmptyComment())
         } catch (err) {
             console.log('err:', err)
-        }  
+        }
     }
 
     function close(ev) {
@@ -90,7 +90,7 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
         try {
             currTask.comments = currTask.comments.filter(comment => comment.id !== commentId)
             updateTaskAction(board, groupId, currTask)
-            setCurrTask({...currTask})
+            setCurrTask({ ...currTask })
         } catch (err) {
             console.log('err:', err)
         }
@@ -98,18 +98,18 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
 
     function onChangeTextStyle(ev, styleKey, align) {
         ev.preventDefault()
-        const style = {...comment.style}
+        const style = { ...comment.style }
         switch (styleKey) {
-            case 'fontStyle':  
+            case 'fontStyle':
                 style.fontStyle = style.fontStyle === 'normal' ? 'italic' : 'normal'
                 break;
-            case 'fontWeight': 
+            case 'fontWeight':
                 style.fontWeight = style[styleKey] === 'normal' ? 'bold' : 'normal'
                 break;
-            case 'textDecoration': 
+            case 'textDecoration':
                 style[styleKey] = style[styleKey] === 'none' ? 'underline' : 'none'
                 break;
-            case 'textAlign': 
+            case 'textAlign':
                 style[styleKey] = align
                 break;
             default: return
@@ -126,13 +126,13 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
         try {
             currTask.comments = currTask.comments.map(comment => (comment.id === saveComment.id) ? saveComment : comment)
             updateTaskAction(board, groupId, task)
-            setCurrTask({...currTask})
+            setCurrTask({ ...currTask })
         } catch (err) {
             console.log('err:', err)
         }
     }
     return <section className='task-modal'>
-        <div className="board-modal-header">
+        <div className="task-modal-header flex column">
             <CgClose className="close-btn" onClick={onCloseModal} />
             <div className="title">
                 <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
@@ -140,61 +140,62 @@ export function TaskModal({ task, board, groupId, setModalCurrTask }) {
                 </blockquote>
             </div>
         </div>
-            <div className="board-info">
-                <div onClick={() => setIsShowUpdate(!isShowUpdate)} className={`updates-btn ${isShowUpdate ? 'active' : ''}`}>
-                    <GrHomeRounded />
-                    <span>Updates</span>
-                </div>
-                <div onClick={() => setIsShowUpdate(!isShowUpdate)} className={`activity-btn ${!isShowUpdate ? 'active' : ''}`}>
-                    <span>Activity Log</span>
-                </div>
+        <div className="task-modal-type flex">
+            <div onClick={() => setIsShowUpdate(!isShowUpdate)} className={`updates-btn ${isShowUpdate ? 'active' : ''}`}>
+                <GrHomeRounded />
+                <span>Updates</span>
             </div>
-            {!isShowUpdate && <ul className="activities">
+            <div onClick={() => setIsShowUpdate(!isShowUpdate)} className={`activity-btn ${!isShowUpdate ? 'active' : ''}`}>
+                <span>Activity Log</span>
+            </div>
+        </div>
+        {!isShowUpdate && <ul className="activities">
             {
-                taskActivities.map(activity => {
-                    return <li key={activity.id}><ActivityPreview activity={activity}/></li>
-               })
+                taskActivities.map((activity, idx) => {
+                    return <li key={idx}><ActivityPreview activity={activity} /></li>
+                })
             }
-            </ul>}
-            {isShowUpdate && <section className="update">
-                    {!isWriteNewUpdate && <span className="close-input-container" onClick={() => setIsWriteNewUpdate(true)}>Write an update</span>}
-                    {isWriteNewUpdate && <form className="input-container">
-                        <div className="style-txt">
-                            <span onMouseDown={(ev) => onChangeTextStyle(ev, 'fontWeight')}><AiOutlineBold /></span>
-                            <span onMouseDown={(ev) => onChangeTextStyle(ev, 'textDecoration')}><RxUnderline /></span>
-                            <span onMouseDown={(ev) => onChangeTextStyle(ev, 'fontStyle')}>/</span>
-                            <span onMouseDown={(ev) => onChangeTextStyle(ev, 'textAlign', 'Left')}><TbAlignLeft /></span>
-                            <span onMouseDown={(ev) => onChangeTextStyle(ev, 'textAlign', 'Center')}><TbAlignCenter /></span>
-                            <span onMouseDown={(ev) => onChangeTextStyle(ev, 'textAlign', 'Right')}><TbAlignRight /></span>
-                        </div>
-                        <textarea
-                        name="txt"
-                        style={comment.style}
-                        value={comment.txt}
-                        onBlur={close}
-                        onChange={handleChange}></textarea>
-                    </form>}
-                    {isWriteNewUpdate && <div className="button-container"><button className="save" onMouseDown={onAddComment}>Update</button></div>}
-                <ul className="comments-list">
-                    {
-                        currTask.comments.map(comment => {
-                            return (
-                            <li key={comment.id}>
-                                <CommentPreview onRemoveComment={onRemoveComment} comment={comment} onEditComment={onEditComment}/>
+        </ul>}
+        {isShowUpdate && <section className="update">
+            {!isWriteNewUpdate && <span className="close-input-container flex align-center" onClick={() => setIsWriteNewUpdate(true)}>Write an update</span>}
+            {isWriteNewUpdate && <form className="input-container">
+                <div className="style-txt">
+                    <span onMouseDown={(ev) => onChangeTextStyle(ev, 'fontWeight')}><AiOutlineBold /></span>
+                    <span onMouseDown={(ev) => onChangeTextStyle(ev, 'textDecoration')}><RxUnderline /></span>
+                    <span onMouseDown={(ev) => onChangeTextStyle(ev, 'fontStyle')}>/</span>
+                    <span onMouseDown={(ev) => onChangeTextStyle(ev, 'textAlign', 'Left')}><TbAlignLeft /></span>
+                    <span onMouseDown={(ev) => onChangeTextStyle(ev, 'textAlign', 'Center')}><TbAlignCenter /></span>
+                    <span onMouseDown={(ev) => onChangeTextStyle(ev, 'textAlign', 'Right')}><TbAlignRight /></span>
+                </div>
+                <textarea
+                    name="txt"
+                    style={comment.style}
+                    value={comment.txt}
+                    onBlur={close}
+                    onChange={handleChange}></textarea>
+            </form>}
+            {isWriteNewUpdate && <div className="button-container"><button className="save" onMouseDown={onAddComment}>Update</button></div>}
+            <ul className="comments-list">
+                {
+                    currTask.comments.map(comment => {
+                        return (
+                            <li key={comment._id}>
+                                <CommentPreview onRemoveComment={onRemoveComment} comment={comment} onEditComment={onEditComment} />
                             </li>
-                        )})
-                    }
-                </ul>
-                {currTask.comments.length === 0 && 
-                <div className="no-updates">
+                        )
+                    })
+                }
+            </ul>
+            {currTask.comments.length === 0 &&
+                <div className="no-updates flex column align-center">
                     <img src={noUpdate} alt="" />
-                    <div className="txt">
+                    <div className="txt flex column align-center">
                         <h2>No updates yet for this item</h2>
-                        <p>Be the first one to update about progress, mention someone 
-                            <br/>or upload files to share with your team members
+                        <p>Be the first one to update about progress, mention someone
+                            <br />or upload files to share with your team members
                         </p>
                     </div>
                 </div>}
-            </section>}
+        </section>}
     </section>
 }

@@ -1,29 +1,22 @@
 .board-filter {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 10px 0;
+    padding: $spacing-small 0;
     gap: 5px;
 
     >* {
-        font-size: 14px;
-        font-family: $font-family;
-        display: flex;
-        align-items: center;
+        @include center-flex();
+        font-size: rem(14px);
         height: 32px;
         gap: 5px;
     }
 
     .board-tools {
         >* {
-            display: flex;
-            align-items: center;
-            gap: 3px;
+            @include center-flex();
+            gap: $spacing-xs;
+            padding: 0 8px;
             color: $workspace-icon-color;
             height: 100%;
-            padding: 0 8px;
-        cursor: pointer;
-
+            cursor: pointer;
 
             &:hover {
                 border-radius: 4px;
@@ -47,7 +40,7 @@
 
         .new-task-btn {
             cursor: pointer;
-            padding: 4px 8px;
+            padding: $spacing-xs $spacing-small;
             transition: .4s;
             white-space: nowrap;
 
@@ -68,15 +61,13 @@
             background-color: $app-bg;
             box-shadow: -6px 0px 14px rgb(0 0 0 / 20%);
             width: 220px;
-            padding: 8px;
+            padding: $spacing-small;
             border-radius: 8px;
             gap: 5px;
 
             >* {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 4px 8px;
+                @include center-flex();
+                padding: $spacing-xs $spacing-small;
                 color: $primary-text-color;
                 gap: 5px;
                 cursor: pointer;
@@ -90,16 +81,14 @@
             }
 
             .icon {
-                font-size: 16px;
+                font-size: rem(16px);
             }
         }
 
         .drop-down-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            @include center-flex();
             height: 100%;
-            padding: 0 8px;
+            padding: 0 $spacing-small;
             border-left: 1px solid $primary-hover-color;
             cursor: pointer;
             transition: .4s;
@@ -111,10 +100,8 @@
             }
 
             .icon {
-                font-size: 15px;
-
+                font-size: rem(15px);
             }
-
         }
     }
 
@@ -123,7 +110,7 @@
         color: $primary-text-color;
         background-color: $app-bg;
         white-space: nowrap;
-        padding: 0;
+        padding: unset;
         margin-left: 3px;
 
         &:hover {
@@ -155,35 +142,10 @@
                     }
                 }
             }
-            
         }
-        .icon{
+
+        .icon {
             margin-left: 2px;
-        }
-
-    }
-
-    .person-btn {
-        color: $primary-text-color;
-        background-color: $app-bg;
-        display: flex;
-        align-items: center;
-        border-radius: 4px;
-
-        &:hover {
-            background-color: $workspace-hover;
-        }
-    }
-
-    .hide-btn {
-        color: $primary-text-color;
-        background-color: $app-bg;
-        display: flex;
-        align-items: center;
-        border-radius: 4px;
-
-        &:hover {
-            background-color: $workspace-hover;
         }
     }
 
@@ -196,14 +158,7 @@
         }
 
         .member-img {
-            height: rem(18px);
-            width: rem(18px);
-            border-radius: 50%;
+            @include members();
         }
     }
-
-    @include for-mobile-layout() {
-       
-    }
-
 }

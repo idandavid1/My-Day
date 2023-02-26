@@ -1,6 +1,7 @@
+import { useSelector } from 'react-redux'
+
 import { RxPencil1 } from 'react-icons/rx'
 import { VscTriangleUp } from 'react-icons/vsc'
-import { useSelector } from 'react-redux'
 
 export function ModalStatusPriority({ labels, onUpdate, setIsModalOpen, cmpType, activity }) {
     const board = useSelector(storeState => storeState.boardModule.board)

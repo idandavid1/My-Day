@@ -9,7 +9,7 @@
     color: $primary-text-color;
 
     @include for-mobile-layout() {
-        &{
+        & {
             font-size: rem(12px);
         }
     }
@@ -23,18 +23,17 @@
         width: 200px;
 
         @include for-mobile-layout() {
-            &{
+            & {
                 width: 100px;
-                gap: 0;
+                gap: unset;
             }
         }
-        
+
         .time {
-            display: flex;
-            align-items: center;
             width: 60px;
+
             @include for-mobile-layout() {
-                &{
+                & {
                     width: 50px;
                 }
             }
@@ -43,42 +42,39 @@
 
         .title {
             height: 100%;
-            display: flex;
-            align-items: center;
             gap: $spacing-xs;
 
             @include for-mobile-layout() {
-                &{
+                & {
                     width: 50px;
-                    gap: 0;
+                    gap: unset;
                     overflow: hidden;
                 }
             }
 
             img {
                 border-radius: 50px;
+
                 @include for-mobile-layout() {
-                    &{
+                    & {
                         display: none;
                     }
                 }
             }
-            
+
             span {
-                font-size: 14px;
+                font-size: rem(14px);
                 font-weight: 500;
             }
         }
     }
+
     .action {
-        display: flex;
         gap: $spacing-small;
-        align-items: center;
-        justify-content: space-between;
         width: 80px;
 
         @include for-mobile-layout() {
-            &{
+            & {
                 width: 60px;
             }
         }
@@ -91,18 +87,17 @@
         }
 
         .icon {
-            font-size: 20px;
+            font-size: rem(20px);
         }
     }
 
     .from-to {
-        display: flex;
-        align-items: center;
         height: 100%;
         margin-left: auto;
         width: 200px;
+
         @include for-mobile-layout() {
-            &{
+            & {
                 width: 100px;
             }
         }
@@ -110,31 +105,30 @@
         span {
             height: 100%;
             @include center-flex();
-            // width: 100%;
             width: 90px;
 
             @include for-mobile-layout() {
-                &{
+                & {
                     width: 40px;
                 }
             }
 
             @include for-narrow-layout() {
-                &{
+                & {
                     min-width: 80px;
                 }
+            }
         }
-    }
 
         .icon {
-            font-size: 35px;
+            font-size: rem(35px);
             color: $color-explosive;
-            margin: 0 4px;
+            margin: 0 $spacing-xs;
         }
 
         &.label-container {
             span {
-                &.label { 
+                &.label {
                     width: 100%;
                     padding: 0 $spacing-small;
                     color: white;
@@ -144,8 +138,7 @@
                         &.label {
                             width: 40px;
                             height: 30px;
-
-                            font-size: 10px;
+                            font-size: rem(10px);
                         }
                     }
                 }
@@ -154,9 +147,10 @@
 
         &.person-container {
             display: flex;
-            gap: $spacing-xl;
             justify-content: center;
-            margin-left: 0;
+            gap: $spacing-xl;
+            margin-left: unset;
+
             img {
                 border-radius: 50px;
             }

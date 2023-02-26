@@ -1,13 +1,11 @@
 .login-logout-modal {
     background-color: $app-bg;
     border-radius: $spacing-small;
-    display: flex;
-    flex-direction: column;
     position: absolute;
     color: $primary-text-color;
     box-shadow: -3px 4px 14px rgb(0 0 0 / 20%);
     padding: $spacing-small;
-    font-size: 14px;
+    font-size: rem(14px);
     z-index: 10;
     border: 1px solid darken($border-color , 20%);
     left: 60px;
@@ -17,15 +15,15 @@
         margin: 0;
 
         li {
+            @include center-flex();
             cursor: pointer;
             padding: $spacing-xs;
             border-radius: 4px;
-            align-items: center;
+            gap: $spacing-xs;
 
             &:hover {
                 background-color: $workspace-hover;
             }
         }
     }
-
 }

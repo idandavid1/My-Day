@@ -1,5 +1,4 @@
 .main-sidebar {
-    display: flex;
     flex-direction: column;
     justify-content: space-between;
     background-color: $sidebar-main-bg;
@@ -52,10 +51,6 @@
     .middle-div {
         border-bottom: 1px solid $border-color;
         border-top: 1px solid $border-color;
-
-        display: flex;
-        align-items: center;
-        flex-direction: column;
         height: 100%;
         color: white;
         gap: $spacing-medium;
@@ -91,9 +86,7 @@
     }
 
     .bottom {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+       @include center-flex();
         gap: $spacing-medium;
         padding: $spacing-medium 0;
     }
@@ -134,8 +127,6 @@
             .sidebar {
                 flex-direction: column;
             }
-
         }
-
     }
 }

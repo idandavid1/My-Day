@@ -1,7 +1,5 @@
 .group-preview {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 64px;
+    margin-bottom: $spacing-xxxl;
     position: relative;
 
     .hidden {
@@ -39,27 +37,7 @@
         }
     }
 
-
-    .group-menu-modal {
-        @include menu-modal();
-
-        .color-palette {
-            display: flex;
-            align-items: flex-start;
-            width: 142px;
-            flex-wrap: wrap;
-            border-radius: 8px;
-            padding: 5px;
-
-            .color-icon {
-                cursor: pointer;
-                font-size: 20px;
-            }
-        }
-    }
-
     .title-container {
-        display: flex;
         position: sticky;
         top: 205px;
         left: 40px;
@@ -79,17 +57,14 @@
             }
         }
 
-
         .add-picker-task {
-            display: flex;
-            align-items: center;
             border-top: 1px solid darken($border-color , 20%);
             border-bottom: 1px solid darken($border-color , 20%);
             width: 100%;
             transition: transform .2s, color .1s ease;
             padding-right: 150px;
 
-            .normal {
+            .add-btn {
                 display: flex;
                 align-items: center;
                 padding: 3px $spacing-xs;
@@ -104,30 +79,16 @@
                     color: $primary-hover-color;
                 }
 
+                .plus {
+                    transition: transform .2s ease, color .1s ease;
+                    transform: rotate(0);
+                }
+
                 &:hover {
                     background-color: $layout-border-color;
                 }
 
-
-            }
-
-            .active {
-                display: flex;
-                align-items: center;
-                padding: 3px $spacing-xs;
-                margin-left: $spacing-xs;
-                border-radius: $spacing-xs;
-                cursor: pointer;
-                background-color: $layout-border-color;
-                position: relative;
-
-                .close {
-                    transform: rotate(45deg);
-                    transition: transform .2s, color .1s ease;
-                    color: $primary-hover-color;
-                }
-
-                &:hover {
+                &.active {
                     background-color: $layout-border-color;
                 }
             }
@@ -135,13 +96,11 @@
     }
 
     .title {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include center-flex();
         min-width: $cell-width;
         height: $cell-height;
         border: 1px solid darken($border-color , 20%);
-        font-size: 14px;
+        font-size: rem(14px);
 
         &.task {
             min-width: $cell-width-task;
@@ -150,7 +109,6 @@
                 & {
                     min-width: 202px;
                 }
-
             }
         }
 
@@ -159,16 +117,13 @@
         }
     }
 
-
     .group-header {
         position: sticky;
         top: 175px;
-        display: flex;
         z-index: 2;
         background-color: white;
         height: 40px;
         width: 100%;
-        align-items: center;
         line-height: 24px;
 
         @include for-narrow-layout() {
@@ -177,20 +132,14 @@
             }
         }
 
-
         @include for-mobile-layout {
             & {
                 top: 142px;
             }
         }
 
-
-
         .group-title-info {
-            display: flex;
-            align-items: center;
-            border: 1px;
-            margin-bottom: 8px;
+            margin-bottom: $spacing-small;
 
             &:hover {
                 .task-count {
@@ -199,11 +148,9 @@
             }
 
             .task-count {
-                display: flex;
-                align-items: center;
                 color: $workspace-icon-color;
                 white-space: nowrap;
-                font-size: 14px;
+                font-size: rem(14px);
                 line-height: 19px;
                 margin-left: $spacing-small;
                 transition: .2s;
@@ -217,7 +164,7 @@
 
             .group-title:focus-visible {
                 outline: none;
-                margin-left: 4px;
+                margin-left: $spacing-xs;
             }
 
             blockquote {
@@ -226,13 +173,9 @@
                 height: 35px;
                 text-overflow: ellipsis;
             }
-
         }
 
         .group-header-title {
-            display: flex;
-            align-items: center;
-            flex-direction: row;
             position: sticky;
             left: 40px;
             z-index: 2;
@@ -257,7 +200,7 @@
         }
 
         .arrow-icon {
-            font-size: 16px;
+            font-size: rem(16px);
             margin-left: 13px;
             cursor: pointer;
         }
@@ -265,27 +208,23 @@
         h4 {
             cursor: text;
             font-weight: 600;
-            font-size: 18px;
+            font-size: rem(18px);
             padding: $spacing-xs;
-            margin: 0;
         }
 
-
         .group-menu {
+            @include center-flex();
             position: absolute;
             width: 40px;
             left: -38px;
             height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             color: $primary-text-color;
 
             .icon {
                 display: none;
                 cursor: pointer;
                 border-radius: 4px;
-                font-size: 20px;
+                font-size: rem(20px);
             }
 
             .icon:hover {
@@ -297,15 +236,12 @@
                     display: none;
                 }
             }
-
         }
     }
 
     .check-box {
         min-width: 33px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        @include center-flex();
         border: 1px solid darken($border-color , 20%);
 
         input {
@@ -316,7 +252,6 @@
 
     .add-task {
         width: 100%;
-        display: flex;
 
         .empty-div {
             width: 100%;
@@ -325,8 +260,6 @@
 
         .add-task-form {
             width: 100%;
-            display: flex;
-            align-items: center;
             outline: none;
             height: 36px;
             border-bottom: 1px solid rgba(143, 153, 191, 0.4);
@@ -357,7 +290,7 @@
 
             input {
                 margin: 3px 3px 3px 4px;
-                padding: 8px;
+                padding: $spacing-small;
             }
         }
     }
@@ -375,19 +308,16 @@
                 min-width: 240px;
                 left: 0;
             }
-
         }
 
         &.titles {
             border-top-left-radius: 6px;
             z-index: 11;
         }
-
     }
 
     .add-task .sticky-div {
         border-bottom-left-radius: 6px;
         opacity: .6;
     }
-
 }

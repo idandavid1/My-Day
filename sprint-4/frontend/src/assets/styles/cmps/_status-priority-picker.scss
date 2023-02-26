@@ -2,8 +2,7 @@
     position: relative;
     color: white;
 
-    
-    &:hover .fold{
+    &:hover .fold {
         border-width: 0 10px 10px 0;
         transition-delay: .2s;
 
@@ -14,19 +13,18 @@
     }
 
     .fold {
-    background: rgba(0,0,0,.352);
-    border-color: transparent #fff;
-    border-style: solid;
-    border-width: 0;
-    display: block;
-    height: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transition: border-width .2s ease-out;
-    width: 0;
-}
-
+        position: absolute;
+        background: rgba(0, 0, 0, .352);
+        border-color: transparent #fff;
+        border-style: solid;
+        border-width: 0;
+        display: block;
+        height: 0;
+        right: 0;
+        top: 0;
+        width: 0;
+        transition: border-width .2s ease-out;
+    }
 
     .label-text {
         @include center-absolute();

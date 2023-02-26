@@ -4,8 +4,8 @@ const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/gue
 export function LastViewed({ member }) {
 
     return (
-        <div className="last-viewed-main">
-            <div className="member-info">
+        <div className="last-viewed-main flex space-between">
+            <div className="member-info flex align-center">
                 <img src={member.imgUrl || guest} alt="" />
                 <span>{member.fullname}</span>
             </div>

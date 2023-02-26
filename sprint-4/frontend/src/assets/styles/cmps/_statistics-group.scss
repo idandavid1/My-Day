@@ -1,7 +1,6 @@
 .statistic {
     .statistic-container {
         height: 36px;
-        width: 100%;
     }
 
     .first {
@@ -9,11 +8,10 @@
         overflow: hidden;
     }
 
-
     .title.status-picker,
     .title.priority-picker {
         border-top: 0;
-        padding: 0 8px;
+        padding: 0 $spacing-small;
 
         >* {
             height: 80%;
@@ -45,18 +43,15 @@
     }
 
     .statistic-number {
-        display: flex;
-        flex-direction: column;
-        font-size: 14px;
+        font-size: rem(14px);
         position: relative;
-        align-items: center;
         .number{
             position: absolute;
             top: -15px;
         }
         .sum {
             color: $board-btn;
-            font-size: 12px;
+            font-size: rem(12px);
             position: absolute;
         }
     }

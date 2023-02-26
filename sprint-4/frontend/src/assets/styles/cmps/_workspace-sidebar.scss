@@ -45,9 +45,6 @@
     }
 
     .favorites-empty {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         line-height: 1.5;
 
         .star-icon {
@@ -55,12 +52,11 @@
         }
 
         .favorites-empty-text {
-            display: flex;
             flex-direction: column;
-            align-items: center;
+            @include center-flex();
             text-align: center;
             padding: 0 12px;
-            font-size: 15px;
+            font-size: rem(15px);
             color: $primary-text-color;
 
             b {
@@ -68,7 +64,6 @@
             }
         }
     }
-
 
     .workspace-select {
         padding: $spacing-small;
@@ -103,7 +98,6 @@
                 font-weight: bold;
             }
         }
-
     }
 
     .workspace-btns,
@@ -180,19 +174,17 @@
     }
 
     .toggle-workspace {
+        @include center-flex();
         position: absolute;
+        top: 13px;
+        left: calc(100% - 14px);
         padding: $spacing-xs;
         border-radius: 20px;
         border: 1px solid #c3c6d4;
         background-color: #fff;
-        top: 13px;
-        @include center-flex();
-        right: -12px;
-        transition: .2s;
-        cursor: pointer;
         z-index: 50;
-        right: unset;
-        left: calc(100% - 14px);
+        cursor: pointer;
+        transition: .2s;
 
         &:hover {
             color: white;

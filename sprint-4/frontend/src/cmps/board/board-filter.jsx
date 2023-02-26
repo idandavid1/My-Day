@@ -10,7 +10,7 @@ import { AiFillCloseCircle } from 'react-icons/ai'
 import { CgViewComfortable } from 'react-icons/cg'
 import { BsArrowDownCircle } from 'react-icons/bs'
 import { useSelector } from 'react-redux'
-import { MemberFilterModal } from '../modal/person-filter-modal'
+import { MemberFilterModal } from '../modal/member-filter-modal'
 
 export function BoardFilter({ board, onSetFilter }) {
     const [isShowModal, setIsShowModal] = useState(false)
@@ -52,7 +52,7 @@ export function BoardFilter({ board, onSetFilter }) {
         setMemberFilter(null)
     }
 
-    return (<section className="board-filter">
+    return (<section className="board-filter flex align-center">
         <div className="add-btn">
             <span className='new-task-btn' onClick={() => addTaskOnFirstGroup(board)}>New Task</span>
             <div className='drop-down-btn' onClick={() => setIsShowModal(!isShowModal)}>
@@ -69,7 +69,7 @@ export function BoardFilter({ board, onSetFilter }) {
                 </div>
             </div>}
         </div>
-        <div className='flex align-center board-tools'>
+        <div className='board-tools flex align-center'>
             <div className='search-task'>
                 <TfiSearch className='icon' />
                 <input type="text"

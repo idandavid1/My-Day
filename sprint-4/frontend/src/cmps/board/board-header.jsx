@@ -44,8 +44,8 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
     if (!board.members) return <div></div>
     return (
         <header className="board-header">
-            <section className='board-title'>
-                <div className="board-info">
+            <section className='board-title flex align-center space-around'>
+                <div className="board-info flex">
                     <blockquote data-title='Click to Edit' contentEditable onBlur={onSave} suppressContentEditableWarning={true}>
                         <h1>{board.title}</h1>
                     </blockquote>
@@ -56,9 +56,9 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
                         {!board.isStarred ? <BsStar /> : <BsStarFill className="star-full" />}
                     </div>
                 </div>
-                <div className='board-tools flex'>
+                <div className='board-tools flex align-center'>
                     <div className='activity' onClick={() => toggleIsOpen('activity')}><FiActivity /></div>
-                    <div className='members-last-seen' onClick={() => toggleIsOpen('last-viewed')}>
+                    <div className='members-last-seen flex' onClick={() => toggleIsOpen('last-viewed')}>
                         <span className='last-seen-title'>Last seen</span>
                         <div className='flex members-imgs'>
                             <img className='member-img1' src={board.members.length ? board.members[0].imgUrl : guest} alt="member" />
@@ -74,10 +74,10 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
                     </div>
                 </div>
             </section>
-            <div className='board-description'>
+            <div className='board-description flex'>
                 {board.description && <p className='board-description-link'>{board.description} <span onClick={() => setIsShowDescription(true)}>See More</span></p>}
             </div>
-            <div className='board-display-btns' >
+            <div className='board-display-btns flex' >
                 <div className={`type-btn ${boardType === 'table' ? ' active' : ''}`} >
                     <GrHomeRounded className='icon' />
                     <span data-title='Main Table' onClick={() => setBoardType('table')}>Main Table</span>

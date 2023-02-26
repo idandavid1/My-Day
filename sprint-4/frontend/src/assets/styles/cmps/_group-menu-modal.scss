@@ -1,0 +1,17 @@
+.group-menu-modal {
+    @include menu-modal();
+
+    .color-palette {
+        display: flex;
+        align-items: flex-start;
+        width: 142px;
+        flex-wrap: wrap;
+        border-radius: 8px;
+        padding: 5px;
+
+        .color-icon {
+            cursor: pointer;
+            font-size: 20px;
+        }
+    }
+}

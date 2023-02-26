@@ -1,27 +1,23 @@
 .board-header {
-    padding: 16px 30px 0 38px;
+    padding: $spacing-medium 30px 0 38px;
     position: sticky;
-    left: 0px;
+    left: 0;
     top: 0;
     background-color: white;
     z-index: 30;
 
     .board-title {
-        display: flex;
-        justify-content: space-around;
         color: $workspace-icon-color ;
-        align-items: center;
 
-        div {
+        >* {
             display: flex;
             align-items: center;
-            padding-top: 4px;
+            padding-top: $spacing-xs;
             height: rem(32px);
             border-radius: 4px;
         }
 
         .board-info {
-            display: flex;
             width: 100%;
             gap: $spacing-small;
 
@@ -33,8 +29,7 @@
 
             h1 {
                 cursor: text;
-                padding: 4px 4px 4px 0;
-                margin: 0;
+                padding: $spacing-xs $spacing-xs $spacing-xs 0;
                 border: 1px solid transparent;
                 color: $primary-text-color;
                 letter-spacing: 0.5px;
@@ -53,7 +48,7 @@
             }
 
             .icon {
-                font-size: 20px;
+                font-size: rem(20px);
             }
 
             .star-full {
@@ -62,14 +57,18 @@
         }
 
         .board-tools {
-            gap: $spacing-small;
-            align-items: center;
-            height: fit-content;
             gap: $spacing-medium;
-            cursor: pointer;
+            height: fit-content;
+
+            >* {
+                padding: $spacing-xs;
+                @include center-flex();
+                border-radius: 6px;
+                cursor: pointer;
+            }
 
             .activity {
-                font-size: 14px;
+                font-size: rem(14px);
 
                 &:hover {
                     background-color: $workspace-hover;
@@ -77,8 +76,6 @@
             }
 
             .members-last-seen {
-                display: flex;
-                flex-direction: row;
                 width: max-content;
                 gap: $spacing-xs;
                 height: rem(32px);
@@ -108,7 +105,7 @@
 
             @include for-mobile-layout() {
                 & {
-                    gap: 0;
+                    gap: unset;
                 }
 
                 .members-imgs {
@@ -121,9 +118,8 @@
 
     .board-description {
         border: 1px solid transparent;
-        display: flex;
         align-items: flex-start;
-        padding: em(4px) em(8px) em(4px) 0;
+        padding: $spacing-xs $spacing-small $spacing-xs 0;
         cursor: pointer;
         color: $workspace-icon-color;
 
@@ -142,22 +138,19 @@
     }
 
     .board-display-btns {
-        display: flex;
         margin-top: $spacing-small;
 
         .type-btn {
-            height: 32px;
-            align-items: center;
-            padding: 0px 8px 0px 8px;
             position: relative;
-            font-size: 14px;
+            @include center-flex();
+            padding: 0px $spacing-small 0px $spacing-small;
+            font-size: rem(14px);
+            height: 32px;
             white-space: nowrap;
-            display: flex;
             cursor: pointer;
 
             &.active {
                 border-bottom: 2px solid $board-btn;
-                // box-shadow: 0px 2px 0 0 #0073ea
             }
 
             svg {
@@ -166,7 +159,7 @@
 
             span {
                 font-weight: 500;
-                padding: 0 4px;
+                padding: 0 $spacing-xs;
 
                 &[data-title]:after {
                     left: 0;
@@ -181,12 +174,12 @@
             }
 
             &::after {
-                border-right: 1px solid darken($border-color , 30%);
+                position: absolute;
                 content: "";
                 height: 18px;
-                position: absolute;
                 top: 6px;
                 right: 0;
+                border-right: 1px solid darken($border-color , 30%);
             }
         }
     }
@@ -199,10 +192,10 @@
 
     @include for-mobile-layout() {
         & {
-            padding: 16px 10px 0 10px;
+            padding: $spacing-medium 10px 0 10px;
 
             .board-info h1 {
-                font-size: 15px;
+                font-size: rem(15px);
                 white-space: nowrap;
             }
 
@@ -226,8 +219,6 @@
                 max-width: 180px;
                 white-space: nowrap;
             }
-
-
         }
     }
 
@@ -237,7 +228,6 @@
                 font-size: rem(24px);
                 line-height: 42px;
             }
-
         }
     }
 }

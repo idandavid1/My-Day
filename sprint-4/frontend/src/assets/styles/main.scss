@@ -36,7 +36,7 @@
 @import "cmps/comment-preview";
 @import "cmps/task-tools-modal";
 @import "cmps/activity-preview";
-@import "cmps/create-board";
+@import "cmps/create-board-modal";
 @import "cmps/board-preview";
 @import "cmps/login-logout-modal";
 @import "cmps/add-column-modal";
@@ -45,6 +45,7 @@
 @import "cmps/board-description";
 @import "cmps/loader";
 @import "cmps/statistics-group";
+@import "cmps/group-menu-modal";
 
 // Kanban
 @import "cmps/kanban/group-list-kanban";

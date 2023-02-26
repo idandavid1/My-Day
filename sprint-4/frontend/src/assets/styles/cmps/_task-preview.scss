@@ -9,9 +9,8 @@
 }
 
 .task-preview {
-    display: flex;
-    font-size: 14px;
     position: relative;
+    font-size: rem(14px);
 
     .empty-div {
         @include empty-div()
@@ -28,28 +27,25 @@
     }
 
     .task-menu {
+        @include center-flex();
         position: absolute;
         width: 41px;
         left: -47px;
         height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         color: $primary-text-color;
         background-color: white;
 
         @include for-mobile-layout() {
             & {
                 display: none;
-                // width: 10px;
             }
         }
 
         .icon {
             display: none;
-            cursor: pointer;
             border-radius: 4px;
-            font-size: 20px;
+            font-size: rem(20px);
+            cursor: pointer;
         }
 
         .icon:hover {
@@ -59,7 +55,7 @@
 
     .task-menu-modal {
         @include menu-modal();
-        padding: 8px;
+        padding: $spacing-small;
         left: -34px;
     }
 
@@ -75,9 +71,6 @@
 
     .task-title {
         width: $cell-width-task;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
         cursor: pointer;
 
         &:hover {
@@ -90,12 +83,10 @@
             height: 70%;
         }
 
-
         .open-task-details {
+            @include center-flex();
             opacity: 0;
-            display: flex;
-            margin: 0 6px;
-            align-items: center;
+            margin: 0 $spacing-small;
             color: $workspace-icon-color;
 
             @include for-mobile-layout() {
@@ -106,14 +97,12 @@
         }
 
         .chat-icon {
-            font-size: 24px;
-            padding: 0 16px;
+            font-size: rem(24px);
+            padding: 0 $spacing-medium;
             height: 100%;
             border-left: 1px solid darken($border-color , 20%);
             color: $chat-icon-color;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            @include center-flex();
             position: relative;
 
             .icon:hover {
@@ -127,17 +116,17 @@
             }
 
             .count-comment {
-                background-color: $board-btn;
-                color: white;
-                font-size: 10px;
-                border-radius: 50%;
-                width: 14px;
-                height: 13px;
                 @include center-flex();
-                margin: 0;
                 position: absolute;
                 top: 15px;
                 right: 15px;
+                background-color: $board-btn;
+                color: white;
+                font-size: rem(10px);
+                border-radius: 50%;
+                width: 14px;
+                height: 13px;
+                margin: 0;
                 cursor: pointer;
             }
 
