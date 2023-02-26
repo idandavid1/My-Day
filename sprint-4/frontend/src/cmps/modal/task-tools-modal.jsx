@@ -1,9 +1,10 @@
+import { duplicateTask, updateGroupAction } from "../../store/board.actions"
+
 import { HiOutlineDocumentDuplicate } from "react-icons/hi"
 import { FiTrash } from "react-icons/fi"
 import { IoCloseOutline } from "react-icons/io5"
 import { BsArrowRightCircle } from "react-icons/bs"
 import { BsFillCircleFill } from 'react-icons/bs'
-import { duplicateTask, updateGroupAction } from "../../store/board.actions"
 
 export function TaskToolsModal({ tasks, group, board, setSelectedTasks, setIsMainCheckbox }) {
     let _ = require('lodash')
@@ -40,20 +41,19 @@ export function TaskToolsModal({ tasks, group, board, setSelectedTasks, setIsMai
     }
 
     return (
-
-        <section className="task-tools-modal">
-            <div className="task-tools">
+        <section className="task-tools-modal flex">
+            <div className="task-tools flex">
                 <div className="task-count">
                     {tasks.length}
                 </div>
                 <div className="tasks-container flex">
-                    <div className="task-info">
+                    <div className="task-info flex">
                         <span>Task selected</span>
-                        <div className="group-color">
+                        <div className="group-color flex">
                             {_.times(tasks.length, () => <BsFillCircleFill key={_.uniqueId('KEY_')} className="icon" style={{ color: group.color }} />)}
                         </div>
                     </div>
-                    <div className="task-btns">
+                    <div className="task-btns flex">
                         <div onClick={onDuplicateTasks}>
                             <HiOutlineDocumentDuplicate className="icon" />
                             Duplicate
@@ -70,7 +70,6 @@ export function TaskToolsModal({ tasks, group, board, setSelectedTasks, setIsMai
                     <div className="close-btn" onClick={onClose}>
                         <IoCloseOutline className="icon" />
                     </div>
-
                 </div>
             </div>
         </section>

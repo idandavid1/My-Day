@@ -99,8 +99,8 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreate
                         <BiDotsHorizontalRounded className='icon' />
                     </div>
                 </div>
-                {boards.length === 0 && <div className="favorites-empty">
-                    <img className="star-icon" src={star} />
+                {boards.length === 0 && <div className="favorites-empty flex column align-center">
+                    <img className="star-icon" src={star} alt="star-img" />
                     <div className="favorites-empty-text">
                         <b>No favorite boards yet</b>
                         <p>"Star" any board so that you

@@ -10,7 +10,7 @@ import { AiFillCloseCircle } from 'react-icons/ai'
 import { CgViewComfortable } from 'react-icons/cg'
 import { BsArrowDownCircle } from 'react-icons/bs'
 import { useSelector } from 'react-redux'
-import { MemberFilterModal } from '../modal/person-filter-modal'
+import { MemberFilterModal } from '../modal/member-filter-modal'
 
 export function BoardFilter({ board, onSetFilter }) {
     const [isShowModal, setIsShowModal] = useState(false)

@@ -9,7 +9,7 @@ export function MemberFilterModal({ filterBy, setFilterBy }) {
     }
 
     return (
-        <section className="filter-member-modal">
+        <section className="filter-member-modal flex column">
             <h2>Quick person filter</h2>
             <div className="secondary-title">Filter items and subitems by person</div>
             <ul>

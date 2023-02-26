@@ -1,5 +1,3 @@
-
-
 export function StatisticGroup({ cmpType, group, board }) {
     function getStatisticsStatus(cmp) {
         const labels = group.tasks.map(task => {
@@ -57,10 +55,9 @@ function GetStatisticsLabel({ statisticLabels }) {
 
 function GetStatisticsNumber({ statisticNumber }) {
     return (
-        <div className="statistic-number">
+        <div className="statistic-number flex column align-center">
             <span className="number">{statisticNumber}</span>
             <span className="sum">sum</span>
         </div>
     )
-
 }
