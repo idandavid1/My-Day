@@ -8,11 +8,11 @@
         "server:dev": "nodemon server.js",
         "server:prod": "set NODE_ENV=production&&node server.js",
         "server:prod:mac": "export NODE_ENV=production&&node server.js"
-        
     },
     "author": "Me",
     "license": "ISC",
     "dependencies": {
+        "@react-oauth/google": "^0.8.0",
         "bcrypt": "^5.0.0",
         "cookie-parser": "^1.4.6",
         "cors": "^2.8.5",

@@ -4,16 +4,36 @@ import { ImgUploader } from './img-uploader'
 import { LoginPageHeader } from './login-page-header'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { login, signup } from '../../store/user.actions'
+import { loadUsers, login, signup } from '../../store/user.actions'
 import { loadBoards } from '../../store/board.actions'
 import { useGoogleLogin } from '@react-oauth/google'
+import axios from 'axios'
+import { useEffectUpdate } from '../../customHooks/useEffectUpdate'
 
 
 export function LoginSignup() {
     const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '' })
+    const [googleUser, setGoogleUser] = useState([])
     const [isSignup, setIsSignup] = useState(false)
     const navigate = useNavigate()
     const boards = useSelector(storeState => storeState.boardModule.boards)
+    const users = useSelector(storeState => storeState.userModule.users)
+
+    const googleLogin = useGoogleLogin({
+        onSuccess: codeResponse => {
+            setGoogleUser(codeResponse)
+        },
+        onError: errorResponse => console.log(errorResponse)
+    })
+
+    useEffect(() => {
+        if (!users.length) loadUsers()
+        if (!boards.length) loadBoards()
+    })
+
+    useEffectUpdate(() => {
+        onGoogleLogin()
+    }, [googleUser])
 
     function clearState() {
         setCredentials({ username: '', password: '', fullname: '', imgUrl: '' })
@@ -50,10 +70,38 @@ export function LoginSignup() {
         setCredentials({ ...credentials, imgUrl })
     }
 
-    const googleLogin = useGoogleLogin({
-        onSuccess: tokenResponse => console.log(tokenResponse),
-        flow: 'auth-code'
-    })
+    async function onGoogleLogin() {
+        try {
+            if (googleUser) {
+                const user = await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleUser.access_token}`, {
+                    headers: {
+                        Authorization: `Bearer ${googleUser.access_token}`,
+                        Accept: 'application/json'
+                    }
+                })
+                checkGoogleCredentials(user.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    function checkGoogleCredentials(credentials) {
+        const user = users.find(currUser => {
+            return currUser.password === credentials.id && currUser.username === credentials.email
+        })
+        if (user) login(user)
+        else {
+            signup({
+                username: credentials.email,
+                password: credentials.id,
+                fullname: credentials.name,
+                imgUrl: credentials.picture
+            })
+        }
+        navigate(`/board/${boards[0]._id}`)
+    }
+
 
     return (
         //TODO: Change to form
@@ -101,7 +149,7 @@ export function LoginSignup() {
                     <p>{isSignup ? 'Or sign up with' : 'Or sign in with'}</p>
                     <span className="separator-line"></span>
                 </div>
-                <button className="btn-login-google" onClick={() => googleLogin()} redirect_uri="http://localhost:3000/board/63d075e98056b4b446310f22">
+                <button className="btn-login-google" onClick={() => googleLogin()}>
                     <img className="img-google-login" src="https://cdn.monday.com/images/logo_google_v2.svg" aria-hidden="true" alt="" />
                     <span>Google</span>
                 </button>
