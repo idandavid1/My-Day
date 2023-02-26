@@ -15,40 +15,50 @@
 @import "views/login-signup";
 
 // Components
-@import "cmps/home-header";
-@import "cmps/main-sidebar";
-@import "cmps/board-header";
-@import "cmps/workspace-sidebar";
-@import "cmps/group-list";
-@import "cmps/group-preview";
-@import "cmps/task-preview";
-@import "cmps/date-picker";
-@import "cmps/modal-status-priority";
-@import "cmps/board-modal";
-@import "cmps/board-activity-modal";
-@import "cmps/modal-member";
-@import "cmps/board-filter";
-@import "cmps/status-priority-picker";
-@import "cmps/member-picker";
-@import "cmps/number-picker";
-@import "cmps/update-picker";
-@import "cmps/file-picker";
-@import "cmps/comment-preview";
-@import "cmps/task-tools-modal";
-@import "cmps/activity-preview";
-@import "cmps/create-board-modal";
-@import "cmps/board-preview";
-@import "cmps/login-logout-modal";
-@import "cmps/add-column-modal";
-@import "cmps/member-filter-modal";
-@import "cmps/last-viewed";
-@import "cmps/board-description";
-@import "cmps/loader";
-@import "cmps/statistics-group";
-@import "cmps/group-menu-modal";
+    // task-picker
+@import "cmps/task-picker/status-priority-picker";
+@import "cmps/task-picker/member-picker";
+@import "cmps/task-picker/number-picker";
+@import "cmps/task-picker/update-picker";
+@import "cmps/task-picker/file-picker";
+@import "cmps/task-picker/date-picker";
 
-// Kanban
+    // sidebar
+@import "cmps/sidebar/main-sidebar";
+@import "cmps/sidebar/workspace-sidebar";
+
+    // modal
+@import "cmps/modal/status-priority-modal";
+@import "cmps/modal/board-modal";
+@import "cmps/modal/board-activity-modal";
+@import "cmps/modal/member-modal";
+@import "cmps/modal/task-tools-modal";
+@import "cmps/modal/create-board-modal";
+@import "cmps/modal/add-column-modal";
+@import "cmps/modal/group-menu-modal";
+@import "cmps/modal/board-description-modal";
+@import "cmps/modal/login-logout-modal";
+@import "cmps/modal/member-filter-modal";
+
+    // group
+@import "cmps/group/group-list";
+@import "cmps/group/group-preview";
+@import "cmps/group/group-statistics";
+
+    // board
+@import "cmps/board-header";
+@import "cmps/board-filter";
+@import "cmps/board-preview";
+
+    // Kanban
 @import "cmps/kanban/group-list-kanban";
 @import "cmps/kanban/group-preview-kanban";
 @import "cmps/kanban/task-list-kanban";
 @import "cmps/kanban/task-preview-kanban";
+
+@import "cmps/home-header";
+@import "cmps/task-preview";
+@import "cmps/comment-preview";
+@import "cmps/activity-preview";
+@import "cmps/last-viewed";
+@import "cmps/loader";
