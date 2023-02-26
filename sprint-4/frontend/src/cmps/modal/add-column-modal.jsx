@@ -33,22 +33,22 @@ export function AddColumnModal({ addColumn, board }) {
                 )
             case 'priority-picker':
                 return (
-                        <div onClick={() => addColumn('priority-picker')}>
-                            <img src={statusImg} alt="" />
-                            Priority
-                        </div>
-                    )
-            case 'date-picker': 
+                    <div onClick={() => addColumn('priority-picker')}>
+                        <img src={statusImg} alt="" />
+                        Priority
+                    </div>
+                )
+            case 'date-picker':
                 return (
                     <div onClick={() => addColumn('date-picker')}>
-                        <CiCalendarDate className='icon'/>
+                        <CiCalendarDate className='icon' />
                         Date
                     </div>
                 )
             case "member-picker":
                 return (
                     <div onClick={() => addColumn('member-picker')}>
-                        <HiOutlineUserCircle className='icon'/>
+                        <HiOutlineUserCircle className='icon' />
                         Person
                     </div>
                 )
@@ -84,10 +84,9 @@ export function AddColumnModal({ addColumn, board }) {
                 break;
         }
     }
-    
 
-    if(!columns.length) return <div></div>
-    return <section className="add-column-modal">
-        {columns.map(column => getIconAction(column))}
-    </section>
+    if (!columns.length) return <div></div>
+    return <ul className="add-column-modal">
+        {columns.map((column, idx) => <li key={idx}> {getIconAction(column)} </li>)}
+    </ul >
 }

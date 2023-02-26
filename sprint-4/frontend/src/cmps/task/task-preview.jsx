@@ -7,17 +7,16 @@ import { MemberPicker } from "./member-picker"
 import { PriorityPicker } from "./priority-picker"
 import { StatusPicker } from "./status-picker"
 import { duplicateTask, toggleModal, updateGroupAction, updateTaskAction } from "../../store/board.actions"
+import { UpdatedPicker } from "./updated-picker"
+import { NumberPicker } from "./number-picker"
+import { FilePicker } from "./file-picker"
+import { utilService } from "../../services/util.service"
+import { TaskMenuModal } from "../modal/task-menu-modal"
+import { boardService } from "../../services/board.service"
 
 import { TbArrowsDiagonal } from 'react-icons/tb'
 import { BiDotsHorizontalRounded, BiMessageRoundedAdd } from 'react-icons/bi'
-import { TaskMenuModal } from "../modal/task-menu-modal"
-import { utilService } from "../../services/util.service"
-import { boardService } from "../../services/board.service"
 import { HiOutlineChatBubbleOvalLeft } from 'react-icons/hi2'
-import { useEffectUpdate } from "../../customHooks/useEffectUpdate"
-import { NumberPicker } from "./number-picker"
-import { FilePicker } from "./file-picker"
-import { UpdatedPicker } from "./updated-picker"
 
 export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCheckbox }) {
     const elTaskPreview = useRef(null)
@@ -100,7 +99,7 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
     }
 
     return (
-        <section className={`task-preview ${isTaskModalOpen ? ' modal-open' : ''}`} ref={elTaskPreview}>
+        <section className={`task-preview flex ${isTaskModalOpen ? ' modal-open' : ''}`} ref={elTaskPreview}>
             <div className="sticky-div" style={{ borderColor: group.color }}>
                 {isTaskModalOpen && <TaskMenuModal taskId={task.id} onRemoveTask={onRemoveTask} onDuplicateTask={onDuplicateTask}
                     onOpenModal={onOpenModal} onCreateNewTaskBelow={onCreateNewTaskBelow} />}
@@ -110,11 +109,11 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
                 <div className="check-box">
                     <input type="checkbox" checked={isClick} onChange={onCheckBoxChange} />
                 </div>
-                <div className="task-title picker" onClick={() => elTaskPreview.current.classList.toggle('on-typing')}>
+                <div className="task-title picker flex align-center space-between" onClick={() => elTaskPreview.current.classList.toggle('on-typing')}>
                     <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
                         <span>{task.title}</span>
                     </blockquote>
-                    <div className="open-task-details" onClick={onOpenModal}>
+                    <div className="open-task-details " onClick={onOpenModal}>
                         <TbArrowsDiagonal />
                         <span className="open-btn">Open</span>
                     </div>
@@ -131,7 +130,7 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
                 return (
                     <DynamicCmp
                         cmp={cmp}
-                        key={cmp}
+                        key={cmp + idx}
                         info={task}
                         onUpdate={updateTask}
                     />)
