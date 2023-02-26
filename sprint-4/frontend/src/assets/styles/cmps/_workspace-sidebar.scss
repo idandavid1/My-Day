@@ -130,7 +130,7 @@
             gap: 6px;
             padding: $spacing-xs;
             cursor: pointer;
-            font-size: $font-reg-size-14;
+            font-size: rem(14px);
         }
 
         >*:hover {

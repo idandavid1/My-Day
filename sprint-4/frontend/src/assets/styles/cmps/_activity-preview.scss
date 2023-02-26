@@ -10,7 +10,7 @@
 
     @include for-mobile-layout() {
         &{
-            font-size: 12px;
+            font-size: rem(12px);
         }
     }
 
@@ -20,8 +20,6 @@
     }
 
     .time-title {
-        display: flex;
-        align-items: center;
         width: 200px;
 
         @include for-mobile-layout() {

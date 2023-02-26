@@ -29,7 +29,6 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
     const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
     
     useEffect(() => {
-        console.log('task', task, 'isclick', isClick)
         setIsClick(isMainCheckbox.isActive)
     }, [isMainCheckbox])
 

@@ -50,7 +50,7 @@ export function ActivityPreview({ activity }) {
 
     return (
         <section className="activity-preview">
-                <div className="time-title">
+                <div className="time-title flex align-center">
                     <div className="time">
                         <IoTimeOutline />
                         <span>{utilService.calculateTime(activity.createdAt)}</span>

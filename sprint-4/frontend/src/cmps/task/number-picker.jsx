@@ -23,7 +23,6 @@ export function NumberPicker({ info, onUpdate }) {
     }
 
     function onSave() {
-        console.log('number', number)
         activity.to = number
         onUpdate('number', parseInt(number), activity)
     }

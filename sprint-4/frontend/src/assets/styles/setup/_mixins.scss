@@ -37,9 +37,6 @@
 }
 
 @mixin member-img($bgColor , $txtColor , $imgSize , $countSize) {
-
-  // margin-left: 4px;
-
   >* {
     @include members;
   }
@@ -71,7 +68,6 @@
     height: $countSize;
     color: $txtColor;
   }
-
 }
 
 @mixin task-modal-position() {
@@ -119,7 +115,7 @@
   color: $primary-text-color;
   box-shadow: -3px 4px 14px rgb(0 0 0 / 20%);
   padding: $spacing-small;
-  font-size: 14px;
+  font-size: rem(14px);
   z-index: 10;
   border: 1px solid darken($border-color , 20%);
 

@@ -163,14 +163,13 @@
     .group-header {
         position: sticky;
         top: 175px;
-        // left: 40px;
         display: flex;
         z-index: 2;
         background-color: white;
         height: 40px;
         width: 100%;
         align-items: center;
-        line-height: $font-reg-line-height-24;
+        line-height: 24px;
 
         @include for-narrow-layout() {
             &.not-des {

@@ -198,12 +198,18 @@ export async function updateTaskAction(filteredBoard, groupId, saveTask, activit
             await addActivity(filteredBoard, activity)
         }
         const board = await boardService.updateTask(filteredBoard._id, groupId, saveTask)
+        updateTask(filteredBoard, groupId, saveTask)
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
         socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD, { filteredBoard, board })
     } catch (err) {
         throw err
     }
+}
+
+function updateTask(filteredBoard, groupId, saveTask) {
+    const group = filteredBoard.groups.find(currGroup => currGroup.id === groupId)
+    group.tasks = group.tasks.map(task => task.id === saveTask.id ? saveTask : task)
 }
 
 export async function toggleStarred(filteredBoard, isStarred) {

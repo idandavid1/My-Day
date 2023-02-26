@@ -13,7 +13,7 @@ export function FilePicker({ info, onUpdate }) {
         try {
             const { secure_url, height, width } = await uploadService.uploadImg(ev)
             setImgData({ imgUrl: secure_url, width, height })
-            onUpdate('file', imgData.imgUrl)
+            onUpdate('file', secure_url)
         } catch (err) {
             console.log(err)
         }
