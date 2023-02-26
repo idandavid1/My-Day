@@ -1,0 +1,39 @@
+.upload-preview {
+    .img-picker{
+        @include center-flex();
+        flex-direction: column;
+        gap: $spacing-medium;
+    }
+
+    label {
+        margin-bottom: $spacing-medium;
+        color: $primary-text-color;
+        transition: color 200ms ease;
+        width: fit-content;
+
+        .guest-img {
+            margin-bottom: $spacing-small;
+            border-radius: 50%;
+            opacity: 0.3;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+
+        .user-img {
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 1;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+    }
+
+    input {
+        display: none;
+    }
+}

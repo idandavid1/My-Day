@@ -46,9 +46,9 @@
 @import "cmps/group/group-statistics";
 
     // board
-@import "cmps/board-header";
-@import "cmps/board-filter";
-@import "cmps/board-preview";
+@import "cmps/board/board-header";
+@import "cmps/board/board-filter";
+@import "cmps/board/board-preview";
 
     // Kanban
 @import "cmps/kanban/group-list-kanban";
@@ -61,4 +61,5 @@
 @import "cmps/comment-preview";
 @import "cmps/activity-preview";
 @import "cmps/last-viewed";
+@import "cmps/upload-img";
 @import "cmps/loader";

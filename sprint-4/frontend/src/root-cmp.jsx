@@ -3,9 +3,8 @@ import { Routes, Route } from 'react-router'
 import { Provider } from 'react-redux'
 import { BoardDetails } from './pages/board-details'
 import { HomePage } from './pages/home-page'
+import { LoginSignup } from './pages/login-signup'
 import { store } from './store/store'
-import { LoginSignup } from './cmps/login/login-signup'
-import { KanbanDetails } from './cmps/kanban/group-list-kanban'
 
 export function RootCmp() {
     return (

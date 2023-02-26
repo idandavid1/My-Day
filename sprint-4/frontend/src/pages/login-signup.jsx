@@ -1,19 +1,16 @@
+import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { userService } from '../../services/user.service'
-import { ImgUploader } from './img-uploader'
-import { LoginPageHeader } from './login-page-header'
+import { ImgUploader } from '../cmps/login/img-uploader'
+import { LoginPageHeader } from '../cmps/login/login-page-header'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { loadUsers, login, signup } from '../../store/user.actions'
-import { loadBoards } from '../../store/board.actions'
+import { loadUsers, login, signup } from '../store/user.actions'
+import { loadBoards } from '../store/board.actions'
 import { useGoogleLogin } from '@react-oauth/google'
-import axios from 'axios'
-import { useEffectUpdate } from '../../customHooks/useEffectUpdate'
-
 
 export function LoginSignup() {
     const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '' })
-    const [googleUser, setGoogleUser] = useState([])
+    const [googleUser, setGoogleUser] = useState(null)
     const [isSignup, setIsSignup] = useState(false)
     const navigate = useNavigate()
     const boards = useSelector(storeState => storeState.boardModule.boards)
@@ -29,16 +26,8 @@ export function LoginSignup() {
     useEffect(() => {
         if (!users.length) loadUsers()
         if (!boards.length) loadBoards()
-    })
-
-    useEffectUpdate(() => {
         onGoogleLogin()
     }, [googleUser])
-
-    function clearState() {
-        setCredentials({ username: '', password: '', fullname: '', imgUrl: '' })
-        setIsSignup(false)
-    }
 
     function handleChange(ev) {
         const field = ev.target.name
@@ -46,19 +35,13 @@ export function LoginSignup() {
         setCredentials({ ...credentials, [field]: value })
     }
 
-    function onLogin(ev = null) {
-        if (ev) ev.preventDefault()
-        if (!credentials.username) return
-        login(credentials)
-        clearState()
-        navigate(`/board/${boards[0]._id}`)
-    }
-
-    function onSignup(ev = null) {
-        if (ev) ev.preventDefault()
-        if (!credentials.username || !credentials.password || !credentials.fullname) return
-        signup(credentials)
-        clearState()
+    function onSubmit(ev, isSignup) {
+        ev.preventDefault()
+        if (!credentials.username || !credentials.password) return
+        if(isSignup) {
+            if(!credentials.fullname) return 
+            signup(credentials)
+        } else login(credentials)
         navigate(`/board/${boards[0]._id}`)
     }
 
@@ -87,9 +70,7 @@ export function LoginSignup() {
     }
 
     function checkGoogleCredentials(credentials) {
-        const user = users.find(currUser => {
-            return currUser.password === credentials.id && currUser.username === credentials.email
-        })
+        const user = users.find(currUser => currUser.fullname === credentials.name && currUser.username === credentials.email)
         if (user) login(user)
         else {
             signup({
@@ -102,20 +83,19 @@ export function LoginSignup() {
         navigate(`/board/${boards[0]._id}`)
     }
 
-
     return (
-        //TODO: Change to form
         // TODO: Change header to the original header(option)
         // TODO: Change label to p
         // TODO: fix image uplouder 
-        <div className="login-signup ">
+        <div className="login-signup">
             <LoginPageHeader />
-            <div className="form-container layout">
+            <form className="form-container layout" onSubmit={(ev) => onSubmit(ev, isSignup)}>
                 <h1>{isSignup ? 'Create your MyDay account here ' : 'Log in to your account'}</h1>
                 {isSignup && <ImgUploader onUploaded={onUploaded} />}
-                {!isSignup && <label className="label-username" htmlFor="username">Enter your username and password</label>}
-                {isSignup && <label className="label-username" htmlFor="username">Enter your full name, username and password</label>}
-                {isSignup && <input className="input input-fullname"
+                {!isSignup && <p className="login-explain">Enter your username and password</p>}
+                {isSignup && <p className="login-explain">Enter your full name, username and password</p>}
+                {isSignup && 
+                <input
                     type="text"
                     name="fullname"
                     value={credentials.fullname}
@@ -124,7 +104,7 @@ export function LoginSignup() {
                     required
                     autoFocus
                 />}
-                <input className="input input-username"
+                <input
                     type="text"
                     name="username"
                     value={credentials.username}
@@ -134,7 +114,7 @@ export function LoginSignup() {
                     autoFocus
                 />
                 {
-                    <input className="input input-password"
+                    <input
                         type="password"
                         name="password"
                         value={credentials.password}
@@ -143,7 +123,7 @@ export function LoginSignup() {
                         required
                     />
                 }
-                <button className="btn-next" onClick={isSignup ? onSignup : onLogin}>{isSignup ? 'Sign up' : 'Log in'}</button>
+                <button className="btn-next">{isSignup ? 'Sign up' : 'Log in'}</button>
                 <div className="flex justify-center align-center split-line">
                     <span className="separator-line"></span>
                     <p>{isSignup ? 'Or sign up with' : 'Or sign in with'}</p>
@@ -158,7 +138,7 @@ export function LoginSignup() {
                     {!isSignup && <Link to={'/auth/signup'}><button className="btn-signup" onClick={toggleSignup}>Sign up</button></Link>}
                     {isSignup && <Link to={'/auth/login'}><button className="btn-signup" onClick={toggleSignup}>Log in</button></Link>}
                 </div>
-            </div>
+            </form>
         </div>
     )
 }
