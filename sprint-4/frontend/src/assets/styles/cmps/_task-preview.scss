@@ -16,10 +16,6 @@
         @include empty-div()
     }
 
-    &.modal-open {
-        z-index: 5;
-    }
-
     &:hover {
         .task-menu .icon {
             display: block;
@@ -53,11 +49,11 @@
         }
     }
 
-    .task-menu-modal {
-        @include menu-modal();
-        padding: $spacing-small;
-        left: -34px;
-    }
+    // .task-menu-modal {
+    //     @include menu-modal();
+    //     padding: $spacing-small;
+    //     left: -34px;
+    // }
 
     .task-tools-modal {
         @include menu-modal();

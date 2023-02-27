@@ -1,0 +1,19 @@
+.task-menu-modal {
+    display: flex;
+    flex-direction: column;
+    color: $primary-text-color;
+    font-size: rem(14px);
+
+    >* {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: $spacing-xs $spacing-small;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $workspace-hover;
+            border-radius: $spacing-small;
+        }
+    }
+}

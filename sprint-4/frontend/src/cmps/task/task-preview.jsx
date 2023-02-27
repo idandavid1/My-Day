@@ -6,27 +6,26 @@ import { DueDate } from "./date-picker"
 import { MemberPicker } from "./member-picker"
 import { PriorityPicker } from "./priority-picker"
 import { StatusPicker } from "./status-picker"
-import { duplicateTask, toggleModal, updateGroupAction, updateTaskAction } from "../../store/board.actions"
+import { setDynamicModalObj, toggleModal, updateTaskAction } from "../../store/board.actions"
 import { UpdatedPicker } from "./updated-picker"
 import { NumberPicker } from "./number-picker"
 import { FilePicker } from "./file-picker"
-import { utilService } from "../../services/util.service"
-import { TaskMenuModal } from "../modal/task-menu-modal"
-import { boardService } from "../../services/board.service"
 
 import { TbArrowsDiagonal } from 'react-icons/tb'
 import { BiDotsHorizontalRounded, BiMessageRoundedAdd } from 'react-icons/bi'
 import { HiOutlineChatBubbleOvalLeft } from 'react-icons/hi2'
 
 export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCheckbox }) {
-    const elTaskPreview = useRef(null)
-    const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
-    const user = useSelector(storeState => storeState.userModule.user)
-    const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
-    const navigate = useNavigate()
     const [isClick, setIsClick] = useState(false)
+    const isOpen = useSelector((storeState) => storeState.boardModule.isBoardModalOpen)
+    const user = useSelector(storeState => storeState.userModule.user)
+    const dynamicModalObj = useSelector(storeState => storeState.boardModule.dynamicModalObj)
+    const elTaskPreview = useRef(null)
+    const elMenuTask = useRef()
+    const navigate = useNavigate()
+
     const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
-    
+
     useEffect(() => {
         setIsClick(isMainCheckbox.isActive)
     }, [isMainCheckbox])
@@ -36,6 +35,7 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
         taskToUpdate[cmpType] = data
         taskToUpdate.updatedBy.date = Date.now()
         taskToUpdate.updatedBy.imgUrl = (user && user.imgUrl) || guest
+        console.log(taskToUpdate)
         try {
             await updateTaskAction(board, group.id, taskToUpdate, activity)
         } catch (err) {
@@ -59,52 +59,22 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
         navigate(`/board/${board._id}/${group.id}/${task.id}`)
     }
 
-    async function onRemoveTask(taskId) {
-        try {
-            const tasksToSave = group.tasks.filter(task => task.id !== taskId)
-            group.tasks = tasksToSave
-            await updateGroupAction(board, group)
-            setIsTaskModalOpen(false)
-        } catch (err) {
-            console.log('Failed to remove task', err)
-        }
-    }
-
-    async function onDuplicateTask() {
-        try {
-            duplicateTask(board, group, task)
-            setIsTaskModalOpen(false)
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
-    async function onCreateNewTaskBelow() {
-        try {
-            const newTask = boardService.getEmptyTask()
-            newTask.id = utilService.makeId()
-            newTask.title = 'New Task'
-            const idx = group.tasks.indexOf(task)
-            group.tasks.splice(idx + 1, 0, newTask)
-            updateGroupAction(board, group)
-            setIsTaskModalOpen(false)
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
     function onCheckBoxChange() {
         handleCheckboxChange(task)
         setIsClick(!isClick)
     }
 
+    function onToggleTaskModal() {
+        const isOpen = dynamicModalObj?.task?.id === task.id && dynamicModalObj?.type === 'menu-task' ? !dynamicModalObj.isOpen : true
+        const { x, y, height } = elMenuTask.current.getClientRects()[0]
+        setDynamicModalObj({ isOpen, pos: { x: (x - 10), y: (y + height) }, type: 'menu-task', group: group, task: task })
+    }
+
     return (
-        <section className={`task-preview flex ${isTaskModalOpen ? ' modal-open' : ''}`} ref={elTaskPreview}>
-            <div className="sticky-div" style={{ borderColor: group.color }}>
-                {isTaskModalOpen && <TaskMenuModal taskId={task.id} onRemoveTask={onRemoveTask} onDuplicateTask={onDuplicateTask}
-                    onOpenModal={onOpenModal} onCreateNewTaskBelow={onCreateNewTaskBelow} />}
+        <section className={'task-preview flex'} ref={elTaskPreview}>
+            <div ref={elMenuTask} className="sticky-div" style={{ borderColor: group.color }}>
                 <div className="task-menu">
-                    <BiDotsHorizontalRounded className="icon" onClick={() => setIsTaskModalOpen(!isTaskModalOpen)} />
+                    <BiDotsHorizontalRounded className="icon" onClick={onToggleTaskModal} />
                 </div>
                 <div className="check-box">
                     <input type="checkbox" checked={isClick} onChange={onCheckBoxChange} />

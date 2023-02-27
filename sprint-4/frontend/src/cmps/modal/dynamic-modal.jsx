@@ -4,6 +4,9 @@ import { ColorPalette } from '../color-palette'
 import { GroupMenuModal } from './group-menu-modal'
 import { AddColumnModal } from './add-column-modal'
 import { RemoveColumnModal } from './remove-column-modal'
+import { TaskMenuModal } from './task-menu-modal'
+import { ModalMember } from './modal-member'
+import { ModalStatusPriority } from './modal-status-priority'
 
 export function DynamicModal() {
 
@@ -20,11 +23,18 @@ export function DynamicModal() {
                 return <AddColumnModal dynamicModalObj={dynamicModalObj} />
             case 'remove-column':
                 return <RemoveColumnModal dynamicModalObj={dynamicModalObj} />
+            case 'menu-task':
+                return <TaskMenuModal dynamicModalObj={dynamicModalObj} />
+            case 'member-modal':
+                return <ModalMember dynamicModalObj={dynamicModalObj} />
+            case 'status':
+                return <ModalStatusPriority dynamicModalObj={dynamicModalObj} />
+            case 'priority':
+                return <ModalStatusPriority dynamicModalObj={dynamicModalObj} />
             default: return
         }
     }
 
-    console.log(dynamicModalObj)
     return (
         <>
             {dynamicModalObj.isOpen &&
