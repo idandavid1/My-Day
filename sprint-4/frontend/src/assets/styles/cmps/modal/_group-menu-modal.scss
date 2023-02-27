@@ -1,17 +1,19 @@
 .group-menu-modal {
-    @include menu-modal();
+    display: flex;
+    flex-direction: column;
+    font-size: rem(14px);
+    color: $primary-text-color;
 
-    .color-palette {
+    >* {
         display: flex;
-        align-items: flex-start;
-        width: 142px;
-        flex-wrap: wrap;
-        border-radius: 8px;
-        padding: 5px;
+        align-items: center;
+        gap: $spacing-small;
+        padding: $spacing-xs $spacing-small;
+        cursor: pointer;
 
-        .color-icon {
-            cursor: pointer;
-            font-size: 20px;
+        &:hover{
+            background-color: $workspace-hover;
+            border-radius: $spacing-small;
         }
     }
 }

@@ -1,0 +1,13 @@
+.color-palette {
+    @include center-flex();
+    width: 142px;
+    flex-wrap: wrap;
+    >* {
+        margin: 5px;
+    }
+
+    .color-icon {
+        cursor: pointer;
+        font-size: 20px;
+    }
+}

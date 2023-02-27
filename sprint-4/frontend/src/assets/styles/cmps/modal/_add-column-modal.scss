@@ -1,13 +1,23 @@
 .add-column-modal {
-    @include menu-modal();
-    top: 27px;
-    right: -11px;
-    width: 220px;
-    flex-direction: row;
+    margin: 0;
+    width: 240px;
+    display: flex;
     flex-wrap: wrap;
+    color: $primary-text-color;
+    font-size: rem(16px);
 
     div {
-        width: 100px;
+        width: 120px;
+        display: flex;
+        align-items: center;
+        gap: $spacing-small;
+        padding: $spacing-xs $spacing-small;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $workspace-hover;
+            border-radius: $spacing-small;
+        }
     }
 
     img {
