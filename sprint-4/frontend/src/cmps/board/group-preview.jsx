@@ -182,7 +182,6 @@ export function GroupPreview({ group, board, idx }) {
                                             <span className={`add-btn ${getAddColumnClassName() ? 'active' : ''}`}>
                                                 <AiOutlinePlus className={`${getAddColumnClassName() ? 'plus' : 'close'}`} />
                                             </span>
-                                            {/* <div className="empty-div"></div> */}
                                         </div>
                                     </div>
                                 }}

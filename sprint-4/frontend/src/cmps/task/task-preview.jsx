@@ -47,7 +47,7 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
         const value = ev.target.innerText
         task.title = value
         try {
-            elTaskPreview.current.classList.toggle('on-typing')
+            toggleOnTyping()
             await updateTaskAction(board, group.id, task)
         } catch (err) {
             console.log('Failed to save')
@@ -70,6 +70,11 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
         setDynamicModalObj({ isOpen, pos: { x: (x - 10), y: (y + height) }, type: 'menu-task', group: group, task: task })
     }
 
+    function toggleOnTyping() {
+        elMenuTask.current.classList.toggle('on-typing')
+        elTaskPreview.current.classList.toggle('on-typing')
+    }
+
     return (
         <section className={'task-preview flex'} ref={elTaskPreview}>
             <div ref={elMenuTask} className="sticky-div" style={{ borderColor: group.color }}>
@@ -79,8 +84,9 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
                 <div className="check-box">
                     <input type="checkbox" checked={isClick} onChange={onCheckBoxChange} />
                 </div>
-                <div className="task-title picker flex align-center space-between" onClick={() => elTaskPreview.current.classList.toggle('on-typing')}>
-                    <blockquote contentEditable onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
+                <div className="task-title picker flex align-center space-between">
+                    <blockquote contentEditable onFocus={toggleOnTyping}
+                        onBlur={onUpdateTaskTitle} suppressContentEditableWarning={true}>
                         <span>{task.title}</span>
                     </blockquote>
                     <div className="open-task-details " onClick={onOpenModal}>

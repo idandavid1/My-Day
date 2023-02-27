@@ -12,6 +12,9 @@
         }
     }
 
+    .sticky-div.on-typing{
+        background-color: $workspace-board-active;
+    }
     .task-menu {
         @include center-flex();
         position: absolute;
