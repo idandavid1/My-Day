@@ -107,6 +107,13 @@
     &.invite {
         @include center-absolute();
         z-index: 100;
+        background-color: $app-bg;
+        border-radius: $spacing-small;
+        font-size: rem(14px);
+        padding: $spacing-medium;
+        box-shadow: -3px 4px 14px rgb(0 0 0 / 20%);
+        border: 1px solid darken($border-color , 20%);
+      
 
         .modal-member-content {
             width: 420px;

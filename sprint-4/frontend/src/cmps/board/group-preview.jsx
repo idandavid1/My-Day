@@ -1,20 +1,19 @@
-import { useState } from "react"
+import { useState , useRef } from "react"
+import { useSelector } from "react-redux"
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
 
 import { TaskPreview } from "../task/task-preview"
 import { addTask, updateGroupAction, updatePickerCmpsOrder, addActivity, setDynamicModalObj } from "../../store/board.actions"
 import { boardService } from "../../services/board.service"
 
+import { TaskToolsModal } from "../modal/task-tools-modal"
+import { TitleGroupPreview } from "./title-group-preview"
+import { StatisticGroup } from "./statistics-group"
+
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { BsFillCircleFill } from 'react-icons/bs'
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
-
-import { useRef } from "react"
-import { TaskToolsModal } from "../modal/task-tools-modal"
-import { TitleGroupPreview } from "./title-group-preview"
-import { useSelector } from "react-redux"
-import { StatisticGroup } from "./statistics-group"
 
 export function GroupPreview({ group, board, idx }) {
     const [taskToEdit, setTaskToEdit] = useState(boardService.getEmptyTask())
@@ -22,7 +21,6 @@ export function GroupPreview({ group, board, idx }) {
     const [isShowColorPicker, setIsShowColorPicker] = useState(false)
     const [selectedTasks, setSelectedTasks] = useState([])
     const [isMainCheckbox, setIsMainCheckbox] = useState({ isActive: false })
-    const [isDeleteCmpTitleModalOpen, setIsDeleteCmpTitleModalOpen] = useState(false)
 
     const dynamicModalObj = useSelector(storeState => storeState.boardModule.dynamicModalObj)
     const user = useSelector(storeState => storeState.userModule.user)
@@ -47,7 +45,7 @@ export function GroupPreview({ group, board, idx }) {
     function toggleColumnModal() {
         const isOpen = dynamicModalObj?.group?.id === group.id && dynamicModalObj?.type === 'add-column' ? !dynamicModalObj.isOpen : true
         const { x, y, height } = elAddColumn.current.getClientRects()[0]
-        setDynamicModalObj({ isOpen, pos: { x: (x + 10), y: (y + height) }, type: 'add-column', group })
+        setDynamicModalObj({ isOpen, pos: { x: (x - 225 ), y: (y + height) }, type: 'add-column', group })
     }
 
     async function onSave(ev) {
@@ -174,7 +172,7 @@ export function GroupPreview({ group, board, idx }) {
                                                         <li ref={provided.innerRef}
                                                             {...provided.draggableProps}
                                                             {...provided.dragHandleProps} className={title + ' cmp-order-title title'} key={idx}>
-                                                            <TitleGroupPreview title={title} group={group} board={board} setModalOpen={setIsDeleteCmpTitleModalOpen} />
+                                                            <TitleGroupPreview title={title} group={group} board={board} />
                                                         </li>
                                                     )
                                                 }}
@@ -198,7 +196,7 @@ export function GroupPreview({ group, board, idx }) {
                                             {group.tasks.map((task, idx) => (
                                                 <Draggable key={task.id} draggableId={task.id} index={idx}>
                                                     {(provided) => {
-                                                        return <li className={`parent-task-preview ${(isDeleteCmpTitleModalOpen) ? ' add-modal-open' : ''}`} ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
+                                                        return <li ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
                                                             <TaskPreview task={task} group={group} board={board} handleCheckboxChange={handleCheckboxChange} isMainCheckbox={isMainCheckbox} />
                                                         </li>
                                                     }}
@@ -231,7 +229,6 @@ export function GroupPreview({ group, board, idx }) {
                                 <div className="hidden"></div>
                             </div>
                             <div className="statistic-container flex">
-
                                 {board.cmpsOrder.map((cmpType, idx) => {
                                     return (
                                         <div key={idx} className={`title ${idx === 0 ? ' first ' : ''}${cmpType}`}>

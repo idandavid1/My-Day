@@ -1,0 +1,26 @@
+.add-group-modal {
+    display: flex;
+    flex-direction: column;
+    width: 220px;
+    font-size: rem(14px);
+    gap: 5px;
+
+    >* {
+        display: flex;
+        align-items: center;
+        padding: $spacing-xs $spacing-small;
+        color: $primary-text-color;
+        gap: 12px;
+        cursor: pointer;
+        transition: .2s;
+
+        &:hover {
+            border-radius: 4px;
+            background-color: $workspace-hover;
+        }
+    }
+
+    .icon {
+        font-size: rem(16px);
+    }
+}

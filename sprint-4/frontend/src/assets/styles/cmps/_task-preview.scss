@@ -1,13 +1,3 @@
-.parent-task-preview {
-    &:not(.add-modal-open) {
-        .task-preview:hover {
-            z-index: 4;
-            background-color: $task-hover-color;
-            box-shadow: 4px 3px 6px -3px $task-box-shadow-color;
-        }
-    }
-}
-
 .task-preview {
     position: relative;
     font-size: rem(14px);
