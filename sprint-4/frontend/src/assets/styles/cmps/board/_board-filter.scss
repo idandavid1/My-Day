@@ -51,39 +51,7 @@
             }
         }
 
-        .add-group-modal {
-            position: absolute;
-            display: flex;
-            flex-direction: column;
-            top: 35px;
-            left: 82px;
-            z-index: 5;
-            background-color: $app-bg;
-            box-shadow: -6px 0px 14px rgb(0 0 0 / 20%);
-            width: 220px;
-            padding: $spacing-small;
-            border-radius: 8px;
-            gap: 5px;
-
-            >* {
-                @include center-flex();
-                padding: $spacing-xs $spacing-small;
-                color: $primary-text-color;
-                gap: 5px;
-                cursor: pointer;
-
-                transition: .2s;
-
-                &:hover {
-                    border-radius: 4px;
-                    background-color: $workspace-hover;
-                }
-            }
-
-            .icon {
-                font-size: rem(16px);
-            }
-        }
+       
 
         .drop-down-btn {
             @include center-flex();

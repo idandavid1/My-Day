@@ -1,41 +1,51 @@
-import { useState } from "react"
+import { useState , useRef } from "react"
+import { useSelector } from "react-redux"
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
 
 import { TaskPreview } from "../task/task-preview"
-import { addTask, saveBoard, updateGroupAction, updateGroups, updatePickerCmpsOrder, duplicateGroup, addActivity, loadBoard } from "../../store/board.actions"
-import { GroupMenuModal } from "../modal/group-menu-modal"
+import { addTask, updateGroupAction, updatePickerCmpsOrder, addActivity, setDynamicModalObj } from "../../store/board.actions"
 import { boardService } from "../../services/board.service"
+
+import { TaskToolsModal } from "../modal/task-tools-modal"
+import { TitleGroupPreview } from "./title-group-preview"
+import { StatisticGroup } from "./statistics-group"
 
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { BsFillCircleFill } from 'react-icons/bs'
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
 
-import { useRef } from "react"
-import { TaskToolsModal } from "../modal/task-tools-modal"
-import { AddColumnModal } from "../modal/add-column-modal"
-import { TitleGroupPreview } from "./title-group-preview"
-import { useSelector } from "react-redux"
-import { StatisticGroup } from "./statistics-group"
-
 export function GroupPreview({ group, board, idx }) {
     const [taskToEdit, setTaskToEdit] = useState(boardService.getEmptyTask())
-    const user = useSelector(storeState => storeState.userModule.user)
-    const [isModalOpen, setIsModalOpen] = useState(false)
     const [isTyping, setIsTyping] = useState(false)
     const [isShowColorPicker, setIsShowColorPicker] = useState(false)
-    const taskRef = useRef()
-    const [isMainCheckbox, setIsMainCheckbox] = useState({isActive: false})
     const [selectedTasks, setSelectedTasks] = useState([])
-    
-    const [isPlus, setIsPlus] = useState(true)
-    const [isDeleteCmpTitleModalOpen, setIsDeleteCmpTitleModalOpen] = useState(false)
-    const [isActive, setIsActive] = useState(false)
-    const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
-    let _ = require('lodash')
+    const [isMainCheckbox, setIsMainCheckbox] = useState({ isActive: false })
 
-    function onOpenModal() {
-        setIsModalOpen(!isModalOpen)
+    const dynamicModalObj = useSelector(storeState => storeState.boardModule.dynamicModalObj)
+    const user = useSelector(storeState => storeState.userModule.user)
+
+    const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
+    const taskRef = useRef()
+    const elMainGroup = useRef()
+    const elAddColumn = useRef()
+
+    function onToggleMenuModal() {
+        const isOpen = dynamicModalObj?.group?.id === group.id && dynamicModalObj?.type === 'menu-group' ? !dynamicModalObj.isOpen : true
+        const { x, y, height, width } = elMainGroup.current.getClientRects()[0]
+        setDynamicModalObj({ isOpen, pos: { x: (x + width / 2), y: (y + height) }, type: 'menu-group', group: group })
+    }
+
+    function onTogglePalette() {
+        const isOpen = dynamicModalObj?.group?.id === group.id && dynamicModalObj?.type === 'palette-modal' ? !dynamicModalObj.isOpen : true
+        const { x, y, height, width } = elMainGroup.current.getClientRects()[0]
+        setDynamicModalObj({ isOpen, pos: { x: (x + width / 2), y: (y + height) }, type: 'palette-modal', group: group })
+    }
+
+    function toggleColumnModal() {
+        const isOpen = dynamicModalObj?.group?.id === group.id && dynamicModalObj?.type === 'add-column' ? !dynamicModalObj.isOpen : true
+        const { x, y, height } = elAddColumn.current.getClientRects()[0]
+        setDynamicModalObj({ isOpen, pos: { x: (x - 225 ), y: (y + height) }, type: 'add-column', group })
     }
 
     async function onSave(ev) {
@@ -43,7 +53,6 @@ export function GroupPreview({ group, board, idx }) {
         group.title = value
         try {
             await updateGroupAction(board, group)
-            setIsModalOpen(false)
             setIsTyping(false)
             setIsShowColorPicker(false)
         } catch (err) {
@@ -62,36 +71,10 @@ export function GroupPreview({ group, board, idx }) {
         const activity = boardService.getEmptyActivity()
         activity.from = { color: group.color, title: group.title }
         activity.action = 'create'
-        console.log(taskToEdit)
         taskToEdit.updatedBy.date = Date.now()
         taskToEdit.updatedBy.imgUrl = user?.imgUrl || guest
         addTask(taskToEdit, group, board, activity)
         setTaskToEdit(boardService.getEmptyTask())
-    }
-
-    function onRemoveGroup(groupId) {
-        setIsModalOpen(!isModalOpen)
-        updateGroups(groupId, board)
-    }
-
-    async function onDuplicateGroup() {
-        try {
-            setIsModalOpen(!isModalOpen)
-            duplicateGroup(board, group)
-        } catch (err) {
-            console.log('err:', err)
-        }
-    }
-
-    function onShowPalette() {
-        setIsShowColorPicker(true)
-        setIsModalOpen(true)
-    }
-
-    function onChangeGroupColor(color) {
-        group.color = color
-        saveBoard(board)
-        setIsModalOpen(false)
     }
 
     function handleOnDragEnd(ev) {
@@ -125,9 +108,9 @@ export function GroupPreview({ group, board, idx }) {
     }
 
     function onClickMainCheckbox() {
-        if(isMainCheckbox.isActive) setSelectedTasks([])
+        if (isMainCheckbox.isActive) setSelectedTasks([])
         else setSelectedTasks(group.tasks)
-        setIsMainCheckbox({isActive: !isMainCheckbox.isActive})
+        setIsMainCheckbox({ isActive: !isMainCheckbox.isActive })
     }
 
     function addCheckActivity(isCheckBoxDown, task) {
@@ -146,22 +129,11 @@ export function GroupPreview({ group, board, idx }) {
         else return 'No items'
     }
 
-    async function addColumn(columnType) {
-        try {
-            board.cmpsOrder.push(columnType)
-            await saveBoard(board)
-            loadBoard(board._id)
-            setIsPlus(true)
-        } catch (err) {
-            console.log(err)
-        }
+    function getAddColumnClassName() {
+        return dynamicModalObj.isOpen === true && dynamicModalObj.type === 'add-column' && dynamicModalObj?.group?.id === group.id
     }
 
     return <ul className="group-preview flex column" >
-        {isModalOpen &&
-            <GroupMenuModal onRemoveGroup={onRemoveGroup} onDuplicateGroup={onDuplicateGroup}
-                onChangeGroupColor={onChangeGroupColor} isShowColorPicker={isShowColorPicker}
-                groupId={group.id} setIsModalOpen={setIsModalOpen} />}
         <Draggable key={group.id} draggableId={group.id} index={idx}>
             {(provided) => {
                 return <div ref={provided.innerRef}
@@ -169,11 +141,11 @@ export function GroupPreview({ group, board, idx }) {
                     <div {...provided.dragHandleProps} className={`group-header flex align-center ${!board.description ? ' not-des' : ''}`} style={{ color: group.color }}>
                         <div className="group-header-title flex align-center">
                             <MdKeyboardArrowDown className="arrow-icon" />
-                            <div className="group-menu">
-                                <BiDotsHorizontalRounded className="icon" onClick={onOpenModal} />
+                            <div className="group-menu" ref={elMainGroup}>
+                                <BiDotsHorizontalRounded className="icon" onClick={onToggleMenuModal} />
                             </div>
                             <div className={`group-title-info flex align-center ${isShowColorPicker ? 'showBorder' : ''} `} onFocus={() => setIsShowColorPicker(true)}>
-                                {isShowColorPicker && <BsFillCircleFill onClick={onShowPalette} />}
+                                {isShowColorPicker && <BsFillCircleFill onClick={onTogglePalette} />}
                                 <blockquote className="group-title" onFocus={() => setIsTyping(true)} contentEditable onBlur={(ev) => onSave(ev)} suppressContentEditableWarning={true}>
                                     <h4 data-title={group.title}>{group.title}</h4>
                                 </blockquote>
@@ -200,18 +172,16 @@ export function GroupPreview({ group, board, idx }) {
                                                         <li ref={provided.innerRef}
                                                             {...provided.draggableProps}
                                                             {...provided.dragHandleProps} className={title + ' cmp-order-title title'} key={idx}>
-                                                            <TitleGroupPreview title={title} board={board} setModalOpen={setIsDeleteCmpTitleModalOpen}/>
+                                                            <TitleGroupPreview title={title} group={group} board={board} />
                                                         </li>
                                                     )
                                                 }}
                                             </Draggable>
                                         )}
-                                        <div className="add-picker-task flex align-items">
-                                            <span onClick={() => setIsActive(!isActive)} className={`add-btn ${isActive ? ' active' : ''}`}>
-                                                <AiOutlinePlus onClick={() => setIsPlus(!isPlus)} className={isPlus ? 'plus' : 'close'} />
-                                                {!isPlus && <AddColumnModal addColumn={addColumn} board={board} />}
+                                        <div ref={elAddColumn} className="add-picker-task flex align-items" onClick={toggleColumnModal}>
+                                            <span className={`add-btn ${getAddColumnClassName() ? 'active' : ''}`}>
+                                                <AiOutlinePlus className={`${getAddColumnClassName() ? 'plus' : 'close'}`} />
                                             </span>
-                                            {/* <div className="empty-div"></div> */}
                                         </div>
                                     </div>
                                 }}
@@ -225,8 +195,8 @@ export function GroupPreview({ group, board, idx }) {
                                             {group.tasks.map((task, idx) => (
                                                 <Draggable key={task.id} draggableId={task.id} index={idx}>
                                                     {(provided) => {
-                                                        return <li className={`parent-task-preview ${(!isPlus || isDeleteCmpTitleModalOpen) ? ' add-modal-open' : ''}`} ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
-                                                            <TaskPreview task={task} group={group} board={board} handleCheckboxChange={handleCheckboxChange} isMainCheckbox={isMainCheckbox}  />
+                                                        return <li ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
+                                                            <TaskPreview task={task} group={group} board={board} handleCheckboxChange={handleCheckboxChange} isMainCheckbox={isMainCheckbox} />
                                                         </li>
                                                     }}
                                                 </Draggable>
@@ -258,11 +228,10 @@ export function GroupPreview({ group, board, idx }) {
                                 <div className="hidden"></div>
                             </div>
                             <div className="statistic-container flex">
-
                                 {board.cmpsOrder.map((cmpType, idx) => {
                                     return (
                                         <div key={idx} className={`title ${idx === 0 ? ' first ' : ''}${cmpType}`}>
-                                            <StatisticGroup cmpType={cmpType} board={board} group={group}/>
+                                            <StatisticGroup cmpType={cmpType} board={board} group={group} />
                                         </div>
                                     )
                                 })}

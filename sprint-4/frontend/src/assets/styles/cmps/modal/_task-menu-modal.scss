@@ -1,16 +1,13 @@
-.add-column-modal {
-    margin: 0;
-    width: 240px;
+.task-menu-modal {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     color: $primary-text-color;
-    font-size: rem(16px);
+    font-size: rem(14px);
 
-    div {
-        width: 120px;
+    >* {
         display: flex;
         align-items: center;
-        gap: $spacing-small;
+        gap: 8px;
         padding: $spacing-xs $spacing-small;
         cursor: pointer;
 
@@ -18,10 +15,5 @@
             background-color: $workspace-hover;
             border-radius: $spacing-small;
         }
-    }
-
-    img {
-        width: 14px;
-        height: 14px;
     }
 }

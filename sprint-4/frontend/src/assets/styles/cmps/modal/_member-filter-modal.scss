@@ -1,18 +1,10 @@
 .filter-member-modal {
-    position: absolute;
-    color: $primary-text-color;
-    background-color: $app-bg;
-    border-radius: $spacing-small;
-    padding: $spacing-medium;
     font-size: rem(14px);
+    color: $primary-text-color;
     max-height: 500px;
     width: 400px;
-    top: 40px;
-    box-shadow: -3px 4px 14px rgb(0 0 0 / 20%);
-    border: 1px solid darken($border-color , 20%);
+    padding: $spacing-small;
     overflow: auto;
-    cursor: default;
-    z-index: 10;
 
     img {
         height: rem(30px);

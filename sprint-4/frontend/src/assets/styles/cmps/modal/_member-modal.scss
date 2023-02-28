@@ -1,9 +1,5 @@
 .modal-member {
-    position: absolute;
-    z-index: 10;
-    top: 21px;
-    left: -130px;
-    cursor: default;
+    @include center-flex();
 
     .close-btn {
         position: absolute;
@@ -13,26 +9,26 @@
     }
 
     .modal-member-content {
-        box-shadow: 0 8px 16px 0 rgb(0 0 0 / 32%);
-        background-color: white;
-        border-radius: 10px;
         width: 360px;
-        padding: $spacing-small $spacing-large $spacing-small $spacing-medium;
 
         img {
             border-radius: 50%;
         }
 
         .taskMembers {
+            display: flex;
             flex-wrap: wrap;
-
+            gap: $spacing-small;
+            margin-top: 0;
             li {
+                padding: $spacing-xs $spacing-small;
                 display: flex;
                 align-items: center;
                 gap: $spacing-small;
                 background-color: $member-modal-item-bg;
                 margin: $spacing-xs;
                 border-radius: 8px;
+                font-size: rem(14px);
 
                 img {
                     width: 22px;
@@ -111,6 +107,13 @@
     &.invite {
         @include center-absolute();
         z-index: 100;
+        background-color: $app-bg;
+        border-radius: $spacing-small;
+        font-size: rem(14px);
+        padding: $spacing-medium;
+        box-shadow: -3px 4px 14px rgb(0 0 0 / 20%);
+        border: 1px solid darken($border-color , 20%);
+      
 
         .modal-member-content {
             width: 420px;
@@ -122,7 +125,8 @@
     }
 
     .triangle-icon {
-        @include triangle-icon();
-        right: -170px;
+        position: absolute;
+        top: -12px;
+        color: white;
     }
 }

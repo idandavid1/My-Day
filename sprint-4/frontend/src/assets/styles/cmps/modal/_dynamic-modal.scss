@@ -1,0 +1,10 @@
+.dynamic-modal{
+    position: absolute;
+    background-color: $app-bg;
+    border-radius: $spacing-small;
+    padding: $spacing-small;
+    box-shadow: -3px 4px 14px rgb(0 0 0 / 20%);
+    border: 1px solid darken($border-color , 20%);
+    border-radius: 8px;
+    z-index: 1000;
+}

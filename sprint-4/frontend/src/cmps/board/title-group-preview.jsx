@@ -1,27 +1,13 @@
-import { useState } from "react"
+import { useRef } from "react"
+import { useSelector } from "react-redux"
 
-import { FiTrash } from 'react-icons/fi'
+import { setDynamicModalObj } from "../../store/board.actions"
+
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
-import { loadBoard, saveBoard } from "../../store/board.actions"
 
-export function TitleGroupPreview({ title, board, setModalOpen, isKanban }) {
-    const [isShowCmpModal, setIsShowCmpModal] = useState(false)
-
-    async function onRemoveColumn(cmpOrder) {
-        try {
-            board.cmpsOrder = board.cmpsOrder.filter(currCmpOrder => currCmpOrder !== cmpOrder)
-            await saveBoard(board)
-            loadBoard(board._id)
-            setModalOpen(false)
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
-    function onOpenModal() {
-        setModalOpen(true)
-        setIsShowCmpModal(!isShowCmpModal)
-    }
+export function TitleGroupPreview({ title, group, isKanban }) {
+    const dynamicModalObj = useSelector(storeState => storeState.boardModule.dynamicModalObj)
+    const elRemoveColumn = useRef()
 
     function getTitleName(cmpOrder) {
         switch (cmpOrder) {
@@ -43,17 +29,19 @@ export function TitleGroupPreview({ title, board, setModalOpen, isKanban }) {
         }
     }
 
+    function onToggleMenuModal() {
+        console.log(elRemoveColumn)
+        const isOpen = dynamicModalObj?.group?.id === group.id && dynamicModalObj?.cmpOrder === title && dynamicModalObj?.type === 'remove-column' ? !dynamicModalObj.isOpen : true
+        const { x, y } = elRemoveColumn.current.getClientRects()[0]
+        setDynamicModalObj({ isOpen, pos: { x: (x - 75), y: (y + 28) }, type: 'remove-column', group: group, cmpOrder: title })
+    }
+
     return (
         <>
             {getTitleName(title)}
-            {!isKanban && <BiDotsHorizontalRounded className="open-modal-icon" onClick={onOpenModal} />}
-            {isShowCmpModal && <div className="delete-modal">
-                <div className="delete" onClick={() => onRemoveColumn(title)}>
-                    <FiTrash />
-                    <span>Delete</span>
-                </div>
-            </div>}
+            <span ref={elRemoveColumn} className="open-modal-icon">
+                {!isKanban && <BiDotsHorizontalRounded onClick={onToggleMenuModal} />}
+            </span>
         </>
     )
-
 }

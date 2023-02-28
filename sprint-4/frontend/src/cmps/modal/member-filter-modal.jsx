@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
 
-export function MemberFilterModal({ filterBy, setFilterBy }) {
+export function MemberFilterModal({dynamicModalObj}) {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)
     
     function onFilterBoard(memberId) {
-        filterBy.memberId = memberId
-        setFilterBy({...filterBy})
+        dynamicModalObj.filterBy.memberId = memberId
+        dynamicModalObj.setFilterBy({...dynamicModalObj.filterBy})
     }
 
     return (
@@ -15,7 +15,7 @@ export function MemberFilterModal({ filterBy, setFilterBy }) {
             <ul>
                 {
                     board.members.map(member => {
-                        return <li className={filterBy.memberId === member._id ? 'active' : ''}>
+                        return <li className={dynamicModalObj.filterBy.memberId === member._id ? 'active' : ''}>
                             <img onClick={() => onFilterBoard(member._id)} src={member.imgUrl} alt="" />
                         </li>
                     })
@@ -23,5 +23,4 @@ export function MemberFilterModal({ filterBy, setFilterBy }) {
             </ul>
     </section>
     )
-
 }

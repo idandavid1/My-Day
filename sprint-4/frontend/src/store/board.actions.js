@@ -1,7 +1,7 @@
 import { boardService } from '../services/board.service.js'
 
 import { store } from './store.js'
-import { SET_FILTER_BOARD, SET_BOARDS, SET_BOARD, REMOVE_BOARD, ADD_BOARD, UPDATE_BOARD, SET_FILTER, SET_MODAL, REMOVE_GROUP } from "./board.reducer.js"
+import { SET_FILTER_BOARD, SET_BOARDS, SET_BOARD, REMOVE_BOARD, ADD_BOARD, UPDATE_BOARD, SET_FILTER, SET_MODAL, REMOVE_GROUP, SET_DYNAMIC_MODAL } from "./board.reducer.js"
 import { utilService } from '../services/util.service.js'
 import { socketService, SOCKET_EMIT_SEND_UPDATE_BOARD } from '../services/socket.service.js'
 
@@ -246,6 +246,14 @@ export async function addActivity(filteredBoard, activity) {
 export function setFilter(filter) {
     store.dispatch({ type: SET_FILTER, filter })
 }
+
+export function setDynamicModalObj(dynamicModalObj) {
+    console.log(dynamicModalObj)
+
+
+    store.dispatch({ type: SET_DYNAMIC_MODAL, dynamicModalObj})
+}
+
 
 // private functions
 function _updateTask(filteredBoard, groupId, saveTask) {

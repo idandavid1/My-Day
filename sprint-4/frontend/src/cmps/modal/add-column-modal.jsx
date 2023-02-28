@@ -5,11 +5,14 @@ import { CiCalculator2, CiCalendarDate } from 'react-icons/ci'
 import { RxCountdownTimer } from "react-icons/rx"
 import { BsCheckSquare } from "react-icons/bs"
 import { HiOutlineUserCircle } from 'react-icons/hi'
+import { loadBoard, saveBoard, setDynamicModalObj } from '../../store/board.actions'
+import { useSelector } from 'react-redux'
 
 const statusImg = require('../../assets/img/status.png')
 
-export function AddColumnModal({ addColumn, board }) {
+export function AddColumnModal({ dynamicModalObj }) {
     const [columns, setColumns] = useState([])
+    const board = useSelector(storeState => storeState.boardModule.filteredBoard)
 
     useEffect(() => {
         loadColumns()
@@ -19,9 +22,21 @@ export function AddColumnModal({ addColumn, board }) {
         const columns = board.cmpsOption.filter(cmpOption => {
             return !board.cmpsOrder.includes(cmpOption)
         })
-
         setColumns(columns)
     }
+
+    async function addColumn(columnType) {
+        try {
+            board.cmpsOrder.push(columnType)
+            await saveBoard(board)
+            loadBoard(board._id)
+            dynamicModalObj.isOpen = false
+            setDynamicModalObj(dynamicModalObj)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     function getIconAction(column) {
         switch (column) {
             case 'status-picker':

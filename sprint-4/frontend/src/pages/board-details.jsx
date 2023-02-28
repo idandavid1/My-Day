@@ -19,6 +19,7 @@ import { loadUsers } from '../store/user.actions'
 import { Loader } from '../cmps/loader'
 import { GroupListKanban, KanbanDetails } from '../cmps/kanban/group-list-kanban'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import { DynamicModal } from '../cmps/modal/dynamic-modal'
 
 export function BoardDetails() {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)
@@ -120,6 +121,7 @@ export function BoardDetails() {
                 }
                 {isLoginModalOpen && <LoginLogoutModal setIsLoginModalOpen={setIsLoginModalOpen} />}
                 {isInviteModalOpen && <ModalMemberInvite board={board} setIsInviteModalOpen={setIsInviteModalOpen} />}
+                <DynamicModal />
             </section>
         </DragDropContext>
     )

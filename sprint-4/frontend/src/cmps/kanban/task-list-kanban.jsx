@@ -106,7 +106,7 @@ export function TaskListKanban({ board, group, index }) {
                                                     )}
                                                 </ul>
                                             </div>
-                                            <li className={`parent-task-preview `}>
+                                            <li >
                                                 <TaskPreviewKanban task={task} group={group} board={board} isTaskModalOpen={isTaskModalOpen} setIsTaskModalOpen={setIsTaskModalOpen} />
                                             </li>
 

@@ -1,5 +1,6 @@
 .status-priority-picker {
     position: relative;
+    @include center-flex();
     color: white;
 
     &:hover .fold {
@@ -24,15 +25,5 @@
         top: 0;
         width: 0;
         transition: border-width .2s ease-out;
-    }
-
-    .label-text {
-        @include center-absolute();
-    }
-
-    .empty-label {
-        background-color: $color-explosive;
-        width: $cell-width;
-        height: $cell-height;
     }
 }

@@ -1,0 +1,15 @@
+.delete-modal {
+    color: $primary-text-color;
+    font-size: rem(14px);
+
+    >* {
+        @include center-flex();
+        gap: 8px;
+        padding: $spacing-xs $spacing-small;
+        cursor: pointer;
+        &:hover {
+            background-color: $workspace-hover;
+            border-radius: $spacing-xs;
+        }
+    }
+}
