@@ -1,41 +1,41 @@
+import { useParams, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { loadBoard, loadBoards, loadSocketBoard, saveBoard, setFilter, updateGroupAction } from "../store/board.actions"
-
-import { BoardHeader } from "../cmps/board/board-header"
-import { MainSidebar } from "../cmps/sidebar/main-sidebar"
-import { WorkspaceSidebar } from "../cmps/sidebar/workspace-sidebar"
-import { GroupList } from '../cmps/board/group-list'
-import { useParams, useSearchParams } from 'react-router-dom'
-import { BoardModal } from '../cmps/board/board-modal'
-import { boardService } from '../services/board.service'
 import { socketService, SOCKET_EMIT_SET_TOPIC, SOCKET_EVENT_ADD_UPDATE_BOARD } from '../services/socket.service'
-import { LoginLogoutModal } from '../cmps/modal/login-logout-modal'
-import { CreateBoard } from '../cmps/modal/create-board'
-import { BoardDescription } from '../cmps/board/board-description'
+import { loadBoard, loadBoards, loadSocketBoard,setFilter } from '../store/board.actions'
 import { ModalMemberInvite } from '../cmps/modal/modal-member-invite'
+import { WorkspaceSidebar } from '../cmps/sidebar/workspace-sidebar'
+import { LoginLogoutModal } from '../cmps/modal/login-logout-modal'
+import { GroupListKanban } from '../cmps/kanban/group-list-kanban'
+import { BoardDescription } from '../cmps/board/board-description'
+import { MainSidebar } from '../cmps/sidebar/main-sidebar'
+import { DynamicModal } from '../cmps/modal/dynamic-modal'
+import { boardService } from '../services/board.service'
+import { CreateBoard } from '../cmps/modal/create-board'
+import { BoardHeader } from '../cmps/board/board-header'
+import { BoardModal } from '../cmps/board/board-modal'
+import { GroupList } from '../cmps/board/group-list'
 import { loadUsers } from '../store/user.actions'
 import { Loader } from '../cmps/loader'
-import { GroupListKanban, KanbanDetails } from '../cmps/kanban/group-list-kanban'
-import { DragDropContext, Droppable } from 'react-beautiful-dnd'
-import { DynamicModal } from '../cmps/modal/dynamic-modal'
 
 export function BoardDetails() {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)
     const boards = useSelector(storeState => storeState.boardModule.boards)
     const isBoardModalOpen = useSelector(storeState => storeState.boardModule.isBoardModalOpen)
-    const [isOpen, setIsOpen] = useState(false)
-    const [isMouseOver, setIsMouseOver] = useState(false)
-    const [isStarredOpen, setIsStarredOpen] = useState(false)
-    const [searchParams, setSearchParams] = useSearchParams()
+
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
     const [isShowDescription, setIsShowDescription] = useState(false)
     const [isInviteModalOpen, setIsInviteModalOpen] = useState(false)
-    const queryFilterBy = boardService.getFilterFromSearchParams(searchParams)
-    const { boardId } = useParams()
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
-    const [boardType , setBoardType] = useState('table')
+    const [isStarredOpen, setIsStarredOpen] = useState(false)
+    const [isMouseOver, setIsMouseOver] = useState(false)
+    const [boardType, setBoardType] = useState('table')
+    const [isOpen, setIsOpen] = useState(false)
+    
+    const { boardId } = useParams()
+    const [searchParams, setSearchParams] = useSearchParams()
+    const queryFilterBy = boardService.getFilterFromSearchParams(searchParams)
 
     useEffect(() => {
         loadBoard(boardId, queryFilterBy)
@@ -64,33 +64,8 @@ export function BoardDetails() {
         setFilter(filterBy)
     }
 
-    function handleOnDragEnd(result) {
-        let newBoard = structuredClone(board);
-        if (!result.destination) {
-            return;
-        }
-        // Reordering groups
-        if (result.type === 'group') {
-            const updatedGroups = [...board.groups]
-            const [draggedItem] = updatedGroups.splice(result.source.index, 1)
-            updatedGroups.splice(result.destination.index, 0, draggedItem)
-            board.groups = updatedGroups
-            saveBoard(board)
-        }
-        // Reordering tasks
-        if (result.type === 'task') {
-            const group = newBoard.groups.find(group => group.id === result.source.droppableId)
-            const updatedTasks = [...group.tasks]
-            const [draggedItem] = updatedTasks.splice(result.source.index, 1)
-            updatedTasks.splice(result.destination.index, 0, draggedItem)
-            group.tasks = updatedTasks
-            updateGroupAction(board, group)
-        }
-    }
-
     if (!board) return <Loader />
     return (
-        <DragDropContext onDragEnd={handleOnDragEnd}>
             <section className="board-details flex">
                 <div className='sidebar flex'>
                     <MainSidebar isOpen={isOpen} setIsOpen={setIsOpen} setIsStarredOpen={setIsStarredOpen} setIsLoginModalOpen={setIsLoginModalOpen} />
@@ -99,16 +74,10 @@ export function BoardDetails() {
                 <main className="board-main">
                     <BoardHeader boardType={boardType} setBoardType={setBoardType} board={board} onSetFilter={onSetFilter} isStarredOpen={isStarredOpen} setIsShowDescription={setIsShowDescription} setIsInviteModalOpen={setIsInviteModalOpen} />
                     {boardType === 'table' && <GroupList board={board} />}
+
                     {boardType === 'kanban' &&
-                        <Droppable droppableId='groupList' type='group' direction='horizontal'>
-                            {(provided) => (
-                                <div ref={provided.innerRef}
-                                    {...provided.droppableProps}>
-                                    <GroupListKanban board={board} />
-                                    {provided.placeholder}
-                                </div>
-                            )}
-                        </Droppable>}
+                        <GroupListKanban board={board} />
+                    }
                     <BoardModal setIsMouseOver={setIsMouseOver} />
                 </main>
                 {isCreateModalOpen && <CreateBoard setIsModalOpen={setIsCreateModalOpen} />}
@@ -123,6 +92,5 @@ export function BoardDetails() {
                 {isInviteModalOpen && <ModalMemberInvite board={board} setIsInviteModalOpen={setIsInviteModalOpen} />}
                 <DynamicModal />
             </section>
-        </DragDropContext>
     )
 }

@@ -1,4 +1,4 @@
-import { useState , useRef } from "react"
+import { useState, useRef } from "react"
 import { useSelector } from "react-redux"
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
 
@@ -45,7 +45,7 @@ export function GroupPreview({ group, board, idx }) {
     function toggleColumnModal() {
         const isOpen = dynamicModalObj?.group?.id === group.id && dynamicModalObj?.type === 'add-column' ? !dynamicModalObj.isOpen : true
         const { x, y, height } = elAddColumn.current.getClientRects()[0]
-        setDynamicModalObj({ isOpen, pos: { x: (x - 225 ), y: (y + height) }, type: 'add-column', group })
+        setDynamicModalObj({ isOpen, pos: { x: (x - 225), y: (y + height) }, type: 'add-column', group })
     }
 
     async function onSave(ev) {
@@ -189,7 +189,7 @@ export function GroupPreview({ group, board, idx }) {
                         </DragDropContext>
                         <div ref={taskRef}>
                             <DragDropContext onDragEnd={handleOnDragEnd}>
-                                <Droppable droppableId={group.id}>
+                                <Droppable droppableId={group.id} type='task'>
                                     {(droppableProvided) => {
                                         return <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps} >
                                             {group.tasks.map((task, idx) => (

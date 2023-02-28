@@ -28,6 +28,19 @@ export async function loadSocketBoard(filteredBoard, board) {
     }
 }
 
+export async function updateDragBetweenGroupsTasks(newBoard, prevBoard) {
+    console.log('newBoard', newBoard, 'prevBoard', prevBoard)
+    try {
+        store.dispatch({ type: SET_BOARD, board:newBoard })
+        store.dispatch({ type: SET_FILTER_BOARD, filteredBoard: newBoard })
+        saveBoard(newBoard)
+    } catch (err) {
+        store.dispatch({ type: SET_BOARD, board:prevBoard })
+        store.dispatch({ type: SET_FILTER_BOARD, filteredBoard: prevBoard })
+        throw err
+    }
+}
+
 export async function loadBoard(boardId, filterBy) {
     try {
         const board = await boardService.getById(boardId)
@@ -183,7 +196,11 @@ export async function updateGroups(groupId, filteredBoard) {
 
 export async function updateGroupAction(filteredBoard, saveGroup) {
     try {
-        const board = await boardService.updateGroup(filteredBoard._id, saveGroup)
+        const { board } = store.getState().boardModule
+        const groupsToSave = board.groups.map(group => group.id === saveGroup.id ? saveGroup : group)
+        await boardService.updateGroup(filteredBoard._id, saveGroup)
+        filteredBoard.groups = groupsToSave
+        board.groups = groupsToSave
         store.dispatch({ type: SET_BOARD, board })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard })
         socketService.emit(SOCKET_EMIT_SEND_UPDATE_BOARD, { filteredBoard, board })
@@ -251,7 +268,7 @@ export function setDynamicModalObj(dynamicModalObj) {
     console.log(dynamicModalObj)
 
 
-    store.dispatch({ type: SET_DYNAMIC_MODAL, dynamicModalObj})
+    store.dispatch({ type: SET_DYNAMIC_MODAL, dynamicModalObj })
 }
 
 
