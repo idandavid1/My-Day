@@ -18,6 +18,7 @@ import { BoardModal } from '../cmps/board/board-modal'
 import { GroupList } from '../cmps/board/group-list'
 import { loadUsers } from '../store/user.actions'
 import { Loader } from '../cmps/loader'
+import { Dashboard } from './dashboard'
 
 export function BoardDetails() {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)
@@ -79,6 +80,7 @@ export function BoardDetails() {
                         <GroupListKanban board={board} />
                     }
                     <BoardModal setIsMouseOver={setIsMouseOver} />
+                    {boardType === 'dashboard' && <Dashboard />}
                 </main>
                 {isCreateModalOpen && <CreateBoard setIsModalOpen={setIsCreateModalOpen} />}
                 {(isInviteModalOpen || isCreateModalOpen || (isBoardModalOpen && isMouseOver)) && <div className='dark-screen'></div>}

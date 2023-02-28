@@ -32,7 +32,14 @@
       -webkit-text-fill-color: transparent;
       margin-bottom: $spacing-large;
       line-height: 85px;
-    }
+      @include for-mobile-layout() {
+          & {
+            font-size: rem(40px);
+            margin-bottom: $spacing-medium;
+            line-height: 50px;
+          }
+        }
+      }
 
     h2 {
       font-weight: 300;
@@ -63,17 +70,18 @@
       @include center-flex();
     }
 
+    
     @include for-mobile-layout() {
       & {
         padding: 48px 20px 0 20px;
       }
     }
   }
+  
   .hero {
     width: 100%;
     height: auto;
     margin: 0;
     padding: 0;
   }
-
 }

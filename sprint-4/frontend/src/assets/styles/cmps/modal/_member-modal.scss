@@ -11,6 +11,12 @@
     .modal-member-content {
         width: 360px;
 
+        @include for-mobile-layout() {
+            & {
+               width: 250px;
+            }
+        }
+
         img {
             border-radius: 50%;
         }
@@ -50,6 +56,12 @@
                 width: 320px;
                 border-radius: 8px;
                 border: 2px solid darken($border-color , 20%);
+
+                @include for-mobile-layout() {
+                    & {
+                       width: 200px;
+                    }
+                }
 
                 input {
                     border: 0;
@@ -117,6 +129,11 @@
 
         .modal-member-content {
             width: 420px;
+            @include for-mobile-layout() {
+                & {
+                   width: 280px;
+                }
+            }
         }
 
         .triangle-icon {
@@ -128,5 +145,10 @@
         position: absolute;
         top: -12px;
         color: white;
+        @include for-mobile-layout() {
+            & {
+               right: 75px
+            }
+        }
     }
 }

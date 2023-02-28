@@ -85,9 +85,12 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
                 <div className={`type-btn ${boardType === 'kanban' ? ' active' : ''}`}>
                     <span onClick={() => setBoardType('kanban')}>Kanban</span>
                 </div>
+                <div className={`type-btn ${boardType === 'dashboard' ? ' active' : ''}`}>
+                    <span onClick={() => setBoardType('dashboard')}>Dashboard</span>
+                </div>
             </div>
             <div className='board-border'></div>
-            <BoardFilter onSetFilter={onSetFilter} board={board} />
+            {boardType !== 'dashboard' && <BoardFilter onSetFilter={onSetFilter} board={board} />}
         </header >
     )
 }
