@@ -8,6 +8,7 @@ export const utilService = {
     loadFromStorage,
     getMonthName,
     getColors,
+    getRandomColor,
     calculateTime
 }
 
@@ -85,6 +86,15 @@ function getColors() {
         '#E6C9A8',
         '#E8EAED',
     ]
+}
+
+function getRandomColor(){
+    let maxVal = 0xFFFFFF
+    let randomNumber = Math.random() * maxVal
+    randomNumber = Math.floor(randomNumber)
+    randomNumber = randomNumber.toString(16)
+    let randColor = randomNumber.padStart(6, 0)  
+    return `#${randColor.toUpperCase()}`
 }
 
 function calculateTime(time) {

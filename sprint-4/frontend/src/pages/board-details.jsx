@@ -20,6 +20,7 @@ import { Loader } from '../cmps/loader'
 import { GroupListKanban, KanbanDetails } from '../cmps/kanban/group-list-kanban'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { DynamicModal } from '../cmps/modal/dynamic-modal'
+import { Dashboard } from './dashboard'
 
 export function BoardDetails() {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)
@@ -109,6 +110,7 @@ export function BoardDetails() {
                                 </div>
                             )}
                         </Droppable>}
+                    {boardType === 'dashboard' && <Dashboard />}
                     <BoardModal setIsMouseOver={setIsMouseOver} />
                 </main>
                 {isCreateModalOpen && <CreateBoard setIsModalOpen={setIsCreateModalOpen} />}

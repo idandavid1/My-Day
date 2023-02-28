@@ -13,6 +13,7 @@
 // Views
 @import "views/home-page";
 @import "views/login-signup";
+@import "views/dashboard";
 
 // Components
     // task-picker
@@ -23,7 +24,7 @@
 @import "cmps/task-picker/file-picker";
 @import "cmps/task-picker/date-picker";
 
-    // sidebar
+// sidebar
 @import "cmps/sidebar/main-sidebar";
 @import "cmps/sidebar/workspace-sidebar";
 
