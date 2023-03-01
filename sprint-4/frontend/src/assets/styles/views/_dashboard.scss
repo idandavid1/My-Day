@@ -54,7 +54,7 @@
 
     @include for-mobile-layout() {
         & {
-            padding: 0;
+            padding: 16px 0;
             justify-content: center;
             >* {
                 width: 90%;
