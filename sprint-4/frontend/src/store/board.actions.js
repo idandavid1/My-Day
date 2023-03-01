@@ -28,14 +28,14 @@ export async function loadSocketBoard(filteredBoard, board) {
     }
 }
 
-export async function updateDragBetweenGroupsTasks(newBoard, prevBoard) {
+export async function updateOptimisticBoard(newBoard, prevBoard) {
     console.log('newBoard', newBoard, 'prevBoard', prevBoard)
     try {
-        store.dispatch({ type: SET_BOARD, board:newBoard })
+        store.dispatch({ type: SET_BOARD, board: newBoard })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard: newBoard })
         saveBoard(newBoard)
     } catch (err) {
-        store.dispatch({ type: SET_BOARD, board:prevBoard })
+        store.dispatch({ type: SET_BOARD, board: prevBoard })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard: prevBoard })
         throw err
     }
@@ -268,6 +268,38 @@ export function setDynamicModalObj(dynamicModalObj) {
     store.dispatch({ type: SET_DYNAMIC_MODAL, dynamicModalObj })
 }
 
+// Drag and drop
+export async function handleOnDragEnd(result , board) {
+    let newBoard = structuredClone(board);
+    if (!result.destination) {
+        return;
+    }
+    // Reordering groups
+    if (result.type === 'group') {
+        const updatedGroups = [...board.groups]
+        const [draggedItem] = updatedGroups.splice(result.source.index, 1)
+        updatedGroups.splice(result.destination.index, 0, draggedItem)
+        board.groups = updatedGroups
+        saveBoard(board)
+    }
+    // Reordering tasks
+    if (result.type === 'task') {
+        const startGroup = newBoard.groups.find(group => group.id === result.source.droppableId)
+        const finishGroup = newBoard.groups.find(group => group.id === result.destination.droppableId)
+        // Reordering tasks between groups
+        if (startGroup !== finishGroup) {
+            const [removedTask] = startGroup.tasks.splice(result.source.index, 1)
+            finishGroup.tasks.splice(result.destination.index, 0, removedTask)
+            updateOptimisticBoard(newBoard, board)
+            return
+        }
+        const updatedTasks = [...startGroup.tasks]
+        const [draggedItem] = updatedTasks.splice(result.source.index, 1)
+        updatedTasks.splice(result.destination.index, 0, draggedItem)
+        startGroup.tasks = updatedTasks
+        updateOptimisticBoard(newBoard, board)
+    }
+}
 
 // private functions
 function _updateTask(filteredBoard, groupId, saveTask) {
