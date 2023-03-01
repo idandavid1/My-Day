@@ -9,13 +9,13 @@ import { ModalMember } from './modal-member'
 import { ModalStatusPriority } from './modal-status-priority'
 import { AddGroupModal } from './add-group-modal'
 import { MemberFilterModal } from './member-filter-modal'
+import { ChartTypeModal } from './chart-type-modal'
 
 export function DynamicModal() {
 
     const dynamicModalObj = useSelector(storeState => storeState.boardModule.dynamicModalObj)
 
     function getDynamicModalByType(type) {
-        console.log(type)
         switch (type) {
             case 'menu-group':
                 return <GroupMenuModal dynamicModalObj={dynamicModalObj} />
@@ -37,6 +37,8 @@ export function DynamicModal() {
                 return <AddGroupModal dynamicModalObj={dynamicModalObj} />
             case 'member-filter':
                 return <MemberFilterModal dynamicModalObj={dynamicModalObj} />
+            case 'chart-type':
+                return <ChartTypeModal dynamicModalObj={dynamicModalObj} />
             default: return
         }
     }

@@ -1,0 +1,21 @@
+.chart-type-modal {
+    display: flex;
+    flex-direction: column;
+    font-size: rem(16px);
+    color: $primary-text-color;
+
+    >* {
+        display: flex;
+        align-items: center;
+        gap: $spacing-small;
+        padding: $spacing-xs $spacing-small;
+        cursor: pointer;
+
+        &:hover{
+            background-color: $workspace-hover;
+            border-radius: $spacing-small;
+        }
+
+
+    }
+}

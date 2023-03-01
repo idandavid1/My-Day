@@ -1,11 +1,14 @@
-import React from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
-ChartJS.register(ArcElement, Tooltip, Legend);
+import React, { useRef, useState } from 'react';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
+import { Bar, Doughnut, Pie } from 'react-chartjs-2';
+import { BiDotsHorizontalRounded } from 'react-icons/bi';
+import { setDynamicModalObj } from '../../store/board.actions';
+ChartJS.register(ArcElement, CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 
-export function LabelChart ({ board }) {
-
+export function LabelChart ({ board, dynamicModalObj }) {
+  const elModalBtn = useRef()
+  const [chartType, setChartType] = useState('pie')
     const data = {
         labels: getLabelTitles(),
         datasets: [
@@ -41,9 +44,38 @@ export function LabelChart ({ board }) {
         return data
       }
 
+      function onToggleTypeModal() {
+        const isOpen = dynamicModalObj.chartType === 'label' && dynamicModalObj?.type === 'chart-type' ? !dynamicModalObj.isOpen : true
+        const { x, y } = elModalBtn.current.getClientRects()[0]
+        setDynamicModalObj({ isOpen, pos: { x: (x - 110), y: (y + 20) }, type: 'chart-type', chartType: 'label', setChartType  })
+      }
+
+      function getChart(chartType) {
+        switch (chartType) {
+          case 'pie':
+              return <Pie data={data} />
+          case 'bar':
+              return <Bar data={data} />
+          case 'doughnut':
+              return <Doughnut data={data} />
+          default: return
+        }
+      }
+
     return (
         <section className='label-chart'>
-            <Pie data={data} />
+          <div className='chart-header'>
+            <div className='header-content'>
+              <h2>Chart label</h2>
+              <span className='icon-container' ref={elModalBtn} onClick={onToggleTypeModal}>
+                <BiDotsHorizontalRounded />
+              </span>
+            </div>
+          </div>
+          <div className='chart-content'>
+            {getChart(chartType)}
+          </div>
         </section>
+
     )
 }

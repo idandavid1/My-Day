@@ -1,11 +1,14 @@
-import React from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import React, { useRef, useState } from 'react';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
+import { Bar, Doughnut, Pie } from 'react-chartjs-2';
 import { utilService } from '../../services/util.service';
-ChartJS.register(ArcElement, Tooltip, Legend);
+import { BiDotsHorizontalRounded } from "react-icons/bi"
+import { setDynamicModalObj } from '../../store/board.actions';
+ChartJS.register(ArcElement, CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-export function MemberChart ({ board }) {
-
+export function MemberChart ({ board, dynamicModalObj }) {
+  const elModalBtn = useRef()
+  const [chartType, setChartType] = useState('pie')
     const data = {
         labels: getMembersName(),
         datasets: [
@@ -35,9 +38,37 @@ export function MemberChart ({ board }) {
         return data
       }
 
+      function onToggleTypeModal() {
+        const isOpen = dynamicModalObj.chartType === 'member' && dynamicModalObj?.type === 'chart-type' ? !dynamicModalObj.isOpen : true
+        const { x, y } = elModalBtn.current.getClientRects()[0]
+        setDynamicModalObj({ isOpen, pos: { x: (x - 110), y: (y + 20) }, type: 'chart-type', chartType: 'member', setChartType  })
+      }
+
+      function getChart(chartType) {
+        switch (chartType) {
+          case 'pie':
+              return <Pie data={data} />
+          case 'bar':
+              return <Bar data={data} />
+          case 'doughnut':
+              return <Doughnut data={data} />
+          default: return
+        }
+      }
+
     return (
-        <section className='label-chart'>
-            <Pie data={data} />
+        <section className='member-chart'>
+            <div className='chart-header'>
+              <div className='header-content'>
+                <h2>Chart member</h2>
+                <span className='icon-container' ref={elModalBtn} onClick={onToggleTypeModal}>
+                  <BiDotsHorizontalRounded />
+                </span>
+              </div>
+            </div>
+            <div className='chart-content'>
+              {getChart(chartType)}
+            </div>
         </section>
     )
 }

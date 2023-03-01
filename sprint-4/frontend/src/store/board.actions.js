@@ -265,9 +265,6 @@ export function setFilter(filter) {
 }
 
 export function setDynamicModalObj(dynamicModalObj) {
-    console.log(dynamicModalObj)
-
-
     store.dispatch({ type: SET_DYNAMIC_MODAL, dynamicModalObj })
 }
 
