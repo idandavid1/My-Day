@@ -35,7 +35,6 @@ export function TaskPreview({ task, group, board, handleCheckboxChange, isMainCh
         taskToUpdate[cmpType] = data
         taskToUpdate.updatedBy.date = Date.now()
         taskToUpdate.updatedBy.imgUrl = (user && user.imgUrl) || guest
-        console.log(taskToUpdate)
         try {
             await updateTaskAction(board, group.id, taskToUpdate, activity)
         } catch (err) {

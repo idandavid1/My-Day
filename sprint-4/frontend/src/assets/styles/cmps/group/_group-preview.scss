@@ -37,7 +37,7 @@
 
     .title-container {
         position: sticky;
-        top: 205px;
+        top: 211px;
         left: 40px;
         z-index: 2;
         background-color: $app-bg;
@@ -45,13 +45,13 @@
 
         @include for-narrow-layout() {
             &.not-des {
-                top: 185px;
+                top: 186px;
             }
         }
 
         @include for-mobile-layout {
             & {
-                top: 172px;
+                top: 179px;
             }
         }
 
@@ -117,7 +117,7 @@
 
     .group-header {
         position: sticky;
-        top: 175px;
+        top: 182px;
         z-index: 2;
         background-color: white;
         height: 40px;
@@ -126,13 +126,13 @@
 
         @include for-narrow-layout() {
             &.not-des {
-                top: 155px;
+                top: 158px;
             }
         }
 
         @include for-mobile-layout {
             & {
-                top: 142px;
+                top: 149px;
             }
         }
 

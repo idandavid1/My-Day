@@ -63,7 +63,7 @@ export function ModalMember({ dynamicModalObj }) {
                 <ul className="taskMembers">
                     {
                         taskMembers.map(taskMember => {
-                            return <li key={taskMember.id}>
+                            return <li key={taskMember._id}>
                                 <img src={taskMember.imgUrl} alt="member-img" />
                                 <span>{taskMember.fullname}</span>
                                 <span onClick={() => onRemoveMember(taskMember)} className="remove">x</span>
@@ -85,7 +85,7 @@ export function ModalMember({ dynamicModalObj }) {
                     {outTaskMembers.length > 0 && <ul className="out-member-list">
                         {
                             outTaskMembers.map(taskMember => {
-                                return <li key={taskMember.id} onClick={() => onAddMember(taskMember)}>
+                                return <li key={taskMember._id} onClick={() => onAddMember(taskMember)}>
                                     <img src={taskMember.imgUrl} alt="member-img" />
                                     <span>{taskMember.fullname}</span>
                                 </li>
