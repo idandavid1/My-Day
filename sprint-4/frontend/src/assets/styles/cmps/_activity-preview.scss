@@ -92,6 +92,8 @@
     }
 
     .from-to {
+        display: flex;
+        align-items: center;
         height: 100%;
         margin-left: auto;
         width: 200px;
@@ -146,8 +148,6 @@
         }
 
         &.person-container {
-            display: flex;
-            justify-content: center;
             gap: $spacing-xl;
             margin-left: unset;
 

@@ -10,7 +10,7 @@ export function NumberPicker({ info, onUpdate }) {
     const activity = boardService.getEmptyActivity()
 
     activity.action = 'number'
-    activity.from = info.number || ''
+    activity.from = info.number || '-'
     activity.task = { id: info.id, title: info.title }
 
     function handleNumberChange({ target }) {
@@ -18,6 +18,11 @@ export function NumberPicker({ info, onUpdate }) {
     }
 
     function onSave() {
+        console.log('number:', number)
+        if(activity.from === '-' && !number){
+            setIsShowInput(false)
+            return
+        } 
         activity.to = number
         onUpdate('number', parseInt(number), activity)
     }

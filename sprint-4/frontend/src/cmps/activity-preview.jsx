@@ -5,6 +5,7 @@ import { IoIosArrowForward, IoIosCheckboxOutline }  from 'react-icons/io'
 import { CiCalendarDate }  from 'react-icons/ci'
 import { BsPlusCircle, BsPersonPlus }  from 'react-icons/bs'
 import { FcCheckmark }  from 'react-icons/fc'
+import { TbNumbers } from "react-icons/tb"
 
 const statusImg = require('../assets/img/status.png')
 const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
@@ -24,6 +25,8 @@ export function ActivityPreview({ activity }) {
                 return <BsPersonPlus className='icon'/>
             case 'check': 
                 return <IoIosCheckboxOutline className='icon'/>
+            case 'number': 
+                return <TbNumbers className='icon'/>
             default:
                 break;
         }
@@ -43,6 +46,8 @@ export function ActivityPreview({ activity }) {
                 return <FromToPerson activity={activity}/>
             case 'check': 
                 return <FromToCheck activity={activity}/>
+            case 'number': 
+                return <FromToNumber activity={activity}/>
             default:
                 break;
         }
@@ -116,6 +121,16 @@ function FromToCheck({ activity }) {
         <div className='from-to check-container'>
             <span>{activity.from ? <FcCheckmark /> : '    '}</span>
             <span>{activity.to ? <FcCheckmark /> : '    '}</span>
+        </div>
+    )
+}
+
+function FromToNumber({ activity }) {
+    return (
+        <div className='from-to number-container'>
+            <span className='number'>{activity.from}</span>
+            <IoIosArrowForward className='icon'/>
+            <span className='number'>{activity.to}</span>
         </div>
     )
 }
