@@ -1,6 +1,6 @@
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 
-import { saveBoard, updateDragBetweenGroupsTasks, updateGroupAction } from "../../store/board.actions"
+import { saveBoard, updateDragBetweenGroupsTasks, updateGroupAction, updateOptimisticBoard } from "../../store/board.actions"
 import { GroupPreviewKanban } from "./group-preview-kanban"
 
 export function GroupListKanban({ board }) {
@@ -26,14 +26,14 @@ export function GroupListKanban({ board }) {
             if (startGroup !== finishGroup) {
                 const [removedTask] = startGroup.tasks.splice(result.source.index, 1)
                 finishGroup.tasks.splice(result.destination.index, 0, removedTask)
-                updateDragBetweenGroupsTasks(newBoard, board)
+                updateOptimisticBoard(newBoard, board)
                 return
             }
             const updatedTasks = [...startGroup.tasks]
             const [draggedItem] = updatedTasks.splice(result.source.index, 1)
             updatedTasks.splice(result.destination.index, 0, draggedItem)
             startGroup.tasks = updatedTasks
-            updateGroupAction(board, startGroup)
+            updateOptimisticBoard(newBoard, board)
         }
     }
 

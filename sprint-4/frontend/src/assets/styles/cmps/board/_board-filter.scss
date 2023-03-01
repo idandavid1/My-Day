@@ -1,5 +1,5 @@
 .board-filter {
-    padding: $spacing-small 0;
+    padding: $spacing-medium 0;
     gap: 5px;
 
     >* {
@@ -50,8 +50,6 @@
                 border-bottom-left-radius: 5px;
             }
         }
-
-       
 
         .drop-down-btn {
             @include center-flex();

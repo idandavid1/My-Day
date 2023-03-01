@@ -26,7 +26,6 @@ export function GroupPreview({ group, board, idx }) {
     const user = useSelector(storeState => storeState.userModule.user)
 
     const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
-    const taskRef = useRef()
     const elMainGroup = useRef()
     const elAddColumn = useRef()
 
@@ -77,13 +76,13 @@ export function GroupPreview({ group, board, idx }) {
         setTaskToEdit(boardService.getEmptyTask())
     }
 
-    function handleOnDragEnd(ev) {
-        const updatedTasks = [...group.tasks]
-        const [draggedItem] = updatedTasks.splice(ev.source.index, 1)
-        updatedTasks.splice(ev.destination.index, 0, draggedItem)
-        group.tasks = updatedTasks
-        updateGroupAction(board, group)
-    }
+    // function handleOnDragEnd(ev) {
+    //     const updatedTasks = [...group.tasks]
+    //     const [draggedItem] = updatedTasks.splice(ev.source.index, 1)
+    //     updatedTasks.splice(ev.destination.index, 0, draggedItem)
+    //     group.tasks = updatedTasks
+    //     updateGroupAction(board, group)
+    // }
 
     function handleHorizontalDrag(ev) {
         const updatedTitles = [...board.cmpsOrder]
@@ -187,42 +186,38 @@ export function GroupPreview({ group, board, idx }) {
                                 }}
                             </Droppable>
                         </DragDropContext>
-                        <div ref={taskRef}>
-                            <DragDropContext onDragEnd={handleOnDragEnd}>
-                                <Droppable droppableId={group.id} type='task'>
-                                    {(droppableProvided) => {
-                                        return <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps} >
-                                            {group.tasks.map((task, idx) => (
-                                                <Draggable key={task.id} draggableId={task.id} index={idx}>
-                                                    {(provided) => {
-                                                        return <li ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
-                                                            <TaskPreview task={task} group={group} board={board} handleCheckboxChange={handleCheckboxChange} isMainCheckbox={isMainCheckbox} />
-                                                        </li>
-                                                    }}
-                                                </Draggable>
-                                            ))}
-                                            {droppableProvided.placeholder}
+                        <Droppable droppableId={group.id} type='task'>
+                            {(droppableProvided) => (
+                                <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps} >
+                                    {group.tasks.map((task, idx) => (
+                                        <Draggable key={task.id} draggableId={task.id} index={idx}>
+                                            {(provided) => (
+                                                <li ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps} key={idx}>
+                                                    <TaskPreview task={task} group={group} board={board} handleCheckboxChange={handleCheckboxChange} isMainCheckbox={isMainCheckbox} />
+                                                </li>
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {droppableProvided.placeholder}
+                                    <div className="add-task flex">
+                                        <div className="sticky-div" style={{ borderColor: group.color }}>
+                                            <div className="check-box add-task">
+                                                <input type="checkbox" disabled />
+                                            </div>
+                                            <form onSubmit={onAddTask} className="add-task-form flex align-center">
+                                                <input type="text"
+                                                    name="title"
+                                                    value={taskToEdit.title}
+                                                    placeholder="+ Add Task"
+                                                    onChange={handleChange}
+                                                    onBlur={onAddTask} />
+                                            </form>
                                         </div>
-                                    }}
-                                </Droppable>
-                            </DragDropContext>
-                        </div>
-                        <div className="add-task flex">
-                            <div className="sticky-div" style={{ borderColor: group.color }}>
-                                <div className="check-box add-task">
-                                    <input type="checkbox" disabled />
+                                        <div className="empty-div"></div>
+                                    </div>
                                 </div>
-                                <form onSubmit={onAddTask} className="add-task-form flex align-center">
-                                    <input type="text"
-                                        name="title"
-                                        value={taskToEdit.title}
-                                        placeholder="+ Add Task"
-                                        onChange={handleChange}
-                                        onBlur={onAddTask} />
-                                </form>
-                            </div>
-                            <div className="empty-div"></div>
-                        </div>
+                            )}
+                        </Droppable>
                         <div className="statistic flex">
                             <div className="sticky-container">
                                 <div className="hidden"></div>

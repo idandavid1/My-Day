@@ -1,7 +1,7 @@
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 import { GroupPreview } from './group-preview'
-import { saveBoard, updateDragBetweenGroupsTasks, updateGroupAction } from "../../store/board.actions"
+import { saveBoard, updateOptimisticBoard } from "../../store/board.actions"
 
 import { useRef } from 'react'
 
@@ -41,14 +41,14 @@ export function GroupList({ board }) {
             if (startGroup !== finishGroup) {
                 const [removedTask] = startGroup.tasks.splice(result.source.index, 1)
                 finishGroup.tasks.splice(result.destination.index, 0, removedTask)
-                // updateDragBetweenGroupsTasks(newBoard, board)
+                updateOptimisticBoard(newBoard, board)
                 return
             }
             const updatedTasks = [...startGroup.tasks]
             const [draggedItem] = updatedTasks.splice(result.source.index, 1)
             updatedTasks.splice(result.destination.index, 0, draggedItem)
             startGroup.tasks = updatedTasks
-            // updateGroupAction(board, startGroup)
+            updateOptimisticBoard(newBoard, board)
         }
     }
 

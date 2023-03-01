@@ -65,11 +65,10 @@ export function TaskListKanban({ board, group }) {
                                                         )}
                                                     </ul>
                                                 </div>
-                                                <li >
+                                                <li key={task.id} >
                                                     <TaskPreviewKanban task={task} group={group} board={board} isTaskModalOpen={isTaskModalOpen} setIsTaskModalOpen={setIsTaskModalOpen} />
                                                 </li>
                                             </div>
-
                                         </div>
                                     )}
                                 </Draggable>

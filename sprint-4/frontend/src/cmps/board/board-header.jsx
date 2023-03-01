@@ -3,7 +3,7 @@ import { saveBoard, toggleModal, toggleStarred } from '../../store/board.actions
 import { loadBoards } from '../../store/board.actions'
 
 import { RiErrorWarningLine } from 'react-icons/ri'
-import { BsStar } from 'react-icons/bs'
+import { BsBarChart, BsKanban, BsStar } from 'react-icons/bs'
 import { BsStarFill } from 'react-icons/bs'
 import { FiActivity } from 'react-icons/fi'
 import { GrHomeRounded } from 'react-icons/gr'
@@ -13,7 +13,7 @@ import { RiUserAddLine } from 'react-icons/ri'
 
 const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
 
-export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescription, setIsInviteModalOpen , setBoardType , boardType}) {
+export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescription, setIsInviteModalOpen, setBoardType, boardType }) {
     const isOpen = useSelector(storeState => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
 
@@ -83,9 +83,11 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
                     <span data-title='Main Table' onClick={() => setBoardType('table')}>Main Table</span>
                 </div>
                 <div className={`type-btn ${boardType === 'kanban' ? ' active' : ''}`}>
+                    <BsKanban />
                     <span onClick={() => setBoardType('kanban')}>Kanban</span>
                 </div>
                 <div className={`type-btn ${boardType === 'dashboard' ? ' active' : ''}`}>
+                    <BsBarChart />
                     <span onClick={() => setBoardType('dashboard')}>Dashboard</span>
                 </div>
             </div>

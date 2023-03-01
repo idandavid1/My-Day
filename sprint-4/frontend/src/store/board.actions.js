@@ -28,18 +28,34 @@ export async function loadSocketBoard(filteredBoard, board) {
     }
 }
 
-export async function updateDragBetweenGroupsTasks(newBoard, prevBoard) {
+export async function updateOptimisticBoard(newBoard, prevBoard) {
     console.log('newBoard', newBoard, 'prevBoard', prevBoard)
     try {
-        store.dispatch({ type: SET_BOARD, board:newBoard })
+        store.dispatch({ type: SET_BOARD, board: newBoard })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard: newBoard })
         saveBoard(newBoard)
     } catch (err) {
-        store.dispatch({ type: SET_BOARD, board:prevBoard })
+        store.dispatch({ type: SET_BOARD, board: prevBoard })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard: prevBoard })
         throw err
     }
 }
+
+// export async function updateOptimisticGroups(filteredBoard ,newGroup) {
+//     console.log('newBoard', newGroup)
+//     let { board } = store.getState().boardModule
+//     board = structuredClone(board)
+//     try {
+//         updateGroupAction(filteredBoard , newGroup)
+//         // store.dispatch({ type: SET_BOARD, board: newBoard })
+//         // store.dispatch({ type: SET_FILTER_BOARD, filteredBoard: newBoard })
+//         // saveBoard(newBoard)
+//     } catch (err) {
+//         store.dispatch({ type: SET_BOARD, board: board })
+//         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard: board })
+//         throw err
+//     }
+// }
 
 export async function loadBoard(boardId, filterBy) {
     try {
@@ -266,8 +282,6 @@ export function setFilter(filter) {
 
 export function setDynamicModalObj(dynamicModalObj) {
     console.log(dynamicModalObj)
-
-
     store.dispatch({ type: SET_DYNAMIC_MODAL, dynamicModalObj })
 }
 
