@@ -73,7 +73,7 @@ export function BoardFilter({ board, onSetFilter }) {
                         placeholder="Search"
                         onChange={handleChange} />
                 </div>
-                <div ref={elMemberFilter} onClick={onToggleMemberFilterModal} className={`person-filter ${(isMemberModalOpen() || filterBy.memberId) ? ' active' : ''}`}>
+                <div data-title='Filter by person' ref={elMemberFilter} onClick={onToggleMemberFilterModal} className={`person-filter ${(isMemberModalOpen() || filterBy.memberId) ? ' active' : ''}`}>
                     {!memberFilter && <BsPersonCircle className='icon' />}
                     {memberFilter && <img className='member-img' src={memberFilter.imgUrl} alt="" />}
                     <span>Person</span>
