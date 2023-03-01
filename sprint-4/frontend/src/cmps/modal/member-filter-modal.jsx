@@ -15,7 +15,7 @@ export function MemberFilterModal({dynamicModalObj}) {
             <ul>
                 {
                     board.members.map(member => {
-                        return <li className={dynamicModalObj.filterBy.memberId === member._id ? 'active' : ''}>
+                        return <li key={member._id} className={dynamicModalObj.filterBy.memberId === member._id ? 'active' : ''}>
                             <img onClick={() => onFilterBoard(member._id)} src={member.imgUrl} alt="" />
                         </li>
                     })
