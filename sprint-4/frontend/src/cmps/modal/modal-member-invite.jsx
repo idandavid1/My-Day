@@ -92,7 +92,7 @@ export function ModalMemberInvite({ board, setIsInviteModalOpen }) {
                     {outBoardMembers.length > 0 && <ul className="out-member-list">
                         {
                             outBoardMembers.map(member => {
-                                return <li key={member.id} onClick={() => onAddMember(member)}>
+                                return <li key={member._id} onClick={() => onAddMember(member)}>
                                     <img src={member.imgUrl} alt="member-img"/>
                                     <span>{member.fullname}</span>
                                 </li>
