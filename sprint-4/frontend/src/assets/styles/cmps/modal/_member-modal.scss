@@ -7,9 +7,10 @@
         right: 10px;
         cursor: pointer;
     }
-
+    
     .modal-member-content {
         width: 360px;
+        font-size: rem(14px);
 
         @include for-mobile-layout() {
             & {
@@ -34,7 +35,6 @@
                 background-color: $member-modal-item-bg;
                 margin: $spacing-xs;
                 border-radius: 8px;
-                font-size: rem(14px);
 
                 img {
                     width: 22px;

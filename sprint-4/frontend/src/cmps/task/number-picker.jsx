@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { useState } from "react"
 import { AiOutlineClose } from "react-icons/ai"
 import { BsFillPlusCircleFill } from "react-icons/bs"
@@ -9,10 +8,6 @@ export function NumberPicker({ info, onUpdate }) {
     const [number, setNumber] = useState(info.number || '')
     const [isShowInput, setIsShowInput] = useState(false)
     const activity = boardService.getEmptyActivity()
-
-    useEffect(() => {
-
-    }, [number])
 
     activity.action = 'number'
     activity.from = info.number || ''
@@ -43,7 +38,7 @@ export function NumberPicker({ info, onUpdate }) {
                         value={number}
                         onChange={handleNumberChange}
                         onBlur={onSave} />
-                    <span type="button" className="clear-input" onClick={onClearNumber}><AiOutlineClose /></span>
+                    <span className="clear-input" onClick={onClearNumber}><AiOutlineClose /></span>
                 </>
             }
         </section>
