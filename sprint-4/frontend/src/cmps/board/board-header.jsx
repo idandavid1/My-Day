@@ -62,7 +62,7 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
                     </div>
                 </div>
                 <div className='board-tools flex align-center'>
-                    <div className='activity' onClick={() => toggleIsOpen('activity')}><FiActivity /></div>
+                    <div data-title='Board activity' className='activity' onClick={() => toggleIsOpen('activity')}><FiActivity /></div>
                     <div className='members-last-seen flex' onClick={() => toggleIsOpen('last-viewed')}>
                         <span className='last-seen-title'>Last seen</span>
                         <div className='flex members-imgs'>
@@ -89,11 +89,11 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
                 </div>
                 <div className={`type-btn ${boardType === 'kanban' ? ' active' : ''}`}>
                     <BsKanban />
-                    <span onClick={() => onSetBoardType('kanban')}>Kanban</span>
+                    <span data-title='Kanban' onClick={() => onSetBoardType('kanban')}>Kanban</span>
                 </div>
                 <div className={`type-btn ${boardType === 'dashboard' ? ' active' : ''}`}>
                     <BsBarChart />
-                    <span onClick={() => onSetBoardType('dashboard')}>Dashboard</span>
+                    <span data-title='Dashboard' onClick={() => onSetBoardType('dashboard')}>Dashboard</span>
                 </div>
             </div>
             <div className='board-border'></div>

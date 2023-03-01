@@ -143,10 +143,10 @@ export function GroupPreview({ group, board, idx }) {
                             <div className="group-menu" ref={elMainGroup}>
                                 <BiDotsHorizontalRounded className="icon" onClick={onToggleMenuModal} />
                             </div>
-                            <div className={`group-title-info flex align-center ${isShowColorPicker ? 'showBorder' : ''} `} onFocus={() => setIsShowColorPicker(true)}>
+                            <div  className={`group-title-info flex align-center ${isShowColorPicker ? 'showBorder' : ''} `} onFocus={() => setIsShowColorPicker(true)}>
                                 {isShowColorPicker && <BsFillCircleFill onClick={onTogglePalette} />}
                                 <blockquote className="group-title" onFocus={() => setIsTyping(true)} contentEditable onBlur={(ev) => onSave(ev)} suppressContentEditableWarning={true}>
-                                    <h4 data-title={group.title}>{group.title}</h4>
+                                    <h4>{group.title}</h4>
                                 </blockquote>
                                 {!isTyping && <span className="task-count flex align-center">{getSumOfTasks()}</span>}
                             </div>

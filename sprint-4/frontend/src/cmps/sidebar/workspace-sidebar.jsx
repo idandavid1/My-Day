@@ -49,7 +49,7 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreate
 
     return (
         <section ref={elSection} className={`workspace-sidebar ${isOpen ? 'open' : 'close'}`}>
-            <div onClick={onToggleWorkspace} className='toggle-workspace '>
+            <div data-title={isOpen ? 'Close navigation' : 'Open navigation'} onClick={onToggleWorkspace} className='toggle-workspace '>
                 {isOpen && <MdKeyboardArrowLeft />}
                 {!isOpen && <MdKeyboardArrowRight />}
             </div>
