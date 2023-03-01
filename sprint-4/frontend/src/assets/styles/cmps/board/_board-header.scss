@@ -141,6 +141,7 @@
         margin-top: $spacing-small;
 
         .type-btn {
+            color: $primary-text-color;
             position: relative;
             @include center-flex();
             padding: 0px $spacing-small 0px $spacing-small;
