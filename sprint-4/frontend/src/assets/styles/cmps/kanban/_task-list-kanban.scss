@@ -1,18 +1,19 @@
 .task-list-content-kanban {
-    padding: 8px;
+    padding: $spacing-small;
     min-height: 110px;
     margin: 0;
 
-    .task-container{
+    .task-container {
         border-radius: 4px;
         box-shadow: 0px 4px 8px rgb(0 0 0 / 20%);
-        font-size: 13px;
+        font-size: rem(13px);
         font-weight: 400;
         cursor: pointer;
-        margin-bottom: 8px;
+        margin-bottom: $spacing-small;
 
-        .flex{
-            padding: 8px;
+        .flex {
+            padding: $spacing-small;
+            gap: $spacing-small;
         }
     }
 
@@ -22,38 +23,84 @@
         display: flex;
     }
 
-    .task-title{
-        margin-bottom: 8px;
+    .task-title {
+        @include center-flex();
+        margin-bottom: $spacing-small;
         height: 36px;
-        align-items: center;
-        padding: 8px;
+        padding: $spacing-small;
         position: relative;
-        .chat-icon{
-            color: $chat-icon-color;
-            font-size: 24px;
+        gap: $spacing-xs;
+
+        .chat-icon {
+            @include center-flex();
+            font-size: rem(24px);
+            padding: 0 $spacing-small;
+            height: 100%;
             margin-left: auto;
+            color: $chat-icon-color;
+            position: relative;
+
+            &:hover {
+                color: $board-btn;
+                cursor: pointer;
+            }
+
+            div {
+                display: flex;
+                align-items: center;
+            }
+
+            .count-comment {
+                @include center-flex();
+                position: absolute;
+                top: 11px;
+                right: 7px;
+                background-color: $board-btn;
+                color: white;
+                font-size: rem(10px);
+                border-radius: 50%;
+                width: 14px;
+                height: 13px;
+                margin: 0;
+                cursor: pointer;
+            }
+
+            .comment-chat {
+                color: $board-btn;
+            }
         }
-        .task-menu{
-            font-size: 22px;
-            color: $workspace-icon-color;
+
+        .task-menu {
+            @include center-flex();
+            border-radius: 8px;
+
+            .icon {
+                cursor: pointer;
+                font-size: rem(22px);
+                color: $workspace-icon-color;
+            }
+
+            &:hover {
+                background-color: $workspace-hover;
+            }
         }
     }
 
     .task-content {
-     
-        .task-titles-container{
-            li{
+        .task-titles-container {
+            li {
                 margin-bottom: 8px;
                 height: 36px;
             }
         }
     }
-    .title-container{
-        >*:not(:last-child){
+
+    .title-container {
+        >* {
             height: 36px;
-            margin-bottom: 8px;
+            margin-bottom: $spacing-small;
             display: flex;
-            justify-content: center;
+            align-items: center;
         }
     }
 }

@@ -1,6 +1,5 @@
 import { useRef, useState } from "react"
 import { useSelector } from "react-redux"
-import { ModalMember } from "../modal/modal-member"
 
 import { BsPersonCircle } from 'react-icons/bs'
 import { boardService } from "../../services/board.service"

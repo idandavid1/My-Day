@@ -1,5 +1,7 @@
 .task-preview , .task-preview-kanban{
     .task-person {
+        cursor: pointer;
+        height: 36px;
         min-width: $cell-width-person;
         position: relative;
         border: 1px solid darken($border-color , 20%);

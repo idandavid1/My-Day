@@ -1,7 +1,7 @@
 .login-logout-modal {
+    position: absolute;
     background-color: $app-bg;
     border-radius: $spacing-small;
-    position: absolute;
     color: $primary-text-color;
     box-shadow: -3px 4px 14px rgb(0 0 0 / 20%);
     padding: $spacing-small;
@@ -11,19 +11,15 @@
     left: 60px;
     bottom: 15px;
 
-    ul {
-        margin: 0;
-
-        li {
-            @include center-flex();
-            cursor: pointer;
-            padding: $spacing-xs;
-            border-radius: 4px;
-            gap: $spacing-xs;
-
-            &:hover {
-                background-color: $workspace-hover;
-            }
+    span, a {
+        @include center-flex();
+        cursor: pointer;
+        padding: 0 $spacing-xs;
+        border-radius: 4px;
+        gap: $spacing-xs;
+        color: $primary-text-color;
+        &:hover {
+            background-color: $workspace-hover;
         }
     }
 }

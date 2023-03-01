@@ -268,8 +268,14 @@ export function setDynamicModalObj(dynamicModalObj) {
     store.dispatch({ type: SET_DYNAMIC_MODAL, dynamicModalObj })
 }
 
+export function closeDynamicModal() {
+    const { dynamicModalObj } = store.getState().boardModule
+    dynamicModalObj.isOpen = false
+    store.dispatch({ type: SET_DYNAMIC_MODAL, dynamicModalObj })
+}
+
 // Drag and drop
-export async function handleOnDragEnd(result , board) {
+export async function handleOnDragEnd(result, board) {
     let newBoard = structuredClone(board);
     if (!result.destination) {
         return;

@@ -3,13 +3,15 @@
     flex-direction: column;
     width: 140px;
     >*{
-
         margin-bottom: 8px;
     }
     
     & .picker{
+        cursor: pointer;
         background-color: $board-description-bg;
         height: 36px;
-
     }
+
+    
+
 }

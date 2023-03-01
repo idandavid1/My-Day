@@ -68,6 +68,7 @@ export function TaskPreviewKanban({ task, group, board , isTaskModalOpen ,setIsT
             console.log(err)
         }
     }
+ 
     return (
         <section className={`task-preview-kanban ${isTaskModalOpen ? ' modal-open' : ''}`}>
 
