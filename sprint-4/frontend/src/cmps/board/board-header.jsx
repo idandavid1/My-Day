@@ -1,5 +1,5 @@
 import { BoardFilter } from '../board/board-filter'
-import { saveBoard, toggleModal, toggleStarred } from '../../store/board.actions'
+import { closeDynamicModal, saveBoard, toggleModal, toggleStarred } from '../../store/board.actions'
 import { loadBoards } from '../../store/board.actions'
 
 import { RiErrorWarningLine } from 'react-icons/ri'
@@ -41,6 +41,11 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
         navigate(`/board/${board._id}/${type}`)
     }
 
+    function onSetBoardType(type) {
+        setBoardType(type)
+        closeDynamicModal()
+    }
+
     if (!board.members) return <div></div>
     return (
         <header className="board-header">
@@ -80,15 +85,15 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
             <div className='board-display-btns flex' >
                 <div className={`type-btn ${boardType === 'table' ? ' active' : ''}`} >
                     <GrHomeRounded className='icon' />
-                    <span data-title='Main Table' onClick={() => setBoardType('table')}>Main Table</span>
+                    <span data-title='Main Table' onClick={() => onSetBoardType('table')}>Main Table</span>
                 </div>
                 <div className={`type-btn ${boardType === 'kanban' ? ' active' : ''}`}>
                     <BsKanban />
-                    <span onClick={() => setBoardType('kanban')}>Kanban</span>
+                    <span onClick={() => onSetBoardType('kanban')}>Kanban</span>
                 </div>
                 <div className={`type-btn ${boardType === 'dashboard' ? ' active' : ''}`}>
                     <BsBarChart />
-                    <span onClick={() => setBoardType('dashboard')}>Dashboard</span>
+                    <span onClick={() => onSetBoardType('dashboard')}>Dashboard</span>
                 </div>
             </div>
             <div className='board-border'></div>
