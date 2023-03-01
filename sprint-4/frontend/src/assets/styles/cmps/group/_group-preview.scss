@@ -27,6 +27,7 @@
         
         &:hover {
             .open-modal-icon {
+                @include center-flex();
                 opacity: 1;
                 z-index: 20;
                 cursor: pointer;

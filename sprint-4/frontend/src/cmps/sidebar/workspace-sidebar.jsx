@@ -1,20 +1,20 @@
 import { useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 
+import { BoardPreview } from '../board/board-preview'
 import { loadBoards } from '../../store/board.actions'
 import { boardService } from '../../services/board.service'
-import { BoardPreview } from '../board/board-preview'
 
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
-import { IoIosArrowDown } from 'react-icons/io'
-import { AiOutlinePlus } from 'react-icons/ai'
-import { BiSearch } from 'react-icons/bi'
-import { MdKeyboardArrowLeft } from 'react-icons/md'
 import { MdKeyboardArrowRight } from 'react-icons/md'
 import { BsFillLightningFill } from 'react-icons/bs'
+import { MdKeyboardArrowLeft } from 'react-icons/md'
+import { IoIosArrowDown } from 'react-icons/io'
+import { AiOutlinePlus } from 'react-icons/ai'
+import star from '../../assets/img/star.gif'
 import { AiFillHome } from 'react-icons/ai'
 import { BsStarFill } from 'react-icons/bs'
-import star from '../../assets/img/star.gif'
+import { BiSearch } from 'react-icons/bi'
 
 export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreateModalOpen }) {
     const elSection = useRef(null)
