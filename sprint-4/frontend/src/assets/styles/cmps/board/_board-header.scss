@@ -162,26 +162,47 @@
                 font-weight: 500;
                 padding: 0 $spacing-xs;
 
-                &[data-title]:after {
-                    left: 0;
-                    bottom: 2.2em;
+                &.wide {
+                    display: none;
+                }
+
+                &.mobile {
+                    display: block;
+                }
+            }
+            
+            @include for-narrow-layout() {
+                &:hover {
+                    background-color: $workspace-hover;
+                    border-top-left-radius: 4px;
+                    border-top-right-radius: 4px;
+                }
+
+                span {
+
+                    &.wide {
+                        display: block;
+                    }
+
+                    &.mobile {
+                        display: none;
+                    }
+
+                    &[data-title]:after {
+                        left: 0;
+                        bottom: 2.2em;
+                    }
                 }
             }
 
-            &:hover {
-                background-color: $workspace-hover;
-                border-top-left-radius: 4px;
-                border-top-right-radius: 4px;
-            }
-
-            &::after {
-                position: absolute;
-                content: "";
-                height: 18px;
-                top: 6px;
-                right: 0;
-                border-right: 1px solid darken($border-color , 30%);
-            }
+            // &::after {
+            //     position: absolute;
+            //     content: "";
+            //     height: 18px;
+            //     top: 6px;
+            //     right: 0;
+            //     border-right: 1px solid darken($border-color , 30%);
+            // }
         }
     }
 
