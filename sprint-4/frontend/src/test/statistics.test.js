@@ -1,18 +1,17 @@
 import { render, screen } from '@testing-library/react'
 import { StatisticGroup } from '../cmps/board/statistics-group'
 
-describe('StatisticGroup', () => {
-    const mockBoard = {
-        "_id": "b101",
-        "labels": [
-            {
-                "id": "l101",
-                "title": "Done",
-                "color": "#00c875"
-            },
-            {
-                "id": "l102",
-                "title": "Progress",
+const mockBoard = {
+    "_id": "b101",
+    "labels": [
+        {
+            "id": "l101",
+            "title": "Done",
+            "color": "#00c875"
+        },
+        {
+            "id": "l102",
+            "title": "Progress",
             "color": "#fdab3d"
         },
         {
@@ -73,32 +72,33 @@ describe('StatisticGroup', () => {
             },
         ],
         "color": '#66ccff'
-        },
-        ],
-        "activities": [],
-        "cmpsOrder": ["member-picker", "status-picker", "date-picker", 'priority-picker']
-    }
-    const {getStatistics} = render(<StatisticGroup cmpType={'number-picker'} group={mockBoard.groups[0]} board={mockBoard} />)
+    },
+    ],
+    "activities": [],
+    "cmpsOrder": ["member-picker", "status-picker", "date-picker", 'priority-picker']
+}
 
-    console.log(getStatistics)
-    expect(getStatistics).toBe(30)
-    // const divWrapper = screen.getByTestId("div");
-    // expect(findByTestId.caller).toBe(" 30sum");
-    // expect(findByTestId('text-grid-item')).toHaveTextContent('test table dat')
+describe('statistics context', () => {
 
-        // expect(getByText('text passed as prop')).toBeDefined()
-    // const divWrapper = screen.getByRole('div')
-    // expect(screen.getByText(divWrapper, '30')).toBeTruthy()
-    
-    // it('test number statistic', () => {
-    //     const {container} = render(<StatisticGroup cmpType={'number-picker'} group={mockBoard.groups[0]} board={mockBoard} />)
-    //     expect(container.querySelector('.number')).toHaveTextContent('30')
-    // })
-    
-    // it('test status statistic', () => {
-    //     const {container} = render(<StatisticGroup cmpType={'status-picker'} group={mockBoard.groups[0]} board={mockBoard} />)
-    //     expect(container.querySelectorAll('span').length).toEqual(2)
-    // })
+
+    it('test number statistic', () => {
+        render(<StatisticGroup cmpType={'number-picker'} group={mockBoard.groups[0]} board={mockBoard} />)
+        const divEl = screen.getByRole('contentinfo')
+        expect(divEl).toBeInTheDocument()
+        expect(divEl).toHaveTextContent(/30/)
+    })
+
+    it('status statistic labels', () => {
+        render(<StatisticGroup cmpType={'status-picker'} group={mockBoard.groups[0]} board={mockBoard} />)
+        const spanElements = screen.getAllByTestId(/label/)
+        const firstSpanElement = screen.getByTestId('label-0')
+        expect(spanElements.length).toBe(2)
+        expect(firstSpanElement).toHaveStyle("width: 50%")
+    })
+
+    it("should return empty fragment", () => {
+        const { asFragment } = render(<StatisticGroup cmpType={'member-picker'} group={mockBoard.groups[0]} board={mockBoard} />)
+        expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`)
+    })
 })
-
 

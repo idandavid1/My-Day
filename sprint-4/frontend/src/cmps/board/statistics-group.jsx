@@ -26,7 +26,7 @@ export function StatisticGroup({ cmpType, group, board }) {
     function getStatisticsResult() {
         switch (cmpType) {
             case 'member-picker':
-                return []
+                return
             case 'status-picker':
                 return <GetStatisticsLabel statisticLabels={getStatisticsStatus('status')} />
             case 'priority-picker':
@@ -48,14 +48,14 @@ export function StatisticGroup({ cmpType, group, board }) {
 function GetStatisticsLabel({ statisticLabels }) {
     return (
         statisticLabels.map((label, idx) => {
-            return <span key={idx} style={label} ></span>
+            return <span data-testid={`label-${idx}`} key={idx} style={label} ></span>
         })
     )
 }
 
 function GetStatisticsNumber({ statisticNumber }) {
     return (
-        <div className="statistic-number flex column align-center">
+        <div role="contentinfo" className="statistic-number flex column align-center">
             <span className="number">{statisticNumber}</span>
             <span className="sum">sum</span>
         </div>

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 import { toggleModal, updateTaskAction } from "../../store/board.actions"
 
@@ -7,23 +9,22 @@ import { GrHomeRounded } from 'react-icons/gr'
 import { AiOutlineBold } from 'react-icons/ai'
 import { RxUnderline } from 'react-icons/rx'
 import { TbAlignRight, TbAlignCenter, TbAlignLeft } from 'react-icons/tb'
+
 import { boardService } from "../../services/board.service"
 import { utilService } from "../../services/util.service"
 import { CommentPreview } from "../task/comment-preview"
 import { ActivityPreview } from "../activity-preview"
 import { socketService, SOCKET_EMIT_SEND_MSG, SOCKET_EMIT_SET_TOPIC, SOCKET_EVENT_ADD_MSG } from "../../services/socket.service"
-import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
 const noUpdate = require('../../assets/img/empty-update.png')
 
 export function TaskModal({ task, board, groupId, setModalCurrTask }) {
-    const [isWriteNewUpdate, setIsWriteNewUpdate] = useState(false)
+    const user = useSelector(storeState => storeState.userModule.user)
     const [comment, setComment] = useState(boardService.getEmptyComment())
+    const [isWriteNewUpdate, setIsWriteNewUpdate] = useState(false)
+    const [taskActivities, setTaskActivities] = useState([])
+    const [isShowUpdate, setIsShowUpdate] = useState(true)
     const [currTask, setCurrTask] = useState(task)
     const navigate = useNavigate()
-    const [isShowUpdate, setIsShowUpdate] = useState(true)
-    const [taskActivities, setTaskActivities] = useState([])
-    const user = useSelector(storeState => storeState.userModule.user)
 
     useEffect(() => {
         loadTaskActivity()
