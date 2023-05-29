@@ -127,9 +127,8 @@ function DynamicCmp({ cmp, info, onUpdate }) {
             return <PriorityPicker info={info} onUpdate={onUpdate} />
         case "number-picker":
             return <NumberPicker info={info} onUpdate={onUpdate} />
-        case "file-picker": {
+        case "file-picker": 
             return <FilePicker info={info} onUpdate={onUpdate} />
-        }
         case "updated-picker":
             return <UpdatedPicker info={info} onUpdate={onUpdate} />
         default:

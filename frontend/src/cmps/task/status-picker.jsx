@@ -1,17 +1,17 @@
-import { useRef, useState } from "react"
+import { useRef } from "react"
 import { useSelector } from "react-redux"
 import { boardService } from "../../services/board.service"
 import { setDynamicModalObj } from "../../store/board.actions"
 
 export function StatusPicker({ info, onUpdate }) {
-    const [isModalOpen, setIsModalOpen] = useState(false)
     const dynamicModalObj = useSelector(storeState => storeState.boardModule.dynamicModalObj)
-    const elStatusSection = useRef()
-    let classText = !info.status ? 'empty-label ' : ''
-    classText += 'label-text'
     const board = useSelector(storeState => storeState.boardModule.board)
     const activity = boardService.getEmptyActivity()
+    const elStatusSection = useRef()
 
+    let classText = !info.status ? 'empty-label ' : ''
+    classText += 'label-text'
+    
     const label = board.labels.find(label => label.title === info.status)
     const color = label ? label.color : '#c4c4c4'
     activity.from = label
@@ -24,10 +24,9 @@ export function StatusPicker({ info, onUpdate }) {
     }
 
     return (
-        <section ref={elStatusSection} className="status-priority-picker picker" style={{ backgroundColor: color }} onClick={onToggleMenuModal}>
+        <section role="contentinfo" ref={elStatusSection} className="status-priority-picker picker" style={{ backgroundColor: color }} onClick={onToggleMenuModal}>
             <div className={classText}>{info.status}</div>
-            {!isModalOpen && <span className="fold"></span>}
-            {/* {isModalOpen && <ModalStatusPriority labels={board.labels} onUpdate={onUpdate} setIsModalOpen={setIsModalOpen} cmpType={'status'} activity={activity}/>} */}
+            <span className="fold"></span>
         </section>
     )
 

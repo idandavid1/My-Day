@@ -76,14 +76,6 @@ export function GroupPreview({ group, board, idx }) {
         setTaskToEdit(boardService.getEmptyTask())
     }
 
-    // function handleOnDragEnd(ev) {
-    //     const updatedTasks = [...group.tasks]
-    //     const [draggedItem] = updatedTasks.splice(ev.source.index, 1)
-    //     updatedTasks.splice(ev.destination.index, 0, draggedItem)
-    //     group.tasks = updatedTasks
-    //     updateGroupAction(board, group)
-    // }
-
     function handleHorizontalDrag(ev) {
         const updatedTitles = [...board.cmpsOrder]
         const [draggedItem] = updatedTitles.splice(ev.source.index, 1)
