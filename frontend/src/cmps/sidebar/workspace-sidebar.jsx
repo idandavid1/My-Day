@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { BoardPreview } from '../board/board-preview'
 import { loadBoards } from '../../store/board.actions'
@@ -17,7 +17,6 @@ import { BsStarFill } from 'react-icons/bs'
 import { BiSearch } from 'react-icons/bi'
 
 export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreateModalOpen }) {
-    const elSection = useRef(null)
     const [filterByToEdit, setFilterByToEdit] = useState(boardService.getDefaultFilterBoards())
     const boards = useSelector(storeState => storeState.boardModule.boards)
 
@@ -28,8 +27,6 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreate
 
     function onToggleWorkspace() {
         setIsOpen((prevIsOpen) => !prevIsOpen)
-        elSection.current.classList.toggle('close')
-        elSection.current.classList.toggle('open')
     }
 
     function handleChange({ target }) {
@@ -48,12 +45,12 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreate
     }
 
     return (
-        <section ref={elSection} className={`workspace-sidebar ${isOpen ? 'open' : 'close'}`}>
+        <section className={`workspace-sidebar ${isOpen ? 'open' : 'close'}`}>
             <div data-title={isOpen ? 'Close navigation' : 'Open navigation'} onClick={onToggleWorkspace} className='toggle-workspace '>
                 {isOpen && <MdKeyboardArrowLeft />}
                 {!isOpen && <MdKeyboardArrowRight />}
             </div>
-            {isOpen && !isStarredOpen && <div className="workspace-sidebar-header">
+            {!isStarredOpen && <div className="workspace-sidebar-header">
                 <div className='workspace-sidebar-items'>
                     <div className="workspace-title-container flex space-between align-center">
                         <span className='workspace-title'>Workspace</span>
@@ -92,7 +89,7 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreate
                     })}
                 </ul>
             </div>}
-            {isOpen && isStarredOpen && <div className="workspace-sidebar-header">
+            {isStarredOpen && <div className="workspace-sidebar-header">
                 <div className='workspace-sidebar-items'>
                     <div className="workspace-title-container flex space-between align-center">
                         <span className='favorites-title flex align-center'><BsStarFill className="star-icon" /> Favorites</span>
