@@ -7,7 +7,7 @@ import { BsBarChart, BsKanban, BsStar } from 'react-icons/bs'
 import { BsStarFill } from 'react-icons/bs'
 import { FiActivity } from 'react-icons/fi'
 import { GrHomeRounded } from 'react-icons/gr'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RiUserAddLine } from 'react-icons/ri'
 
@@ -85,15 +85,18 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
             <div className='board-display-btns flex' >
                 <div className={`type-btn ${boardType === 'table' ? ' active' : ''}`} >
                     <GrHomeRounded className='icon' />
-                    <span data-title='Main Table' onClick={() => onSetBoardType('table')}>Main Table</span>
+                    <span className='wide' data-title='Main Table' onClick={() => onSetBoardType('table')}>Main Table</span>
+                    <span className='mobile' onClick={() => onSetBoardType('table')}>Main Table</span>
                 </div>
                 <div className={`type-btn ${boardType === 'kanban' ? ' active' : ''}`}>
                     <BsKanban />
-                    <span data-title='Kanban' onClick={() => onSetBoardType('kanban')}>Kanban</span>
+                    <span className='wide' data-title='Kanban' onClick={() => onSetBoardType('kanban')}>Kanban</span>
+                    <span className='mobile' onClick={() => onSetBoardType('kanban')}>Kanban</span>
                 </div>
                 <div className={`type-btn ${boardType === 'dashboard' ? ' active' : ''}`}>
                     <BsBarChart />
-                    <span data-title='Dashboard' onClick={() => onSetBoardType('dashboard')}>Dashboard</span>
+                    <span className='wide' data-title='Dashboard' onClick={() => onSetBoardType('dashboard')}>Dashboard</span>
+                    <span className='mobile' onClick={() => onSetBoardType('dashboard')}>Dashboard</span>
                 </div>
             </div>
             <div className='board-border'></div>

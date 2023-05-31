@@ -25,7 +25,8 @@ export function MemberChart ({ board, dynamicModalObj }) {
       }
 
       function getRandomColors() {
-        return board.members.map(() => utilService.getRandomColor())
+        const colorArr = utilService.getColors()
+        return board.members.map((_, idx) => colorArr[idx % colorArr.length])
       }
 
       function getData() {

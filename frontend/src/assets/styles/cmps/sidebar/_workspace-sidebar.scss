@@ -6,12 +6,21 @@
     transition: .4s;
 
     &.open {
-        min-width: $workspace-width;
+        width: 230px;
+        .workspace-sidebar-header{
+            transition-delay: .25s;
+            opacity: 1;
+        }
     }
-
+    
     &.close {
-        min-width: 30px;
+        width: 30px;
+        .workspace-sidebar-header{
+            opacity: 0;
+            pointer-events: none;
+        }
     }
+    
 
     .workspace-sidebar-items {
         margin: $spacing-medium $spacing-medium 18px $spacing-medium;
