@@ -17,6 +17,7 @@ export async function loadUsers() {
     }
 }
 
+// TODO:REMOVE THIS
 export async function removeUser(userId) {
     try {
         await userService.remove(userId)
