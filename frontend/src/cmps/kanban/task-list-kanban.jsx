@@ -15,7 +15,7 @@ export function TaskListKanban({ board, group }) {
                     {...provided.droppableProps}>
                     <ul className="task-list-content-kanban" >
                         {group.tasks.map((task, idx) => {
-                            return <li className="task-container" onClick={(ev) => { ev.stopPropagation() }}>
+                            return <li key={task.id} className="task-container" onClick={(ev) => { ev.stopPropagation() }}>
                                 <Draggable draggableId={task.id} index={idx} key={task.id} type="task">
                                     {(provided) => (
                                         <div {...provided.draggableProps}{...provided.dragHandleProps} ref={provided.innerRef} className="flex column">
@@ -30,9 +30,9 @@ export function TaskListKanban({ board, group }) {
                                                         )}
                                                     </ul>
                                                 </div>
-                                                <li key={task.id} >
+                                                <div key={task.id} >
                                                     <TaskPreviewKanban task={task} group={group} board={board} isTaskModalOpen={isTaskModalOpen} setIsTaskModalOpen={setIsTaskModalOpen} />
-                                                </li>
+                                                </div>
                                             </div>
                                         </div>
                                     )}

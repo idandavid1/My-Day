@@ -12,7 +12,6 @@ export function GroupPreviewKanban({ group, board, index }) {
             console.log('Failed to save')
         }
     }
-
     return (
         <section className="group-preview-kanban" >
             <div className={`group-header ${!board.description ? ' not-des' : ''}`}>

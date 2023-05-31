@@ -1,8 +1,12 @@
 //home page
 $home-bg: -webkit-linear-gradient(rgb(21 21 59) 0%, rgb(15, 16, 72) 100%);
+$home-secondary-bg: -webkit-linear-gradient(rgb(17 17 66) 6%, rgb(21, 21, 59) 36%, rgb(21, 21, 59) 57%);
+$home-tertiary-bg: -webkit-linear-gradient(rgb(21 21 59) 0%, rgb(15, 16, 72) 100%);
 $home-btn-bg: #6161FF;
+$home-active-color: #6161FF;
 $home-btn-bg-gradient: linear-gradient(90deg, #5034FF 25.69%, #B4B4FF 100%);
 $home-btn-bg-gradient-hover: linear-gradient(90deg, #432CD5 25.69%, #9797D5 100%);
+$gray-color: #b7b7b7;
 
 $app-bg: #ffffff;
 $login-bg : #f7f7f7;

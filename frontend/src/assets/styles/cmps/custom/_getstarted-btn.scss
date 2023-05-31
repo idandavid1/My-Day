@@ -1,0 +1,36 @@
+.get-started-btn {
+      display: flex;
+      background-image: $home-btn-bg-gradient;
+      border-radius: 2em;
+      color: #fff;
+      letter-spacing: 1px;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      padding: $spacing-medium 0;
+      line-height: 18px;
+      font-size: rem(16px);
+      transition: opacity .3s ease-in-out, box-shadow .2s ease-in-out;
+
+      &:hover {
+            box-shadow: 0px 0px 16px 6px #424272;
+            opacity: .9;
+
+            .arrow {
+                  transform: translateX(8px);
+            }
+      }
+
+      .arrow {
+            margin-left: $spacing-small;
+            transition: transform .3s ease-in-out;
+            font-size: rem(20px);
+      }
+
+      @include for-normal-layout() {
+            & {
+                  width: max-content;
+                  padding: $spacing-medium $spacing-xl;
+            }
+      }
+}
