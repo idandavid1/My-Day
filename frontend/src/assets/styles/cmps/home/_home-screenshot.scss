@@ -1,23 +1,24 @@
 .screenshot-section {
-      height: 100vh;
       background: $home-tertiary-bg;
       font-family: $title-font-family;
+      padding: 10vh 0;
 
       .header {
             padding: 0 20px;
             margin: auto;
-            
-            
+
+
             .title {
                   background: linear-gradient(360deg, #adadad 53.95%, #8080e0 121.37%);
                   -webkit-background-clip: text;
                   -webkit-text-fill-color: transparent;
-                  padding: 18px ;
+                  padding: 18px;
                   text-align: center;
                   margin-bottom: 16px;
                   font-size: rem(28px);
                   line-height: rem(36px);
             }
+
             .info {
                   color: $workspace-icon-color;
                   font-size: rem(15px);
@@ -27,17 +28,15 @@
             }
 
             @include for-normal-layout() {
-                  .title{
+                  .title {
                         font-size: rem(46px);
                         line-height: rem(65px);
                   }
+
                   .info {
                         font-size: rem(20px);
                         line-height: rem(28px);
                   }
             }
       }
-
-      
-
 }

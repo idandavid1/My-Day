@@ -1,7 +1,7 @@
 import React from 'react'
 import StartedButton from './custom/getstarted-btn'
 
-export default function HomeScreenShot ({boardId}) {
+export default function HomeScreenShot ({ boardId }) {
       return (
             <section className='screenshot-section'>
                   <div className='header layout'>
@@ -11,7 +11,9 @@ export default function HomeScreenShot ({boardId}) {
                               </span>
                         </div>
                         <p className='info'>Boost your team’s alignment, efficiency, and productivity by customizing any workflow to fit your needs.</p>
-                        <StartedButton boardId={boardId}/>
+                        <StartedButton boardId={boardId} />
+                  </div>
+                  <div className='screenshot-grid'>
                   </div>
             </section>
       )
