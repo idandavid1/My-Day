@@ -49,6 +49,9 @@
 
             .icon {
                 font-size: rem(20px);
+                @include center-flex();
+                border-radius: 4px;
+                padding: 2px;
             }
 
             .star-full {
