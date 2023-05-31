@@ -29,7 +29,6 @@ export async function loadSocketBoard(filteredBoard, board) {
 }
 
 export async function updateOptimisticBoard(newBoard, prevBoard) {
-    console.log('newBoard', newBoard, 'prevBoard', prevBoard)
     try {
         store.dispatch({ type: SET_BOARD, board: newBoard })
         store.dispatch({ type: SET_FILTER_BOARD, filteredBoard: newBoard })

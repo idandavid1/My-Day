@@ -7,17 +7,18 @@
     position: sticky;
     top: 0;
 
-    a {
+    .icon-link {
         @include center-flex();
-        margin: $spacing-small 0;
+        margin: $spacing-small;
+        transition: background-color .3s;
+
+        &:hover {
+            @include hover-sidebar()
+        }
 
         .home-img {
-            width: 40px;
-            height: 40px;
-
-            &:hover {
-                @include hover-sidebar()
-            }
+            height: 22px;
+            margin: $spacing-small 0;
         }
     }
 
@@ -48,7 +49,7 @@
         }
     }
 
-    .middle-div {
+    .tools-container {
         border-bottom: 1px solid $border-color;
         border-top: 1px solid $border-color;
         height: 100%;
@@ -58,8 +59,7 @@
         padding: $spacing-medium 0;
 
         .icon-container {
-            width: rem(36px);
-            width: rem(36px);
+            width: rem(56px);
             height: rem(36px);
             @include center-flex();
             position: relative;
@@ -74,7 +74,7 @@
 
                 @include for-narrow-layout {
                     & {
-                        left: 36px;
+                        left: 46px;
                     }
                 }
             }
@@ -86,7 +86,7 @@
     }
 
     .bottom {
-       @include center-flex();
+        @include center-flex();
         gap: $spacing-medium;
         padding: $spacing-medium 0;
     }

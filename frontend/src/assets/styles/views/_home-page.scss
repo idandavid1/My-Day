@@ -10,74 +10,102 @@
     padding-top: $spacing-xxl;
     @include center-flex();
     flex-direction: column;
-    gap: 20px;
     margin-bottom: $spacing-medium;
 
-    p {
+    .home-paragraph {
       color: $app-bg;
       text-align: center;
+      font-size: rem(14px);
+      color: $workspace-icon-color;
     }
 
     .headers-container {
       text-align: center;
-    }
 
-    .main-title {
-      display: flex;
-      flex-direction: column;
-      font-size: rem(72px);
-      font-weight: 400;
-      background: linear-gradient(360deg, #ffffff 53.95%, #0b0b4a 207.37%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: $spacing-large;
-      line-height: 85px;
-      @include for-mobile-layout() {
+      .main-title {
+        display: flex;
+        flex-direction: column;
+        font-weight: 600;
+        background: linear-gradient(360deg, #adadad 53.95%, #8080e0 121.37%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: $spacing-large;
+        font-size: rem(30px);
+        margin-bottom: $spacing-medium;
+        line-height: 40px;
+        letter-spacing: 2px;
+
+        @include for-normal-layout() {
           & {
-            font-size: rem(40px);
+            font-size: rem(46px);
             margin-bottom: $spacing-medium;
-            line-height: 50px;
+            line-height: 65px;
           }
         }
       }
 
-    h2 {
-      font-weight: 300;
-      font-size: rem(22px);
+      .secondary-title {
+        font-weight: 300;
+        font-size: rem(16px);
+        letter-spacing: 1px;
+        padding: 0 $spacing-large;
+
+        @include for-normal-layout() {
+          & {
+            font-size: rem(20px);
+            padding: 0 ;
+          }
+        }
+      }
+    }
+
+    .get-started {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 32px 0;
+      max-width: 90%;
     }
 
     .get-started-btn {
       display: flex;
       background-image: $home-btn-bg-gradient;
-      border-radius: 40px;
-      padding: $spacing-medium $spacing-xl;
+      border-radius: 2em;
+      color: #fff;
+      letter-spacing: 1px;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      padding: $spacing-medium 0;
       line-height: 18px;
       font-size: rem(16px);
-      transition: background-color 0.2s;
+      transition: opacity .3s ease-in-out, box-shadow .2s ease-in-out;
 
       &:hover {
-        background-image: $home-btn-bg-gradient-hover;
+        box-shadow: 0px 0px 16px 6px #424272;
+        opacity: .9;
 
         .arrow {
-          transition: 0.3s;
-          transform: translateX(4px);
+          transform: translateX(8px);
+        }
+      }
+
+      @include for-normal-layout() {
+        & {
+          width: max-content;
+          padding: $spacing-medium $spacing-xl;
         }
       }
     }
 
     .arrow {
-      padding-left: $spacing-medium;
-      @include center-flex();
-    }
-
-    
-    @include for-mobile-layout() {
-      & {
-        padding: 48px 20px 0 20px;
-      }
+      margin-left: $spacing-small;
+      transition: transform .3s ease-in-out;
+      font-size: rem(20px);
     }
   }
-  
+
   .hero {
     width: 100%;
     height: auto;

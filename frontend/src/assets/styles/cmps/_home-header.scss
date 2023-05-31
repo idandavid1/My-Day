@@ -6,12 +6,8 @@
         @include center-flex();
         justify-content: space-between;
         height: 100%;
-
-        img {
-            height: rem(75px);
-            cursor: pointer;
-        }
     }
+
 
     .header-btns {
         @include center-flex();

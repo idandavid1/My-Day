@@ -32,7 +32,9 @@ export function BoardDetails() {
     const [isStarredOpen, setIsStarredOpen] = useState(false)
     const [isMouseOver, setIsMouseOver] = useState(false)
     const [boardType, setBoardType] = useState('table')
-    const [isOpen, setIsOpen] = useState(false)
+
+    const [isWorkspaceOpen, setIsWorkspaceOpen] = useState(false)
+    const [workspaceDisplay, setWorkspaceDisplay] = useState('board')
     
     const { boardId } = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
@@ -43,6 +45,7 @@ export function BoardDetails() {
         loadUsers()
         if (!boards.length) loadBoards()
     }, [])
+
 
     useEffect(() => {
         socketService.emit(SOCKET_EMIT_SET_TOPIC, boardId)
@@ -69,8 +72,8 @@ export function BoardDetails() {
     return (
             <section className="board-details flex">
                 <div className='sidebar flex'>
-                    <MainSidebar isOpen={isOpen} setIsOpen={setIsOpen} setIsStarredOpen={setIsStarredOpen} setIsLoginModalOpen={setIsLoginModalOpen} />
-                    <WorkspaceSidebar isOpen={isOpen} setIsOpen={setIsOpen} isStarredOpen={isStarredOpen} board={board} setIsCreateModalOpen={setIsCreateModalOpen} />
+                    <MainSidebar setWorkspaceDisplay={setWorkspaceDisplay} setIsWorkspaceOpen={setIsWorkspaceOpen} setIsLoginModalOpen={setIsLoginModalOpen} />
+                    <WorkspaceSidebar workspaceDisplay={workspaceDisplay} isWorkspaceOpen={isWorkspaceOpen} setIsWorkspaceOpen={setIsWorkspaceOpen} board={board} setIsCreateModalOpen={setIsCreateModalOpen} />
                 </div>
                 <main className="board-main">
                     <BoardHeader boardType={boardType} setBoardType={setBoardType} board={board} onSetFilter={onSetFilter} isStarredOpen={isStarredOpen} setIsShowDescription={setIsShowDescription} setIsInviteModalOpen={setIsInviteModalOpen} />

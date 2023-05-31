@@ -16,17 +16,16 @@ import { AiFillHome } from 'react-icons/ai'
 import { BsStarFill } from 'react-icons/bs'
 import { BiSearch } from 'react-icons/bi'
 
-export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreateModalOpen }) {
+export function WorkspaceSidebar({ workspaceDisplay, setIsCreateModalOpen , setIsWorkspaceOpen, isWorkspaceOpen, setWorkspaceDisplay }) {
     const [filterByToEdit, setFilterByToEdit] = useState(boardService.getDefaultFilterBoards())
     const boards = useSelector(storeState => storeState.boardModule.boards)
 
     useEffect(() => {
-        if (isStarredOpen) onLoadBoards()
-        else loadBoards(filterByToEdit)
-    }, [filterByToEdit, isStarredOpen])
+        loadBoards(filterByToEdit)
+    }, [filterByToEdit])
 
     function onToggleWorkspace() {
-        setIsOpen((prevIsOpen) => !prevIsOpen)
+        setIsWorkspaceOpen((prevIsOpen) => !prevIsOpen)
     }
 
     function handleChange({ target }) {
@@ -34,23 +33,13 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreate
         setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
     }
 
-    function onLoadBoards() {
-        try {
-            const filter = boardService.getDefaultFilterBoards()
-            filter.isStarred = true
-            loadBoards(filter)
-        } catch (err) {
-            throw err
-        }
-    }
-
     return (
-        <section className={`workspace-sidebar ${isOpen ? 'open' : 'close'}`}>
-            <div data-title={isOpen ? 'Close navigation' : 'Open navigation'} onClick={onToggleWorkspace} className='toggle-workspace '>
-                {isOpen && <MdKeyboardArrowLeft />}
-                {!isOpen && <MdKeyboardArrowRight />}
+        <section className={`workspace-sidebar ${isWorkspaceOpen ? 'open' : 'close'}`}>
+            <div data-title={isWorkspaceOpen ? 'Close navigation' : 'Open navigation'} onClick={onToggleWorkspace} className='toggle-workspace '>
+                {isWorkspaceOpen && <MdKeyboardArrowLeft />}
+                {!isWorkspaceOpen && <MdKeyboardArrowRight />}
             </div>
-            {!isStarredOpen && <div className="workspace-sidebar-header">
+            {workspaceDisplay === 'board' ? (<div className="workspace-sidebar-header">
                 <div className='workspace-sidebar-items'>
                     <div className="workspace-title-container flex space-between align-center">
                         <span className='workspace-title'>Workspace</span>
@@ -88,8 +77,8 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreate
                         </li>
                     })}
                 </ul>
-            </div>}
-            {isStarredOpen && <div className="workspace-sidebar-header">
+            </div>)
+            : (<div className="workspace-sidebar-header">
                 <div className='workspace-sidebar-items'>
                     <div className="workspace-title-container flex space-between align-center">
                         <span className='favorites-title flex align-center'><BsStarFill className="star-icon" /> Favorites</span>
@@ -111,7 +100,7 @@ export function WorkspaceSidebar({ isOpen, setIsOpen, isStarredOpen, setIsCreate
                         </li>
                     })}
                 </ul>
-            </div>}
+            </div>)}
         </section>
     )
 }

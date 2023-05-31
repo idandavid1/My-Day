@@ -1,0 +1,26 @@
+.logo {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      gap: 7px;
+
+      &-title {
+          font-size: rem(20px);
+          font-weight:700;
+          color: black;
+      }
+
+      &-img {
+          height: rem(18px);
+      }
+
+      @include for-normal-layout() {
+          &-title {
+              font-size: rem(24px);
+          }
+
+          &-img {
+              height: rem(20px);
+          }
+      }            
+  }
