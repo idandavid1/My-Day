@@ -7,16 +7,12 @@ import { boardService } from '../../services/board.service'
 
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { MdKeyboardArrowRight } from 'react-icons/md'
-import { BsFillLightningFill } from 'react-icons/bs'
 import { MdKeyboardArrowLeft } from 'react-icons/md'
-import { IoIosArrowDown } from 'react-icons/io'
-import { AiOutlinePlus } from 'react-icons/ai'
 import star from '../../assets/img/star.gif'
-import { AiFillHome } from 'react-icons/ai'
 import { BsStarFill } from 'react-icons/bs'
-import { BiSearch } from 'react-icons/bi'
+import WorkspaceBoard from './workspace/workspace-board'
 
-export function WorkspaceSidebar({ workspaceDisplay, setIsCreateModalOpen , setIsWorkspaceOpen, isWorkspaceOpen, setWorkspaceDisplay }) {
+export function WorkspaceSidebar ({ workspaceDisplay, setIsCreateModalOpen, setIsWorkspaceOpen, isWorkspaceOpen, setWorkspaceDisplay }) {
     const [filterByToEdit, setFilterByToEdit] = useState(boardService.getDefaultFilterBoards())
     const boards = useSelector(storeState => storeState.boardModule.boards)
 
@@ -24,11 +20,11 @@ export function WorkspaceSidebar({ workspaceDisplay, setIsCreateModalOpen , setI
         loadBoards(filterByToEdit)
     }, [filterByToEdit])
 
-    function onToggleWorkspace() {
+    function onToggleWorkspace () {
         setIsWorkspaceOpen((prevIsOpen) => !prevIsOpen)
     }
 
-    function handleChange({ target }) {
+    function handleChange ({ target }) {
         let { value, name: field } = target
         setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
     }
@@ -39,68 +35,31 @@ export function WorkspaceSidebar({ workspaceDisplay, setIsCreateModalOpen , setI
                 {isWorkspaceOpen && <MdKeyboardArrowLeft />}
                 {!isWorkspaceOpen && <MdKeyboardArrowRight />}
             </div>
-            {workspaceDisplay === 'board' ? (<div className="workspace-sidebar-header">
-                <div className='workspace-sidebar-items'>
-                    <div className="workspace-title-container flex space-between align-center">
-                        <span className='workspace-title'>Workspace</span>
-                    </div>
-                    <div className='workspace-select flex space-between align-center'>
-                        <div className='workspace-logo flex align-items'>
-                            <div className='lightning-container'>
-                                <BsFillLightningFill />
-                            </div>
-                            <AiFillHome className='home' />
-                            <h5 className='workspace-title'>Sprint 4</h5>
-                        </div>
-                        <IoIosArrowDown className='icon' />
-                    </div>
-                    <div className='workspace-btns'>
-                        <div onClick={() => setIsCreateModalOpen((prev) => !prev)} >
-                            <AiOutlinePlus className='icon' />
-                            <span>Add</span>
-                        </div>
-                        <div className='search-board'>
-                            <BiSearch className='icon' />
-                            <input type="text"
-                                name='title'
-                                value={filterByToEdit.title}
-                                placeholder="Search"
-                                onChange={handleChange}
-                            />
+            {workspaceDisplay === 'board' ? (<WorkspaceBoard handleChange={handleChange}
+                filterByToEdit={filterByToEdit} boards={boards} setIsCreateModalOpen={setIsCreateModalOpen}/>)
+                : (<div className="workspace-sidebar-header">
+                    <div className='workspace-sidebar-items'>
+                        <div className="workspace-title-container flex space-between align-center">
+                            <span className='favorites-title flex align-center'><BsStarFill className="star-icon" /> Favorites</span>
+                            <BiDotsHorizontalRounded className='icon' />
                         </div>
                     </div>
-                </div>
-                <ul className='board-list-container flex column'>
-                    {boards.map(board => {
-                        return <li key={board._id} className='board-list'>
-                            <BoardPreview board={board} />
-                        </li>
-                    })}
-                </ul>
-            </div>)
-            : (<div className="workspace-sidebar-header">
-                <div className='workspace-sidebar-items'>
-                    <div className="workspace-title-container flex space-between align-center">
-                        <span className='favorites-title flex align-center'><BsStarFill className="star-icon" /> Favorites</span>
-                        <BiDotsHorizontalRounded className='icon' />
-                    </div>
-                </div>
-                {boards.length === 0 && <div className="favorites-empty flex column align-center">
-                    <img className="star-icon" src={star} alt="star-img" />
-                    <div className="favorites-empty-text">
-                        <b>No favorite boards yet</b>
-                        <p>"Star" any board so that you
-                            can easily access it later</p>
-                    </div>
-                </div>}
-                <ul className='board-list-container'>
-                    {boards.map(board => {
-                        return <li key={board._id} className='board-list'>
-                            <BoardPreview board={board} />
-                        </li>
-                    })}
-                </ul>
-            </div>)}
+                    {boards.length === 0 && <div className="favorites-empty flex column align-center">
+                        <img className="star-icon" src={star} alt="star-img" />
+                        <div className="favorites-empty-text">
+                            <b>No favorite boards yet</b>
+                            <p>"Star" any board so that you
+                                can easily access it later</p>
+                        </div>
+                    </div>}
+                    <ul className='board-list-container'>
+                        {boards.map(board => {
+                            return <li key={board._id} className='board-list'>
+                                <BoardPreview board={board} />
+                            </li>
+                        })}
+                    </ul>
+                </div>)}
         </section>
     )
 }

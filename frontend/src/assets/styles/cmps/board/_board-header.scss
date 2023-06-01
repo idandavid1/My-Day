@@ -52,6 +52,10 @@
                 @include center-flex();
                 border-radius: 4px;
                 padding: 2px;
+                
+                .star {
+                    margin-bottom: 2px;
+                }
             }
 
             .star-full {
@@ -71,8 +75,6 @@
             }
 
             .activity {
-                font-size: rem(14px);
-
                 &:hover {
                     background-color: $workspace-hover;
                 }
@@ -86,6 +88,13 @@
                 &:hover {
                     background-color: $workspace-hover;
                 }
+
+                .last-seen-title {
+                    display: none;
+                    @include for-normal-layout() {
+                        display: block;
+                    }
+                }
             }
 
             .invite {
@@ -94,6 +103,13 @@
 
                 &:hover {
                     background-color: $workspace-hover;
+                }
+
+                &-title{
+                    display: none;
+                    @include for-normal-layout() {
+                        display: block;
+                    }
                 }
 
                 .invite-icon {
@@ -105,18 +121,7 @@
                 @include member-img(white, #323338, 24px, 26px);
 
             }
-
-            @include for-mobile-layout() {
-                & {
-                    gap: unset;
-                }
-
-                .members-imgs {
-                    display: none;
-                }
-            }
         }
-
     }
 
     .board-description {
@@ -197,15 +202,6 @@
                     }
                 }
             }
-
-            // &::after {
-            //     position: absolute;
-            //     content: "";
-            //     height: 18px;
-            //     top: 6px;
-            //     right: 0;
-            //     border-right: 1px solid darken($border-color , 30%);
-            // }
         }
     }
 
@@ -224,13 +220,9 @@
                 white-space: nowrap;
             }
 
-            .last-seen-title {
-                display: none;
-            }
-
-            .invite-title {
-                display: none;
-            }
+            // .invite-title {
+            //     display: none;
+            // }
 
             .board-tools {
                 margin-right: auto;

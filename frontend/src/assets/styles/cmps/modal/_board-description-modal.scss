@@ -1,5 +1,6 @@
 .board-description-modal {
     @include center-absolute();
+    flex-direction: column;
     border: 1px solid rgb(204, 204, 204);
     background: $app-bg;
     overflow: hidden;
@@ -34,7 +35,6 @@
     }
 
     .board-edit {
-
         padding: $spacing-medium $spacing-xl $spacing-xl $spacing-xl;
         width: 62%;
         height: 100%;
@@ -90,9 +90,9 @@
     }
 
     .board-info {
-        padding: $spacing-xl;
+        padding: $spacing-medium;
         height: 100%;
-        width: 38%;
+        width: 100%;
         background-color: $board-description-bg;
 
         >* {
@@ -138,6 +138,18 @@
 
         .board-details {
             align-items: flex-start;
+        }
+    }
+
+
+    @include for-narrow-layout() {
+        & {
+            flex-direction: row;
+
+            .board-info {
+                padding: $spacing-xl;
+                width: 38%;
+            }
         }
     }
 }
