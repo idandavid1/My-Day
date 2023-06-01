@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { socketService, SOCKET_EMIT_SET_TOPIC, SOCKET_EVENT_ADD_UPDATE_BOARD } from '../services/socket.service'
-import { loadBoard, loadBoards, loadSocketBoard,setFilter } from '../store/board.actions'
+import { loadBoard, loadBoards, loadSocketBoard, setFilter } from '../store/board.actions'
 import { ModalMemberInvite } from '../cmps/modal/modal-member-invite'
 import { WorkspaceSidebar } from '../cmps/sidebar/workspace-sidebar'
 import { LoginLogoutModal } from '../cmps/modal/login-logout-modal'
@@ -20,7 +20,7 @@ import { loadUsers } from '../store/user.actions'
 import { Loader } from '../cmps/loader'
 import { Dashboard } from './dashboard'
 
-export function BoardDetails() {
+export function BoardDetails () {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)
     const boards = useSelector(storeState => storeState.boardModule.boards)
     const isBoardModalOpen = useSelector(storeState => storeState.boardModule.isBoardModalOpen)
@@ -35,7 +35,7 @@ export function BoardDetails() {
 
     const [isWorkspaceOpen, setIsWorkspaceOpen] = useState(false)
     const [workspaceDisplay, setWorkspaceDisplay] = useState('board')
-    
+
     const { boardId } = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
     const queryFilterBy = boardService.getFilterFromSearchParams(searchParams)
@@ -45,7 +45,6 @@ export function BoardDetails() {
         loadUsers()
         if (!boards.length) loadBoards()
     }, [])
-
 
     useEffect(() => {
         socketService.emit(SOCKET_EMIT_SET_TOPIC, boardId)
@@ -62,7 +61,7 @@ export function BoardDetails() {
         socketService.on(SOCKET_EVENT_ADD_UPDATE_BOARD, loadSocketBoard)
     }, [boardId, isBoardModalOpen])
 
-    function onSetFilter(filterBy) {
+    function onSetFilter (filterBy) {
         setSearchParams(filterBy)
         loadBoard(boardId, filterBy)
         setFilter(filterBy)
@@ -70,32 +69,32 @@ export function BoardDetails() {
 
     if (!board) return <Loader />
     return (
-            <section className="board-details flex">
-                <div className='sidebar flex'>
-                    <MainSidebar setWorkspaceDisplay={setWorkspaceDisplay} setIsWorkspaceOpen={setIsWorkspaceOpen} setIsLoginModalOpen={setIsLoginModalOpen} />
-                    <WorkspaceSidebar workspaceDisplay={workspaceDisplay} isWorkspaceOpen={isWorkspaceOpen} setIsWorkspaceOpen={setIsWorkspaceOpen} board={board} setIsCreateModalOpen={setIsCreateModalOpen} />
-                </div>
-                <main className="board-main">
-                    <BoardHeader boardType={boardType} setBoardType={setBoardType} board={board} onSetFilter={onSetFilter} isStarredOpen={isStarredOpen} setIsShowDescription={setIsShowDescription} setIsInviteModalOpen={setIsInviteModalOpen} />
-                    {boardType === 'table' && <GroupList board={board} />}
+        <section className="board-details flex">
+            <div className='sidebar flex'>
+                <MainSidebar setWorkspaceDisplay={setWorkspaceDisplay} setIsWorkspaceOpen={setIsWorkspaceOpen} setIsLoginModalOpen={setIsLoginModalOpen} />
+                <WorkspaceSidebar workspaceDisplay={workspaceDisplay} isWorkspaceOpen={isWorkspaceOpen} setIsWorkspaceOpen={setIsWorkspaceOpen} board={board} setIsCreateModalOpen={setIsCreateModalOpen} />
+            </div>
+            <main className="board-main">
+                <BoardHeader boardType={boardType} setBoardType={setBoardType} board={board} onSetFilter={onSetFilter} isStarredOpen={isStarredOpen} setIsShowDescription={setIsShowDescription} setIsInviteModalOpen={setIsInviteModalOpen} />
+                {boardType === 'table' && <GroupList board={board} />}
 
-                    {boardType === 'kanban' &&
-                        <GroupListKanban board={board} />
-                    }
-                    <BoardModal setIsMouseOver={setIsMouseOver} />
-                    {boardType === 'dashboard' && <Dashboard />}
-                </main>
-                {isCreateModalOpen && <CreateBoard setIsModalOpen={setIsCreateModalOpen} />}
-                {(isInviteModalOpen || isCreateModalOpen || (isBoardModalOpen && isMouseOver)) && <div className='dark-screen'></div>}
-                {isShowDescription &&
-                    <>
-                        <BoardDescription setIsShowDescription={setIsShowDescription} board={board} />
-                        <div className='dark-screen'></div>
-                    </>
+                {boardType === 'kanban' &&
+                    <GroupListKanban board={board} />
                 }
-                {isLoginModalOpen && <LoginLogoutModal setIsLoginModalOpen={setIsLoginModalOpen} />}
-                {isInviteModalOpen && <ModalMemberInvite board={board} setIsInviteModalOpen={setIsInviteModalOpen} />}
-                <DynamicModal />
-            </section>
+                <BoardModal setIsMouseOver={setIsMouseOver} />
+                {boardType === 'dashboard' && <Dashboard />}
+            </main>
+            {isCreateModalOpen && <CreateBoard setIsModalOpen={setIsCreateModalOpen} />}
+            {(isInviteModalOpen || isCreateModalOpen || (isBoardModalOpen && isMouseOver)) && <div className='dark-screen'></div>}
+            {isShowDescription &&
+                <>
+                    <BoardDescription setIsShowDescription={setIsShowDescription} board={board} />
+                    <div className='dark-screen'></div>
+                </>
+            }
+            {isLoginModalOpen && <LoginLogoutModal setIsLoginModalOpen={setIsLoginModalOpen} />}
+            {isInviteModalOpen && <ModalMemberInvite board={board} setIsInviteModalOpen={setIsInviteModalOpen} />}
+            <DynamicModal />
+        </section>
     )
 }
