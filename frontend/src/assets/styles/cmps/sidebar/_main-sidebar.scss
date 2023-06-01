@@ -13,7 +13,7 @@
         transition: background-color .3s;
 
         &:hover {
-            @include hover-sidebar()
+            @include hover-sidebar();
         }
 
         .home-img {
@@ -31,8 +31,11 @@
             @include center-flex();
             color: white;
             font-size: rem(24px);
-            height: 100%;
+            padding: $spacing-xs;
             cursor: pointer;
+            &:hover {
+                @include hover-sidebar();
+            }
         }
     }
 
@@ -112,7 +115,7 @@
             height: 8vh;
             gap: 30px;
 
-            .middle-div,
+            .tools-container,
             .bottom {
                 flex-direction: row;
                 gap: 30px;

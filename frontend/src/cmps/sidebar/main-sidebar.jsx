@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 
-import { AiOutlineStar } from 'react-icons/ai'
+import { AiOutlineStar, AiOutlineMenu } from 'react-icons/ai'
 import { VscTriangleLeft } from 'react-icons/vsc'
 import { closeDynamicModal } from '../../store/board.actions'
 import WorkspaceIcon from './workspace-icon'
@@ -21,6 +21,9 @@ export function MainSidebar ({ setIsLoginModalOpen, setWorkspaceDisplay , setIsW
     }
     return (
         <section className="main-sidebar flex">
+            <span className='open-workspace-btn'>
+                <AiOutlineMenu onClick={() => setIsWorkspaceOpen(prev => !prev)}/>
+            </span>
             <Link to={'/'} className='icon-link'>
                 <img className='home-img' src={logo} alt="logo" onClick={closeDynamicModal} />
             </Link>

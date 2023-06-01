@@ -14,7 +14,10 @@
     }
     
     &.close {
-        width: 30px;
+        width: 0;
+        @include for-narrow-layout() {
+            width: 30px;
+        }
         .workspace-sidebar-header{
             opacity: 0;
             pointer-events: none;
