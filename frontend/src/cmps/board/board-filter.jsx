@@ -49,7 +49,6 @@ export function BoardFilter({ board, onSetFilter }) {
     function onToggleMemberFilterModal() {
         const isOpen = dynamicModalObj?.type === 'member-filter' ? !dynamicModalObj.isOpen : true
         const { x, y } = elMemberFilter.current.getClientRects()[0]
-        console.log('11111:')
         setDynamicModalObj({ isOpen, pos: { x: (x - 160), y: (y + 40) }, type: 'member-filter', filterBy: filterBy, setFilterBy: setFilterBy})
     }
 
