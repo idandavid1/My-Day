@@ -205,12 +205,6 @@
             padding-left: $spacing-medium;
             padding-right: $spacing-xs;
         }
-
-        &[data-title]:after {
-            left: 45px;
-            top: -5px;
-            bottom: unset;
-        }
     }
 
     @include for-mobile-layout() {

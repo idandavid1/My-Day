@@ -126,10 +126,5 @@
         .member-img {
             @include members();
         }
-
-        &[data-title]:after {
-            right: -15px;
-            bottom: 45px;
-        }
     }
 }

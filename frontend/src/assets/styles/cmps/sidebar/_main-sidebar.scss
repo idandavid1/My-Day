@@ -67,10 +67,6 @@
             @include center-flex();
             position: relative;
 
-            &[data-title]:hover:after {
-                right: -70%;
-            }
-
             .triangle-icon {
                 position: absolute;
                 color: $sidebar-workspace-bg;
@@ -123,7 +119,7 @@
             }
 
             .triangle-icon {
-                left: 8px;
+                left: 15px;
                 top: -29px;
                 transform: rotate(270deg);
             }

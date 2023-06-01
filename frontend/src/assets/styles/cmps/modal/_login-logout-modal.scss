@@ -8,9 +8,9 @@
     font-size: rem(14px);
     z-index: 10;
     border: 1px solid darken($border-color , 20%);
-    left: 60px;
-    bottom: 15px;
-
+    left: 74%;
+    bottom: 70px;    
+    
     span, a {
         @include center-flex();
         cursor: pointer;
@@ -20,6 +20,13 @@
         color: $primary-text-color;
         &:hover {
             background-color: $workspace-hover;
+        }
+    }
+    
+    @include for-narrow-layout() {
+        &{
+            left: 60px;
+            bottom: 15px;
         }
     }
 }
