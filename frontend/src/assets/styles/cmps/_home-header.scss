@@ -1,13 +1,15 @@
 .home-header {
-    background-color: $app-bg;
+    @include center-flex();
+    justify-content: space-between;
+    padding: 0 $spacing-large;
     height: rem(72px);
+    position: sticky;
+    top: 0;
+    background: #ffffff;
 
     nav {
-        @include center-flex();
-        justify-content: space-between;
         height: 100%;
     }
-
 
     .header-btns {
         @include center-flex();
@@ -31,8 +33,15 @@
             }
 
             .arrow {
-                padding-left: $spacing-medium;
                 @include center-flex();
+                display: none;
+                padding-left: $spacing-medium;
+
+                @include for-normal-layout() {
+                    & {
+                        display: flex;
+                    }
+                }
             }
         }
 
@@ -52,23 +61,4 @@
         }
     }
 
-    @include for-mobile-layout() {
-        nav {
-            img {
-                height: rem(45px);
-            }
-        }
-
-        .header-btns {
-
-            .btn-start {
-                height: 30px;
-                width: 120px;
-
-                .arrow {
-                    display: none;
-                }
-            }
-        }
-    }
 }

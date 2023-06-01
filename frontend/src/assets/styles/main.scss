@@ -63,6 +63,13 @@
 @import "cmps/kanban/task-list-kanban";
 @import "cmps/kanban/task-preview-kanban";
 
+// Home
+@import "cmps/home/home-teaser";
+@import "cmps/home/home-screenshot";
+
+// Custom
+@import "cmps/custom/getstarted-btn";
+
 @import "cmps/home-header";
 @import "cmps/task-preview";
 @import "cmps/comment-preview";

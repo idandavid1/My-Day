@@ -1,8 +1,7 @@
 .home-page {
   background-image: $home-bg;
   margin: 0;
-  padding: 0;
-  height: 100vh;
+  padding-top: rem(72px);
   color: $app-bg;
   font-family: $title-font-family;
 
@@ -53,7 +52,7 @@
         @include for-normal-layout() {
           & {
             font-size: rem(20px);
-            padding: 0 ;
+            padding: 0;
           }
         }
       }
@@ -66,43 +65,6 @@
       gap: 10px;
       padding: 32px 0;
       max-width: 90%;
-    }
-
-    .get-started-btn {
-      display: flex;
-      background-image: $home-btn-bg-gradient;
-      border-radius: 2em;
-      color: #fff;
-      letter-spacing: 1px;
-      width: 100%;
-      align-items: center;
-      justify-content: center;
-      padding: $spacing-medium 0;
-      line-height: 18px;
-      font-size: rem(16px);
-      transition: opacity .3s ease-in-out, box-shadow .2s ease-in-out;
-
-      &:hover {
-        box-shadow: 0px 0px 16px 6px #424272;
-        opacity: .9;
-
-        .arrow {
-          transform: translateX(8px);
-        }
-      }
-
-      @include for-normal-layout() {
-        & {
-          width: max-content;
-          padding: $spacing-medium $spacing-xl;
-        }
-      }
-    }
-
-    .arrow {
-      margin-left: $spacing-small;
-      transition: transform .3s ease-in-out;
-      font-size: rem(20px);
     }
   }
 

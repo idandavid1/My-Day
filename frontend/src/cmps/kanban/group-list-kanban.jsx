@@ -15,7 +15,7 @@ export function GroupListKanban({ board }) {
                         <div className="group-list-kanban">
                             {board.groups.map((group, index) =>
                                 <div className="group-list-ul" key={group.id}>
-                                    <Draggable key={group.id} draggableId={`group ${group.id}`} index={index} >
+                                    <Draggable key={group.id} draggableId={`${group.id}`} index={index} >
                                         {(provided) => (
                                             <div
                                                 {...provided.draggableProps}
