@@ -10,6 +10,7 @@ import { ModalStatusPriority } from './modal-status-priority'
 import { AddGroupModal } from './add-group-modal'
 import { MemberFilterModal } from './member-filter-modal'
 import { ChartTypeModal } from './chart-type-modal'
+import { BoardMenuModal } from './board-menu-modal'
 
 export function DynamicModal() {
 
@@ -39,6 +40,8 @@ export function DynamicModal() {
                 return <MemberFilterModal dynamicModalObj={dynamicModalObj} />
             case 'chart-type':
                 return <ChartTypeModal dynamicModalObj={dynamicModalObj} />
+            case 'board-menu':
+                return <BoardMenuModal dynamicModalObj={dynamicModalObj} />
             default: return
         }
     }
