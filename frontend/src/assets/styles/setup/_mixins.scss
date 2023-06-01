@@ -56,8 +56,7 @@
   }
 
   .show-more-members {
-    display: flex;
-    justify-content: center;
+    @include center-flex();
     font-size: rem(14px);
     background-color: $bgColor;
     margin-left: -5px;

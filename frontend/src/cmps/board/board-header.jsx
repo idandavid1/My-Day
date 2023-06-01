@@ -13,11 +13,11 @@ import { RiUserAddLine } from 'react-icons/ri'
 
 const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
 
-export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescription, setIsInviteModalOpen, setBoardType, boardType }) {
+export function BoardHeader ({ board, onSetFilter, isStarredOpen, setIsShowDescription, setIsInviteModalOpen, setBoardType, boardType }) {
     const isOpen = useSelector(storeState => storeState.boardModule.isBoardModalOpen)
     const navigate = useNavigate()
 
-    async function onSave(ev) {
+    async function onSave (ev) {
         const value = ev.target.innerText
         board.title = value
         try {
@@ -28,7 +28,7 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
         }
     }
 
-    function onToggleStarred() {
+    function onToggleStarred () {
         try {
             toggleStarred(board, isStarredOpen)
         } catch (err) {
@@ -36,12 +36,12 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
         }
     }
 
-    function toggleIsOpen(type) {
+    function toggleIsOpen (type) {
         toggleModal(isOpen)
         navigate(`/board/${board._id}/${type}`)
     }
 
-    function onSetBoardType(type) {
+    function onSetBoardType (type) {
         setBoardType(type)
         closeDynamicModal()
     }
@@ -57,8 +57,8 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
                     <div data-title='Show board description' className='info-btn icon' onClick={() => setIsShowDescription(true)}>
                         <RiErrorWarningLine />
                     </div>
-                    <div data-title='Add to favorites' className='star-btn icon' onClick={onToggleStarred}>
-                        {!board.isStarred ? <BsStar /> : <BsStarFill className="star-full" />}
+                    <div data-title='Add to favorites' className='star-btn icon ' onClick={onToggleStarred}>
+                        {!board.isStarred ? <BsStar className='star' /> : <BsStarFill className="star star-full" />}
                     </div>
                 </div>
                 <div className='board-tools flex align-center'>
@@ -83,19 +83,19 @@ export function BoardHeader({ board, onSetFilter, isStarredOpen, setIsShowDescri
                 {board.description && <p className='board-description-link'>{board.description} <span onClick={() => setIsShowDescription(true)}>See More</span></p>}
             </div>
             <div className='board-display-btns flex' >
-                <div className={`type-btn ${boardType === 'table' ? ' active' : ''}`} >
+                <div className={`type-btn ${boardType === 'table' ? ' active' : ''}`} data-title='Main Table' onClick={() => onSetBoardType('table')} >
                     <GrHomeRounded className='icon' />
-                    <span className='wide' data-title='Main Table' onClick={() => onSetBoardType('table')}>Main Table</span>
-                    <span className='mobile' onClick={() => onSetBoardType('table')}>Main Table</span>
+                    <span className='wide'  onClick={() => onSetBoardType('table')}>Main Table</span>
+                    <span className='mobile'>Main Table</span>
                 </div>
-                <div className={`type-btn ${boardType === 'kanban' ? ' active' : ''}`}>
+                <div className={`type-btn ${boardType === 'kanban' ? ' active' : ''}`} data-title='Kanban' onClick={() => onSetBoardType('kanban')}>
                     <BsKanban />
-                    <span className='wide' data-title='Kanban' onClick={() => onSetBoardType('kanban')}>Kanban</span>
+                    <span className='wide'  >Kanban</span>
                     <span className='mobile' onClick={() => onSetBoardType('kanban')}>Kanban</span>
                 </div>
-                <div className={`type-btn ${boardType === 'dashboard' ? ' active' : ''}`}>
+                <div className={`type-btn ${boardType === 'dashboard' ? ' active' : ''}`}  data-title='Dashboard' onClick={() => onSetBoardType('dashboard')}>
                     <BsBarChart />
-                    <span className='wide' data-title='Dashboard' onClick={() => onSetBoardType('dashboard')}>Dashboard</span>
+                    <span className='wide' >Dashboard</span>
                     <span className='mobile' onClick={() => onSetBoardType('dashboard')}>Dashboard</span>
                 </div>
             </div>

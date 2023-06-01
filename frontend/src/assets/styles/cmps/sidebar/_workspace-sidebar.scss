@@ -118,7 +118,7 @@
         width: 100%;
 
         .icon {
-            width: 19px;
+            width: 18px;
             height: 19px;
             color: $primary-text-color;
             font-weight: 400;
@@ -155,9 +155,10 @@
                 outline: none;
             }
 
-            input {
+            .search-input {
                 border: none;
                 background-color: inherit;
+                margin-left: 2px;
 
                 &::-webkit-input-placeholder {
                     color: $primary-text-color ;
@@ -209,7 +210,6 @@
             left: 45px;
             top: -5px;
             bottom: unset;
-            // bottom: 2.2em;
         }
     }
 
