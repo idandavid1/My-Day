@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-
 import { ImFilesEmpty } from 'react-icons/im'
 import { CiCalculator2, CiCalendarDate } from 'react-icons/ci'
 import { RxCountdownTimer } from "react-icons/rx"
@@ -10,22 +8,12 @@ import { useSelector } from 'react-redux'
 
 const statusImg = require('../../assets/img/status.png')
 
-export function AddColumnModal({ dynamicModalObj }) {
-    const [columns, setColumns] = useState([])
+export function AddColumnModal ({ dynamicModalObj }) {
     const board = useSelector(storeState => storeState.boardModule.filteredBoard)
 
-    useEffect(() => {
-        loadColumns()
-    }, [])
-
-    function loadColumns() {
-        const columns = board.cmpsOption.filter(cmpOption => {
-            return !board.cmpsOrder.includes(cmpOption)
-        })
-        setColumns(columns)
-    }
-
-    async function addColumn(columnType) {
+    console.log(dynamicModalObj.columns)
+    
+    async function addColumn (columnType) {
         try {
             board.cmpsOrder.push(columnType)
             await saveBoard(board)
@@ -37,7 +25,7 @@ export function AddColumnModal({ dynamicModalObj }) {
         }
     }
 
-    function getIconAction(column) {
+    function getIconAction (column) {
         switch (column) {
             case 'status-picker':
                 return (
@@ -100,8 +88,8 @@ export function AddColumnModal({ dynamicModalObj }) {
         }
     }
 
-    if (!columns.length) return <div></div>
+    if (!dynamicModalObj.columns.length) return <div></div>
     return <ul className="add-column-modal">
-        {columns.map((column, idx) => <li key={idx}> {getIconAction(column)} </li>)}
+        {dynamicModalObj.columns.map((column, idx) => <li key={idx}> {getIconAction(column)} </li>)}
     </ul >
 }

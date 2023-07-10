@@ -3,16 +3,16 @@ export const utilService = {
     makeLorem,
     getRandomIntInclusive,
     debounce,
-    randomPastTime,
     saveToStorage,
     loadFromStorage,
     getMonthName,
     getColors,
     getRandomColor,
-    calculateTime
+    calculateTime,
+    getFormattedDate
 }
 
-function makeId(length = 6) {
+function makeId (length = 6) {
     var txt = ''
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
@@ -22,7 +22,7 @@ function makeId(length = 6) {
     return txt
 }
 
-function makeLorem(size = 100) {
+function makeLorem (size = 100) {
     var words = ['The sky', 'above', 'the port', 'was', 'the color of television', 'tuned', 'to', 'a dead channel', '.', 'All', 'this happened', 'more or less', '.', 'I', 'had', 'the story', 'bit by bit', 'from various people', 'and', 'as generally', 'happens', 'in such cases', 'each time', 'it', 'was', 'a different story', '.', 'It', 'was', 'a pleasure', 'to', 'burn']
     var txt = ''
     while (size > 0) {
@@ -32,46 +32,37 @@ function makeLorem(size = 100) {
     return txt
 }
 
-function getRandomIntInclusive(min, max) {
+function getRandomIntInclusive (min, max) {
     min = Math.ceil(min)
     max = Math.floor(max)
     return Math.floor(Math.random() * (max - min + 1)) + min //The maximum is inclusive and the minimum is inclusive 
 }
 
-function randomPastTime() {
-    const HOUR = 1000 * 60 * 60
-    const DAY = 1000 * 60 * 60 * 24
-    const WEEK = 1000 * 60 * 60 * 24 * 7
-
-    const pastTime = getRandomIntInclusive(HOUR, WEEK)
-    return Date.now() - pastTime
-}
-
-function debounce(func, timeout = 300){
+function debounce (func, timeout = 300) {
     let timer
     return (...args) => {
-      clearTimeout(timer)
-      timer = setTimeout(() => { func.apply(this, args) }, timeout)
+        clearTimeout(timer)
+        timer = setTimeout(() => { func.apply(this, args) }, timeout)
     }
 }
 
-function getMonthName(date) {
+function getMonthName (date) {
     const monthNames = ["Jan`", "Feb`", "March", "April", "May", "June",
         "July", "Aug`", "Sep`", "Oct`", "Nov`", "Dec`"
     ]
     return monthNames[date.getMonth()]
 }
 
-function saveToStorage(key, value) {
+function saveToStorage (key, value) {
     localStorage.setItem(key, JSON.stringify(value))
 }
 
-function loadFromStorage(key) {
+function loadFromStorage (key) {
     const data = localStorage.getItem(key)
     return (data) ? JSON.parse(data) : undefined
 }
 
-function getColors() {
+function getColors () {
     return [
         '#a25ddc',
         '#FBBC04',
@@ -88,29 +79,38 @@ function getColors() {
     ]
 }
 
-function getRandomColor(){
+function getRandomColor () {
     let maxVal = 0xFFFFFF
     let randomNumber = Math.random() * maxVal
     randomNumber = Math.floor(randomNumber)
     randomNumber = randomNumber.toString(16)
-    let randColor = randomNumber.padStart(6, 0)  
+    let randColor = randomNumber.padStart(6, 0)
     return `#${randColor.toUpperCase()}`
 }
 
-function calculateTime(time) {
+function calculateTime (time) {
     const currentTime = new Date().getTime()
     const timeDiff = Math.floor((currentTime - time) / 60000)
-    if(timeDiff >= 60 * 24 * 7) {
+    if (timeDiff >= 60 * 24 * 7) {
         const week = Math.floor(timeDiff / (60 * 24 * 7))
         return `${week}w`
-    } else if(timeDiff >= 60 * 24) {
+    } else if (timeDiff >= 60 * 24) {
         const day = Math.floor(timeDiff / (60 * 24))
         return `${day}d`
     } else if (timeDiff >= 60) {
-      const hours = Math.floor(timeDiff / 60)
-      return `${hours}h`
-    } else if(timeDiff >= 2) {
+        const hours = Math.floor(timeDiff / 60)
+        return `${hours}h`
+    } else if (timeDiff >= 2) {
         const minutes = timeDiff % 60
         return `${minutes}m`
-    } else return 'now' 
+    } else return 'now'
+}
+
+function getFormattedDate (timestamp) {
+    const date = new Date(timestamp)
+    const day = String(date.getDate()).padStart(2, '0')
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const year = date.getFullYear()
+
+    return `${day}/${month}/${year}`
 }

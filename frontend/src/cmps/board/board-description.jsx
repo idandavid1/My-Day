@@ -1,6 +1,7 @@
 import { BsFillLightningFill } from "react-icons/bs";
 import { CgClose } from "react-icons/cg";
 import { loadBoards, saveBoard } from "../../store/board.actions";
+import { utilService } from "../../services/util.service";
 const guest = "https://res.cloudinary.com/du63kkxhl/image/upload/v1675013009/guest_f8d60j.png"
 
 export function BoardDescription({ setIsShowDescription, board }) {
@@ -46,10 +47,10 @@ export function BoardDescription({ setIsShowDescription, board }) {
                     </div>
                 </div>
                 <div className="created-by">
-                    <span className="header">Created by</span>
+                    <span className="header">Created At</span>
                     <div className="created-by-details flex">
                         <img src={board.createdBy.imgUrl || guest} alt="" />
-                        <span className="date">{board.archivedAt}</span>
+                        <span className="date">{utilService.getFormattedDate(board.archivedAt)}</span>
                     </div>
                 </div>
                 <div className="owners">

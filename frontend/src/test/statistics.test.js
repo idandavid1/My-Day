@@ -80,7 +80,6 @@ const mockBoard = {
 
 describe('statistics context', () => {
 
-
     it('test number statistic', () => {
         render(<StatisticGroup cmpType={'number-picker'} group={mockBoard.groups[0]} board={mockBoard} />)
         const divEl = screen.getByRole('contentinfo')
@@ -101,4 +100,3 @@ describe('statistics context', () => {
         expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`)
     })
 })
-

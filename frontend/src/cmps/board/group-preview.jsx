@@ -1,4 +1,4 @@
-import { useState, useRef } from "react"
+import { useState, useRef} from "react"
 import { useSelector } from "react-redux"
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
 
@@ -15,7 +15,7 @@ import { BsFillCircleFill } from 'react-icons/bs'
 import { BiDotsHorizontalRounded } from 'react-icons/bi'
 import { AiOutlinePlus } from 'react-icons/ai'
 
-export function GroupPreview({ group, board, idx }) {
+export function GroupPreview ({ group, board, idx }) {
     const [taskToEdit, setTaskToEdit] = useState(boardService.getEmptyTask())
     const [isTyping, setIsTyping] = useState(false)
     const [isShowColorPicker, setIsShowColorPicker] = useState(false)
@@ -29,25 +29,34 @@ export function GroupPreview({ group, board, idx }) {
     const elMainGroup = useRef()
     const elAddColumn = useRef()
 
-    function onToggleMenuModal() {
+    function loadColumns () {
+        const columns = board.cmpsOption.filter(cmpOption => {
+            return !board.cmpsOrder.includes(cmpOption)
+        })
+        return columns
+    }
+
+
+    function onToggleMenuModal () {
         const isOpen = dynamicModalObj?.group?.id === group.id && dynamicModalObj?.type === 'menu-group' ? !dynamicModalObj.isOpen : true
         const { x, y, height, width } = elMainGroup.current.getClientRects()[0]
         setDynamicModalObj({ isOpen, pos: { x: (x + width / 2), y: (y + height) }, type: 'menu-group', group: group })
     }
 
-    function onTogglePalette() {
+    function onTogglePalette () {
         const isOpen = dynamicModalObj?.group?.id === group.id && dynamicModalObj?.type === 'palette-modal' ? !dynamicModalObj.isOpen : true
         const { x, y, height, width } = elMainGroup.current.getClientRects()[0]
         setDynamicModalObj({ isOpen, pos: { x: (x + width / 2), y: (y + height) }, type: 'palette-modal', group: group })
     }
 
-    function toggleColumnModal() {
+    function toggleColumnModal () {
+        const columns = loadColumns()
         const isOpen = dynamicModalObj?.group?.id === group.id && dynamicModalObj?.type === 'add-column' ? !dynamicModalObj.isOpen : true
         const { x, y, height } = elAddColumn.current.getClientRects()[0]
-        setDynamicModalObj({ isOpen, pos: { x: (x - 225), y: (y + height) }, type: 'add-column', group })
+        setDynamicModalObj({ isOpen, pos: { x: (x - 225), y: (y + height) }, type: 'add-column', group, columns })
     }
 
-    async function onSave(ev) {
+    async function onSave (ev) {
         const value = ev.target.innerText
         group.title = value
         try {
@@ -59,12 +68,12 @@ export function GroupPreview({ group, board, idx }) {
         }
     }
 
-    function handleChange({ target }) {
+    function handleChange ({ target }) {
         let { value, name: field } = target
         setTaskToEdit((prevTask) => ({ ...prevTask, [field]: value }))
     }
 
-    function onAddTask(ev) {
+    function onAddTask (ev) {
         ev.preventDefault()
         if (!taskToEdit.title) return
         const activity = boardService.getEmptyActivity()
@@ -76,14 +85,14 @@ export function GroupPreview({ group, board, idx }) {
         setTaskToEdit(boardService.getEmptyTask())
     }
 
-    function handleHorizontalDrag(ev) {
+    function handleHorizontalDrag (ev) {
         const updatedTitles = [...board.cmpsOrder]
         const [draggedItem] = updatedTitles.splice(ev.source.index, 1)
         updatedTitles.splice(ev.destination.index, 0, draggedItem)
         updatePickerCmpsOrder(board, updatedTitles)
     }
 
-    async function handleCheckboxChange(task) {
+    async function handleCheckboxChange (task) {
         try {
             if (selectedTasks.includes(task)) {
                 selectedTasks.splice(selectedTasks.indexOf(task), 1)
@@ -98,13 +107,13 @@ export function GroupPreview({ group, board, idx }) {
         }
     }
 
-    function onClickMainCheckbox() {
+    function onClickMainCheckbox () {
         if (isMainCheckbox.isActive) setSelectedTasks([])
         else setSelectedTasks(group.tasks)
         setIsMainCheckbox({ isActive: !isMainCheckbox.isActive })
     }
 
-    function addCheckActivity(isCheckBoxDown, task) {
+    function addCheckActivity (isCheckBoxDown, task) {
         const activity = boardService.getEmptyActivity()
         activity.task = { id: task.id, title: task.title }
         activity.action = 'check'
@@ -113,14 +122,14 @@ export function GroupPreview({ group, board, idx }) {
         addActivity(board, activity)
     }
 
-    function getSumOfTasks() {
+    function getSumOfTasks () {
         const sum = group.tasks.length
         if (sum > 1) return sum + ' items'
         else if (sum === 1) return 1 + ' item'
         else return 'No items'
     }
 
-    function getAddColumnClassName() {
+    function getAddColumnClassName () {
         return dynamicModalObj.isOpen === true && dynamicModalObj.type === 'add-column' && dynamicModalObj?.group?.id === group.id
     }
 
@@ -135,7 +144,7 @@ export function GroupPreview({ group, board, idx }) {
                             <div className="group-menu" ref={elMainGroup}>
                                 <BiDotsHorizontalRounded className="icon" onClick={onToggleMenuModal} />
                             </div>
-                            <div  className={`group-title-info flex align-center ${isShowColorPicker ? 'showBorder' : ''} `} onFocus={() => setIsShowColorPicker(true)}>
+                            <div className={`group-title-info flex align-center ${isShowColorPicker ? 'showBorder' : ''} `} onFocus={() => setIsShowColorPicker(true)}>
                                 {isShowColorPicker && <BsFillCircleFill onClick={onTogglePalette} />}
                                 <blockquote className="group-title" onFocus={() => setIsTyping(true)} contentEditable onBlur={(ev) => onSave(ev)} suppressContentEditableWarning={true}>
                                     <h4>{group.title}</h4>

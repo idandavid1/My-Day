@@ -61,9 +61,9 @@ export function BoardActivityModal({ board, activityLog }) {
                     <CgClose className="close-btn" onClick={onCloseModal} />
                     <h3 className="board-title">{board.title} <span>Log</span></h3>
                     <div className="views flex">
-                    <span id="1" className={view === 'activity' ? 'active' : ''} onClick={() => setView('activity')}>Activity</span>
-                        <span id="2" className={view === 'last-viewed' ? 'active' : ''} onClick={() => setView('last-viewed')}>Last Viewed</span>
-                        <span id="3" className={view === 'updates' ? 'active' : ''} onClick={() => setView('updates')}>Updates</span>
+                    <span className={view === 'activity' ? 'active' : ''} onClick={() => setView('activity')}>Activity</span>
+                        <span className={view === 'last-viewed' ? 'active' : ''} onClick={() => setView('last-viewed')}>Last Viewed</span>
+                        <span className={view === 'updates' ? 'active' : ''} onClick={() => setView('updates')}>Updates</span>
                     </div>
             </div>
             <div className="board-activity-content">
